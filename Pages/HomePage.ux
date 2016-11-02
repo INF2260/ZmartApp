@@ -1,0 +1,7 @@
+<Page ux:Class="HomePage">
+	<JavaScript File="HomePage.js"/>
+	<ScrollView>
+		<StackPanel>
+		</StackPanel>
+	</ScrollView>
+</Page>

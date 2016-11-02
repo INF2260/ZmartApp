@@ -1,8 +1,7 @@
 <App>
 	<ClientPanel>
-		<Button>
-			<SolidColor Color="#42cbf4"/>
-		</Button>
+		<HomePage />
+		<StatPage />
 	</ClientPanel>
 </App>
 
