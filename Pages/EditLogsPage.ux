@@ -1,0 +1,14 @@
+<Page ux:Class="EditLogsPage">
+  <JavaScript File="EditLogsPage.js"/>
+
+  <ScrollView>
+    <StackPanel>
+      <Each Items="{sleepLogs}">
+        <Button Text="{dag}" Clicked="{chooseLog}"/>
+      </Each>
+      <Text Value="{dag}"/>
+      <Text>Timer:</Text>
+      <TextBox Value="{timer}" InputHint="Integer"/>
+    </StackPanel>
+  </ScrollView>
+</Page>
