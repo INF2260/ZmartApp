@@ -1,9 +1,11 @@
 <Page ux:Class="EditLogsPage">
-  <JavaScript File="EditLogsPage.js"/>
+  <Router ux:Dependency="router" />
 
+  <JavaScript File="EditLogsPage.js"/>
+  
   <ScrollView>
     <StackPanel>
-      
+
       <Text Value="{dag}"/>
       <Text>Timer:</Text>
       <TextBox Value="{timer}" InputHint="Integer"/>

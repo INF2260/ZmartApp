@@ -1,12 +1,13 @@
 var sleepLogs = require("sleepLogs");
 
-function chooseLogs(arg) {
-    //TODO
+function goToLog(arg) {
+    var log = arg.data;
+    router.push("editLog");
 }
 
 
 module.exports = {
     sleepLogs: sleepLogs,
 
-    chooseLogs: chooseLogs
+    goToLog: goToLog
 };

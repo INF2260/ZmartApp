@@ -1,9 +1,10 @@
 <Page ux:Class="HomePage">
+  <Router ux:Dependency="router" />
     <JavaScript File="HomePage.js" />
     <ScrollView>
         <StackPanel>
           <Each Items="{sleepLogs}">
-            <Button Text="{dag}" Clicked="{chooseLog}"/>
+            <Button Text="{dag}" Clicked="{goToLog}"/>
           </Each>
         </StackPanel>
     </ScrollView>

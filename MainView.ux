@@ -1,8 +1,9 @@
 <App>
+  <Router ux:Name="router" />
     <ClientPanel>
-        <PageControl>
-            <HomePage />
-            <EditLogsPage />
-        </PageControl>
+        <Navigator DefaultTemplate="home">
+        <HomePage ux:Template="home" router="router" />
+        <EditLogsPage ux:Template="editHike" />
+        </Navigator>
     </ClientPanel>
 </App>
