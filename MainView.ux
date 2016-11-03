@@ -1,5 +1,8 @@
 <App>
-		<ClientPanel>
-			<EditLogsPage />
+    <ClientPanel>
+        <PageControl>
+            <HomePage />
+            <EditLogsPage />
+        </PageControl>
     </ClientPanel>
 </App>
