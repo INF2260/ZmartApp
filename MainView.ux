@@ -1,7 +1,11 @@
 <App>
+	<Router ux:Name="router"/>
+
 	<ClientPanel>
-		<HomePage />
-		<StatPage />
+		<Navigator DefaultTemplate="Overview">
+			<Overview ux:Template="Overview" router="router" />
+			<StatPage ux:Template="Stats" router="router"/>
+		</Navigator>
 	</ClientPanel>
 </App>
 

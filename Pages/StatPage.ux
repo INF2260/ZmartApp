@@ -1,0 +1,18 @@
+<Page ux:Class="StatPage">
+	<Router ux:Dependency="router"/>
+	
+	<JavaScript File="StatPage.js"/>
+
+	<ScrollView>
+		<StackPanel>
+
+			<Text>name: </Text>
+			<TextBox Value="{name}" />
+
+			<Text>age: </Text>
+			<TextBox Value="{age}" />
+
+			<Button Text="Back" Clicked="{goBack}"/>
+		</StackPanel>
+	</ScrollView>
+</Page>

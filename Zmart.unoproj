@@ -5,6 +5,7 @@
     "FuseJS"
   ],
   "Includes": [
-    "*"
+    "*",
+    "users.js:Bundle"
   ]
 }
