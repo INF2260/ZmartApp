@@ -2,26 +2,26 @@
   <Router ux:Dependency="router" />
 
   <JavaScript File="EditLogsPage.js"/>
+<DockPanel>
+  <Grid ColumnCount="2" Dock="Bottom">
+    <zmart.Button Text="Save" Clicked="{save}" />
+    <zmart.Button Text="Cancel" Clicked="{cancel}" />
+  </Grid>
 
   <ScrollView>
-    <StackPanel>
-      <Text Value="{name}"/>
-      <Text Value="{dag}"/>
-      <Text>Timer:</Text>
-      <TextBox Value="{timer}" InputHint="Integer"/>
+    <TextBox ux:Class="zmart.TextBox" TextColor="White" CaretColor="White" Padding="10,10,0,10" />
+    <StackPanel ItemSpacing="10" Padding="10">
 
-      <Panel ux:Class="zmart.Button" Clicked="{save}" Margin="10" Padding="10">
-        <string ux:Property="Text"/>
+      <zmart.Text ux:Class="TitleText" Opacity=".6" Margin="0, 0, 0, 5"/>
+      <TitleText> Navn: </TitleText>
+      <zmart.TextBox Value="{name}"/>
 
-        <Rectangle Layer="Background" Color="#125F63" CornerRadius="4">
-          <DropShadow Angle="90" Distance="1" Spread="0.2" Size="2" Color="#00000060" />
-        </Rectangle>
-        <zmart.Text Value="Save" FontSize="16" TextAlignment="Center"/>
-        <WhilePressed>
-          <Scale Factor=".95" Duration=".08" Easing="QuadraticOut" />
-        </WhilePressed>
-      </Panel>
-      <Button Text="Cancel" Clicked="{cancel}" />
+      <TitleText> Dag: </TitleText>
+      <zmart.TextBox Value="{dag}"/>
+
+      <TitleText> Timer: </TitleText>
+      <zmart.TextBox Value="{timer}"/>
     </StackPanel>
   </ScrollView>
+</DockPanel>
 </Page>
