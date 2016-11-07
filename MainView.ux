@@ -1,11 +1,10 @@
 <App>
 	<Router ux:Name="router"/>
-
 	<ClientPanel>
-		<Navigator DefaultTemplate="Overview">
-			<Overview ux:Template="Overview" router="router" />
-			<StatPage ux:Template="Stats" router="router"/>
+		<Navigator DefaultTemplate="Login">
+			<Login ux:Template="Login" router="router" />
+			<CreateUser ux:Template="Create" router="router" />
+			<Overview ux:Template="Over" router="router" />
 		</Navigator>
 	</ClientPanel>
 </App>
-

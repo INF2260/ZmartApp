@@ -3,7 +3,7 @@ var users = [
 	{
 		id: 0,
 		name: "Petter",
-		age: "12",
+		age: "12"
 	},
 	{
 		id: 1,

@@ -1,11 +1,10 @@
-var users = require("users");
+
 
 function goToUser(arg) {
-	var user = arg.data
-	router.push("StatPage", user);
+	var user = arg.data;
+	router.push("", user);
 }
 
 module.exports = {
-	users: users,
 	goToUser: goToUser
-}
+};

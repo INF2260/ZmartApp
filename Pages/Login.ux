@@ -1,0 +1,19 @@
+<Page ux:Class="Login">
+	<Router ux:Dependency="router"/>
+	<JavaScript File="Login.js"/>
+
+	<ScrollView>
+		<StackPanel>
+			<Text>Username:</Text>
+			<TextBox Value="username" />
+			<Text>Password:</Text>
+			<TextBox Value="password" />
+
+			<Button Text="Login" Clicked="{login}"/>
+
+			<Text> Dont have a user?</Text>
+			<Button Text="Create user" Clicked="{createUser}" />
+		</StackPanel>
+	</ScrollView>
+
+</Page>

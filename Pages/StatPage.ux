@@ -1,11 +1,11 @@
 <Page ux:Class="StatPage">
+	
 	<Router ux:Dependency="router"/>
 	
 	<JavaScript File="StatPage.js"/>
 
 	<ScrollView>
 		<StackPanel>
-
 			<Text>name: </Text>
 			<TextBox Value="{name}" />
 
