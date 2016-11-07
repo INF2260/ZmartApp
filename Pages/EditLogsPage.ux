@@ -5,11 +5,22 @@
 
   <ScrollView>
     <StackPanel>
-
+      <Text Value="{name}"/>
       <Text Value="{dag}"/>
       <Text>Timer:</Text>
       <TextBox Value="{timer}" InputHint="Integer"/>
-      <Button Text="Save" Clicked="{save}" />
+
+      <Panel ux:Class="zmart.Button" Clicked="{save}" Margin="10" Padding="10">
+        <string ux:Property="Text"/>
+
+        <Rectangle Layer="Background" Color="#125F63" CornerRadius="4">
+          <DropShadow Angle="90" Distance="1" Spread="0.2" Size="2" Color="#00000060" />
+        </Rectangle>
+        <zmart.Text Value="Save" FontSize="16" TextAlignment="Center"/>
+        <WhilePressed>
+          <Scale Factor=".95" Duration=".08" Easing="QuadraticOut" />
+        </WhilePressed>
+      </Panel>
       <Button Text="Cancel" Clicked="{cancel}" />
     </StackPanel>
   </ScrollView>

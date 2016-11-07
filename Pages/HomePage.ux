@@ -2,11 +2,25 @@
   <Router ux:Dependency="router" />
     <JavaScript File="HomePage.js" />
 
-    <ScrollView>
-        <StackPanel>
-          <Each Items="{sleepLogs}">
-            <Button Text="{dag}" Clicked="{goToLog}"/>
-          </Each>
-        </StackPanel>
-    </ScrollView>
+    <DockPanel>
+      <zmart.Text FontSize="60" TextAlignment="Center" Dock="Top" Margin="0,50"> Din Uke</zmart.Text>
+        <ScrollView>
+            <StackPanel>
+            <Rectangle ux:Class="Separator" Height="1" Fill="#fff4" />
+
+              <Each Items="{sleepLogs}">
+                <Separator />
+
+                <Panel HitTestMode="LocalBoundsAndChildren" Clicked="{goToLog}">
+                  <Text Color="White" Value="{dag}" Margin="20"/>
+                  <WhilePressed>
+                  <Scale Factor=".95" Duration=".08" Easing="QuadraticOut" />
+                  </WhilePressed>
+                </Panel>
+              </Each>
+
+              <Separator />
+            </StackPanel>
+        </ScrollView>
+    </DockPanel>
 </Page>
