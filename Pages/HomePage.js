@@ -1,13 +1,13 @@
-var sleepLogs = require("sleepLogs");
+var Context = require("Modules/Context");
 
 function goToLog(arg) {
     var log = arg.data;
-    router.push("editLog");
+    router.push("editLog", log);
 }
 
 
 module.exports = {
-    sleepLogs: sleepLogs,
-
+    sleepLogs: Context.sleepLogs,
     goToLog: goToLog
+
 };

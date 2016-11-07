@@ -6,6 +6,6 @@
   ],
   "Includes": [
     "*",
-    "sleepLogs.js:Bundle"
+    "Modules/*.js:Bundle"
   ]
 }

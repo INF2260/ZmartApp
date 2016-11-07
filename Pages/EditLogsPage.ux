@@ -2,13 +2,15 @@
   <Router ux:Dependency="router" />
 
   <JavaScript File="EditLogsPage.js"/>
-  
+
   <ScrollView>
     <StackPanel>
 
       <Text Value="{dag}"/>
       <Text>Timer:</Text>
       <TextBox Value="{timer}" InputHint="Integer"/>
+      <Button Text="Save" Clicked="{save}" />
+      <Button Text="Cancel" Clicked="{cancel}" />
     </StackPanel>
   </ScrollView>
 </Page>

@@ -3,7 +3,7 @@
     <ClientPanel>
         <Navigator DefaultTemplate="home">
         <HomePage ux:Template="home" router="router" />
-        <EditLogsPage ux:Template="editHike" />
+        <EditLogsPage ux:Template="editLog" router="router"/>
         </Navigator>
     </ClientPanel>
 </App>
