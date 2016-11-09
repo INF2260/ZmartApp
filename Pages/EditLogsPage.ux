@@ -20,7 +20,7 @@
       <zmart.TextBox Value="{dag}"/>
 
       <TitleText> Timer: </TitleText>
-      <zmart.TextBox Value="{timer}"/>
+      <zmart.TextBox Value="{timer}" InputHint="Number"/>
     </StackPanel>
   </ScrollView>
 </DockPanel>

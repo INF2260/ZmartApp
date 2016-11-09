@@ -36,6 +36,28 @@ var sleepLogs = [
   }
 ];
 
+function getTotalTime() {
+    return new Promise(function(resolve, reject) {
+      var totalTime = 0.0;
+      for (var i = 0; i < sleepLogs.length; i++) {
+        var log = sleepLogs[i]
+        totalTime = (totalTime + log.timer);
+      }
+        setTimeout(function() {
+            resolve(totalTime);
+        }, 0);
+    });
+}
+/* For testing
+function getTotalTime() {
+    return new Promise(function(resolve, reject) {
+      var totalTime = 10;
+        setTimeout(function() {
+            resolve(totalTime);
+        }, 0);
+    });
+} */
+
 function getSleepLogs() {
     return new Promise(function(resolve, reject) {
         setTimeout(function() {
@@ -62,6 +84,7 @@ function updateLog(id, name, dag, dato, timer) {
 }
 
 module.exports = {
+    getTotalTime: getTotalTime,
     getSleepLogs: getSleepLogs,
     updateLog: updateLog
 };
