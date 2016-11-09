@@ -9,7 +9,8 @@ Backend.getTotalTime()
         })
         .catch(function(error){
           console.log("Couldn't get totalTime: " + error);
-        });
+          }
+        );
 
 Backend.getSleepLogs()
         .then(function(newSleepLogs){
@@ -34,7 +35,16 @@ function updateLog(id, name, dag, dato, timer) {
     Backend.updateLog(id, name, dag, dato, timer)
         .catch(function(error) {
             console.log("Couldn't update log: " + id);
-        });
+          }
+        );
+    Backend.getTotalTime()
+            .then(function(newTotalTime){
+              totalTime.value = Number(newTotalTime);
+            })
+            .catch(function(error){
+              console.log("Couldn't get totalTime: " + error);
+              }
+            );
 }
 
 module.exports = {

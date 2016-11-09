@@ -41,14 +41,14 @@ function getTotalTime() {
       var totalTime = 0.0;
       for (var i = 0; i < sleepLogs.length; i++) {
         var log = sleepLogs[i]
-        totalTime = totalTime + log.timer;
+        totalTime = (totalTime + log.timer);
       }
         setTimeout(function() {
             resolve(totalTime);
         }, 0);
     });
 }
-/*
+/* For testing
 function getTotalTime() {
     return new Promise(function(resolve, reject) {
       var totalTime = 10;

@@ -12,7 +12,7 @@ function cancel() {
 }
 
 function save(){
-  Context.updateLog(log.value.id, name.value, dag.value, dato.value, timer.value);
+  Context.updateLog(log.value.id, name.value, dag.value, dato.value, Number(timer.value));
   router.goBack();
 }
 
