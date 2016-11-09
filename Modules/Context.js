@@ -1,6 +1,15 @@
 var Observable = require("FuseJS/Observable");
 var Backend = require("./Backend")
 var sleepLogs = Observable();
+var totalTime = Observable();
+
+Backend.getTotalTime()
+        .then(function(newTotalTime){
+          totalTime.value = newTotalTime;
+        })
+        .catch(function(error){
+          console.log("Couldn't get totalTime: " + error);
+        });
 
 Backend.getSleepLogs()
         .then(function(newSleepLogs){
@@ -29,6 +38,7 @@ function updateLog(id, name, dag, dato, timer) {
 }
 
 module.exports = {
+    totalTime: totalTime,
     sleepLogs: sleepLogs,
     updateLog: updateLog
 };

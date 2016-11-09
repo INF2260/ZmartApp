@@ -5,8 +5,8 @@ function goToLog(arg) {
     router.push("editLog", log);
 }
 
-
 module.exports = {
+    totalTime: Context.totalTime,
     sleepLogs: Context.sleepLogs,
     goToLog: goToLog
 
