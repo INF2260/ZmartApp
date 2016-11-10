@@ -78,6 +78,8 @@ void Element__get_Aspect_fn(Element* __this, float* __retval);
 void Element__set_Aspect_fn(Element* __this, float* value);
 void Element__get_AspectConstraint_fn(Element* __this, int* __retval);
 void Element__set_AspectConstraint_fn(Element* __this, int* value);
+void Element__get_BoxSizing_fn(Element* __this, int* __retval);
+void Element__set_BoxSizing_fn(Element* __this, int* value);
 void Element__get_BoxSizingObject_fn(Element* __this, ::g::Fuse::Elements::BoxSizing** __retval);
 void Element__get_Cache_fn(Element* __this, ::g::Fuse::Elements::Cache** __retval);
 void Element__get_CachingMode_fn(Element* __this, int* __retval);
@@ -209,6 +211,7 @@ struct Element : ::g::Fuse::Visual
     ::g::Uno::Float2 _actualSize;
     int _alignment;
     uStrong< ::g::Fuse::Elements::BoxSizing*> _boxSizing;
+    int _boxSizingMode;
     uStrong< ::g::Fuse::Elements::Cache*> _cache;
     static ::g::Uno::UX::Selector _clipToBoundsName_;
     static ::g::Uno::UX::Selector& _clipToBoundsName() { return Element_typeof()->Init(), _clipToBoundsName_; }
@@ -258,6 +261,8 @@ struct Element : ::g::Fuse::Visual
     void Aspect(float value);
     int AspectConstraint();
     void AspectConstraint(int value);
+    int BoxSizing();
+    void BoxSizing(int value);
     ::g::Fuse::Elements::BoxSizing* BoxSizingObject();
     ::g::Fuse::Elements::Cache* Cache();
     int CachingMode();

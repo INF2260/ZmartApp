@@ -16,6 +16,7 @@ namespace Uno{
 uClassType* Color_typeof();
 void Color__FromHex_fn(uString* hex, ::g::Uno::Float4* __retval);
 void Color__FromRgba32_fn(::g::Uno::Int4* rgba, ::g::Uno::Float4* __retval);
+void Color__FromRgba321_fn(uint32_t* rgba, ::g::Uno::Float4* __retval);
 void Color__Rgba32FromHex_fn(uString* hex, ::g::Uno::Int4* __retval);
 
 struct Color : uObject
@@ -27,6 +28,7 @@ struct Color : uObject
 
     static ::g::Uno::Float4 FromHex(uString* hex);
     static ::g::Uno::Float4 FromRgba32(::g::Uno::Int4 rgba);
+    static ::g::Uno::Float4 FromRgba321(uint32_t rgba);
     static ::g::Uno::Int4 Rgba32FromHex(uString* hex);
 };
 // }

@@ -9,6 +9,7 @@
 #include <Fuse.Drawing.BlendModeHelpers.h>
 #include <Fuse.Drawing.Brush.Converter.h>
 #include <Fuse.Drawing.Brush.h>
+#include <Fuse.Drawing.Colors.h>
 #include <Fuse.Drawing.DynamicBrush.h>
 #include <Fuse.Drawing.GradientStop.h>
 #include <Fuse.Drawing.ImageFill.DrawParams.h>
@@ -17,6 +18,7 @@
 #include <Fuse.Drawing.LinearGradient.h>
 #include <Fuse.Drawing.LinearGradientDrawable.h>
 #include <Fuse.Drawing.RepeatBaker.h>
+#include <Fuse.Drawing.ResampleMode.h>
 #include <Fuse.Drawing.SolidColor.h>
 #include <Fuse.Drawing.StaticBrush.h>
 #include <Fuse.Drawing.StaticSolidColor.h>
@@ -33,6 +35,7 @@
 #include <Uno.Buffer.h>
 #include <Uno.Collections.IList-1.h>
 #include <Uno.Collections.ObservableList-1.h>
+#include <Uno.Color.h>
 #include <Uno.Exception.h>
 #include <Uno.Float.h>
 #include <Uno.Float2.h>
@@ -54,6 +57,7 @@
 #include <Uno.Runtime.Implementation.ShaderBackends.OpenGL.GLProgram.h>
 #include <Uno.String.h>
 #include <Uno.Type.h>
+#include <Uno.UInt.h>
 #include <Uno.UX.IPropertyListener.h>
 #include <Uno.UX.PropertyObject.h>
 #include <Uno.UX.Selector.h>
@@ -350,6 +354,88 @@ void Brush::Unpin()
     if (_pinCount == 0)
         OnUnpinned();
 }
+// }
+
+// /usr/local/share/uno/Packages/Fuse.Drawing/0.39.3/$.uno
+// -------------------------------------------------------
+
+// public static class Colors :216
+// {
+// static Colors() :216
+static void Colors__cctor__fn(uType* __type)
+{
+    Colors::Transparent_ = ::g::Uno::Color::FromRgba321(0U);
+    Colors::Black_ = ::g::Uno::Color::FromRgba321(255U);
+    Colors::Silver_ = ::g::Uno::Color::FromRgba321(3233857791U);
+    Colors::Gray_ = ::g::Uno::Color::FromRgba321(2155905279U);
+    Colors::White_ = ::g::Uno::Color::FromRgba321(4294967295U);
+    Colors::Maroon_ = ::g::Uno::Color::FromRgba321(2147483903U);
+    Colors::Red_ = ::g::Uno::Color::FromRgba321(4278190335U);
+    Colors::Purple_ = ::g::Uno::Color::FromRgba321(2147516671U);
+    Colors::Fuchsia_ = ::g::Uno::Color::FromRgba321(4278255615U);
+    Colors::Green_ = ::g::Uno::Color::FromRgba321(8388863U);
+    Colors::Lime_ = ::g::Uno::Color::FromRgba321(16711935U);
+    Colors::Olive_ = ::g::Uno::Color::FromRgba321(2155872511U);
+    Colors::Yellow_ = ::g::Uno::Color::FromRgba321(4294902015U);
+    Colors::Navy_ = ::g::Uno::Color::FromRgba321(33023U);
+    Colors::Blue_ = ::g::Uno::Color::FromRgba321(65535U);
+    Colors::Teal_ = ::g::Uno::Color::FromRgba321(8421631U);
+    Colors::Aqua_ = ::g::Uno::Color::FromRgba321(16777215U);
+}
+
+static void Colors_build(uType* type)
+{
+    type->SetFields(0,
+        ::g::Uno::Float4_typeof(), (uintptr_t)&::g::Fuse::Drawing::Colors::Aqua_, uFieldFlagsStatic,
+        ::g::Uno::Float4_typeof(), (uintptr_t)&::g::Fuse::Drawing::Colors::Black_, uFieldFlagsStatic,
+        ::g::Uno::Float4_typeof(), (uintptr_t)&::g::Fuse::Drawing::Colors::Blue_, uFieldFlagsStatic,
+        ::g::Uno::Float4_typeof(), (uintptr_t)&::g::Fuse::Drawing::Colors::Fuchsia_, uFieldFlagsStatic,
+        ::g::Uno::Float4_typeof(), (uintptr_t)&::g::Fuse::Drawing::Colors::Gray_, uFieldFlagsStatic,
+        ::g::Uno::Float4_typeof(), (uintptr_t)&::g::Fuse::Drawing::Colors::Green_, uFieldFlagsStatic,
+        ::g::Uno::Float4_typeof(), (uintptr_t)&::g::Fuse::Drawing::Colors::Lime_, uFieldFlagsStatic,
+        ::g::Uno::Float4_typeof(), (uintptr_t)&::g::Fuse::Drawing::Colors::Maroon_, uFieldFlagsStatic,
+        ::g::Uno::Float4_typeof(), (uintptr_t)&::g::Fuse::Drawing::Colors::Navy_, uFieldFlagsStatic,
+        ::g::Uno::Float4_typeof(), (uintptr_t)&::g::Fuse::Drawing::Colors::Olive_, uFieldFlagsStatic,
+        ::g::Uno::Float4_typeof(), (uintptr_t)&::g::Fuse::Drawing::Colors::Purple_, uFieldFlagsStatic,
+        ::g::Uno::Float4_typeof(), (uintptr_t)&::g::Fuse::Drawing::Colors::Red_, uFieldFlagsStatic,
+        ::g::Uno::Float4_typeof(), (uintptr_t)&::g::Fuse::Drawing::Colors::Silver_, uFieldFlagsStatic,
+        ::g::Uno::Float4_typeof(), (uintptr_t)&::g::Fuse::Drawing::Colors::Teal_, uFieldFlagsStatic,
+        ::g::Uno::Float4_typeof(), (uintptr_t)&::g::Fuse::Drawing::Colors::Transparent_, uFieldFlagsStatic,
+        ::g::Uno::Float4_typeof(), (uintptr_t)&::g::Fuse::Drawing::Colors::White_, uFieldFlagsStatic,
+        ::g::Uno::Float4_typeof(), (uintptr_t)&::g::Fuse::Drawing::Colors::Yellow_, uFieldFlagsStatic);
+}
+
+uClassType* Colors_typeof()
+{
+    static uSStrong<uClassType*> type;
+    if (type != NULL) return type;
+
+    uTypeOptions options;
+    options.FieldCount = 17;
+    options.TypeSize = sizeof(uClassType);
+    type = uClassType::New("Fuse.Drawing.Colors", options);
+    type->fp_build_ = Colors_build;
+    type->fp_cctor_ = Colors__cctor__fn;
+    return type;
+}
+
+::g::Uno::Float4 Colors::Aqua_;
+::g::Uno::Float4 Colors::Black_;
+::g::Uno::Float4 Colors::Blue_;
+::g::Uno::Float4 Colors::Fuchsia_;
+::g::Uno::Float4 Colors::Gray_;
+::g::Uno::Float4 Colors::Green_;
+::g::Uno::Float4 Colors::Lime_;
+::g::Uno::Float4 Colors::Maroon_;
+::g::Uno::Float4 Colors::Navy_;
+::g::Uno::Float4 Colors::Olive_;
+::g::Uno::Float4 Colors::Purple_;
+::g::Uno::Float4 Colors::Red_;
+::g::Uno::Float4 Colors::Silver_;
+::g::Uno::Float4 Colors::Teal_;
+::g::Uno::Float4 Colors::Transparent_;
+::g::Uno::Float4 Colors::White_;
+::g::Uno::Float4 Colors::Yellow_;
 // }
 
 // /usr/local/share/uno/Packages/Fuse.Drawing/0.39.3/$.uno
@@ -741,6 +827,8 @@ ImageFill_type* ImageFill_typeof()
     type->fp_OnPrepare = (void(*)(::g::Fuse::Drawing::Brush*, ::g::Fuse::DrawContext*, ::g::Uno::Float2*))ImageFill__OnPrepare_fn;
     type->fp_OnUnpinned = (void(*)(::g::Fuse::Drawing::Brush*))ImageFill__OnUnpinned_fn;
     type->interface0.fp_OnSourceChanged = (void(*)(uObject*))ImageFill__FuseInternalIImageContainerOwnerOnSourceChanged_fn;
+    type->interface0.fp_OnParamChanged = (void(*)(uObject*))ImageFill__FuseInternalIImageContainerOwnerOnParamChanged_fn;
+    type->interface0.fp_OnSizingChanged = (void(*)(uObject*))ImageFill__FuseInternalIImageContainerOwnerOnSizingChanged_fn;
     return type;
 }
 
@@ -754,6 +842,18 @@ void ImageFill__get_Color_fn(ImageFill* __this, ::g::Uno::Float4* __retval)
 void ImageFill__set_Color_fn(ImageFill* __this, ::g::Uno::Float4* value)
 {
     __this->Color(*value);
+}
+
+// private void Fuse.Internal.IImageContainerOwner.OnParamChanged() :206
+void ImageFill__FuseInternalIImageContainerOwnerOnParamChanged_fn(ImageFill* __this)
+{
+    __this->OnPropertyChanged(ImageFill::_paramName());
+}
+
+// private void Fuse.Internal.IImageContainerOwner.OnSizingChanged() :218
+void ImageFill__FuseInternalIImageContainerOwnerOnSizingChanged_fn(ImageFill* __this)
+{
+    __this->OnPropertyChanged(ImageFill::_sizingName());
 }
 
 // private void Fuse.Internal.IImageContainerOwner.OnSourceChanged() :55
@@ -1401,6 +1501,23 @@ RepeatBaker* RepeatBaker::New1()
     return obj1;
 }
 // }
+
+// /usr/local/share/uno/Packages/Fuse.Drawing/0.39.3/$.uno
+// -------------------------------------------------------
+
+// public enum ResampleMode :281
+uEnumType* ResampleMode_typeof()
+{
+    static uSStrong<uEnumType*> type;
+    if (type != NULL) return type;
+
+    type = uEnumType::New("Fuse.Drawing.ResampleMode", ::g::Uno::Int_typeof(), 3);
+    type->SetLiterals(
+        "Nearest", 0LL,
+        "Linear", 1LL,
+        "Mipmap", 2LL);
+    return type;
+}
 
 // /usr/local/share/uno/Packages/Fuse.Drawing/0.39.3/brushes/$.uno
 // ---------------------------------------------------------------

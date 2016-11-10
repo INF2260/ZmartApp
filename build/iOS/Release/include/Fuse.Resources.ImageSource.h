@@ -25,9 +25,11 @@ struct ImageSource_type : uType
     void(*fp_get_PixelSize)(::g::Fuse::Resources::ImageSource*, ::g::Uno::Int2*);
     void(*fp_get_Size)(::g::Fuse::Resources::ImageSource*, ::g::Uno::Float2*);
     void(*fp_get_SizeDensity)(::g::Fuse::Resources::ImageSource*, float*);
+    void(*fp_get_State)(::g::Fuse::Resources::ImageSource*, int*);
 };
 
 ImageSource_type* ImageSource_typeof();
+void ImageSource__ctor_1_fn(ImageSource* __this);
 void ImageSource__add_Changed_fn(ImageSource* __this, uDelegate* value);
 void ImageSource__remove_Changed_fn(ImageSource* __this, uDelegate* value);
 void ImageSource__add_Error_fn(ImageSource* __this, uDelegate* value);
@@ -49,6 +51,7 @@ struct ImageSource : ::g::Uno::UX::PropertyObject
     uStrong<uDelegate*> Changed1;
     uStrong<uDelegate*> Error1;
 
+    void ctor_1();
     void add_Changed(uDelegate* value);
     void remove_Changed(uDelegate* value);
     void add_Error(uDelegate* value);
@@ -66,6 +69,7 @@ struct ImageSource : ::g::Uno::UX::PropertyObject
     void ProxyError(uObject* s, ::g::Fuse::Resources::ImageSourceErrorArgs* a);
     ::g::Uno::Float2 Size();
     float SizeDensity() { float __retval; return (((ImageSource_type*)__type)->fp_get_SizeDensity)(this, &__retval), __retval; }
+    int State() { int __retval; return (((ImageSource_type*)__type)->fp_get_State)(this, &__retval), __retval; }
     void Unpin();
     static void OnPinChanged(ImageSource* __this) { ImageSource__OnPinChanged_fn(__this); }
 };

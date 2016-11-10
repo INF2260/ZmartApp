@@ -27,6 +27,7 @@ void LayoutMasterBoxSizing__GetLayoutMasterData_fn(::g::Fuse::Elements::Element*
 void LayoutMasterBoxSizing__IsContentRelativeSize_fn(LayoutMasterBoxSizing* __this, ::g::Fuse::Elements::Element* element, int* __retval);
 void LayoutMasterBoxSizing__New1_fn(LayoutMasterBoxSizing** __retval);
 void LayoutMasterBoxSizing__RequestLayout_fn(LayoutMasterBoxSizing* __this, ::g::Fuse::Elements::Element* element);
+void LayoutMasterBoxSizing__SetLayoutMaster_fn(::g::Fuse::Elements::Element* elm, ::g::Fuse::Elements::Element* master);
 
 struct LayoutMasterBoxSizing : ::g::Fuse::Elements::BoxSizing
 {
@@ -39,6 +40,7 @@ struct LayoutMasterBoxSizing : ::g::Fuse::Elements::BoxSizing
     static ::g::Fuse::Elements::Element* GetLayoutMaster(::g::Fuse::Elements::Element* elm);
     static LayoutMasterBoxSizing__LayoutMasterData* GetLayoutMasterData(::g::Fuse::Elements::Element* elm);
     static LayoutMasterBoxSizing* New1();
+    static void SetLayoutMaster(::g::Fuse::Elements::Element* elm, ::g::Fuse::Elements::Element* master);
 };
 // }
 

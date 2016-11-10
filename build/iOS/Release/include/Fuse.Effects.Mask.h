@@ -30,6 +30,8 @@ struct Mask_type : ::g::Fuse::Effects::BasicEffect_type
 };
 
 Mask_type* Mask_typeof();
+void Mask__FuseInternalIImageContainerOwnerOnParamChanged_fn(Mask* __this);
+void Mask__FuseInternalIImageContainerOwnerOnSizingChanged_fn(Mask* __this);
 void Mask__FuseInternalIImageContainerOwnerOnSourceChanged_fn(Mask* __this);
 void Mask__ModifyRenderBounds_fn(Mask* __this, ::g::Fuse::VisualBounds* inBounds, ::g::Fuse::VisualBounds** __retval);
 void Mask__OnRender_fn(Mask* __this, ::g::Fuse::DrawContext* dc, ::g::Uno::Rect* elementRect);

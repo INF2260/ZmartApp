@@ -1,6 +1,8 @@
 // This file was generated based on '(multiple files)'.
 // WARNING: Changes might be lost if you edit this file directly.
 
+#include <Fuse.Diagnostics.h>
+#include <Fuse.Drawing.ResampleMode.h>
 #include <Fuse.Elements.Alignment.h>
 #include <Fuse.Elements.AlignmentHelpers.h>
 #include <Fuse.Elements.StretchDirection.h>
@@ -30,12 +32,15 @@
 #include <Fuse.Resources.ImageSourceErrorHandler.h>
 #include <Fuse.Resources.MemoryPolicy.h>
 #include <Fuse.Resources.MultiDensityImageSource.h>
+#include <Uno.Action-1.h>
 #include <Uno.Bool.h>
 #include <Uno.Collections.Dictionary-2.h>
+#include <Uno.Collections.ICollection-1.h>
 #include <Uno.Collections.IEnumerable-1.h>
 #include <Uno.Collections.IEnumerator.h>
 #include <Uno.Collections.IEnumerator-1.h>
 #include <Uno.Collections.IList-1.h>
+#include <Uno.Collections.ObservableList-1.h>
 #include <Uno.Delegate.h>
 #include <Uno.Double.h>
 #include <Uno.EventArgs.h>
@@ -52,12 +57,13 @@
 #include <Uno.Math.h>
 #include <Uno.String.h>
 #include <Uno.Type.h>
+#include <Uno.UX.FileSource.h>
 #include <Uno.UX.Size.h>
 #include <Uno.UX.Size2.h>
 #include <Uno.UX.Unit.h>
 #include <Uno.Vector.h>
-static uString* STRINGS[1];
-static uType* TYPES[13];
+static uString* STRINGS[4];
+static uType* TYPES[18];
 
 namespace g{
 namespace Fuse{
@@ -969,23 +975,35 @@ uInterfaceType* IImageContainerOwner_typeof()
 // {
 static void ImageContainer_build(uType* type)
 {
-    ::TYPES[4] = ::g::Fuse::Internal::IImageContainerOwner_typeof();
-    ::TYPES[5] = ::g::Fuse::Resources::FileImageSource_typeof();
-    ::TYPES[6] = ::g::Fuse::Resources::HttpImageSource_typeof();
-    ::TYPES[7] = ::g::Fuse::Resources::MultiDensityImageSource_typeof();
-    ::TYPES[8] = ::g::Uno::Collections::IEnumerable_typeof()->MakeType(::g::Fuse::Resources::ImageSource_typeof());
-    ::TYPES[9] = ::g::Uno::Collections::IEnumerator_typeof();
-    ::TYPES[10] = ::g::Uno::Collections::IEnumerator1_typeof()->MakeType(::g::Fuse::Resources::ImageSource_typeof());
-    ::TYPES[11] = ::g::Uno::EventHandler_typeof();
-    ::TYPES[12] = ::g::Fuse::Resources::ImageSourceErrorHandler_typeof();
+    ::STRINGS[1] = uString::Const("ResampleMode.Mipmap has been deprecated. Use ResampleMode.Linear instead.");
+    ::STRINGS[2] = uString::Const("/usr/local/share/uno/Packages/Fuse.Elements/0.39.3/internal/$.uno");
+    ::STRINGS[3] = uString::Const("set_ResampleMode");
+    ::TYPES[4] = ::g::Uno::Collections::IEnumerator_typeof();
+    ::TYPES[5] = ::g::Uno::Collections::IEnumerator1_typeof()->MakeType(::g::Uno::UX::FileSource_typeof());
+    ::TYPES[6] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Resources::ImageSource_typeof());
+    ::TYPES[7] = ::g::Fuse::Internal::IImageContainerOwner_typeof();
+    ::TYPES[8] = ::g::Fuse::Resources::FileImageSource_typeof();
+    ::TYPES[9] = ::g::Fuse::Resources::HttpImageSource_typeof();
+    ::TYPES[10] = ::g::Fuse::Resources::MultiDensityImageSource_typeof();
+    ::TYPES[11] = ::g::Uno::Collections::IEnumerable_typeof()->MakeType(::g::Fuse::Resources::ImageSource_typeof());
+    ::TYPES[12] = ::g::Uno::Collections::IEnumerator1_typeof()->MakeType(::g::Fuse::Resources::ImageSource_typeof());
+    ::TYPES[13] = ::g::Uno::EventHandler_typeof();
+    ::TYPES[14] = ::g::Fuse::Resources::ImageSourceErrorHandler_typeof();
+    ::TYPES[15] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Uno::UX::FileSource_typeof());
+    ::TYPES[16] = ::g::Uno::Collections::ObservableList_typeof()->MakeType(::g::Uno::UX::FileSource_typeof());
+    ::TYPES[17] = ::g::Uno::Action1_typeof()->MakeType(::g::Uno::UX::FileSource_typeof());
     type->SetFields(0,
+        ::g::Uno::Float_typeof(), offsetof(::g::Fuse::Internal::ImageContainer, _density), 0,
+        ::g::Uno::Collections::ObservableList_typeof()->MakeType(::g::Uno::UX::FileSource_typeof()), offsetof(::g::Fuse::Internal::ImageContainer, _files), 0,
         ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Internal::ImageContainer, _isRooted), 0,
         ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Internal::ImageContainer, _isVisible), 0,
         ::g::Fuse::Resources::MemoryPolicy_typeof(), offsetof(::g::Fuse::Internal::ImageContainer, _memoryPolicy), 0,
         ::g::Fuse::Internal::IImageContainerOwner_typeof(), offsetof(::g::Fuse::Internal::ImageContainer, _owner), uFieldFlagsWeak,
+        ::g::Fuse::Drawing::ResampleMode_typeof(), offsetof(::g::Fuse::Internal::ImageContainer, _resampleMode), 0,
         ::g::Fuse::Resources::ImageSource_typeof(), offsetof(::g::Fuse::Internal::ImageContainer, _source), 0,
         ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Internal::ImageContainer, _sourcePinned), 0,
         ::g::Fuse::Internal::SizingContainer_typeof(), offsetof(::g::Fuse::Internal::ImageContainer, Sizing), 0,
+        ::g::Uno::EventHandler_typeof(), offsetof(::g::Fuse::Internal::ImageContainer, ParamChanged1), 0,
         ::g::Uno::EventHandler_typeof(), offsetof(::g::Fuse::Internal::ImageContainer, SourceChanged1), 0,
         ::g::Fuse::Resources::ImageSourceErrorHandler_typeof(), offsetof(::g::Fuse::Internal::ImageContainer, SourceError1), 0);
 }
@@ -996,7 +1014,7 @@ uType* ImageContainer_typeof()
     if (type != NULL) return type;
 
     uTypeOptions options;
-    options.FieldCount = 9;
+    options.FieldCount = 13;
     options.ObjectSize = sizeof(ImageContainer);
     options.TypeSize = sizeof(uType);
     type = uClassType::New("Fuse.Internal.ImageContainer", options);
@@ -1004,10 +1022,52 @@ uType* ImageContainer_typeof()
     return type;
 }
 
+// public ImageContainer([Fuse.Internal.IImageContainerOwner owner]) :26
+void ImageContainer__ctor__fn(ImageContainer* __this, uObject* owner)
+{
+    __this->ctor_(owner);
+}
+
 // private void CheckPinning() :227
 void ImageContainer__CheckPinning_fn(ImageContainer* __this)
 {
     __this->CheckPinning();
+}
+
+// private void CreateMultiDensitySource() :149
+void ImageContainer__CreateMultiDensitySource_fn(ImageContainer* __this)
+{
+    __this->CreateMultiDensitySource();
+}
+
+// public float get_Density() :68
+void ImageContainer__get_Density_fn(ImageContainer* __this, float* __retval)
+{
+    *__retval = __this->Density();
+}
+
+// public void set_Density(float value) :69
+void ImageContainer__set_Density_fn(ImageContainer* __this, float* value)
+{
+    __this->Density(*value);
+}
+
+// public Uno.UX.FileSource get_File() :35
+void ImageContainer__get_File_fn(ImageContainer* __this, ::g::Uno::UX::FileSource** __retval)
+{
+    *__retval = __this->File();
+}
+
+// public void set_File(Uno.UX.FileSource value) :40
+void ImageContainer__set_File_fn(ImageContainer* __this, ::g::Uno::UX::FileSource* value)
+{
+    __this->File(value);
+}
+
+// public Uno.Collections.IList<Uno.UX.FileSource> get_Files() :114
+void ImageContainer__get_Files_fn(ImageContainer* __this, uObject** __retval)
+{
+    *__retval = __this->Files();
 }
 
 // public texture2D GetTexture() :318
@@ -1028,6 +1088,18 @@ void ImageContainer__set_IsRooted_fn(ImageContainer* __this, bool* value)
     __this->IsRooted(*value);
 }
 
+// public bool get_IsVisible() :328
+void ImageContainer__get_IsVisible_fn(ImageContainer* __this, bool* __retval)
+{
+    *__retval = __this->IsVisible();
+}
+
+// public void set_IsVisible(bool value) :329
+void ImageContainer__set_IsVisible_fn(ImageContainer* __this, bool* value)
+{
+    __this->IsVisible(*value);
+}
+
 // public Fuse.Resources.MemoryPolicy get_MemoryPolicy() :84
 void ImageContainer__get_MemoryPolicy_fn(ImageContainer* __this, ::g::Fuse::Resources::MemoryPolicy** __retval)
 {
@@ -1038,6 +1110,36 @@ void ImageContainer__get_MemoryPolicy_fn(ImageContainer* __this, ::g::Fuse::Reso
 void ImageContainer__set_MemoryPolicy_fn(ImageContainer* __this, ::g::Fuse::Resources::MemoryPolicy* value)
 {
     __this->MemoryPolicy(value);
+}
+
+// public ImageContainer New([Fuse.Internal.IImageContainerOwner owner]) :26
+void ImageContainer__New1_fn(uObject* owner, ImageContainer** __retval)
+{
+    *__retval = ImageContainer::New1(owner);
+}
+
+// private void OnFileAdded(Uno.UX.FileSource file) :121
+void ImageContainer__OnFileAdded_fn(ImageContainer* __this, ::g::Uno::UX::FileSource* file)
+{
+    __this->OnFileAdded(file);
+}
+
+// private void OnFileRemoved(Uno.UX.FileSource file) :133
+void ImageContainer__OnFileRemoved_fn(ImageContainer* __this, ::g::Uno::UX::FileSource* file)
+{
+    __this->OnFileRemoved(file);
+}
+
+// private void OnParamChanged() :263
+void ImageContainer__OnParamChanged_fn(ImageContainer* __this)
+{
+    __this->OnParamChanged();
+}
+
+// private void OnSizingChanged() :281
+void ImageContainer__OnSizingChanged_fn(ImageContainer* __this)
+{
+    __this->OnSizingChanged();
 }
 
 // private void OnSourceChanged(object s, object a) :181
@@ -1052,6 +1154,18 @@ void ImageContainer__OnSourceError_fn(ImageContainer* __this, uObject* s, ::g::F
     __this->OnSourceError(s, args);
 }
 
+// public generated void add_ParamChanged(Uno.EventHandler value) :262
+void ImageContainer__add_ParamChanged_fn(ImageContainer* __this, uDelegate* value)
+{
+    __this->add_ParamChanged(value);
+}
+
+// public generated void remove_ParamChanged(Uno.EventHandler value) :262
+void ImageContainer__remove_ParamChanged_fn(ImageContainer* __this, uDelegate* value)
+{
+    __this->remove_ParamChanged(value);
+}
+
 // private void ReapplyOptions(Fuse.Resources.ImageSource src) :93
 void ImageContainer__ReapplyOptions_fn(ImageContainer* __this, ::g::Fuse::Resources::ImageSource* src)
 {
@@ -1062,6 +1176,18 @@ void ImageContainer__ReapplyOptions_fn(ImageContainer* __this, ::g::Fuse::Resour
 void ImageContainer__ReleaseSource_fn(ImageContainer* __this)
 {
     __this->ReleaseSource();
+}
+
+// public Fuse.Drawing.ResampleMode get_ResampleMode() :249
+void ImageContainer__get_ResampleMode_fn(ImageContainer* __this, int* __retval)
+{
+    *__retval = __this->ResampleMode();
+}
+
+// public void set_ResampleMode(Fuse.Drawing.ResampleMode value) :250
+void ImageContainer__set_ResampleMode_fn(ImageContainer* __this, int* value)
+{
+    __this->ResampleMode(*value);
 }
 
 // public Fuse.Resources.ImageSource get_Source() :163
@@ -1100,6 +1226,29 @@ void ImageContainer__remove_SourceError_fn(ImageContainer* __this, uDelegate* va
     __this->remove_SourceError(value);
 }
 
+// public Fuse.Elements.StretchMode get_StretchMode() :273
+void ImageContainer__get_StretchMode_fn(ImageContainer* __this, int* __retval)
+{
+    *__retval = __this->StretchMode();
+}
+
+// public void set_StretchMode(Fuse.Elements.StretchMode value) :274
+void ImageContainer__set_StretchMode_fn(ImageContainer* __this, int* value)
+{
+    __this->StretchMode(*value);
+}
+
+// public ImageContainer([Fuse.Internal.IImageContainerOwner owner]) [instance] :26
+void ImageContainer::ctor_(uObject* owner)
+{
+    Sizing = ::g::Fuse::Internal::SizingContainer::New1();
+    _density = 1.0f;
+    _memoryPolicy = ::g::Fuse::Resources::MemoryPolicy::PreloadRetain();
+    _resampleMode = 1;
+    _isVisible = true;
+    _owner = owner;
+}
+
 // private void CheckPinning() [instance] :227
 void ImageContainer::CheckPinning()
 {
@@ -1120,6 +1269,72 @@ void ImageContainer::CheckPinning()
 
         _sourcePinned = on;
     }
+}
+
+// private void CreateMultiDensitySource() [instance] :149
+void ImageContainer::CreateMultiDensitySource()
+{
+    ::g::Fuse::Resources::FileImageSource* collection6;
+    float ind11;
+    ::g::Fuse::Resources::MemoryPolicy* ind12;
+    ::g::Uno::UX::FileSource* ret16;
+    ::g::Fuse::Resources::MultiDensityImageSource* s = ::g::Fuse::Resources::MultiDensityImageSource::New2();
+
+    for (uObject* enum5 = (uObject*)uPtr(_files)->GetEnumerator(); ::g::Uno::Collections::IEnumerator::MoveNext(uInterface(uPtr(enum5), ::TYPES[4/*Uno.Collections.IEnumerator*/])); )
+    {
+        ::g::Uno::UX::FileSource* f = (::g::Uno::Collections::IEnumerator1::get_Current_ex(uInterface(uPtr(enum5), ::TYPES[5/*Uno.Collections.IEnumerator<Uno.UX.FileSource>*/]), &ret16), ret16);
+        ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(uPtr(s)->Sources()), ::TYPES[6/*Uno.Collections.ICollection<Fuse.Resources.ImageSource>*/]), (collection6 = ::g::Fuse::Resources::FileImageSource::New3(f), ind11 = Density(), uPtr(collection6)->Density(ind11), ind11, ind12 = MemoryPolicy(), uPtr(collection6)->DefaultPolicy(ind12), ind12, collection6));
+    }
+
+    Source(s);
+}
+
+// public float get_Density() [instance] :68
+float ImageContainer::Density()
+{
+    return _density;
+}
+
+// public void set_Density(float value) [instance] :69
+void ImageContainer::Density(float value)
+{
+    if (_density != value)
+    {
+        _density = value;
+        OnParamChanged();
+    }
+}
+
+// public Uno.UX.FileSource get_File() [instance] :35
+::g::Uno::UX::FileSource* ImageContainer::File()
+{
+    ::g::Uno::UX::FileSource* ret18;
+
+    if (_files == NULL)
+        return NULL;
+    else 
+        return (::g::Uno::Collections::ObservableList__get_Item_fn(uPtr(_files), uCRef<int>(0), &ret18), ret18);
+}
+
+// public void set_File(Uno.UX.FileSource value) [instance] :40
+void ImageContainer::File(::g::Uno::UX::FileSource* value)
+{
+    ::g::Uno::UX::FileSource* ret19;
+
+    if ((((_files == NULL) || (uPtr(_files)->Count() == 0)) || (uPtr(_files)->Count() > 1)) || ((::g::Uno::Collections::ObservableList__get_Item_fn(uPtr(_files), uCRef<int>(0), &ret19), ret19) != value))
+    {
+        _files = NULL;
+        ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(Files()), ::TYPES[15/*Uno.Collections.ICollection<Uno.UX.FileSource>*/]), value);
+    }
+}
+
+// public Uno.Collections.IList<Uno.UX.FileSource> get_Files() [instance] :114
+uObject* ImageContainer::Files()
+{
+    if (_files == NULL)
+        _files = ((::g::Uno::Collections::ObservableList*)::g::Uno::Collections::ObservableList::New1(::TYPES[16/*Uno.Collections.ObservableList<Uno.UX.FileSource>*/], uDelegate::New(::TYPES[17/*Uno.Action<Uno.UX.FileSource>*/], (void*)ImageContainer__OnFileAdded_fn, this), uDelegate::New(::TYPES[17/*Uno.Action<Uno.UX.FileSource>*/], (void*)ImageContainer__OnFileRemoved_fn, this)));
+
+    return (uObject*)_files;
 }
 
 // public texture2D GetTexture() [instance] :318
@@ -1144,6 +1359,22 @@ void ImageContainer::IsRooted(bool value)
     CheckPinning();
 }
 
+// public bool get_IsVisible() [instance] :328
+bool ImageContainer::IsVisible()
+{
+    return _isVisible;
+}
+
+// public void set_IsVisible(bool value) [instance] :329
+void ImageContainer::IsVisible(bool value)
+{
+    if (_isVisible != value)
+    {
+        _isVisible = value;
+        CheckPinning();
+    }
+}
+
 // public Fuse.Resources.MemoryPolicy get_MemoryPolicy() [instance] :84
 ::g::Fuse::Resources::MemoryPolicy* ImageContainer::MemoryPolicy()
 {
@@ -1158,6 +1389,53 @@ void ImageContainer::MemoryPolicy(::g::Fuse::Resources::MemoryPolicy* value)
     CheckPinning();
 }
 
+// private void OnFileAdded(Uno.UX.FileSource file) [instance] :121
+void ImageContainer::OnFileAdded(::g::Uno::UX::FileSource* file)
+{
+    ::g::Fuse::Resources::FileImageSource* collection3;
+    float ind7;
+    ::g::Fuse::Resources::MemoryPolicy* ind8;
+
+    if (uPtr(_files)->Count() == 1)
+        Source((collection3 = ::g::Fuse::Resources::FileImageSource::New2(), ind7 = Density(), uPtr(collection3)->Density(ind7), ind7, uPtr(collection3)->File(file), file, ind8 = MemoryPolicy(), uPtr(collection3)->DefaultPolicy(ind8), ind8, collection3));
+    else 
+        CreateMultiDensitySource();
+}
+
+// private void OnFileRemoved(Uno.UX.FileSource file) [instance] :133
+void ImageContainer::OnFileRemoved(::g::Uno::UX::FileSource* file)
+{
+    ::g::Fuse::Resources::FileImageSource* collection4;
+    float ind9;
+    ::g::Fuse::Resources::MemoryPolicy* ind10;
+
+    if (uPtr(_files)->Count() == 0)
+        Source(NULL);
+    else  if (uPtr(_files)->Count() == 1)
+        Source((collection4 = ::g::Fuse::Resources::FileImageSource::New2(), ind9 = Density(), uPtr(collection4)->Density(ind9), ind9, uPtr(collection4)->File(file), file, ind10 = MemoryPolicy(), uPtr(collection4)->DefaultPolicy(ind10), ind10, collection4));
+    else 
+        CreateMultiDensitySource();
+}
+
+// private void OnParamChanged() [instance] :263
+void ImageContainer::OnParamChanged()
+{
+    if (::g::Uno::Delegate::op_Inequality(ParamChanged1, NULL))
+        uPtr(ParamChanged1)->Invoke(2, this, (::g::Uno::EventArgs*)::g::Uno::EventArgs::Empty());
+
+    if (_owner != NULL)
+        ::g::Fuse::Internal::IImageContainerOwner::OnParamChanged(uInterface(uPtr(_owner), ::TYPES[7/*Fuse.Internal.IImageContainerOwner*/]));
+}
+
+// private void OnSizingChanged() [instance] :281
+void ImageContainer::OnSizingChanged()
+{
+    OnParamChanged();
+
+    if (_owner != NULL)
+        ::g::Fuse::Internal::IImageContainerOwner::OnSizingChanged(uInterface(uPtr(_owner), ::TYPES[7/*Fuse.Internal.IImageContainerOwner*/]));
+}
+
 // private void OnSourceChanged(object s, object a) [instance] :181
 void ImageContainer::OnSourceChanged(uObject* s, uObject* a)
 {
@@ -1167,7 +1445,7 @@ void ImageContainer::OnSourceChanged(uObject* s, uObject* a)
         uPtr(SourceChanged1)->Invoke(2, this, (::g::Uno::EventArgs*)::g::Uno::EventArgs::Empty());
 
     if (_owner != NULL)
-        ::g::Fuse::Internal::IImageContainerOwner::OnSourceChanged(uInterface(uPtr(_owner), ::TYPES[4/*Fuse.Internal.IImageContainerOwner*/]));
+        ::g::Fuse::Internal::IImageContainerOwner::OnSourceChanged(uInterface(uPtr(_owner), ::TYPES[7/*Fuse.Internal.IImageContainerOwner*/]));
 }
 
 // private void OnSourceError(object s, Fuse.Resources.ImageSourceErrorArgs args) [instance] :191
@@ -1177,27 +1455,39 @@ void ImageContainer::OnSourceError(uObject* s, ::g::Fuse::Resources::ImageSource
         uPtr(SourceError1)->Invoke(2, this, args);
 }
 
+// public generated void add_ParamChanged(Uno.EventHandler value) [instance] :262
+void ImageContainer::add_ParamChanged(uDelegate* value)
+{
+    ParamChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(ParamChanged1, value), ::TYPES[13/*Uno.EventHandler*/]);
+}
+
+// public generated void remove_ParamChanged(Uno.EventHandler value) [instance] :262
+void ImageContainer::remove_ParamChanged(uDelegate* value)
+{
+    ParamChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(ParamChanged1, value), ::TYPES[13/*Uno.EventHandler*/]);
+}
+
 // private void ReapplyOptions(Fuse.Resources.ImageSource src) [instance] :93
 void ImageContainer::ReapplyOptions(::g::Fuse::Resources::ImageSource* src)
 {
     ::g::Fuse::Resources::ImageSource* ret17;
-    ::g::Fuse::Resources::FileImageSource* f = uAs< ::g::Fuse::Resources::FileImageSource*>(src, ::TYPES[5/*Fuse.Resources.FileImageSource*/]);
+    ::g::Fuse::Resources::FileImageSource* f = uAs< ::g::Fuse::Resources::FileImageSource*>(src, ::TYPES[8/*Fuse.Resources.FileImageSource*/]);
 
     if ((f != NULL) && (MemoryPolicy() != NULL))
         uPtr(f)->DefaultPolicy(MemoryPolicy());
 
-    ::g::Fuse::Resources::HttpImageSource* hf = uAs< ::g::Fuse::Resources::HttpImageSource*>(src, ::TYPES[6/*Fuse.Resources.HttpImageSource*/]);
+    ::g::Fuse::Resources::HttpImageSource* hf = uAs< ::g::Fuse::Resources::HttpImageSource*>(src, ::TYPES[9/*Fuse.Resources.HttpImageSource*/]);
 
     if ((hf != NULL) && (MemoryPolicy() != NULL))
         uPtr(hf)->DefaultPolicy(MemoryPolicy());
 
-    ::g::Fuse::Resources::MultiDensityImageSource* mf = uAs< ::g::Fuse::Resources::MultiDensityImageSource*>(Source(), ::TYPES[7/*Fuse.Resources.MultiDensityImageSource*/]);
+    ::g::Fuse::Resources::MultiDensityImageSource* mf = uAs< ::g::Fuse::Resources::MultiDensityImageSource*>(Source(), ::TYPES[10/*Fuse.Resources.MultiDensityImageSource*/]);
 
     if (mf != NULL)
 
-        for (uObject* enum2 = (uObject*)::g::Uno::Collections::IEnumerable::GetEnumerator(uInterface(uPtr(uPtr(mf)->Sources()), ::TYPES[8/*Uno.Collections.IEnumerable<Fuse.Resources.ImageSource>*/])); ::g::Uno::Collections::IEnumerator::MoveNext(uInterface(uPtr(enum2), ::TYPES[9/*Uno.Collections.IEnumerator*/])); )
+        for (uObject* enum2 = (uObject*)::g::Uno::Collections::IEnumerable::GetEnumerator(uInterface(uPtr(uPtr(mf)->Sources()), ::TYPES[11/*Uno.Collections.IEnumerable<Fuse.Resources.ImageSource>*/])); ::g::Uno::Collections::IEnumerator::MoveNext(uInterface(uPtr(enum2), ::TYPES[4/*Uno.Collections.IEnumerator*/])); )
         {
-            ::g::Fuse::Resources::ImageSource* s = (::g::Uno::Collections::IEnumerator1::get_Current_ex(uInterface(uPtr(enum2), ::TYPES[10/*Uno.Collections.IEnumerator<Fuse.Resources.ImageSource>*/]), &ret17), ret17);
+            ::g::Fuse::Resources::ImageSource* s = (::g::Uno::Collections::IEnumerator1::get_Current_ex(uInterface(uPtr(enum2), ::TYPES[12/*Uno.Collections.IEnumerator<Fuse.Resources.ImageSource>*/]), &ret17), ret17);
             ReapplyOptions(s);
         }
 }
@@ -1208,8 +1498,8 @@ void ImageContainer::ReleaseSource()
     if (_source == NULL)
         return;
 
-    uPtr(_source)->remove_Changed(uDelegate::New(::TYPES[11/*Uno.EventHandler*/], (void*)ImageContainer__OnSourceChanged_fn, this));
-    uPtr(_source)->remove_Error(uDelegate::New(::TYPES[12/*Fuse.Resources.ImageSourceErrorHandler*/], (void*)ImageContainer__OnSourceError_fn, this));
+    uPtr(_source)->remove_Changed(uDelegate::New(::TYPES[13/*Uno.EventHandler*/], (void*)ImageContainer__OnSourceChanged_fn, this));
+    uPtr(_source)->remove_Error(uDelegate::New(::TYPES[14/*Fuse.Resources.ImageSourceErrorHandler*/], (void*)ImageContainer__OnSourceError_fn, this));
 
     if (_sourcePinned)
     {
@@ -1218,6 +1508,25 @@ void ImageContainer::ReleaseSource()
     }
 
     _source = NULL;
+}
+
+// public Fuse.Drawing.ResampleMode get_ResampleMode() [instance] :249
+int ImageContainer::ResampleMode()
+{
+    return _resampleMode;
+}
+
+// public void set_ResampleMode(Fuse.Drawing.ResampleMode value) [instance] :250
+void ImageContainer::ResampleMode(int value)
+{
+    if (_resampleMode != value)
+    {
+        if (value == 2)
+            ::g::Fuse::Diagnostics::Deprecated(::STRINGS[1/*"ResampleMod...*/], this, ::STRINGS[2/*"/usr/local/...*/], 255, ::STRINGS[3/*"set_Resampl...*/]);
+
+        _resampleMode = value;
+        OnParamChanged();
+    }
 }
 
 // public Fuse.Resources.ImageSource get_Source() [instance] :163
@@ -1236,8 +1545,8 @@ void ImageContainer::Source(::g::Fuse::Resources::ImageSource* value)
 
         if (_source != NULL)
         {
-            uPtr(_source)->add_Changed(uDelegate::New(::TYPES[11/*Uno.EventHandler*/], (void*)ImageContainer__OnSourceChanged_fn, this));
-            uPtr(_source)->add_Error(uDelegate::New(::TYPES[12/*Fuse.Resources.ImageSourceErrorHandler*/], (void*)ImageContainer__OnSourceError_fn, this));
+            uPtr(_source)->add_Changed(uDelegate::New(::TYPES[13/*Uno.EventHandler*/], (void*)ImageContainer__OnSourceChanged_fn, this));
+            uPtr(_source)->add_Error(uDelegate::New(::TYPES[14/*Fuse.Resources.ImageSourceErrorHandler*/], (void*)ImageContainer__OnSourceError_fn, this));
         }
 
         OnSourceChanged(NULL, NULL);
@@ -1247,25 +1556,46 @@ void ImageContainer::Source(::g::Fuse::Resources::ImageSource* value)
 // public generated void add_SourceChanged(Uno.EventHandler value) [instance] :180
 void ImageContainer::add_SourceChanged(uDelegate* value)
 {
-    SourceChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(SourceChanged1, value), ::TYPES[11/*Uno.EventHandler*/]);
+    SourceChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(SourceChanged1, value), ::TYPES[13/*Uno.EventHandler*/]);
 }
 
 // public generated void remove_SourceChanged(Uno.EventHandler value) [instance] :180
 void ImageContainer::remove_SourceChanged(uDelegate* value)
 {
-    SourceChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(SourceChanged1, value), ::TYPES[11/*Uno.EventHandler*/]);
+    SourceChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(SourceChanged1, value), ::TYPES[13/*Uno.EventHandler*/]);
 }
 
 // public generated void add_SourceError(Fuse.Resources.ImageSourceErrorHandler value) [instance] :190
 void ImageContainer::add_SourceError(uDelegate* value)
 {
-    SourceError1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(SourceError1, value), ::TYPES[12/*Fuse.Resources.ImageSourceErrorHandler*/]);
+    SourceError1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(SourceError1, value), ::TYPES[14/*Fuse.Resources.ImageSourceErrorHandler*/]);
 }
 
 // public generated void remove_SourceError(Fuse.Resources.ImageSourceErrorHandler value) [instance] :190
 void ImageContainer::remove_SourceError(uDelegate* value)
 {
-    SourceError1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(SourceError1, value), ::TYPES[12/*Fuse.Resources.ImageSourceErrorHandler*/]);
+    SourceError1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(SourceError1, value), ::TYPES[14/*Fuse.Resources.ImageSourceErrorHandler*/]);
+}
+
+// public Fuse.Elements.StretchMode get_StretchMode() [instance] :273
+int ImageContainer::StretchMode()
+{
+    return uPtr(Sizing)->stretchMode;
+}
+
+// public void set_StretchMode(Fuse.Elements.StretchMode value) [instance] :274
+void ImageContainer::StretchMode(int value)
+{
+    if (uPtr(Sizing)->SetStretchMode(value))
+        OnSizingChanged();
+}
+
+// public ImageContainer New([Fuse.Internal.IImageContainerOwner owner]) [static] :26
+ImageContainer* ImageContainer::New1(uObject* owner)
+{
+    ImageContainer* obj15 = (ImageContainer*)uNew(ImageContainer_typeof());
+    obj15->ctor_(owner);
+    return obj15;
 }
 // }
 

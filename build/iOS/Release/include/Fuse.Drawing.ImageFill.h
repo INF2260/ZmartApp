@@ -28,6 +28,8 @@ struct ImageFill_type : ::g::Fuse::Drawing::Brush_type
 ImageFill_type* ImageFill_typeof();
 void ImageFill__get_Color_fn(ImageFill* __this, ::g::Uno::Float4* __retval);
 void ImageFill__set_Color_fn(ImageFill* __this, ::g::Uno::Float4* value);
+void ImageFill__FuseInternalIImageContainerOwnerOnParamChanged_fn(ImageFill* __this);
+void ImageFill__FuseInternalIImageContainerOwnerOnSizingChanged_fn(ImageFill* __this);
 void ImageFill__FuseInternalIImageContainerOwnerOnSourceChanged_fn(ImageFill* __this);
 void ImageFill__GetDrawParams_fn(ImageFill* __this, ::g::Fuse::DrawContext* dc, ::g::Uno::Float2* size, ImageFill__DrawParams* __retval);
 void ImageFill__GetSize_fn(ImageFill* __this, ::g::Uno::Float2* __retval);

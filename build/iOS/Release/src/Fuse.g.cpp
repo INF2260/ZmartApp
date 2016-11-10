@@ -12574,6 +12574,18 @@ void Visual__get_IsVisible_fn(Visual* __this, bool* __retval)
     *__retval = __this->IsVisible();
 }
 
+// public void add_IsVisibleChanged(Uno.EventHandler value) :6210
+void Visual__add_IsVisibleChanged_fn(Visual* __this, uDelegate* value)
+{
+    __this->add_IsVisibleChanged(value);
+}
+
+// public void remove_IsVisibleChanged(Uno.EventHandler value) :6211
+void Visual__remove_IsVisibleChanged_fn(Visual* __this, uDelegate* value)
+{
+    __this->remove_IsVisibleChanged(value);
+}
+
 // public Fuse.Layer get_Layer() :6360
 void Visual__get_Layer_fn(Visual* __this, int* __retval)
 {
@@ -14609,6 +14621,18 @@ bool Visual::IsLocalFlat()
 bool Visual::IsVisible()
 {
     return _isVisibleCached;
+}
+
+// public void add_IsVisibleChanged(Uno.EventHandler value) [instance] :6210
+void Visual::add_IsVisibleChanged(uDelegate* value)
+{
+    AddEventHandler(Visual::_isVisibleChangedHandle(), 5, value);
+}
+
+// public void remove_IsVisibleChanged(Uno.EventHandler value) [instance] :6211
+void Visual::remove_IsVisibleChanged(uDelegate* value)
+{
+    RemoveEventHandler(Visual::_isVisibleChangedHandle(), 5, value);
 }
 
 // public Fuse.Layer get_Layer() [instance] :6360

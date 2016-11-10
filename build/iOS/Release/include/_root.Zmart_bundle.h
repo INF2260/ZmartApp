@@ -14,14 +14,22 @@ uClassType* Zmart_bundle_typeof();
 
 struct Zmart_bundle : uObject
 {
-    static uSStrong< ::g::Uno::IO::BundleFile*> CreateUser3f4f6774_;
-    static uSStrong< ::g::Uno::IO::BundleFile*>& CreateUser3f4f6774() { return Zmart_bundle_typeof()->Init(), CreateUser3f4f6774_; }
-    static uSStrong< ::g::Uno::IO::BundleFile*> Login766375fa_;
-    static uSStrong< ::g::Uno::IO::BundleFile*>& Login766375fa() { return Zmart_bundle_typeof()->Init(), Login766375fa_; }
-    static uSStrong< ::g::Uno::IO::BundleFile*> Overviewb68c4fe8_;
-    static uSStrong< ::g::Uno::IO::BundleFile*>& Overviewb68c4fe8() { return Zmart_bundle_typeof()->Init(), Overviewb68c4fe8_; }
-    static uSStrong< ::g::Uno::IO::BundleFile*> StatPaged8fa3d02_;
-    static uSStrong< ::g::Uno::IO::BundleFile*>& StatPaged8fa3d02() { return Zmart_bundle_typeof()->Init(), StatPaged8fa3d02_; }
+    static uSStrong< ::g::Uno::IO::BundleFile*> boatflag3965db3e_;
+    static uSStrong< ::g::Uno::IO::BundleFile*>& boatflag3965db3e() { return Zmart_bundle_typeof()->Init(), boatflag3965db3e_; }
+    static uSStrong< ::g::Uno::IO::BundleFile*> boatfront47396e2b_;
+    static uSStrong< ::g::Uno::IO::BundleFile*>& boatfront47396e2b() { return Zmart_bundle_typeof()->Init(), boatfront47396e2b_; }
+    static uSStrong< ::g::Uno::IO::BundleFile*> CreateUser107e22ad_;
+    static uSStrong< ::g::Uno::IO::BundleFile*>& CreateUser107e22ad() { return Zmart_bundle_typeof()->Init(), CreateUser107e22ad_; }
+    static uSStrong< ::g::Uno::IO::BundleFile*> lasse7b150f63_;
+    static uSStrong< ::g::Uno::IO::BundleFile*>& lasse7b150f63() { return Zmart_bundle_typeof()->Init(), lasse7b150f63_; }
+    static uSStrong< ::g::Uno::IO::BundleFile*> mountain0b0796f6_;
+    static uSStrong< ::g::Uno::IO::BundleFile*>& mountain0b0796f6() { return Zmart_bundle_typeof()->Init(), mountain0b0796f6_; }
+    static uSStrong< ::g::Uno::IO::BundleFile*> Overviewe0c7e09b_;
+    static uSStrong< ::g::Uno::IO::BundleFile*>& Overviewe0c7e09b() { return Zmart_bundle_typeof()->Init(), Overviewe0c7e09b_; }
+    static uSStrong< ::g::Uno::IO::BundleFile*> petter82b103c5_;
+    static uSStrong< ::g::Uno::IO::BundleFile*>& petter82b103c5() { return Zmart_bundle_typeof()->Init(), petter82b103c5_; }
+    static uSStrong< ::g::Uno::IO::BundleFile*> Teamviewaed10176_;
+    static uSStrong< ::g::Uno::IO::BundleFile*>& Teamviewaed10176() { return Zmart_bundle_typeof()->Init(), Teamviewaed10176_; }
 };
 // }
 

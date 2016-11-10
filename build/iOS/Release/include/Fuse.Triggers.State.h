@@ -20,8 +20,10 @@ namespace Triggers{
 // public partial sealed class State :1556
 // {
 ::g::Fuse::Triggers::Trigger_type* State_typeof();
+void State__ctor_4_fn(State* __this);
 void State__Goto_fn(State* __this);
 void State__goto__fn(::g::Fuse::Scripting::Context* c, State* n, uArray* args);
+void State__New2_fn(State** __retval);
 void State__get_On_fn(State* __this, bool* __retval);
 void State__set_On_fn(State* __this, bool* value);
 void State__OnRooted_fn(State* __this);
@@ -34,12 +36,14 @@ struct State : ::g::Fuse::Triggers::Trigger
     bool _on;
     uStrong< ::g::Fuse::Triggers::StateGroup*> _stateGroup;
 
+    void ctor_4();
     void Goto();
     bool On();
     void On(bool value);
     double Progress1();
     void RootStateGroup(::g::Fuse::Triggers::StateGroup* stateGroup);
     static void goto_(::g::Fuse::Scripting::Context* c, State* n, uArray* args);
+    static State* New2();
 };
 // }
 

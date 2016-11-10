@@ -1,9 +1,9 @@
 // This file was generated based on /Users/Aleksander/Documents/Programmering/FUSE/ZmartApp/.uno/ux11/MainView.g.uno.
 // WARNING: Changes might be lost if you edit this file directly.
 
-#include <_root.CreateUser.h>
 #include <_root.MainView.h>
 #include <_root.MainView.Template1.h>
+#include <_root.Teamview.h>
 #include <Fuse.Navigation.Router.h>
 #include <Fuse.Node.h>
 #include <Uno.Bool.h>
@@ -19,12 +19,12 @@ namespace g{
 // static Template1() :35
 static void MainView__Template1__cctor__fn(uType* __type)
 {
-    MainView__Template1::__selector0_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[0/*"Create"*/]);
+    MainView__Template1::__selector0_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[0/*"Team"*/]);
 }
 
 static void MainView__Template1_build(uType* type)
 {
-    ::STRINGS[0] = uString::Const("Create");
+    ::STRINGS[0] = uString::Const("Team");
     type->SetFields(2,
         ::g::MainView_typeof(), offsetof(::g::MainView__Template1, __parent1), uFieldFlagsWeak,
         ::g::MainView_typeof(), offsetof(::g::MainView__Template1, __parentInstance1), uFieldFlagsWeak,
@@ -57,7 +57,7 @@ void MainView__Template1__ctor_1_fn(MainView__Template1* __this, ::g::MainView* 
 // public override sealed object New() :38
 void MainView__Template1__New1_fn(MainView__Template1* __this, uObject** __retval)
 {
-    ::g::CreateUser* self = ::g::CreateUser::New5(uPtr(__this->__parent1)->router);
+    ::g::Teamview* self = ::g::Teamview::New5(uPtr(__this->__parent1)->router);
     self->Name(MainView__Template1::__selector0());
     return *__retval = self, void();
 }
@@ -73,7 +73,7 @@ void MainView__Template1__New2_fn(::g::MainView* parent, ::g::MainView* parentIn
 // public Template1(MainView parent, MainView parentInstance) [instance] :30
 void MainView__Template1::ctor_1(::g::MainView* parent, ::g::MainView* parentInstance)
 {
-    ctor_(::STRINGS[0/*"Create"*/], false);
+    ctor_(::STRINGS[0/*"Team"*/], false);
     __parent1 = parent;
     __parentInstance1 = parentInstance;
 }

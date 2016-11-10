@@ -23,7 +23,7 @@ struct Overview__Template : ::g::Uno::UX::Template
     uWeak< ::g::Overview*> __parentInstance1;
     static ::g::Uno::UX::Selector __selector0_;
     static ::g::Uno::UX::Selector& __selector0() { return Overview__Template_typeof()->Init(), __selector0_; }
-    uStrong< ::g::Uno::UX::Property1*> self_Text_inst;
+    uStrong< ::g::Uno::UX::Property1*> self_Value_inst;
 
     void ctor_1(::g::Overview* parent, ::g::Overview* parentInstance);
     static Overview__Template* New2(::g::Overview* parent, ::g::Overview* parentInstance);

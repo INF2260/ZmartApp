@@ -13,6 +13,7 @@ namespace Layouts{
 // {
 uType* Row_typeof();
 void Row__ctor_2_fn(Row* __this);
+void Row__ctor_3_fn(Row* __this, float* height, int* metric);
 void Row__get_ActualHeight_fn(Row* __this, float* __retval);
 void Row__set_ActualHeight_fn(Row* __this, float* value);
 void Row__CloneDef_fn(Row* __this, Row** __retval);
@@ -21,6 +22,10 @@ void Row__set_Height_fn(Row* __this, float* value);
 void Row__get_HeightMetric_fn(Row* __this, int* __retval);
 void Row__set_HeightMetric_fn(Row* __this, int* value);
 void Row__New2_fn(Row** __retval);
+void Row__New3_fn(float* height, int* metric, Row** __retval);
+void Row__Parse1_fn(uString* data, uObject* output);
+void Row__Serialize_fn(Row* __this, uString** __retval);
+void Row__Serialize1_fn(uObject* rows, uString** __retval);
 
 struct Row : ::g::Fuse::Layouts::DefinitionBase
 {
@@ -29,6 +34,7 @@ struct Row : ::g::Fuse::Layouts::DefinitionBase
     int _heightMetric;
 
     void ctor_2();
+    void ctor_3(float height, int metric);
     float ActualHeight();
     void ActualHeight(float value);
     Row* CloneDef();
@@ -36,7 +42,11 @@ struct Row : ::g::Fuse::Layouts::DefinitionBase
     void Height(float value);
     int HeightMetric();
     void HeightMetric(int value);
+    uString* Serialize();
     static Row* New2();
+    static Row* New3(float height, int metric);
+    static void Parse1(uString* data, uObject* output);
+    static uString* Serialize1(uObject* rows);
 };
 // }
 

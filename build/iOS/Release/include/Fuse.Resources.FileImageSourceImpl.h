@@ -16,8 +16,11 @@ namespace Resources{
 // internal sealed class FileImageSourceImpl :134
 // {
 ::g::Fuse::Resources::LoadingImageSource_type* FileImageSourceImpl_typeof();
+void FileImageSourceImpl__ctor_3_fn(FileImageSourceImpl* __this, ::g::Uno::UX::FileSource* file);
 void FileImageSourceImpl__AttemptLoad_fn(FileImageSourceImpl* __this);
 void FileImageSourceImpl__FailureCallback_fn(FileImageSourceImpl* __this, ::g::Uno::Exception* e);
+void FileImageSourceImpl__get_File_fn(FileImageSourceImpl* __this, ::g::Uno::UX::FileSource** __retval);
+void FileImageSourceImpl__New2_fn(::g::Uno::UX::FileSource* file, FileImageSourceImpl** __retval);
 void FileImageSourceImpl__OnDataChanged_fn(FileImageSourceImpl* __this, uObject* s, uObject* a);
 void FileImageSourceImpl__SuccessCallback_fn(FileImageSourceImpl* __this, ::g::Uno::Graphics::Texture2D* texture);
 void FileImageSourceImpl__SyncLoad_fn(FileImageSourceImpl* __this);
@@ -26,10 +29,13 @@ struct FileImageSourceImpl : ::g::Fuse::Resources::LoadingImageSource
 {
     uStrong< ::g::Uno::UX::FileSource*> _file;
 
+    void ctor_3(::g::Uno::UX::FileSource* file);
     void FailureCallback(::g::Uno::Exception* e);
+    ::g::Uno::UX::FileSource* File();
     void OnDataChanged(uObject* s, uObject* a);
     void SuccessCallback(::g::Uno::Graphics::Texture2D* texture);
     void SyncLoad();
+    static FileImageSourceImpl* New2(::g::Uno::UX::FileSource* file);
 };
 // }
 

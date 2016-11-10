@@ -18,10 +18,14 @@ namespace Triggers{
 // public sealed class WhileEnabled :585
 // {
 ::g::Fuse::Triggers::WhileEnabledDisabledTrigger_type* WhileEnabled_typeof();
+void WhileEnabled__ctor_6_fn(WhileEnabled* __this);
 void WhileEnabled__get_IsActive_fn(WhileEnabled* __this, bool* __retval);
+void WhileEnabled__New2_fn(WhileEnabled** __retval);
 
 struct WhileEnabled : ::g::Fuse::Triggers::WhileEnabledDisabledTrigger
 {
+    void ctor_6();
+    static WhileEnabled* New2();
 };
 // }
 

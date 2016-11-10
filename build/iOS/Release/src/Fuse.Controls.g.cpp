@@ -2,6 +2,7 @@
 // WARNING: Changes might be lost if you edit this file directly.
 
 #include <_root.FuseControlsNavigation_FuseControlsCircle_Color_Property.h>
+#include <_root.FuseControlsPrimitives_bundle.h>
 #include <_root.FuseControlsPrimitives_FuseControlsButton_Text_Property.h>
 #include <_root.FuseControlsPrimitives_FuseControlsRectangle_Fill_Property.h>
 #include <_root.FuseControlsPrimitives_FuseControlsSwitch_Value_Property.h>
@@ -45,6 +46,9 @@
 #include <Fuse.Controls.FallbackWebViewClient.h>
 #include <Fuse.Controls.ForwardProperties.h>
 #include <Fuse.Controls.GraphicsView.h>
+#include <Fuse.Controls.Grid.h>
+#include <Fuse.Controls.Image.h>
+#include <Fuse.Controls.ImageElementDraw.h>
 #include <Fuse.Controls.ISourceReceiver.h>
 #include <Fuse.Controls.ITextRenderer.h>
 #include <Fuse.Controls.IWebView.h>
@@ -55,6 +59,7 @@
 #include <Fuse.Controls.Native.Android.Switch.h>
 #include <Fuse.Controls.Native.ICircleView.h>
 #include <Fuse.Controls.Native.IGraphicsView.h>
+#include <Fuse.Controls.Native.IImageView.h>
 #include <Fuse.Controls.Native.ILabelView.h>
 #include <Fuse.Controls.Native.ILeafView.h>
 #include <Fuse.Controls.Native.INativeViewRenderer.h>
@@ -63,6 +68,7 @@
 #include <Fuse.Controls.Native.iOS.Circle.h>
 #include <Fuse.Controls.Native.iOS.DrawableViewGroup.h>
 #include <Fuse.Controls.Native.iOS.GraphicsView.h>
+#include <Fuse.Controls.Native.iOS.ImageView.h>
 #include <Fuse.Controls.Native.iOS.MultiLineTextEdit.h>
 #include <Fuse.Controls.Native.iOS.Rectangle.h>
 #include <Fuse.Controls.Native.iOS.ScrollView.h>
@@ -152,6 +158,7 @@
 #include <Fuse.Drawing.Primitives.Circle.h>
 #include <Fuse.Drawing.Primitives.Rectangle.h>
 #include <Fuse.Drawing.Primitives.Wedge.h>
+#include <Fuse.Drawing.ResampleMode.h>
 #include <Fuse.Drawing.SolidColor.h>
 #include <Fuse.Drawing.StaticSolidColor.h>
 #include <Fuse.Drawing.Stroke.h>
@@ -159,8 +166,11 @@
 #include <Fuse.Elements.Alignment.h>
 #include <Fuse.Elements.AlignmentHelpers.h>
 #include <Fuse.Elements.BoxSizing.h>
+#include <Fuse.Elements.Element.BoxSizingMode.h>
 #include <Fuse.Elements.Element.h>
 #include <Fuse.Elements.HitTestMode.h>
+#include <Fuse.Elements.Internal.Scale9Rectangle.h>
+#include <Fuse.Elements.LayoutMasterBoxSizing.h>
 #include <Fuse.Elements.StretchDirection.h>
 #include <Fuse.Elements.StretchMode.h>
 #include <Fuse.Elements.StretchSizing.h>
@@ -184,8 +194,12 @@
 #include <Fuse.Input.FocusDelegator.h>
 #include <Fuse.Input.FocusNavigationDirection.h>
 #include <Fuse.Internal.Drawing.SolidRectangle.h>
+#include <Fuse.Internal.IImageContainerOwner.h>
+#include <Fuse.Internal.ImageContainer.h>
+#include <Fuse.Internal.SizingContainer.h>
 #include <Fuse.InvalidateLayoutReason.h>
 #include <Fuse.iOS.Controls.WebView.h>
+#include <Fuse.IRenderViewport.h>
 #include <Fuse.ITranslationMode.h>
 #include <Fuse.IViewport.h>
 #include <Fuse.Layer.h>
@@ -195,6 +209,7 @@
 #include <Fuse.LayoutRole.h>
 #include <Fuse.Layouts.Dock.h>
 #include <Fuse.Layouts.DockLayout.h>
+#include <Fuse.Layouts.GridLayout.h>
 #include <Fuse.Layouts.Layout.h>
 #include <Fuse.Layouts.Layouts.h>
 #include <Fuse.Layouts.Orientation.h>
@@ -229,6 +244,10 @@
 #include <Fuse.OrthographicFrustum.h>
 #include <Fuse.Properties.h>
 #include <Fuse.PropertyHandle.h>
+#include <Fuse.Resources.ImageSource.h>
+#include <Fuse.Resources.ImageSourceErrorArgs.h>
+#include <Fuse.Resources.ImageSourceErrorHandler.h>
+#include <Fuse.Resources.ImageSourceState.h>
 #include <Fuse.Scripting.BoolChangedArgs.h>
 #include <Fuse.Scripting.Context.h>
 #include <Fuse.Scripting.ExecutionThread.h>
@@ -242,9 +261,12 @@
 #include <Fuse.Triggers.Actions.IToggleable.h>
 #include <Fuse.Triggers.Actions.Toggle.h>
 #include <Fuse.Triggers.Actions.TriggerAction.h>
+#include <Fuse.Triggers.BusyTask.h>
 #include <Fuse.Triggers.Trigger.h>
 #include <Fuse.Triggers.WhileDisabled.h>
+#include <Fuse.Triggers.WhileFailed.h>
 #include <Fuse.Triggers.WhileFocusWithin.h>
+#include <Fuse.Triggers.WhileLoading.h>
 #include <Fuse.UpdateManager.h>
 #include <Fuse.UpdateStage.h>
 #include <Fuse.Visual.h>
@@ -253,7 +275,9 @@
 #include <Uno.Action.h>
 #include <Uno.Action-1.h>
 #include <Uno.Action-3.h>
+#include <Uno.ArgumentException.h>
 #include <Uno.Bool.h>
+#include <Uno.Buffer.h>
 #include <Uno.Collections.Dictionary-2.h>
 #include <Uno.Collections.EnumerableExtensions.h>
 #include <Uno.Collections.ICollection-1.h>
@@ -276,6 +300,13 @@
 #include <Uno.Float4x4.h>
 #include <Uno.Func-2.h>
 #include <Uno.Geometry.Ray.h>
+#include <Uno.Graphics.BlendOperand.h>
+#include <Uno.Graphics.BufferUsage.h>
+#include <Uno.Graphics.PolygonFace.h>
+#include <Uno.Graphics.SamplerState.h>
+#include <Uno.Graphics.Texture2D.h>
+#include <Uno.Graphics.VertexAttributeType.h>
+#include <Uno.Graphics.VertexBuffer.h>
 #include <Uno.IDisposable.h>
 #include <Uno.Int.h>
 #include <Uno.Int2.h>
@@ -290,6 +321,8 @@
 #include <Uno.Platform2.Display.h>
 #include <Uno.Rect.h>
 #include <Uno.Recti.h>
+#include <Uno.Runtime.Implementation.Internal.BufferConverters.h>
+#include <Uno.Runtime.Implementation.ShaderBackends.OpenGL.GLProgram.h>
 #include <Uno.String.h>
 #include <Uno.Type.h>
 #include <Uno.UX.FileSource.h>
@@ -304,8 +337,8 @@
 #include <Uno.UX.ValueChangedArgs-1.h>
 #include <Uno.UX.ValueChangedHandler-1.h>
 #include <Uno.Vector.h>
-static uString* STRINGS[87];
-static uType* TYPES[121];
+static uString* STRINGS[90];
+static uType* TYPES[125];
 
 namespace g{
 namespace Fuse{
@@ -378,7 +411,7 @@ static void BackButton_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface12));
-    type->SetFields(93,
+    type->SetFields(94,
         ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::BackButton::__selector0_, uFieldFlagsStatic,
         ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::BackButton::__selector1_, uFieldFlagsStatic,
         ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::BackButton::__selector2_, uFieldFlagsStatic);
@@ -391,7 +424,7 @@ static void BackButton_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::ButtonBase_typeof();
-    options.FieldCount = 96;
+    options.FieldCount = 97;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(BackButton);
     options.TypeSize = sizeof(::g::Fuse::Controls::Control_type);
@@ -457,7 +490,7 @@ static void BottomFrameBackground_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface12));
-    type->SetFields(91,
+    type->SetFields(92,
         ::g::Uno::Float_typeof(), offsetof(::g::Fuse::Controls::BottomFrameBackground, _height1), 0,
         ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Controls::BottomFrameBackground, _includesKeyboard), 0,
         ::g::Uno::Float_typeof(), offsetof(::g::Fuse::Controls::BottomFrameBackground, _keyboardVisibleThreshold), 0);
@@ -470,7 +503,7 @@ static void BottomFrameBackground_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::Control_typeof();
-    options.FieldCount = 94;
+    options.FieldCount = 95;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(BottomFrameBackground);
     options.TypeSize = sizeof(::g::Fuse::Controls::Control_type);
@@ -682,7 +715,7 @@ static void Button_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface12));
-    type->SetFields(93);
+    type->SetFields(94);
 }
 
 ::g::Fuse::Controls::Control_type* Button_typeof()
@@ -692,7 +725,7 @@ static void Button_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::ButtonBase_typeof();
-    options.FieldCount = 93;
+    options.FieldCount = 94;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(Button);
     options.TypeSize = sizeof(::g::Fuse::Controls::Control_type);
@@ -804,7 +837,7 @@ static void ButtonBase_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface12));
-    type->SetFields(92,
+    type->SetFields(93,
         ::g::Uno::String_typeof(), offsetof(::g::Fuse::Controls::ButtonBase, _text), 0);
 }
 
@@ -815,7 +848,7 @@ static void ButtonBase_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::Panel_typeof();
-    options.FieldCount = 93;
+    options.FieldCount = 94;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(ButtonBase);
     options.TypeSize = sizeof(::g::Fuse::Controls::Control_type);
@@ -957,7 +990,7 @@ static void Circle_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Shape_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Shape_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Shape_type, interface12));
-    type->SetFields(95,
+    type->SetFields(96,
         ::g::Uno::Float_typeof(), offsetof(::g::Fuse::Controls::Circle, _endAngle), 0,
         ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Controls::Circle, _hasAngle), 0,
         ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Controls::Circle, _hasLengthAngle), 0,
@@ -972,7 +1005,7 @@ static void Circle_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::Shape_typeof();
-    options.FieldCount = 100;
+    options.FieldCount = 101;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(Circle);
     options.TypeSize = sizeof(::g::Fuse::Controls::Shape_type);
@@ -1341,7 +1374,7 @@ static void ClientPanel_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface12));
-    type->SetFields(93);
+    type->SetFields(94);
 }
 
 ::g::Fuse::Controls::Control_type* ClientPanel_typeof()
@@ -1351,7 +1384,7 @@ static void ClientPanel_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::DockPanel_typeof();
-    options.FieldCount = 93;
+    options.FieldCount = 94;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(ClientPanel);
     options.TypeSize = sizeof(::g::Fuse::Controls::Control_type);
@@ -1461,7 +1494,7 @@ static void ContentControl_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(ContentControl_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(ContentControl_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(ContentControl_type, interface12));
-    type->SetFields(91);
+    type->SetFields(92);
 }
 
 ContentControl_type* ContentControl_typeof()
@@ -1471,7 +1504,7 @@ ContentControl_type* ContentControl_typeof()
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::Control_typeof();
-    options.FieldCount = 91;
+    options.FieldCount = 92;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(ContentControl);
     options.TypeSize = sizeof(ContentControl_type);
@@ -1649,7 +1682,7 @@ static void Control_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(Control_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(Control_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(Control_type, interface12));
-    type->SetFields(86,
+    type->SetFields(87,
         ::g::Fuse::Drawing::Brush_typeof(), offsetof(::g::Fuse::Controls::Control, _background), 0,
         ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Controls::Control, _postedLocalTransformPush), 0,
         ::g::Fuse::Visual_typeof(), offsetof(::g::Fuse::Controls::Control, _GraphicsVisual), 0,
@@ -1664,7 +1697,7 @@ Control_type* Control_typeof()
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Elements::Element_typeof();
-    options.FieldCount = 91;
+    options.FieldCount = 92;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(Control);
     options.TypeSize = sizeof(Control_type);
@@ -2622,7 +2655,7 @@ static void DockPanel_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface12));
-    type->SetFields(92,
+    type->SetFields(93,
         ::g::Fuse::Layouts::DockLayout_typeof(), offsetof(::g::Fuse::Controls::DockPanel, _dockLayout), 0);
 }
 
@@ -2633,7 +2666,7 @@ static void DockPanel_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::Panel_typeof();
-    options.FieldCount = 93;
+    options.FieldCount = 94;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(DockPanel);
     options.TypeSize = sizeof(::g::Fuse::Controls::Control_type);
@@ -2845,7 +2878,7 @@ static void EdgeNavigator_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface12));
-    type->SetFields(92,
+    type->SetFields(93,
         ::g::Fuse::Navigation::EdgeNavigation_typeof(), offsetof(::g::Fuse::Controls::EdgeNavigator, _navigation), 0,
         ::g::Fuse::PropertyHandle_typeof(), (uintptr_t)&::g::Fuse::Controls::EdgeNavigator::_pageDataProperty_, uFieldFlagsStatic);
 }
@@ -2857,7 +2890,7 @@ static void EdgeNavigator_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::Panel_typeof();
-    options.FieldCount = 94;
+    options.FieldCount = 95;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(EdgeNavigator);
     options.TypeSize = sizeof(::g::Fuse::Controls::Control_type);
@@ -3940,7 +3973,7 @@ static void GraphicsView_build(uType* type)
         ::g::Fuse::IViewport_typeof(), offsetof(GraphicsView_type, interface13),
         ::g::Fuse::IRenderViewport_typeof(), offsetof(GraphicsView_type, interface14),
         ::g::Fuse::ICommonViewport_typeof(), offsetof(GraphicsView_type, interface15));
-    type->SetFields(92,
+    type->SetFields(93,
         ::g::Uno::Float4_typeof(), offsetof(::g::Fuse::Controls::GraphicsView, _color), 0,
         ::g::Fuse::DrawContext_typeof(), offsetof(::g::Fuse::Controls::GraphicsView, _dc), 0,
         ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Controls::GraphicsView, _frameScheduled), 0,
@@ -3957,7 +3990,7 @@ GraphicsView_type* GraphicsView_typeof()
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::LayoutControl_typeof();
-    options.FieldCount = 99;
+    options.FieldCount = 100;
     options.InterfaceCount = 16;
     options.ObjectSize = sizeof(GraphicsView);
     options.TypeSize = sizeof(GraphicsView_type);
@@ -4337,6 +4370,869 @@ GraphicsView* GraphicsView::New3()
 // /usr/local/share/uno/Packages/Fuse.Controls.Panels/0.39.3/$.uno
 // ---------------------------------------------------------------
 
+// public sealed class Grid :556
+// {
+static void Grid_build(uType* type)
+{
+    type->SetInterfaces(
+        ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(::g::Fuse::Controls::Control_type, interface0),
+        ::g::Fuse::Scripting::IScriptObject_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface1),
+        ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(::g::Fuse::Controls::Control_type, interface2),
+        ::g::Uno::Collections::IEnumerable_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(::g::Fuse::Controls::Control_type, interface3),
+        ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Node_typeof()), offsetof(::g::Fuse::Controls::Control_type, interface4),
+        ::g::Uno::UX::IPropertyListener_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface5),
+        ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof()), offsetof(::g::Fuse::Controls::Control_type, interface6),
+        ::g::Uno::Collections::IEnumerable_typeof()->MakeType(::g::Fuse::Node_typeof()), offsetof(::g::Fuse::Controls::Control_type, interface7),
+        ::g::Fuse::Triggers::Actions::IShow_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface8),
+        ::g::Fuse::Triggers::Actions::IHide_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface9),
+        ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface10),
+        ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface11),
+        ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface12));
+    type->SetFields(93,
+        ::g::Fuse::Layouts::GridLayout_typeof(), offsetof(::g::Fuse::Controls::Grid, _gridLayout), 0);
+}
+
+::g::Fuse::Controls::Control_type* Grid_typeof()
+{
+    static uSStrong< ::g::Fuse::Controls::Control_type*> type;
+    if (type != NULL) return type;
+
+    uTypeOptions options;
+    options.BaseDefinition = ::g::Fuse::Controls::Panel_typeof();
+    options.FieldCount = 94;
+    options.InterfaceCount = 13;
+    options.ObjectSize = sizeof(Grid);
+    options.TypeSize = sizeof(::g::Fuse::Controls::Control_type);
+    type = (::g::Fuse::Controls::Control_type*)uClassType::New("Fuse.Controls.Grid", options);
+    type->fp_build_ = Grid_build;
+    type->fp_ctor_ = (void*)Grid__New4_fn;
+    type->interface8.fp_Show = (void(*)(uObject*))::g::Fuse::Elements::Element__FuseTriggersActionsIShowShow_fn;
+    type->interface10.fp_Collapse = (void(*)(uObject*))::g::Fuse::Elements::Element__FuseTriggersActionsICollapseCollapse_fn;
+    type->interface9.fp_Hide = (void(*)(uObject*))::g::Fuse::Elements::Element__FuseTriggersActionsIHideHide_fn;
+    type->interface12.fp_SetSize = (void(*)(uObject*, ::g::Uno::Float2*))::g::Fuse::Elements::Element__FuseAnimationsIResizeSetSize_fn;
+    type->interface11.fp_get_ActualSize = (void(*)(uObject*, ::g::Uno::Float3*))::g::Fuse::Elements::Element__FuseIActualPlacementget_ActualSize_fn;
+    type->interface11.fp_add_Placed = (void(*)(uObject*, uDelegate*))::g::Fuse::Elements::Element__add_Placed_fn;
+    type->interface11.fp_remove_Placed = (void(*)(uObject*, uDelegate*))::g::Fuse::Elements::Element__remove_Placed_fn;
+    type->interface6.fp_Clear = (void(*)(uObject*))::g::Fuse::Visual__UnoCollectionsICollectionFuseNodeClear_fn;
+    type->interface6.fp_Contains = (void(*)(uObject*, void*, bool*))::g::Fuse::Visual__UnoCollectionsICollectionFuseNodeContains_fn;
+    type->interface4.fp_RemoveAt = (void(*)(uObject*, int*))::g::Fuse::Visual__UnoCollectionsIListFuseNodeRemoveAt_fn;
+    type->interface7.fp_GetEnumerator = (void(*)(uObject*, uObject**))::g::Fuse::Visual__UnoCollectionsIEnumerableFuseNodeGetEnumerator_fn;
+    type->interface6.fp_get_Count = (void(*)(uObject*, int*))::g::Fuse::Visual__UnoCollectionsICollectionFuseNodeget_Count_fn;
+    type->interface4.fp_get_Item = (void(*)(uObject*, int*, uTRef))::g::Fuse::Visual__UnoCollectionsIListFuseNodeget_Item_fn;
+    type->interface4.fp_Insert = (void(*)(uObject*, int*, void*))::g::Fuse::Visual__Insert1_fn;
+    type->interface5.fp_OnPropertyChanged = (void(*)(uObject*, ::g::Uno::UX::PropertyObject*, ::g::Uno::UX::Selector*))::g::Fuse::Controls::Control__OnPropertyChanged2_fn;
+    type->interface6.fp_Add = (void(*)(uObject*, void*))::g::Fuse::Visual__Add1_fn;
+    type->interface6.fp_Remove = (void(*)(uObject*, void*, bool*))::g::Fuse::Visual__Remove1_fn;
+    type->interface1.fp_SetScriptObject = (void(*)(uObject*, uObject*, ::g::Fuse::Scripting::Context*))::g::Fuse::Node__FuseScriptingIScriptObjectSetScriptObject_fn;
+    type->interface2.fp_Clear = (void(*)(uObject*))::g::Fuse::Node__UnoCollectionsICollectionFuseBindingClear_fn;
+    type->interface2.fp_Contains = (void(*)(uObject*, void*, bool*))::g::Fuse::Node__UnoCollectionsICollectionFuseBindingContains_fn;
+    type->interface0.fp_RemoveAt = (void(*)(uObject*, int*))::g::Fuse::Node__UnoCollectionsIListFuseBindingRemoveAt_fn;
+    type->interface3.fp_GetEnumerator = (void(*)(uObject*, uObject**))::g::Fuse::Node__UnoCollectionsIEnumerableFuseBindingGetEnumerator_fn;
+    type->interface1.fp_get_ScriptObject = (void(*)(uObject*, uObject**))::g::Fuse::Node__FuseScriptingIScriptObjectget_ScriptObject_fn;
+    type->interface1.fp_get_ScriptContext = (void(*)(uObject*, ::g::Fuse::Scripting::Context**))::g::Fuse::Node__FuseScriptingIScriptObjectget_ScriptContext_fn;
+    type->interface2.fp_get_Count = (void(*)(uObject*, int*))::g::Fuse::Node__UnoCollectionsICollectionFuseBindingget_Count_fn;
+    type->interface0.fp_get_Item = (void(*)(uObject*, int*, uTRef))::g::Fuse::Node__UnoCollectionsIListFuseBindingget_Item_fn;
+    type->interface0.fp_Insert = (void(*)(uObject*, int*, void*))::g::Fuse::Node__Insert_fn;
+    type->interface2.fp_Add = (void(*)(uObject*, void*))::g::Fuse::Node__Add_fn;
+    type->interface2.fp_Remove = (void(*)(uObject*, void*, bool*))::g::Fuse::Node__Remove_fn;
+    return type;
+}
+
+// public Grid() :804
+void Grid__ctor_7_fn(Grid* __this)
+{
+    __this->ctor_7();
+}
+
+// public Grid New() :804
+void Grid__New4_fn(Grid** __retval)
+{
+    *__retval = Grid::New4();
+}
+
+// public int get_RowCount() :699
+void Grid__get_RowCount_fn(Grid* __this, int* __retval)
+{
+    *__retval = __this->RowCount();
+}
+
+// public void set_RowCount(int value) :700
+void Grid__set_RowCount_fn(Grid* __this, int* value)
+{
+    __this->RowCount(*value);
+}
+
+// public Grid() [instance] :804
+void Grid::ctor_7()
+{
+    ctor_6();
+    Layout(_gridLayout = ::g::Fuse::Layouts::GridLayout::New2());
+}
+
+// public int get_RowCount() [instance] :699
+int Grid::RowCount()
+{
+    return uPtr(_gridLayout)->RowCount();
+}
+
+// public void set_RowCount(int value) [instance] :700
+void Grid::RowCount(int value)
+{
+    uPtr(_gridLayout)->RowCount(value);
+}
+
+// public Grid New() [static] :804
+Grid* Grid::New4()
+{
+    Grid* obj1 = (Grid*)uNew(Grid_typeof());
+    obj1->ctor_7();
+    return obj1;
+}
+// }
+
+// /usr/local/share/uno/Packages/Fuse.Controls.Primitives/0.39.3/$.uno
+// -------------------------------------------------------------------
+
+// public partial sealed class Image :263
+// {
+static void Image_build(uType* type)
+{
+    ::STRINGS[18] = uString::Const("unknown failure");
+    ::TYPES[29] = ::g::Uno::EventHandler_typeof();
+    ::TYPES[33] = ::g::Fuse::Resources::ImageSourceErrorHandler_typeof();
+    ::TYPES[34] = ::g::Fuse::Controls::Native::IImageView_typeof();
+    ::TYPES[11] = ::g::Fuse::ICommonViewport_typeof();
+    type->SetInterfaces(
+        ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(::g::Fuse::Controls::Control_type, interface0),
+        ::g::Fuse::Scripting::IScriptObject_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface1),
+        ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(::g::Fuse::Controls::Control_type, interface2),
+        ::g::Uno::Collections::IEnumerable_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(::g::Fuse::Controls::Control_type, interface3),
+        ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Node_typeof()), offsetof(::g::Fuse::Controls::Control_type, interface4),
+        ::g::Uno::UX::IPropertyListener_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface5),
+        ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof()), offsetof(::g::Fuse::Controls::Control_type, interface6),
+        ::g::Uno::Collections::IEnumerable_typeof()->MakeType(::g::Fuse::Node_typeof()), offsetof(::g::Fuse::Controls::Control_type, interface7),
+        ::g::Fuse::Triggers::Actions::IShow_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface8),
+        ::g::Fuse::Triggers::Actions::IHide_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface9),
+        ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface10),
+        ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface11),
+        ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface12));
+    type->SetFields(93,
+        ::g::Uno::Float4_typeof(), offsetof(::g::Fuse::Controls::Image, _color), 0,
+        ::g::Fuse::Internal::ImageContainer_typeof(), offsetof(::g::Fuse::Controls::Image, _container), 0,
+        ::g::Uno::Float4_typeof(), offsetof(::g::Fuse::Controls::Image, _contentBox), 0,
+        ::g::Uno::Float2_typeof(), offsetof(::g::Fuse::Controls::Image, _drawOrigin), 0,
+        ::g::Uno::Float2_typeof(), offsetof(::g::Fuse::Controls::Image, _drawSize), 0,
+        ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Controls::Image, _hasContentBox), 0,
+        ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Controls::Image, _hasScale9Margin), 0,
+        ::g::Fuse::Resources::ImageSourceErrorArgs_typeof(), offsetof(::g::Fuse::Controls::Image, _lastError), 0,
+        ::g::Fuse::Triggers::BusyTask_typeof(), offsetof(::g::Fuse::Controls::Image, _loadingTask), 0,
+        ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Controls::Image, _markedFailed), 0,
+        ::g::Uno::Float2_typeof(), offsetof(::g::Fuse::Controls::Image, _origin), 0,
+        ::g::Uno::Float2_typeof(), offsetof(::g::Fuse::Controls::Image, _scale), 0,
+        ::g::Uno::Float4_typeof(), offsetof(::g::Fuse::Controls::Image, _scale9Margin), 0,
+        ::g::Uno::Float4_typeof(), offsetof(::g::Fuse::Controls::Image, _uvClip), 0,
+        ::g::Uno::EventHandler_typeof(), offsetof(::g::Fuse::Controls::Image, ParamChanged1), 0,
+        ::g::Uno::EventHandler_typeof(), offsetof(::g::Fuse::Controls::Image, SourceChanged1), 0);
+}
+
+::g::Fuse::Controls::Control_type* Image_typeof()
+{
+    static uSStrong< ::g::Fuse::Controls::Control_type*> type;
+    if (type != NULL) return type;
+
+    uTypeOptions options;
+    options.BaseDefinition = ::g::Fuse::Controls::LayoutControl_typeof();
+    options.FieldCount = 109;
+    options.InterfaceCount = 13;
+    options.ObjectSize = sizeof(Image);
+    options.TypeSize = sizeof(::g::Fuse::Controls::Control_type);
+    type = (::g::Fuse::Controls::Control_type*)uClassType::New("Fuse.Controls.Image", options);
+    type->fp_build_ = Image_build;
+    type->fp_ctor_ = (void*)Image__New3_fn;
+    type->fp_ArrangePaddingBox = (void(*)(::g::Fuse::Elements::Element*, ::g::Fuse::LayoutParams*))Image__ArrangePaddingBox_fn;
+    type->fp_CalcRenderBounds = (void(*)(::g::Fuse::Elements::Element*, ::g::Fuse::VisualBounds**))Image__CalcRenderBounds_fn;
+    type->fp_CreateNativeView = (void(*)(::g::Fuse::Controls::Control*, uObject**))Image__CreateNativeView_fn;
+    type->fp_DrawVisual = (void(*)(::g::Fuse::Controls::Control*, ::g::Fuse::DrawContext*))Image__DrawVisual_fn;
+    type->fp_FastTrackDrawWithOpacity = (void(*)(::g::Fuse::Elements::Element*, ::g::Fuse::DrawContext*, bool*))Image__FastTrackDrawWithOpacity_fn;
+    type->fp_GetContentSize = (void(*)(::g::Fuse::Elements::Element*, ::g::Fuse::LayoutParams*, ::g::Uno::Float2*))Image__GetContentSize_fn;
+    type->fp_get_HitTestLocalVisualBounds = (void(*)(::g::Fuse::Elements::Element*, ::g::Fuse::VisualBounds**))Image__get_HitTestLocalVisualBounds_fn;
+    type->fp_OnHitTestLocalVisual = (void(*)(::g::Fuse::Elements::Element*, ::g::Fuse::HitTestContext*))Image__OnHitTestLocalVisual_fn;
+    type->fp_OnRooted = (void(*)(::g::Fuse::Node*))Image__OnRooted_fn;
+    type->fp_OnUnrooted = (void(*)(::g::Fuse::Node*))Image__OnUnrooted_fn;
+    type->fp_PushPropertiesToNativeView = (void(*)(::g::Fuse::Controls::Control*))Image__PushPropertiesToNativeView_fn;
+    type->interface8.fp_Show = (void(*)(uObject*))::g::Fuse::Elements::Element__FuseTriggersActionsIShowShow_fn;
+    type->interface10.fp_Collapse = (void(*)(uObject*))::g::Fuse::Elements::Element__FuseTriggersActionsICollapseCollapse_fn;
+    type->interface9.fp_Hide = (void(*)(uObject*))::g::Fuse::Elements::Element__FuseTriggersActionsIHideHide_fn;
+    type->interface12.fp_SetSize = (void(*)(uObject*, ::g::Uno::Float2*))::g::Fuse::Elements::Element__FuseAnimationsIResizeSetSize_fn;
+    type->interface11.fp_get_ActualSize = (void(*)(uObject*, ::g::Uno::Float3*))::g::Fuse::Elements::Element__FuseIActualPlacementget_ActualSize_fn;
+    type->interface11.fp_add_Placed = (void(*)(uObject*, uDelegate*))::g::Fuse::Elements::Element__add_Placed_fn;
+    type->interface11.fp_remove_Placed = (void(*)(uObject*, uDelegate*))::g::Fuse::Elements::Element__remove_Placed_fn;
+    type->interface6.fp_Clear = (void(*)(uObject*))::g::Fuse::Visual__UnoCollectionsICollectionFuseNodeClear_fn;
+    type->interface6.fp_Contains = (void(*)(uObject*, void*, bool*))::g::Fuse::Visual__UnoCollectionsICollectionFuseNodeContains_fn;
+    type->interface4.fp_RemoveAt = (void(*)(uObject*, int*))::g::Fuse::Visual__UnoCollectionsIListFuseNodeRemoveAt_fn;
+    type->interface7.fp_GetEnumerator = (void(*)(uObject*, uObject**))::g::Fuse::Visual__UnoCollectionsIEnumerableFuseNodeGetEnumerator_fn;
+    type->interface6.fp_get_Count = (void(*)(uObject*, int*))::g::Fuse::Visual__UnoCollectionsICollectionFuseNodeget_Count_fn;
+    type->interface4.fp_get_Item = (void(*)(uObject*, int*, uTRef))::g::Fuse::Visual__UnoCollectionsIListFuseNodeget_Item_fn;
+    type->interface4.fp_Insert = (void(*)(uObject*, int*, void*))::g::Fuse::Visual__Insert1_fn;
+    type->interface5.fp_OnPropertyChanged = (void(*)(uObject*, ::g::Uno::UX::PropertyObject*, ::g::Uno::UX::Selector*))::g::Fuse::Controls::Control__OnPropertyChanged2_fn;
+    type->interface6.fp_Add = (void(*)(uObject*, void*))::g::Fuse::Visual__Add1_fn;
+    type->interface6.fp_Remove = (void(*)(uObject*, void*, bool*))::g::Fuse::Visual__Remove1_fn;
+    type->interface1.fp_SetScriptObject = (void(*)(uObject*, uObject*, ::g::Fuse::Scripting::Context*))::g::Fuse::Node__FuseScriptingIScriptObjectSetScriptObject_fn;
+    type->interface2.fp_Clear = (void(*)(uObject*))::g::Fuse::Node__UnoCollectionsICollectionFuseBindingClear_fn;
+    type->interface2.fp_Contains = (void(*)(uObject*, void*, bool*))::g::Fuse::Node__UnoCollectionsICollectionFuseBindingContains_fn;
+    type->interface0.fp_RemoveAt = (void(*)(uObject*, int*))::g::Fuse::Node__UnoCollectionsIListFuseBindingRemoveAt_fn;
+    type->interface3.fp_GetEnumerator = (void(*)(uObject*, uObject**))::g::Fuse::Node__UnoCollectionsIEnumerableFuseBindingGetEnumerator_fn;
+    type->interface1.fp_get_ScriptObject = (void(*)(uObject*, uObject**))::g::Fuse::Node__FuseScriptingIScriptObjectget_ScriptObject_fn;
+    type->interface1.fp_get_ScriptContext = (void(*)(uObject*, ::g::Fuse::Scripting::Context**))::g::Fuse::Node__FuseScriptingIScriptObjectget_ScriptContext_fn;
+    type->interface2.fp_get_Count = (void(*)(uObject*, int*))::g::Fuse::Node__UnoCollectionsICollectionFuseBindingget_Count_fn;
+    type->interface0.fp_get_Item = (void(*)(uObject*, int*, uTRef))::g::Fuse::Node__UnoCollectionsIListFuseBindingget_Item_fn;
+    type->interface0.fp_Insert = (void(*)(uObject*, int*, void*))::g::Fuse::Node__Insert_fn;
+    type->interface2.fp_Add = (void(*)(uObject*, void*))::g::Fuse::Node__Add_fn;
+    type->interface2.fp_Remove = (void(*)(uObject*, void*, bool*))::g::Fuse::Node__Remove_fn;
+    return type;
+}
+
+// public generated Image() :263
+void Image__ctor_6_fn(Image* __this)
+{
+    __this->ctor_6();
+}
+
+// protected override sealed void ArrangePaddingBox(Fuse.LayoutParams lp) :615
+void Image__ArrangePaddingBox_fn(Image* __this, ::g::Fuse::LayoutParams* lp)
+{
+    ::g::Fuse::LayoutParams lp_ = *lp;
+    ::g::Fuse::Controls::LayoutControl__ArrangePaddingBox_fn(__this, uCRef(lp_));
+    ::g::Uno::Float2 size = lp_.Size();
+    uPtr(uPtr(__this->Container())->Sizing)->snapToPixels = __this->SnapToPixels();
+    uPtr(uPtr(__this->Container())->Sizing)->absoluteZoom = __this->AbsoluteZoom();
+    ::g::Uno::Float2 contentDesiredSize = __this->GetSize();
+    __this->_scale = uPtr(uPtr(__this->Container())->Sizing)->CalcScale(size, contentDesiredSize);
+    __this->_origin = uPtr(uPtr(__this->Container())->Sizing)->CalcOrigin(size, ::g::Uno::Float2__op_Multiply2(contentDesiredSize, __this->_scale));
+    __this->_drawOrigin = __this->_origin;
+    __this->_drawSize = ::g::Uno::Float2__op_Multiply2(contentDesiredSize, __this->_scale);
+    __this->_uvClip = uPtr(uPtr(__this->Container())->Sizing)->CalcClip(size, &__this->_drawOrigin, &__this->_drawSize);
+    __this->InvalidateRenderBounds();
+    __this->SetContentBox(::g::Uno::Float4__New7(__this->_drawOrigin, ::g::Uno::Float2__op_Addition2(__this->_drawOrigin, __this->_drawSize)));
+    __this->UpdateNativeImageTransform();
+}
+
+// protected override sealed Fuse.VisualBounds CalcRenderBounds() :701
+void Image__CalcRenderBounds_fn(Image* __this, ::g::Fuse::VisualBounds** __retval)
+{
+    ::g::Fuse::VisualBounds* ret10;
+    ::g::Fuse::VisualBounds* b = (::g::Fuse::Controls::Control__CalcRenderBounds_fn(__this, &ret10), ret10);
+    b = uPtr(b)->AddRect(__this->_drawOrigin, ::g::Uno::Float2__op_Addition2(__this->_drawOrigin, __this->_drawSize));
+    return *__retval = b, void();
+}
+
+// public float4 get_Color() :376
+void Image__get_Color_fn(Image* __this, ::g::Uno::Float4* __retval)
+{
+    *__retval = __this->Color();
+}
+
+// public void set_Color(float4 value) :377
+void Image__set_Color_fn(Image* __this, ::g::Uno::Float4* value)
+{
+    __this->Color(*value);
+}
+
+// internal Fuse.Internal.ImageContainer get_Container() :268
+void Image__get_Container_fn(Image* __this, ::g::Fuse::Internal::ImageContainer** __retval)
+{
+    *__retval = __this->Container();
+}
+
+// protected override sealed Fuse.Controls.Native.IView CreateNativeView() :562
+void Image__CreateNativeView_fn(Image* __this, uObject** __retval)
+{
+    return *__retval = (uObject*)::g::Fuse::Controls::Native::iOS::ImageView::New1(__this), void();
+}
+
+// protected override sealed void DrawVisual(Fuse.DrawContext dc) :655
+void Image__DrawVisual_fn(Image* __this, ::g::Fuse::DrawContext* dc)
+{
+    __this->DrawVisualColor(dc, __this->Color());
+}
+
+// private void DrawVisualColor(Fuse.DrawContext dc, float4 color) :660
+void Image__DrawVisualColor_fn(Image* __this, ::g::Fuse::DrawContext* dc, ::g::Uno::Float4* color)
+{
+    __this->DrawVisualColor(dc, *color);
+}
+
+// protected override sealed bool FastTrackDrawWithOpacity(Fuse.DrawContext dc) :646
+void Image__FastTrackDrawWithOpacity_fn(Image* __this, ::g::Fuse::DrawContext* dc, bool* __retval)
+{
+    ::g::Uno::Float4 ind1;
+    bool ret11;
+
+    if (!(::g::Fuse::Elements::Element__FastTrackDrawWithOpacity_fn(__this, dc, &ret11), ret11))
+        return *__retval = false, void();
+
+    __this->DrawVisualColor(dc, ::g::Uno::Float4__New8((ind1 = __this->Color(), ::g::Uno::Float3__New2(ind1.X, ind1.Y, ind1.Z)), __this->Color().W * __this->Opacity()));
+    return *__retval = true, void();
+}
+
+// public Uno.UX.FileSource get_File() :329
+void Image__get_File_fn(Image* __this, ::g::Uno::UX::FileSource** __retval)
+{
+    *__retval = __this->File();
+}
+
+// public void set_File(Uno.UX.FileSource value) :330
+void Image__set_File_fn(Image* __this, ::g::Uno::UX::FileSource* value)
+{
+    __this->File(value);
+}
+
+// protected override sealed float2 GetContentSize(Fuse.LayoutParams lp) :602
+void Image__GetContentSize_fn(Image* __this, ::g::Fuse::LayoutParams* lp, ::g::Uno::Float2* __retval)
+{
+    ::g::Uno::Float2 ret12;
+    ::g::Fuse::LayoutParams lp_ = *lp;
+    ::g::Uno::Float2 b = (::g::Fuse::Controls::LayoutControl__GetContentSize_fn(__this, uCRef(lp_), &ret12), ret12);
+    uPtr(uPtr(__this->Container())->Sizing)->snapToPixels = __this->SnapToPixels();
+    uPtr(uPtr(__this->Container())->Sizing)->absoluteZoom = __this->AbsoluteZoom();
+    ::g::Uno::Float2 r = uPtr(uPtr(__this->Container())->Sizing)->ExpandFillSize(__this->GetSize(), lp_);
+    b = ::g::Uno::Math::Max3(r, b);
+    return *__retval = b, void();
+}
+
+// private float2 GetSize() :595
+void Image__GetSize_fn(Image* __this, ::g::Uno::Float2* __retval)
+{
+    *__retval = __this->GetSize();
+}
+
+// protected override sealed Fuse.VisualBounds get_HitTestLocalVisualBounds() :693
+void Image__get_HitTestLocalVisualBounds_fn(Image* __this, ::g::Fuse::VisualBounds** __retval)
+{
+    ::g::Fuse::VisualBounds* ret13;
+    ::g::Fuse::VisualBounds* b = (::g::Fuse::Controls::Control__get_HitTestLocalVisualBounds_fn(__this, &ret13), ret13);
+    b = uPtr(b)->AddRect(::g::Uno::Float2__New1(0.0f), __this->ActualSize());
+    return *__retval = b, void();
+}
+
+// private Fuse.Controls.Native.IImageView get_ImageView() :559
+void Image__get_ImageView_fn(Image* __this, uObject** __retval)
+{
+    *__retval = __this->ImageView();
+}
+
+// public generated Image New() :263
+void Image__New3_fn(Image** __retval)
+{
+    *__retval = Image::New3();
+}
+
+// private void OnContainerParamChanged(object s, object a) :298
+void Image__OnContainerParamChanged_fn(Image* __this, uObject* s, uObject* a)
+{
+    __this->OnContainerParamChanged(s, a);
+}
+
+// private void OnContainerSourceChanged(object s, object a) :302
+void Image__OnContainerSourceChanged_fn(Image* __this, uObject* s, uObject* a)
+{
+    __this->OnContainerSourceChanged(s, a);
+}
+
+// private void OnContainerSourceError(object s, Fuse.Resources.ImageSourceErrorArgs args) :308
+void Image__OnContainerSourceError_fn(Image* __this, uObject* s, ::g::Fuse::Resources::ImageSourceErrorArgs* args)
+{
+    __this->OnContainerSourceError(s, args);
+}
+
+// protected override sealed void OnHitTestLocalVisual(Fuse.HitTestContext htc) :681
+void Image__OnHitTestLocalVisual_fn(Image* __this, ::g::Fuse::HitTestContext* htc)
+{
+    ::g::Uno::Float2 lp = uPtr(htc)->LocalPoint();
+
+    if ((((lp.X >= __this->_drawOrigin.X) && (lp.X <= (__this->_drawOrigin.X + __this->_drawSize.X))) && (lp.Y >= __this->_drawOrigin.Y)) && (lp.Y <= (__this->_drawOrigin.Y + __this->_drawSize.Y)))
+        uPtr(htc)->Hit(__this);
+
+    ::g::Fuse::Controls::Control__OnHitTestLocalVisual_fn(__this, htc);
+}
+
+// private void OnIsVisibleChanged(object s, object a) :317
+void Image__OnIsVisibleChanged1_fn(Image* __this, uObject* s, uObject* a)
+{
+    __this->OnIsVisibleChanged1(s, a);
+}
+
+// private void OnParamChanged() :415
+void Image__OnParamChanged_fn(Image* __this)
+{
+    __this->OnParamChanged();
+}
+
+// protected override sealed void OnRooted() :271
+void Image__OnRooted_fn(Image* __this)
+{
+    ::g::Fuse::Controls::LayoutControl__OnRooted_fn(__this);
+    __this->_markedFailed = false;
+    __this->AddDrawCost(1.0);
+    __this->add_IsVisibleChanged(uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)Image__OnIsVisibleChanged1_fn, __this));
+    uPtr(__this->_container)->IsRooted(true);
+    uPtr(__this->_container)->add_ParamChanged(uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)Image__OnContainerParamChanged_fn, __this));
+    uPtr(__this->_container)->add_SourceChanged(uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)Image__OnContainerSourceChanged_fn, __this));
+    uPtr(__this->_container)->add_SourceError(uDelegate::New(::TYPES[33/*Fuse.Resources.ImageSourceErrorHandler*/], (void*)Image__OnContainerSourceError_fn, __this));
+}
+
+// private void OnSourceChanged() :430
+void Image__OnSourceChanged_fn(Image* __this)
+{
+    __this->OnSourceChanged();
+}
+
+// protected override sealed void OnUnrooted() :285
+void Image__OnUnrooted_fn(Image* __this)
+{
+    __this->remove_IsVisibleChanged(uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)Image__OnIsVisibleChanged1_fn, __this));
+    uPtr(__this->_container)->IsRooted(false);
+    uPtr(__this->_container)->remove_ParamChanged(uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)Image__OnContainerParamChanged_fn, __this));
+    uPtr(__this->_container)->remove_SourceChanged(uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)Image__OnContainerSourceChanged_fn, __this));
+    uPtr(__this->_container)->remove_SourceError(uDelegate::New(::TYPES[33/*Fuse.Resources.ImageSourceErrorHandler*/], (void*)Image__OnContainerSourceError_fn, __this));
+    __this->RemoveDrawCost(1.0);
+    ::g::Fuse::Controls::LayoutControl__OnUnrooted_fn(__this);
+}
+
+// public generated void add_ParamChanged(Uno.EventHandler value) :414
+void Image__add_ParamChanged_fn(Image* __this, uDelegate* value)
+{
+    __this->add_ParamChanged(value);
+}
+
+// public generated void remove_ParamChanged(Uno.EventHandler value) :414
+void Image__remove_ParamChanged_fn(Image* __this, uDelegate* value)
+{
+    __this->remove_ParamChanged(value);
+}
+
+// protected override sealed void PushPropertiesToNativeView() :540
+void Image__PushPropertiesToNativeView_fn(Image* __this)
+{
+    ::g::Fuse::Controls::Control__PushPropertiesToNativeView_fn(__this);
+    __this->UpdateNativeImageSource();
+    __this->UpdateNativeImageTransform();
+}
+
+// public float4 get_Scale9Margin() :401
+void Image__get_Scale9Margin_fn(Image* __this, ::g::Uno::Float4* __retval)
+{
+    *__retval = __this->Scale9Margin();
+}
+
+// public void set_Scale9Margin(float4 value) :402
+void Image__set_Scale9Margin_fn(Image* __this, ::g::Uno::Float4* value)
+{
+    __this->Scale9Margin(*value);
+}
+
+// internal void SetContentBox(float4 contentBox) :518
+void Image__SetContentBox_fn(Image* __this, ::g::Uno::Float4* contentBox)
+{
+    __this->SetContentBox(*contentBox);
+}
+
+// public Fuse.Resources.ImageSource get_Source() :368
+void Image__get_Source_fn(Image* __this, ::g::Fuse::Resources::ImageSource** __retval)
+{
+    *__retval = __this->Source();
+}
+
+// public void set_Source(Fuse.Resources.ImageSource value) :369
+void Image__set_Source_fn(Image* __this, ::g::Fuse::Resources::ImageSource* value)
+{
+    __this->Source(value);
+}
+
+// public generated void add_SourceChanged(Uno.EventHandler value) :428
+void Image__add_SourceChanged_fn(Image* __this, uDelegate* value)
+{
+    __this->add_SourceChanged(value);
+}
+
+// public generated void remove_SourceChanged(Uno.EventHandler value) :428
+void Image__remove_SourceChanged_fn(Image* __this, uDelegate* value)
+{
+    __this->remove_SourceChanged(value);
+}
+
+// private void UpdateNativeImageSource() :547
+void Image__UpdateNativeImageSource_fn(Image* __this)
+{
+    __this->UpdateNativeImageSource();
+}
+
+// private void UpdateNativeImageTransform() :637
+void Image__UpdateNativeImageTransform_fn(Image* __this)
+{
+    __this->UpdateNativeImageTransform();
+}
+
+// public generated Image() [instance] :263
+void Image::ctor_6()
+{
+    _container = ::g::Fuse::Internal::ImageContainer::New1(NULL);
+    _color = ::g::Uno::Float4__New1(1.0f);
+    _scale9Margin = ::g::Uno::Float4__New1(10.0f);
+    ctor_5();
+}
+
+// public float4 get_Color() [instance] :376
+::g::Uno::Float4 Image::Color()
+{
+    return _color;
+}
+
+// public void set_Color(float4 value) [instance] :377
+void Image::Color(::g::Uno::Float4 value)
+{
+    if (::g::Uno::Float4__op_Inequality(_color, value))
+    {
+        _color = value;
+        OnParamChanged();
+    }
+}
+
+// internal Fuse.Internal.ImageContainer get_Container() [instance] :268
+::g::Fuse::Internal::ImageContainer* Image::Container()
+{
+    return _container;
+}
+
+// private void DrawVisualColor(Fuse.DrawContext dc, float4 color) [instance] :660
+void Image::DrawVisualColor(::g::Fuse::DrawContext* dc, ::g::Uno::Float4 color)
+{
+    ::g::Uno::Float4 ind2;
+    ::g::Uno::Float4 ind3;
+    ::g::Uno::Float4 ind4;
+    ::g::Uno::Graphics::Texture2D* tex = uPtr(Container())->GetTexture();
+
+    if (tex == NULL)
+        return;
+
+    if (uPtr(Container())->StretchMode() == 4)
+        uPtr(::g::Fuse::Elements::Internal::Scale9Rectangle::Impl())->Draw(dc, this, ActualSize(), GetSize(), tex, color, Scale9Margin());
+    else 
+        uPtr(::g::Fuse::Controls::ImageElementDraw::Impl())->Draw(dc, this, _drawOrigin, _drawSize, (ind2 = _uvClip, ::g::Uno::Float2__New2(ind2.X, ind2.Y)), ::g::Uno::Float2__op_Subtraction2((ind3 = _uvClip, ::g::Uno::Float2__New2(ind3.Z, ind3.W)), (ind4 = _uvClip, ::g::Uno::Float2__New2(ind4.X, ind4.Y))), tex, uPtr(Container())->ResampleMode(), color);
+}
+
+// public Uno.UX.FileSource get_File() [instance] :329
+::g::Uno::UX::FileSource* Image::File()
+{
+    return uPtr(_container)->File();
+}
+
+// public void set_File(Uno.UX.FileSource value) [instance] :330
+void Image::File(::g::Uno::UX::FileSource* value)
+{
+    uPtr(_container)->File(value);
+}
+
+// private float2 GetSize() [instance] :595
+::g::Uno::Float2 Image::GetSize()
+{
+    if (Source() != NULL)
+        return uPtr(uPtr(Container())->Sizing)->CalcContentSize(uPtr(Source())->Size(), uPtr(Source())->PixelSize());
+
+    return ::g::Uno::Float2__New1(0.0f);
+}
+
+// private Fuse.Controls.Native.IImageView get_ImageView() [instance] :559
+uObject* Image::ImageView()
+{
+    return uAs<uObject*>(NativeView(), ::TYPES[34/*Fuse.Controls.Native.IImageView*/]);
+}
+
+// private void OnContainerParamChanged(object s, object a) [instance] :298
+void Image::OnContainerParamChanged(uObject* s, uObject* a)
+{
+    OnParamChanged();
+}
+
+// private void OnContainerSourceChanged(object s, object a) [instance] :302
+void Image::OnContainerSourceChanged(uObject* s, uObject* a)
+{
+    OnSourceChanged();
+}
+
+// private void OnContainerSourceError(object s, Fuse.Resources.ImageSourceErrorArgs args) [instance] :308
+void Image::OnContainerSourceError(uObject* s, ::g::Fuse::Resources::ImageSourceErrorArgs* args)
+{
+    _lastError = args;
+
+    if (!_markedFailed && (uPtr(uPtr(_container)->Source())->State() == 3))
+        OnSourceChanged();
+}
+
+// private void OnIsVisibleChanged(object s, object a) [instance] :317
+void Image::OnIsVisibleChanged1(uObject* s, uObject* a)
+{
+    uPtr(_container)->IsVisible(IsVisible());
+}
+
+// private void OnParamChanged() [instance] :415
+void Image::OnParamChanged()
+{
+    if (::g::Uno::Delegate::op_Inequality(ParamChanged1, NULL))
+        uPtr(ParamChanged1)->Invoke(2, this, (::g::Uno::EventArgs*)::g::Uno::EventArgs::Empty());
+
+    InvalidateLayout(2);
+    InvalidateRenderBounds();
+    UpdateNativeImageSource();
+}
+
+// private void OnSourceChanged() [instance] :430
+void Image::OnSourceChanged()
+{
+    if (uPtr(_container)->Source() != NULL)
+    {
+        _markedFailed = (uPtr(uPtr(_container)->Source())->State() == 3);
+        ::g::Fuse::Triggers::WhileFailed::SetState(this, _markedFailed, (_lastError == NULL) ? ::STRINGS[18/*"unknown fai...*/] : (uString*)uPtr(_lastError)->Reason);
+        bool isLoading = uPtr(uPtr(_container)->Source())->State() == 2;
+        ::g::Fuse::Triggers::WhileLoading::SetState(this, isLoading);
+        ::g::Fuse::Triggers::BusyTask::SetBusy(this, &_loadingTask, isLoading);
+    }
+
+    if (::g::Uno::Delegate::op_Inequality(SourceChanged1, NULL))
+        uPtr(SourceChanged1)->Invoke(2, this, (::g::Uno::EventArgs*)::g::Uno::EventArgs::Empty());
+
+    InvalidateLayout(2);
+    InvalidateRenderBounds();
+    UpdateNativeImageSource();
+}
+
+// public generated void add_ParamChanged(Uno.EventHandler value) [instance] :414
+void Image::add_ParamChanged(uDelegate* value)
+{
+    ParamChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(ParamChanged1, value), ::TYPES[29/*Uno.EventHandler*/]);
+}
+
+// public generated void remove_ParamChanged(Uno.EventHandler value) [instance] :414
+void Image::remove_ParamChanged(uDelegate* value)
+{
+    ParamChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(ParamChanged1, value), ::TYPES[29/*Uno.EventHandler*/]);
+}
+
+// public float4 get_Scale9Margin() [instance] :401
+::g::Uno::Float4 Image::Scale9Margin()
+{
+    return _scale9Margin;
+}
+
+// public void set_Scale9Margin(float4 value) [instance] :402
+void Image::Scale9Margin(::g::Uno::Float4 value)
+{
+    if (!_hasScale9Margin || ::g::Uno::Float4__op_Inequality(_scale9Margin, value))
+    {
+        _scale9Margin = value;
+        _hasScale9Margin = true;
+        OnParamChanged();
+    }
+}
+
+// internal void SetContentBox(float4 contentBox) [instance] :518
+void Image::SetContentBox(::g::Uno::Float4 contentBox)
+{
+    _hasContentBox = true;
+    _contentBox = contentBox;
+}
+
+// public Fuse.Resources.ImageSource get_Source() [instance] :368
+::g::Fuse::Resources::ImageSource* Image::Source()
+{
+    return uPtr(_container)->Source();
+}
+
+// public void set_Source(Fuse.Resources.ImageSource value) [instance] :369
+void Image::Source(::g::Fuse::Resources::ImageSource* value)
+{
+    uPtr(_container)->Source(value);
+}
+
+// public generated void add_SourceChanged(Uno.EventHandler value) [instance] :428
+void Image::add_SourceChanged(uDelegate* value)
+{
+    SourceChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(SourceChanged1, value), ::TYPES[29/*Uno.EventHandler*/]);
+}
+
+// public generated void remove_SourceChanged(Uno.EventHandler value) [instance] :428
+void Image::remove_SourceChanged(uDelegate* value)
+{
+    SourceChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(SourceChanged1, value), ::TYPES[29/*Uno.EventHandler*/]);
+}
+
+// private void UpdateNativeImageSource() [instance] :547
+void Image::UpdateNativeImageSource()
+{
+    uObject* imageView = ImageView();
+
+    if (imageView != NULL)
+    {
+        ::g::Fuse::Controls::Native::IImageView::ImageSource(uInterface(uPtr(imageView), ::TYPES[34/*Fuse.Controls.Native.IImageView*/]), Source());
+        ::g::Fuse::Controls::Native::IImageView::TintColor(uInterface(uPtr(ImageView()), ::TYPES[34/*Fuse.Controls.Native.IImageView*/]), Color());
+    }
+}
+
+// private void UpdateNativeImageTransform() [instance] :637
+void Image::UpdateNativeImageTransform()
+{
+    uObject* imageView = ImageView();
+
+    if (imageView != NULL)
+        ::g::Fuse::Controls::Native::IImageView::UpdateImageTransform(uInterface(uPtr(imageView), ::TYPES[34/*Fuse.Controls.Native.IImageView*/]), ::g::Fuse::ICommonViewport::PixelsPerPoint(uInterface(uPtr(Viewport()), ::TYPES[11/*Fuse.ICommonViewport*/])), _origin, _scale, _drawSize);
+}
+
+// public generated Image New() [static] :263
+Image* Image::New3()
+{
+    Image* obj9 = (Image*)uNew(Image_typeof());
+    obj9->ctor_6();
+    return obj9;
+}
+// }
+
+// /usr/local/share/uno/Packages/Fuse.Controls.Primitives/0.39.3/$.uno
+// -------------------------------------------------------------------
+
+// internal sealed class ImageElementDraw :709
+// {
+// static ImageElementDraw() :709
+static void ImageElementDraw__cctor__fn(uType* __type)
+{
+    ImageElementDraw::Impl_ = ImageElementDraw::New1();
+}
+
+static void ImageElementDraw_build(uType* type)
+{
+    ::STRINGS[19] = uString::Const("Invalid enum value");
+    ::STRINGS[20] = uString::Const("resampleMode");
+    ::TYPES[35] = ::g::Fuse::IRenderViewport_typeof();
+    ::TYPES[36] = ::g::Uno::Float2_typeof()->Array();
+    type->SetFields(0,
+        ::g::Uno::Runtime::Implementation::ShaderBackends::OpenGL::GLDrawCall_typeof(), offsetof(::g::Fuse::Controls::ImageElementDraw, _draw_eecabc7e), 0,
+        ::g::Uno::Float4x4_typeof(), offsetof(::g::Fuse::Controls::ImageElementDraw, Draw_LocalTransform_eecabc7e_4_9_2), 0,
+        ::g::Uno::Float4x4_typeof(), offsetof(::g::Fuse::Controls::ImageElementDraw, Draw_LocalTransform_eecabc7e_4_9_3), 0,
+        ::g::Uno::Graphics::VertexBuffer_typeof(), offsetof(::g::Fuse::Controls::ImageElementDraw, Draw_VertexData_eecabc7e_7_2_1), 0,
+        ImageElementDraw_typeof(), (uintptr_t)&::g::Fuse::Controls::ImageElementDraw::Impl_, uFieldFlagsStatic);
+}
+
+uType* ImageElementDraw_typeof()
+{
+    static uSStrong<uType*> type;
+    if (type != NULL) return type;
+
+    uTypeOptions options;
+    options.FieldCount = 5;
+    options.ObjectSize = sizeof(ImageElementDraw);
+    options.TypeSize = sizeof(uType);
+    type = uClassType::New("Fuse.Controls.ImageElementDraw", options);
+    type->fp_build_ = ImageElementDraw_build;
+    type->fp_ctor_ = (void*)ImageElementDraw__New1_fn;
+    type->fp_cctor_ = ImageElementDraw__cctor__fn;
+    return type;
+}
+
+// public generated ImageElementDraw() :709
+void ImageElementDraw__ctor__fn(ImageElementDraw* __this)
+{
+    __this->ctor_();
+}
+
+// public void Draw(Fuse.DrawContext dc, Fuse.Visual element, float2 offset, float2 size, float2 uvPosition, float2 uvSize, texture2D tex, Fuse.Drawing.ResampleMode resampleMode, float4 Color) :724
+void ImageElementDraw__Draw_fn(ImageElementDraw* __this, ::g::Fuse::DrawContext* dc, ::g::Fuse::Visual* element, ::g::Uno::Float2* offset, ::g::Uno::Float2* size, ::g::Uno::Float2* uvPosition, ::g::Uno::Float2* uvSize, ::g::Uno::Graphics::Texture2D* tex, int* resampleMode, ::g::Uno::Float4* Color)
+{
+    __this->Draw(dc, element, *offset, *size, *uvPosition, *uvSize, tex, *resampleMode, *Color);
+}
+
+// private Uno.Graphics.SamplerState GetSamplerState(Fuse.Drawing.ResampleMode resampleMode) :712
+void ImageElementDraw__GetSamplerState_fn(ImageElementDraw* __this, int* resampleMode, ::g::Uno::Graphics::SamplerState* __retval)
+{
+    *__retval = __this->GetSamplerState(*resampleMode);
+}
+
+// private generated void init_DrawCalls() :709
+void ImageElementDraw__init_DrawCalls_fn(ImageElementDraw* __this)
+{
+    __this->init_DrawCalls();
+}
+
+// public generated ImageElementDraw New() :709
+void ImageElementDraw__New1_fn(ImageElementDraw** __retval)
+{
+    *__retval = ImageElementDraw::New1();
+}
+
+uSStrong<ImageElementDraw*> ImageElementDraw::Impl_;
+
+// public generated ImageElementDraw() [instance] :709
+void ImageElementDraw::ctor_()
+{
+    init_DrawCalls();
+}
+
+// public void Draw(Fuse.DrawContext dc, Fuse.Visual element, float2 offset, float2 size, float2 uvPosition, float2 uvSize, texture2D tex, Fuse.Drawing.ResampleMode resampleMode, float4 Color) [instance] :724
+void ImageElementDraw::Draw(::g::Fuse::DrawContext* dc, ::g::Fuse::Visual* element, ::g::Uno::Float2 offset, ::g::Uno::Float2 size, ::g::Uno::Float2 uvPosition, ::g::Uno::Float2 uvSize, ::g::Uno::Graphics::Texture2D* tex, int resampleMode, ::g::Uno::Float4 Color)
+{
+    ::g::Uno::Float4x4 LocalTransform_eecabc7e_4_9_4 = ::g::Uno::Matrix::Mul10(Draw_LocalTransform_eecabc7e_4_9_2, ::g::Uno::Matrix::Scaling1(size.X, size.Y, 1.0f), Draw_LocalTransform_eecabc7e_4_9_3, ::g::Uno::Matrix::Translation(offset.X, offset.Y, 0.0f));
+    _draw_eecabc7e.BlendEnabled(true);
+    _draw_eecabc7e.DepthTestEnabled(false);
+    _draw_eecabc7e.CullFace(uPtr(dc)->CullFace());
+    _draw_eecabc7e.BlendSrcRgb(2);
+    _draw_eecabc7e.BlendDstRgb(3);
+    _draw_eecabc7e.BlendDstAlpha(3);
+    _draw_eecabc7e.Use();
+    _draw_eecabc7e.Attrib1(0, 2, Draw_VertexData_eecabc7e_7_2_1, 8, 0);
+    _draw_eecabc7e.Uniform12(1, ::g::Fuse::IRenderViewport::ViewProjectionTransform(uInterface(uPtr(dc->Viewport()), ::TYPES[35/*Fuse.IRenderViewport*/])));
+    _draw_eecabc7e.Uniform2(2, uvSize);
+    _draw_eecabc7e.Uniform2(3, uvPosition);
+    _draw_eecabc7e.Uniform10(4, Color);
+    _draw_eecabc7e.Uniform12(5, (element != NULL) ? ::g::Uno::Matrix::Mul8(LocalTransform_eecabc7e_4_9_4, uPtr(element)->WorldTransform()) : LocalTransform_eecabc7e_4_9_4);
+    _draw_eecabc7e.Sampler3(6, tex, GetSamplerState(resampleMode));
+    _draw_eecabc7e.DrawArrays(6);
+}
+
+// private Uno.Graphics.SamplerState GetSamplerState(Fuse.Drawing.ResampleMode resampleMode) [instance] :712
+::g::Uno::Graphics::SamplerState ImageElementDraw::GetSamplerState(int resampleMode)
+{
+    switch (resampleMode)
+    {
+        case 0:
+            return ::g::Uno::Graphics::SamplerState__NearestClamp();
+        case 1:
+            return ::g::Uno::Graphics::SamplerState__LinearClamp();
+        case 2:
+            return ::g::Uno::Graphics::SamplerState__TrilinearClamp();
+        default:
+            U_THROW(::g::Uno::ArgumentException::New5(::STRINGS[19/*"Invalid enu...*/], ::STRINGS[20/*"resampleMode"*/]));
+    }
+}
+
+// private generated void init_DrawCalls() [instance] :709
+void ImageElementDraw::init_DrawCalls()
+{
+    Draw_VertexData_eecabc7e_7_2_1 = ::g::Uno::Graphics::VertexBuffer::New2(::g::Uno::Runtime::Implementation::Internal::BufferConverters::ToBuffer3(uArray::Init< ::g::Uno::Float2>(::TYPES[36/*float2[]*/], 6, ::g::Uno::Float2__New2(0.0f, 0.0f), ::g::Uno::Float2__New2(0.0f, 1.0f), ::g::Uno::Float2__New2(1.0f, 1.0f), ::g::Uno::Float2__New2(0.0f, 0.0f), ::g::Uno::Float2__New2(1.0f, 1.0f), ::g::Uno::Float2__New2(1.0f, 0.0f))), 0);
+    Draw_LocalTransform_eecabc7e_4_9_2 = ::g::Uno::Matrix::Translation(-::g::Uno::Float2__New1(0.0f).X, -::g::Uno::Float2__New1(0.0f).Y, 0.0f);
+    Draw_LocalTransform_eecabc7e_4_9_3 = ::g::Uno::Matrix::RotationZ(0.0f);
+    _draw_eecabc7e = ::g::Uno::Runtime::Implementation::ShaderBackends::OpenGL::GLDrawCall__New1(::g::FuseControlsPrimitives_bundle::ImageElementDraw7660063a());
+}
+
+// public generated ImageElementDraw New() [static] :709
+ImageElementDraw* ImageElementDraw::New1()
+{
+    ImageElementDraw* obj1 = (ImageElementDraw*)uNew(ImageElementDraw_typeof());
+    obj1->ctor_();
+    return obj1;
+}
+// }
+
+// /usr/local/share/uno/Packages/Fuse.Controls.Panels/0.39.3/$.uno
+// ---------------------------------------------------------------
+
 // public enum NativeViewHost.InitialState :1273
 uEnumType* NativeViewHost__InitialState_typeof()
 {
@@ -4402,7 +5298,7 @@ uInterfaceType* IWebView_typeof()
 // {
 static void JavaScriptCall_build(uType* type)
 {
-    ::TYPES[33] = ::g::Fuse::Controls::IWebView_typeof();
+    ::TYPES[37] = ::g::Fuse::Controls::IWebView_typeof();
     type->SetInterfaces(
         ::g::Fuse::Controls::BufferedWebViewCall_typeof(), offsetof(JavaScriptCall_type, interface0));
     type->SetFields(0,
@@ -4455,9 +5351,9 @@ void JavaScriptCall::ctor_(uString* script, uDelegate* handler)
 void JavaScriptCall::Apply(uObject* wv)
 {
     if (::g::Uno::Delegate::op_Inequality(Handler, NULL))
-        ::g::Fuse::Controls::IWebView::Eval1(uInterface(uPtr(wv), ::TYPES[33/*Fuse.Controls.IWebView*/]), Script, Handler);
+        ::g::Fuse::Controls::IWebView::Eval1(uInterface(uPtr(wv), ::TYPES[37/*Fuse.Controls.IWebView*/]), Script, Handler);
     else 
-        ::g::Fuse::Controls::IWebView::Eval(uInterface(uPtr(wv), ::TYPES[33/*Fuse.Controls.IWebView*/]), Script);
+        ::g::Fuse::Controls::IWebView::Eval(uInterface(uPtr(wv), ::TYPES[37/*Fuse.Controls.IWebView*/]), Script);
 }
 
 // public JavaScriptCall New(string script, Uno.Action<string> handler) [static] :404
@@ -4491,7 +5387,7 @@ static void LayoutControl_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface12));
-    type->SetFields(91,
+    type->SetFields(92,
         ::g::Fuse::Layouts::Layout_typeof(), offsetof(::g::Fuse::Controls::LayoutControl, _layout), 0);
 }
 
@@ -4502,7 +5398,7 @@ static void LayoutControl_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::Control_typeof();
-    options.FieldCount = 92;
+    options.FieldCount = 93;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(LayoutControl);
     options.TypeSize = sizeof(::g::Fuse::Controls::Control_type);
@@ -4574,6 +5470,12 @@ void LayoutControl__GetContentSize_fn(LayoutControl* __this, ::g::Fuse::LayoutPa
         return *__retval = ::g::Uno::Math::Max3(b, uPtr(__this->Layout())->GetContentSize(__this->Children(), lp_)), void();
 
     return *__retval = b, void();
+}
+
+// public static Fuse.Elements.Element GetLayoutMaster(Fuse.Elements.Element elm) :895
+void LayoutControl__GetLayoutMaster_fn(::g::Fuse::Elements::Element* elm, ::g::Fuse::Elements::Element** __retval)
+{
+    *__retval = LayoutControl::GetLayoutMaster(elm);
 }
 
 // protected override sealed Fuse.LayoutDependent IsMarginBoxDependent(Fuse.Visual child) :976
@@ -4659,6 +5561,12 @@ void LayoutControl__OnUnrooted_fn(LayoutControl* __this)
     ::g::Fuse::Controls::Control__OnUnrooted_fn(__this);
 }
 
+// public static void SetLayoutMaster(Fuse.Elements.Element elm, Fuse.Elements.Element master) :878
+void LayoutControl__SetLayoutMaster_fn(::g::Fuse::Elements::Element* elm, ::g::Fuse::Elements::Element* master)
+{
+    LayoutControl::SetLayoutMaster(elm, master);
+}
+
 // public generated LayoutControl() [instance] :832
 void LayoutControl::ctor_5()
 {
@@ -4688,6 +5596,29 @@ void LayoutControl::Layout(::g::Fuse::Layouts::Layout* value)
         InvalidateLayout(2);
     }
 }
+
+// public static Fuse.Elements.Element GetLayoutMaster(Fuse.Elements.Element elm) [static] :895
+::g::Fuse::Elements::Element* LayoutControl::GetLayoutMaster(::g::Fuse::Elements::Element* elm)
+{
+    return ::g::Fuse::Elements::LayoutMasterBoxSizing::GetLayoutMaster(elm);
+}
+
+// public static void SetLayoutMaster(Fuse.Elements.Element elm, Fuse.Elements.Element master) [static] :878
+void LayoutControl::SetLayoutMaster(::g::Fuse::Elements::Element* elm, ::g::Fuse::Elements::Element* master)
+{
+    if (master == NULL)
+    {
+        uPtr(elm)->BoxSizing(0);
+        elm->LayoutRole(0);
+        ::g::Fuse::Elements::LayoutMasterBoxSizing::SetLayoutMaster(elm, NULL);
+    }
+    else 
+    {
+        uPtr(elm)->BoxSizing(3);
+        elm->LayoutRole(3);
+        ::g::Fuse::Elements::LayoutMasterBoxSizing::SetLayoutMaster(elm, master);
+    }
+}
 // }
 
 // /usr/local/share/uno/Packages/Fuse.Controls.WebView/0.39.3/$.uno
@@ -4697,7 +5628,7 @@ void LayoutControl::Layout(::g::Fuse::Layouts::Layout* value)
 // {
 static void LoadHtmlCall_build(uType* type)
 {
-    ::TYPES[33] = ::g::Fuse::Controls::IWebView_typeof();
+    ::TYPES[37] = ::g::Fuse::Controls::IWebView_typeof();
     type->SetInterfaces(
         ::g::Fuse::Controls::BufferedWebViewCall_typeof(), offsetof(LoadHtmlCall_type, interface0));
     type->SetFields(0,
@@ -4749,7 +5680,7 @@ void LoadHtmlCall::ctor_(uString* html1, uString* baseUrl1)
 // public void Apply(Fuse.Controls.IWebView wv) [instance] :393
 void LoadHtmlCall::Apply(uObject* wv)
 {
-    ::g::Fuse::Controls::IWebView::LoadHtml1(uInterface(uPtr(wv), ::TYPES[33/*Fuse.Controls.IWebView*/]), html, baseUrl);
+    ::g::Fuse::Controls::IWebView::LoadHtml1(uInterface(uPtr(wv), ::TYPES[37/*Fuse.Controls.IWebView*/]), html, baseUrl);
 }
 
 // public LoadHtmlCall New(string html, string baseUrl) [static] :388
@@ -4768,7 +5699,7 @@ LoadHtmlCall* LoadHtmlCall::New1(uString* html1, uString* baseUrl1)
 // {
 static void MobileTextEdit_build(uType* type)
 {
-    ::TYPES[34] = ::g::Fuse::Controls::Native::ITextEdit_typeof();
+    ::TYPES[38] = ::g::Fuse::Controls::Native::ITextEdit_typeof();
     ::TYPES[4] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof());
     ::TYPES[8] = ::g::Fuse::Controls::Native::IViewGroup_typeof();
     type->SetInterfaces(
@@ -4788,7 +5719,7 @@ static void MobileTextEdit_build(uType* type)
         ::g::Fuse::Triggers::IValue_typeof()->MakeType(::g::Uno::String_typeof()), offsetof(MobileTextEdit_type, interface13),
         ::g::Fuse::Controls::Native::ITextEditHost_typeof(), offsetof(MobileTextEdit_type, interface14),
         ::g::Fuse::Input::INotifyFocus_typeof(), offsetof(MobileTextEdit_type, interface15));
-    type->SetFields(101,
+    type->SetFields(102,
         ::g::Fuse::Controls::Native::ITextEdit_typeof(), offsetof(::g::Fuse::Controls::MobileTextEdit, _nativeEdit), 0,
         ::g::Fuse::Controls::NativeViewHost_typeof(), offsetof(::g::Fuse::Controls::MobileTextEdit, _nativeViewHost), 0);
 }
@@ -4800,7 +5731,7 @@ MobileTextEdit_type* MobileTextEdit_typeof()
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::TextEdit_typeof();
-    options.FieldCount = 103;
+    options.FieldCount = 104;
     options.InterfaceCount = 16;
     options.ObjectSize = sizeof(MobileTextEdit);
     options.TypeSize = sizeof(MobileTextEdit_type);
@@ -4928,14 +5859,14 @@ void MobileTextEdit__FuseInputINotifyFocusOnFocusGained_fn(MobileTextEdit* __thi
     __this->DisableRenderToTexture();
 
     if (__this->NativeEdit() != NULL)
-        ::g::Fuse::Controls::Native::ITextEdit::FocusGained(uInterface(uPtr(__this->NativeEdit()), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]));
+        ::g::Fuse::Controls::Native::ITextEdit::FocusGained(uInterface(uPtr(__this->NativeEdit()), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]));
 }
 
 // private void Fuse.Input.INotifyFocus.OnFocusLost() :1023
 void MobileTextEdit__FuseInputINotifyFocusOnFocusLost_fn(MobileTextEdit* __this)
 {
     if (__this->NativeEdit() != NULL)
-        ::g::Fuse::Controls::Native::ITextEdit::FocusLost(uInterface(uPtr(__this->NativeEdit()), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]));
+        ::g::Fuse::Controls::Native::ITextEdit::FocusLost(uInterface(uPtr(__this->NativeEdit()), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]));
 
     __this->EnabledRenderToTexture();
 }
@@ -4978,7 +5909,7 @@ void MobileTextEdit__OnActionStyleChanged_fn(MobileTextEdit* __this)
     uObject* edit = __this->GetITextEdit();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextEdit::ActionStyle(uInterface(uPtr(edit), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->ActionStyle());
+        ::g::Fuse::Controls::Native::ITextEdit::ActionStyle(uInterface(uPtr(edit), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->ActionStyle());
 }
 
 // protected override sealed void OnAutoCapitalizationHintChanged() :884
@@ -4988,7 +5919,7 @@ void MobileTextEdit__OnAutoCapitalizationHintChanged_fn(MobileTextEdit* __this)
     uObject* edit = __this->GetITextEdit();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextEdit::AutoCapitalizationHint(uInterface(uPtr(edit), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->AutoCapitalizationHint());
+        ::g::Fuse::Controls::Native::ITextEdit::AutoCapitalizationHint(uInterface(uPtr(edit), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->AutoCapitalizationHint());
 }
 
 // protected override sealed void OnAutoCorrectHintChanged() :877
@@ -4998,7 +5929,7 @@ void MobileTextEdit__OnAutoCorrectHintChanged_fn(MobileTextEdit* __this)
     uObject* edit = __this->GetITextEdit();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextEdit::AutoCorrectHint(uInterface(uPtr(edit), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->AutoCorrectHint());
+        ::g::Fuse::Controls::Native::ITextEdit::AutoCorrectHint(uInterface(uPtr(edit), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->AutoCorrectHint());
 }
 
 // protected override sealed void OnCaretColorChanged() :856
@@ -5008,7 +5939,7 @@ void MobileTextEdit__OnCaretColorChanged_fn(MobileTextEdit* __this)
     uObject* edit = __this->GetITextEdit();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextEdit::CaretColor(uInterface(uPtr(edit), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->CaretColor());
+        ::g::Fuse::Controls::Native::ITextEdit::CaretColor(uInterface(uPtr(edit), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->CaretColor());
 }
 
 // protected override sealed void OnInputHintChanged() :849
@@ -5018,7 +5949,7 @@ void MobileTextEdit__OnInputHintChanged_fn(MobileTextEdit* __this)
     uObject* edit = __this->GetITextEdit();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextEdit::InputHint(uInterface(uPtr(edit), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->InputHint());
+        ::g::Fuse::Controls::Native::ITextEdit::InputHint(uInterface(uPtr(edit), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->InputHint());
 }
 
 // protected override sealed void OnIsPasswordChanged() :835
@@ -5028,7 +5959,7 @@ void MobileTextEdit__OnIsPasswordChanged_fn(MobileTextEdit* __this)
     uObject* edit = __this->GetITextEdit();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextEdit::IsPassword(uInterface(uPtr(edit), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->IsPassword());
+        ::g::Fuse::Controls::Native::ITextEdit::IsPassword(uInterface(uPtr(edit), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->IsPassword());
 }
 
 // protected override sealed void OnIsReadOnlyChanged() :842
@@ -5038,7 +5969,7 @@ void MobileTextEdit__OnIsReadOnlyChanged_fn(MobileTextEdit* __this)
     uObject* edit = __this->GetITextEdit();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextEdit::IsReadOnly(uInterface(uPtr(edit), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->IsReadOnly());
+        ::g::Fuse::Controls::Native::ITextEdit::IsReadOnly(uInterface(uPtr(edit), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->IsReadOnly());
 }
 
 // protected override sealed void OnPlaceholderColorChanged() :902
@@ -5048,7 +5979,7 @@ void MobileTextEdit__OnPlaceholderColorChanged_fn(MobileTextEdit* __this)
     uObject* edit = __this->GetITextEdit();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextEdit::PlaceholderColor(uInterface(uPtr(edit), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->PlaceholderColor());
+        ::g::Fuse::Controls::Native::ITextEdit::PlaceholderColor(uInterface(uPtr(edit), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->PlaceholderColor());
 
     __this->InvalidateVisual();
     __this->InvalidateRenderer();
@@ -5061,7 +5992,7 @@ void MobileTextEdit__OnPlaceholderTextChanged_fn(MobileTextEdit* __this)
     uObject* edit = __this->GetITextEdit();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextEdit::PlaceholderText(uInterface(uPtr(edit), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->PlaceholderText());
+        ::g::Fuse::Controls::Native::ITextEdit::PlaceholderText(uInterface(uPtr(edit), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->PlaceholderText());
 
     __this->InvalidateVisual();
     __this->InvalidateLayout(2);
@@ -5078,9 +6009,9 @@ void MobileTextEdit__OnRooted_fn(MobileTextEdit* __this)
         if (__this->NativeView() == NULL)
             __this->NativeView(__this->CreateNativeView());
 
-        __this->_nativeViewHost = ::g::Fuse::Controls::NativeTextEditHost::New5(uAs<uObject*>(__this->NativeView(), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]));
+        __this->_nativeViewHost = ::g::Fuse::Controls::NativeTextEditHost::New5(uAs<uObject*>(__this->NativeView(), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]));
         ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(__this->Children()), ::TYPES[4/*Uno.Collections.ICollection<Fuse.Node>*/]), __this->_nativeViewHost);
-        __this->_nativeEdit = uAs<uObject*>(__this->NativeView(), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]);
+        __this->_nativeEdit = uAs<uObject*>(__this->NativeView(), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]);
         ::g::Fuse::Controls::Native::IViewGroup::Add(uInterface(uPtr(uPtr(__this->_nativeViewHost)->NativeViewGroup()), ::TYPES[8/*Fuse.Controls.Native.IViewGroup*/]), __this->_nativeEdit);
         uPtr(__this->_nativeViewHost)->RenderToTexture(true);
         __this->PushPropertiesToNativeView();
@@ -5095,7 +6026,7 @@ void MobileTextEdit__OnSelectionColorChanged_fn(MobileTextEdit* __this)
     uObject* edit = __this->GetITextEdit();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextEdit::SelectionColor(uInterface(uPtr(edit), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->SelectionColor());
+        ::g::Fuse::Controls::Native::ITextEdit::SelectionColor(uInterface(uPtr(edit), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->SelectionColor());
 }
 
 // protected override sealed void OnUnrooted() :970
@@ -5126,17 +6057,17 @@ void MobileTextEdit__OnValueChanged_fn(MobileTextEdit* __this, uObject* origin)
 void MobileTextEdit__PushPropertiesToNativeView_fn(MobileTextEdit* __this)
 {
     ::g::Fuse::Controls::TextControl__PushPropertiesToNativeView_fn(__this);
-    uObject* tv = uAs<uObject*>(__this->NativeView(), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]);
-    ::g::Fuse::Controls::Native::ITextEdit::IsPassword(uInterface(uPtr(tv), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->IsPassword());
-    ::g::Fuse::Controls::Native::ITextEdit::IsReadOnly(uInterface(tv, ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->IsReadOnly());
-    ::g::Fuse::Controls::Native::ITextEdit::InputHint(uInterface(tv, ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->InputHint());
-    ::g::Fuse::Controls::Native::ITextEdit::CaretColor(uInterface(tv, ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->CaretColor());
-    ::g::Fuse::Controls::Native::ITextEdit::SelectionColor(uInterface(tv, ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->SelectionColor());
-    ::g::Fuse::Controls::Native::ITextEdit::ActionStyle(uInterface(tv, ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->ActionStyle());
-    ::g::Fuse::Controls::Native::ITextEdit::AutoCorrectHint(uInterface(tv, ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->AutoCorrectHint());
-    ::g::Fuse::Controls::Native::ITextEdit::AutoCapitalizationHint(uInterface(tv, ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->AutoCapitalizationHint());
-    ::g::Fuse::Controls::Native::ITextEdit::PlaceholderText(uInterface(tv, ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->PlaceholderText());
-    ::g::Fuse::Controls::Native::ITextEdit::PlaceholderColor(uInterface(tv, ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]), __this->PlaceholderColor());
+    uObject* tv = uAs<uObject*>(__this->NativeView(), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]);
+    ::g::Fuse::Controls::Native::ITextEdit::IsPassword(uInterface(uPtr(tv), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->IsPassword());
+    ::g::Fuse::Controls::Native::ITextEdit::IsReadOnly(uInterface(tv, ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->IsReadOnly());
+    ::g::Fuse::Controls::Native::ITextEdit::InputHint(uInterface(tv, ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->InputHint());
+    ::g::Fuse::Controls::Native::ITextEdit::CaretColor(uInterface(tv, ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->CaretColor());
+    ::g::Fuse::Controls::Native::ITextEdit::SelectionColor(uInterface(tv, ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->SelectionColor());
+    ::g::Fuse::Controls::Native::ITextEdit::ActionStyle(uInterface(tv, ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->ActionStyle());
+    ::g::Fuse::Controls::Native::ITextEdit::AutoCorrectHint(uInterface(tv, ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->AutoCorrectHint());
+    ::g::Fuse::Controls::Native::ITextEdit::AutoCapitalizationHint(uInterface(tv, ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->AutoCapitalizationHint());
+    ::g::Fuse::Controls::Native::ITextEdit::PlaceholderText(uInterface(tv, ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->PlaceholderText());
+    ::g::Fuse::Controls::Native::ITextEdit::PlaceholderColor(uInterface(tv, ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]), __this->PlaceholderColor());
 }
 
 // internal override sealed string get_RenderValue() :935
@@ -5183,7 +6114,7 @@ void MobileTextEdit::EnabledRenderToTexture()
 // private Fuse.Controls.Native.ITextEdit GetITextEdit() [instance] :814
 uObject* MobileTextEdit::GetITextEdit()
 {
-    return uAs<uObject*>(NativeView(), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]);
+    return uAs<uObject*>(NativeView(), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]);
 }
 
 // private void InvalidateNativeViewHost() [instance] :988
@@ -5196,7 +6127,7 @@ void MobileTextEdit::InvalidateNativeViewHost()
 // private Fuse.Controls.Native.ITextEdit get_NativeEdit() [instance] :943
 uObject* MobileTextEdit::NativeEdit()
 {
-    return uAs<uObject*>(NativeView(), ::TYPES[34/*Fuse.Controls.Native.ITextEdit*/]);
+    return uAs<uObject*>(NativeView(), ::TYPES[38/*Fuse.Controls.Native.ITextEdit*/]);
 }
 
 // public MobileTextEdit New(bool multiline) [static] :927
@@ -5229,7 +6160,7 @@ static void NativeTextEditHost_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::NativeViewHost_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::NativeViewHost_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::NativeViewHost_type, interface12));
-    type->SetFields(97,
+    type->SetFields(98,
         ::g::Fuse::Controls::Native::IOffscreenRenderer_typeof(), offsetof(::g::Fuse::Controls::NativeTextEditHost, _renderer1), 0,
         ::g::Fuse::Controls::Native::ITextEdit_typeof(), offsetof(::g::Fuse::Controls::NativeTextEditHost, _textEdit), 0);
 }
@@ -5241,7 +6172,7 @@ static void NativeTextEditHost_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::NativeViewHost_typeof();
-    options.FieldCount = 99;
+    options.FieldCount = 100;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(NativeTextEditHost);
     options.TypeSize = sizeof(::g::Fuse::Controls::NativeViewHost_type);
@@ -5330,9 +6261,9 @@ NativeTextEditHost* NativeTextEditHost::New5(uObject* textEdit)
 // {
 static void NativeViewHost_build(uType* type)
 {
-    ::TYPES[35] = ::g::Fuse::Controls::Native::INativeViewRenderer_typeof();
+    ::TYPES[39] = ::g::Fuse::Controls::Native::INativeViewRenderer_typeof();
     ::TYPES[11] = ::g::Fuse::ICommonViewport_typeof();
-    ::TYPES[36] = ::g::Fuse::Controls::GraphicsView_typeof();
+    ::TYPES[40] = ::g::Fuse::Controls::GraphicsView_typeof();
     ::TYPES[8] = ::g::Fuse::Controls::Native::IViewGroup_typeof();
     ::TYPES[9] = ::g::Uno::IDisposable_typeof();
     type->SetInterfaces(
@@ -5349,7 +6280,7 @@ static void NativeViewHost_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(NativeViewHost_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(NativeViewHost_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(NativeViewHost_type, interface12));
-    type->SetFields(92,
+    type->SetFields(93,
         ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Controls::NativeViewHost, _draw), 0,
         ::g::Fuse::Controls::GraphicsView_typeof(), offsetof(::g::Fuse::Controls::NativeViewHost, _lastGraphicsView), 0,
         ::g::Fuse::Controls::Native::IOffscreenRenderer_typeof(), offsetof(::g::Fuse::Controls::NativeViewHost, _renderer), 0,
@@ -5364,7 +6295,7 @@ NativeViewHost_type* NativeViewHost_typeof()
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::LayoutControl_typeof();
-    options.FieldCount = 97;
+    options.FieldCount = 98;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(NativeViewHost);
     options.TypeSize = sizeof(NativeViewHost_type);
@@ -5449,7 +6380,7 @@ void NativeViewHost__DrawWithChildren_fn(NativeViewHost* __this, ::g::Fuse::Draw
     else  if (__this->VisualContext() == 2)
     {
         if (__this->_draw)
-            ::g::Fuse::Controls::Native::INativeViewRenderer::Draw(uInterface(uPtr(__this->Renderer()), ::TYPES[35/*Fuse.Controls.Native.INativeViewRenderer*/]), uPtr(dc)->GetLocalToClipTransform(__this), __this->ActualPosition(), __this->ActualSize(), ::g::Fuse::ICommonViewport::PixelsPerPoint(uInterface(uPtr(__this->Viewport()), ::TYPES[11/*Fuse.ICommonViewport*/])));
+            ::g::Fuse::Controls::Native::INativeViewRenderer::Draw(uInterface(uPtr(__this->Renderer()), ::TYPES[39/*Fuse.Controls.Native.INativeViewRenderer*/]), uPtr(dc)->GetLocalToClipTransform(__this), __this->ActualPosition(), __this->ActualSize(), ::g::Fuse::ICommonViewport::PixelsPerPoint(uInterface(uPtr(__this->Viewport()), ::TYPES[11/*Fuse.ICommonViewport*/])));
     }
 }
 
@@ -5492,7 +6423,7 @@ void NativeViewHost__OnInvalidateVisual_fn(NativeViewHost* __this)
     uObject* r = __this->Renderer();
 
     if (r != NULL)
-        ::g::Fuse::Controls::Native::INativeViewRenderer::Invalidate(uInterface(uPtr(r), ::TYPES[35/*Fuse.Controls.Native.INativeViewRenderer*/]));
+        ::g::Fuse::Controls::Native::INativeViewRenderer::Invalidate(uInterface(uPtr(r), ::TYPES[39/*Fuse.Controls.Native.INativeViewRenderer*/]));
 }
 
 // protected override sealed void OnInvalidateWorldTransform() :1543
@@ -5568,7 +6499,7 @@ void NativeViewHost::ctor_7(int initialState)
 ::g::Fuse::Controls::GraphicsView* NativeViewHost::FindGraphicsView(::g::Fuse::Visual* visual)
 {
     ::g::Fuse::Controls::GraphicsView* ind1;
-    return (visual != NULL) ? (ind1 = uAs< ::g::Fuse::Controls::GraphicsView*>(visual, ::TYPES[36/*Fuse.Controls.GraphicsView*/]), (ind1 != NULL) ? ind1 : (::g::Fuse::Controls::GraphicsView*)FindGraphicsView(uPtr(visual)->Parent())) : NULL;
+    return (visual != NULL) ? (ind1 = uAs< ::g::Fuse::Controls::GraphicsView*>(visual, ::TYPES[40/*Fuse.Controls.GraphicsView*/]), (ind1 != NULL) ? ind1 : (::g::Fuse::Controls::GraphicsView*)FindGraphicsView(uPtr(visual)->Parent())) : NULL;
 }
 
 // private Fuse.Controls.GraphicsView get_GraphicsViewAncestor() [instance] :1467
@@ -5626,10 +6557,10 @@ static void NavigationControl__cctor_4_fn(uType* __type)
 static void NavigationControl_build(uType* type)
 {
     ::TYPES[4] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof());
-    ::TYPES[37] = NavigationControl__PageData_typeof();
+    ::TYPES[41] = NavigationControl__PageData_typeof();
     ::TYPES[6] = ::g::Fuse::Elements::Element_typeof();
     ::TYPES[23] = ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Node_typeof());
-    ::TYPES[38] = ::g::Fuse::Navigation::NavigationHandler_typeof();
+    ::TYPES[42] = ::g::Fuse::Navigation::NavigationHandler_typeof();
     type->SetInterfaces(
         ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(NavigationControl_type, interface0),
         ::g::Fuse::Scripting::IScriptObject_typeof(), offsetof(NavigationControl_type, interface1),
@@ -5646,7 +6577,7 @@ static void NavigationControl_build(uType* type)
         ::g::Fuse::Animations::IResize_typeof(), offsetof(NavigationControl_type, interface12),
         ::g::Fuse::Navigation::INavigation_typeof(), offsetof(NavigationControl_type, interface13),
         ::g::Fuse::Navigation::IBaseNavigation_typeof(), offsetof(NavigationControl_type, interface14));
-    type->SetFields(92,
+    type->SetFields(93,
         ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Controls::NavigationControl, _isRouterOutlet), 0,
         ::g::Fuse::Navigation::VisualNavigation_typeof(), offsetof(::g::Fuse::Controls::NavigationControl, _navigation), 0,
         ::g::Fuse::Controls::NavigationControlTransition_typeof(), offsetof(::g::Fuse::Controls::NavigationControl, _transition), 0,
@@ -5661,7 +6592,7 @@ NavigationControl_type* NavigationControl_typeof()
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::Panel_typeof();
-    options.FieldCount = 97;
+    options.FieldCount = 98;
     options.InterfaceCount = 15;
     options.ObjectSize = sizeof(NavigationControl);
     options.TypeSize = sizeof(NavigationControl_type);
@@ -5874,7 +6805,7 @@ void NavigationControl__OnRooted_fn(NavigationControl* __this)
             __this->UpdateChild(c);
     }
 
-    uPtr(__this->Navigation())->add_PageProgressChanged(uDelegate::New(::TYPES[38/*Fuse.Navigation.NavigationHandler*/], (void*)NavigationControl__OnPageProgressChanged_fn, __this));
+    uPtr(__this->Navigation())->add_PageProgressChanged(uDelegate::New(::TYPES[42/*Fuse.Navigation.NavigationHandler*/], (void*)NavigationControl__OnPageProgressChanged_fn, __this));
 }
 
 // protected override sealed void OnUnrooted() :457
@@ -5882,7 +6813,7 @@ void NavigationControl__OnUnrooted_fn(NavigationControl* __this)
 {
     ::g::Fuse::Node* ret6;
     ::g::Fuse::Controls::LayoutControl__OnUnrooted_fn(__this);
-    uPtr(__this->Navigation())->remove_PageProgressChanged(uDelegate::New(::TYPES[38/*Fuse.Navigation.NavigationHandler*/], (void*)NavigationControl__OnPageProgressChanged_fn, __this));
+    uPtr(__this->Navigation())->remove_PageProgressChanged(uDelegate::New(::TYPES[42/*Fuse.Navigation.NavigationHandler*/], (void*)NavigationControl__OnPageProgressChanged_fn, __this));
 
     for (int i = 0; i < ::g::Uno::Collections::ICollection::Count(uInterface(uPtr(__this->Children()), ::TYPES[4/*Uno.Collections.ICollection<Fuse.Node>*/])); ++i)
     {
@@ -6190,7 +7121,7 @@ NavigationControl__PageData* NavigationControl::GetPageData(::g::Fuse::Elements:
     uObject* v;
 
     if (uPtr(uPtr(elm)->Properties())->TryGet(NavigationControl::_pageDataProperty(), &v))
-        return uCast<NavigationControl__PageData*>(v, ::TYPES[37/*Fuse.Controls.NavigationControl.PageData*/]);
+        return uCast<NavigationControl__PageData*>(v, ::TYPES[41/*Fuse.Controls.NavigationControl.PageData*/]);
 
     if (!create)
         return NULL;
@@ -6279,22 +7210,22 @@ static void Navigator__cctor_5_fn(uType* __type)
 static void Navigator_build(uType* type)
 {
     ::STRINGS[16] = uString::Const("");
-    ::STRINGS[18] = uString::Const("Can not navigate to '");
-    ::STRINGS[19] = uString::Const("', not found!");
+    ::STRINGS[21] = uString::Const("Can not navigate to '");
+    ::STRINGS[22] = uString::Const("', not found!");
     ::STRINGS[13] = uString::Const("/usr/local/share/uno/Packages/Fuse.Controls.Navigation/0.39.3/$.uno");
-    ::STRINGS[20] = uString::Const("Fuse.Navigation.IRouterOutlet.Goto");
-    ::STRINGS[21] = uString::Const("\"\"");
-    ::STRINGS[22] = uString::Const("{}");
-    ::STRINGS[23] = uString::Const("null");
-    ::TYPES[39] = ::g::Uno::Collections::Dictionary_typeof()->MakeType(::g::Uno::String_typeof(), ::g::Uno::Collections::List_typeof()->MakeType(::g::Fuse::Visual_typeof()));
-    ::TYPES[40] = ::g::Fuse::Animations::Change_typeof()->MakeType(::g::Uno::Float_typeof());
+    ::STRINGS[23] = uString::Const("Fuse.Navigation.IRouterOutlet.Goto");
+    ::STRINGS[24] = uString::Const("\"\"");
+    ::STRINGS[25] = uString::Const("{}");
+    ::STRINGS[26] = uString::Const("null");
+    ::TYPES[43] = ::g::Uno::Collections::Dictionary_typeof()->MakeType(::g::Uno::String_typeof(), ::g::Uno::Collections::List_typeof()->MakeType(::g::Fuse::Visual_typeof()));
+    ::TYPES[44] = ::g::Fuse::Animations::Change_typeof()->MakeType(::g::Uno::Float_typeof());
     ::TYPES[27] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Animations::Animator_typeof());
     ::TYPES[5] = ::g::Fuse::Visual_typeof();
-    ::TYPES[41] = ::g::Uno::Collections::List_typeof()->MakeType(::g::Fuse::Visual_typeof());
+    ::TYPES[45] = ::g::Uno::Collections::List_typeof()->MakeType(::g::Fuse::Visual_typeof());
     ::TYPES[4] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof());
     ::TYPES[23] = ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Node_typeof());
-    ::TYPES[42] = ::g::Fuse::Navigation::IRouterOutlet_typeof();
-    ::TYPES[43] = ::g::Fuse::Navigation::ExplicitNavigation_typeof();
+    ::TYPES[46] = ::g::Fuse::Navigation::IRouterOutlet_typeof();
+    ::TYPES[47] = ::g::Fuse::Navigation::ExplicitNavigation_typeof();
     type->SetInterfaces(
         ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(Navigator_type, interface0),
         ::g::Fuse::Scripting::IScriptObject_typeof(), offsetof(Navigator_type, interface1),
@@ -6312,7 +7243,7 @@ static void Navigator_build(uType* type)
         ::g::Fuse::Navigation::INavigation_typeof(), offsetof(Navigator_type, interface13),
         ::g::Fuse::Navigation::IBaseNavigation_typeof(), offsetof(Navigator_type, interface14),
         ::g::Fuse::Navigation::IRouterOutlet_typeof(), offsetof(Navigator_type, interface15));
-    type->SetFields(95,
+    type->SetFields(96,
         ::g::Uno::String_typeof(), offsetof(::g::Fuse::Controls::Navigator, _currentParameter), 0,
         ::g::Uno::String_typeof(), offsetof(::g::Fuse::Controls::Navigator, _currentPath), 0,
         ::g::Fuse::Visual_typeof(), offsetof(::g::Fuse::Controls::Navigator, _currentVisual), 0,
@@ -6333,7 +7264,7 @@ Navigator_type* Navigator_typeof()
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::NavigationControl_typeof();
-    options.FieldCount = 106;
+    options.FieldCount = 107;
     options.InterfaceCount = 16;
     options.ObjectSize = sizeof(Navigator);
     options.TypeSize = sizeof(Navigator_type);
@@ -6415,7 +7346,7 @@ void Navigator__CreateTriggers_fn(Navigator* __this, ::g::Fuse::Elements::Elemen
             pd->Exit = ::g::Fuse::Controls::NavigationControlBit::NavExitHorizontal::New3();
             ::g::Fuse::Controls::NavigationControlBit::NavRemoveHorizontal* q = ::g::Fuse::Controls::NavigationControlBit::NavRemoveHorizontal::New3();
             ::g::Fuse::Controls::Element_Opacity_Property* t = ::g::Fuse::Controls::Element_Opacity_Property::New1(c);
-            ::g::Fuse::Animations::Change* fade = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[40/*Fuse.Animations.Change<float>*/], t);
+            ::g::Fuse::Animations::Change* fade = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[44/*Fuse.Animations.Change<float>*/], t);
             fade->Duration(0.30000001192092896);
             ::g::Fuse::Animations::Change__set_Value_fn(fade, uCRef(0.0f));
             ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(q->Animators()), ::TYPES[27/*Uno.Collections.ICollection<Fuse.Animations.Animator>*/]), fade);
@@ -6508,7 +7439,7 @@ void Navigator__FuseNavigationIRouterOutletGoto_fn(Navigator* __this, uString* p
 
             if (f == NULL)
             {
-                ::g::Fuse::Diagnostics::InternalError(::g::Uno::String::op_Addition2(::g::Uno::String::op_Addition2(::STRINGS[18/*"Can not nav...*/], path), ::STRINGS[19/*"', not found!"*/]), __this, ::STRINGS[13/*"/usr/local/...*/], 886, ::STRINGS[20/*"Fuse.Naviga...*/]);
+                ::g::Fuse::Diagnostics::InternalError(::g::Uno::String::op_Addition2(::g::Uno::String::op_Addition2(::STRINGS[21/*"Can not nav...*/], path), ::STRINGS[22/*"', not found!"*/]), __this, ::STRINGS[13/*"/usr/local/...*/], 886, ::STRINGS[23/*"Fuse.Naviga...*/]);
                 return *__retval = 3, void();
             }
 
@@ -6517,7 +7448,7 @@ void Navigator__FuseNavigationIRouterOutletGoto_fn(Navigator* __this, uString* p
 
             if (v == NULL)
             {
-                ::g::Fuse::Diagnostics::UserError(::g::Uno::String::op_Addition2(::g::Uno::String::op_Addition2(::STRINGS[18/*"Can not nav...*/], path), ::STRINGS[19/*"', not found!"*/]), __this, ::STRINGS[13/*"/usr/local/...*/], 894, ::STRINGS[20/*"Fuse.Naviga...*/]);
+                ::g::Fuse::Diagnostics::UserError(::g::Uno::String::op_Addition2(::g::Uno::String::op_Addition2(::STRINGS[21/*"Can not nav...*/], path), ::STRINGS[22/*"', not found!"*/]), __this, ::STRINGS[13/*"/usr/local/...*/], 894, ::STRINGS[23/*"Fuse.Naviga...*/]);
                 return *__retval = 3, void();
             }
         }
@@ -6605,7 +7536,7 @@ void Navigator__OnRooted_fn(Navigator* __this)
     ::g::Fuse::Controls::NavigationControl__OnRooted_fn(__this);
 
     if (::g::Uno::String::op_Inequality(__this->DefaultTemplate(), NULL))
-        ::g::Fuse::Navigation::IRouterOutlet::Goto(uInterface(uPtr(uAs<uObject*>(__this, ::TYPES[42/*Fuse.Navigation.IRouterOutlet*/])), ::TYPES[42/*Fuse.Navigation.IRouterOutlet*/]), __this->DefaultTemplate(), NULL, 2, 0);
+        ::g::Fuse::Navigation::IRouterOutlet::Goto(uInterface(uPtr(uAs<uObject*>(__this, ::TYPES[46/*Fuse.Navigation.IRouterOutlet*/])), ::TYPES[46/*Fuse.Navigation.IRouterOutlet*/]), __this->DefaultTemplate(), NULL, 2, 0);
     else 
     {
         __this->_currentVisual = NULL;
@@ -6652,7 +7583,7 @@ uSStrong< ::g::Fuse::PropertyHandle*> Navigator::_propReuse_;
 void Navigator::ctor_8()
 {
     _gotoState = 1;
-    _pathCache = ((::g::Uno::Collections::Dictionary*)::g::Uno::Collections::Dictionary::New1(::TYPES[39/*Uno.Collections.Dictionary<string, Uno.Collections.List<Fuse.Visual>>*/]));
+    _pathCache = ((::g::Uno::Collections::Dictionary*)::g::Uno::Collections::Dictionary::New1(::TYPES[43/*Uno.Collections.Dictionary<string, Uno.Collections.List<Fuse.Visual>>*/]));
     _reuse = 4;
     _remove = 2;
     ctor_7();
@@ -6690,7 +7621,7 @@ void Navigator::DefaultTemplate(uString* value)
     if ((::g::Uno::Collections::Dictionary__ContainsKey_fn(uPtr(_pathCache), path, &ret5), ret5))
         return (::g::Uno::Collections::Dictionary__get_Item_fn(uPtr(_pathCache), path, &ret6), ret6);
 
-    ::g::Uno::Collections::List* v = (::g::Uno::Collections::List*)::g::Uno::Collections::List::New1(::TYPES[41/*Uno.Collections.List<Fuse.Visual>*/]);
+    ::g::Uno::Collections::List* v = (::g::Uno::Collections::List*)::g::Uno::Collections::List::New1(::TYPES[45/*Uno.Collections.List<Fuse.Visual>*/]);
     ::g::Uno::Collections::Dictionary__set_Item_fn(uPtr(_pathCache), path, v);
     return v;
 }
@@ -6763,7 +7694,7 @@ void Navigator::GotoState(int value)
 // private bool IsEmptyParameter(string a) [instance] :806
 bool Navigator::IsEmptyParameter(uString* a)
 {
-    return (((::g::Uno::String::op_Equality(a, NULL) || ::g::Uno::String::op_Equality(a, ::STRINGS[16/*""*/])) || ::g::Uno::String::op_Equality(a, ::STRINGS[21/*"\"\""*/])) || ::g::Uno::String::op_Equality(a, ::STRINGS[22/*"{}"*/])) || ::g::Uno::String::op_Equality(a, ::STRINGS[23/*"null"*/]);
+    return (((::g::Uno::String::op_Equality(a, NULL) || ::g::Uno::String::op_Equality(a, ::STRINGS[16/*""*/])) || ::g::Uno::String::op_Equality(a, ::STRINGS[24/*"\"\""*/])) || ::g::Uno::String::op_Equality(a, ::STRINGS[25/*"{}"*/])) || ::g::Uno::String::op_Equality(a, ::STRINGS[26/*"null"*/]);
 }
 
 // private bool IsRemoveLevel(Fuse.Visual elm, Fuse.Controls.RemoveType type) [instance] :1078
@@ -6791,7 +7722,7 @@ bool Navigator::IsReuseLevel(::g::Fuse::Visual* elm, int type)
 // private new Fuse.Navigation.ExplicitNavigation get_Navigation() [instance] :769
 ::g::Fuse::Navigation::ExplicitNavigation* Navigator::Navigation1()
 {
-    return uAs< ::g::Fuse::Navigation::ExplicitNavigation*>(Navigation(), ::TYPES[43/*Fuse.Navigation.ExplicitNavigation*/]);
+    return uAs< ::g::Fuse::Navigation::ExplicitNavigation*>(Navigation(), ::TYPES[47/*Fuse.Navigation.ExplicitNavigation*/]);
 }
 
 // internal void ReleasePage(Fuse.Visual v) [instance] :1087
@@ -6881,7 +7812,7 @@ uEnumType* NavigatorGotoState_typeof()
 // {
 static void Page_build(uType* type)
 {
-    ::STRINGS[24] = uString::Const("Title");
+    ::STRINGS[27] = uString::Const("Title");
     type->SetInterfaces(
         ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(::g::Fuse::Controls::Control_type, interface0),
         ::g::Fuse::Scripting::IScriptObject_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface1),
@@ -6896,7 +7827,7 @@ static void Page_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface12));
-    type->SetFields(92);
+    type->SetFields(93);
 }
 
 ::g::Fuse::Controls::Control_type* Page_typeof()
@@ -6906,7 +7837,7 @@ static void Page_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::Panel_typeof();
-    options.FieldCount = 92;
+    options.FieldCount = 93;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(Page);
     options.TypeSize = sizeof(::g::Fuse::Controls::Control_type);
@@ -6965,31 +7896,31 @@ void Page::ctor_7()
 // static PageControl() :1284
 static void PageControl__cctor_5_fn(uType* __type)
 {
-    PageControl::ActiveIndexName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[25/*"ActiveIndex"*/]);
-    ::g::Fuse::Scripting::ScriptClass::Register(PageControl_typeof(), uArray::Init< ::g::Fuse::Scripting::ScriptMember*>(::TYPES[19/*Fuse.Scripting.ScriptMember[]*/], 1, (::g::Fuse::Scripting::ScriptMethod1*)::g::Fuse::Scripting::ScriptMethod1::New1(::TYPES[44/*Fuse.Scripting.ScriptMethod<Fuse.Controls.PageControl>*/], ::STRINGS[26/*"goto"*/], uDelegate::New(::TYPES[45/*Uno.Action<Fuse.Scripting.Context, Fuse.Controls.PageControl, object[]>*/], (void*)PageControl__gotoPage_fn), 2)));
+    PageControl::ActiveIndexName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[28/*"ActiveIndex"*/]);
+    ::g::Fuse::Scripting::ScriptClass::Register(PageControl_typeof(), uArray::Init< ::g::Fuse::Scripting::ScriptMember*>(::TYPES[19/*Fuse.Scripting.ScriptMember[]*/], 1, (::g::Fuse::Scripting::ScriptMethod1*)::g::Fuse::Scripting::ScriptMethod1::New1(::TYPES[48/*Fuse.Scripting.ScriptMethod<Fuse.Controls.PageControl>*/], ::STRINGS[29/*"goto"*/], uDelegate::New(::TYPES[49/*Uno.Action<Fuse.Scripting.Context, Fuse.Controls.PageControl, object[]>*/], (void*)PageControl__gotoPage_fn), 2)));
 }
 
 static void PageControl_build(uType* type)
 {
-    ::STRINGS[25] = uString::Const("ActiveIndex");
-    ::STRINGS[26] = uString::Const("goto");
+    ::STRINGS[28] = uString::Const("ActiveIndex");
+    ::STRINGS[29] = uString::Const("goto");
     ::STRINGS[16] = uString::Const("");
-    ::STRINGS[18] = uString::Const("Can not navigate to '");
-    ::STRINGS[19] = uString::Const("', not found!");
+    ::STRINGS[21] = uString::Const("Can not navigate to '");
+    ::STRINGS[22] = uString::Const("', not found!");
     ::STRINGS[13] = uString::Const("/usr/local/share/uno/Packages/Fuse.Controls.Navigation/0.39.3/$.uno");
-    ::STRINGS[20] = uString::Const("Fuse.Navigation.IRouterOutlet.Goto");
-    ::STRINGS[27] = uString::Const("PageControl.goto() : Argument must be a node object");
-    ::STRINGS[28] = uString::Const("gotoPage");
+    ::STRINGS[23] = uString::Const("Fuse.Navigation.IRouterOutlet.Goto");
+    ::STRINGS[30] = uString::Const("PageControl.goto() : Argument must be a node object");
+    ::STRINGS[31] = uString::Const("gotoPage");
     ::TYPES[18] = ::g::Uno::Type_typeof();
     ::TYPES[19] = ::g::Fuse::Scripting::ScriptMember_typeof()->Array();
-    ::TYPES[44] = ::g::Fuse::Scripting::ScriptMethod1_typeof()->MakeType(PageControl_typeof());
-    ::TYPES[45] = ::g::Uno::Action3_typeof()->MakeType(::g::Fuse::Scripting::Context_typeof(), PageControl_typeof(), uObject_typeof()->Array());
+    ::TYPES[48] = ::g::Fuse::Scripting::ScriptMethod1_typeof()->MakeType(PageControl_typeof());
+    ::TYPES[49] = ::g::Uno::Action3_typeof()->MakeType(::g::Fuse::Scripting::Context_typeof(), PageControl_typeof(), uObject_typeof()->Array());
     ::TYPES[4] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof());
     ::TYPES[23] = ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Node_typeof());
     ::TYPES[5] = ::g::Fuse::Visual_typeof();
-    ::TYPES[46] = ::g::Fuse::Navigation::ISeekableNavigation_typeof();
+    ::TYPES[50] = ::g::Fuse::Navigation::ISeekableNavigation_typeof();
     ::TYPES[6] = ::g::Fuse::Elements::Element_typeof();
-    ::TYPES[47] = ::g::Fuse::Navigation::StructuredNavigation_typeof();
+    ::TYPES[51] = ::g::Fuse::Navigation::StructuredNavigation_typeof();
     type->SetInterfaces(
         ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(PageControl_type, interface0),
         ::g::Fuse::Scripting::IScriptObject_typeof(), offsetof(PageControl_type, interface1),
@@ -7008,7 +7939,7 @@ static void PageControl_build(uType* type)
         ::g::Fuse::Navigation::IBaseNavigation_typeof(), offsetof(PageControl_type, interface14),
         ::g::Fuse::Navigation::ISeekableNavigation_typeof(), offsetof(PageControl_type, interface15),
         ::g::Fuse::Navigation::IRouterOutlet_typeof(), offsetof(PageControl_type, interface16));
-    type->SetFields(95,
+    type->SetFields(96,
         ::g::Fuse::Controls::NavigationControlInactiveState_typeof(), offsetof(::g::Fuse::Controls::PageControl, _inactive), 0,
         ::g::Fuse::Controls::NavigationControlInteraction_typeof(), offsetof(::g::Fuse::Controls::PageControl, _interaction), 0,
         ::g::Fuse::Layouts::Orientation_typeof(), offsetof(::g::Fuse::Controls::PageControl, _orient), 0,
@@ -7024,7 +7955,7 @@ PageControl_type* PageControl_typeof()
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::NavigationControl_typeof();
-    options.FieldCount = 101;
+    options.FieldCount = 102;
     options.InterfaceCount = 17;
     options.ObjectSize = sizeof(PageControl);
     options.TypeSize = sizeof(PageControl_type);
@@ -7158,7 +8089,7 @@ void PageControl__FuseNavigationIRouterOutletGoto_fn(PageControl* __this, uStrin
 
     if (!::g::Fuse::Navigation::Navigation::IsPage(page))
     {
-        ::g::Fuse::Diagnostics::InternalError(::g::Uno::String::op_Addition2(::g::Uno::String::op_Addition2(::STRINGS[18/*"Can not nav...*/], path), ::STRINGS[19/*"', not found!"*/]), __this, ::STRINGS[13/*"/usr/local/...*/], 1349, ::STRINGS[20/*"Fuse.Naviga...*/]);
+        ::g::Fuse::Diagnostics::InternalError(::g::Uno::String::op_Addition2(::g::Uno::String::op_Addition2(::STRINGS[21/*"Can not nav...*/], path), ::STRINGS[22/*"', not found!"*/]), __this, ::STRINGS[13/*"/usr/local/...*/], 1349, ::STRINGS[23/*"Fuse.Naviga...*/]);
         return *__retval = 3, void();
     }
 
@@ -7181,19 +8112,19 @@ void PageControl__FuseNavigationIRouterOutletget_Type_fn(PageControl* __this, in
 // private void Fuse.Navigation.ISeekableNavigation.BeginSeek() :1562
 void PageControl__FuseNavigationISeekableNavigationBeginSeek_fn(PageControl* __this)
 {
-    ::g::Fuse::Navigation::ISeekableNavigation::BeginSeek(uInterface(uPtr(uAs<uObject*>(__this->Navigation1(), ::TYPES[46/*Fuse.Navigation.ISeekableNavigation*/])), ::TYPES[46/*Fuse.Navigation.ISeekableNavigation*/]));
+    ::g::Fuse::Navigation::ISeekableNavigation::BeginSeek(uInterface(uPtr(uAs<uObject*>(__this->Navigation1(), ::TYPES[50/*Fuse.Navigation.ISeekableNavigation*/])), ::TYPES[50/*Fuse.Navigation.ISeekableNavigation*/]));
 }
 
 // private void Fuse.Navigation.ISeekableNavigation.EndSeek(Fuse.Navigation.EndSeekArgs args) :1565
 void PageControl__FuseNavigationISeekableNavigationEndSeek_fn(PageControl* __this, ::g::Fuse::Navigation::EndSeekArgs* args)
 {
-    ::g::Fuse::Navigation::ISeekableNavigation::EndSeek(uInterface(uPtr(uAs<uObject*>(__this->Navigation1(), ::TYPES[46/*Fuse.Navigation.ISeekableNavigation*/])), ::TYPES[46/*Fuse.Navigation.ISeekableNavigation*/]), args);
+    ::g::Fuse::Navigation::ISeekableNavigation::EndSeek(uInterface(uPtr(uAs<uObject*>(__this->Navigation1(), ::TYPES[50/*Fuse.Navigation.ISeekableNavigation*/])), ::TYPES[50/*Fuse.Navigation.ISeekableNavigation*/]), args);
 }
 
 // private void Fuse.Navigation.ISeekableNavigation.Seek(Fuse.Navigation.UpdateSeekArgs args) :1564
 void PageControl__FuseNavigationISeekableNavigationSeek_fn(PageControl* __this, ::g::Fuse::Navigation::UpdateSeekArgs* args)
 {
-    ::g::Fuse::Navigation::ISeekableNavigation::Seek(uInterface(uPtr(uAs<uObject*>(__this->Navigation1(), ::TYPES[46/*Fuse.Navigation.ISeekableNavigation*/])), ::TYPES[46/*Fuse.Navigation.ISeekableNavigation*/]), args);
+    ::g::Fuse::Navigation::ISeekableNavigation::Seek(uInterface(uPtr(uAs<uObject*>(__this->Navigation1(), ::TYPES[50/*Fuse.Navigation.ISeekableNavigation*/])), ::TYPES[50/*Fuse.Navigation.ISeekableNavigation*/]), args);
 }
 
 // private static void gotoPage(Fuse.Scripting.Context c, Fuse.Controls.PageControl pc, object[] args) :1296
@@ -7288,7 +8219,7 @@ bool PageControl::IsHorizontal()
 // internal new Fuse.Navigation.StructuredNavigation get_Navigation() [instance] :1305
 ::g::Fuse::Navigation::StructuredNavigation* PageControl::Navigation1()
 {
-    return uAs< ::g::Fuse::Navigation::StructuredNavigation*>(this->Navigation(), ::TYPES[47/*Fuse.Navigation.StructuredNavigation*/]);
+    return uAs< ::g::Fuse::Navigation::StructuredNavigation*>(this->Navigation(), ::TYPES[51/*Fuse.Navigation.StructuredNavigation*/]);
 }
 
 // private static void gotoPage(Fuse.Scripting.Context c, Fuse.Controls.PageControl pc, object[] args) [static] :1296
@@ -7300,7 +8231,7 @@ void PageControl::gotoPage(::g::Fuse::Scripting::Context* c, PageControl* pc, uA
     if (target != NULL)
         uPtr(pc)->Active(target);
     else 
-        ::g::Fuse::Diagnostics::UserError(::STRINGS[27/*"PageControl...*/], pc, ::STRINGS[13/*"/usr/local/...*/], 1300, ::STRINGS[28/*"gotoPage"*/]);
+        ::g::Fuse::Diagnostics::UserError(::STRINGS[30/*"PageControl...*/], pc, ::STRINGS[13/*"/usr/local/...*/], 1300, ::STRINGS[31/*"gotoPage"*/]);
 }
 // }
 
@@ -7420,15 +8351,15 @@ EdgeNavigator__PageData* EdgeNavigator__PageData::New1()
 // static PageIndicatorDot() :28
 static void PageIndicatorDot__cctor_4_fn(uType* __type)
 {
-    PageIndicatorDot::__selector0_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[29/*"Color"*/]);
-    PageIndicatorDot::__selector1_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[30/*"TheCircle"*/]);
+    PageIndicatorDot::__selector0_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[32/*"Color"*/]);
+    PageIndicatorDot::__selector1_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[33/*"TheCircle"*/]);
 }
 
 static void PageIndicatorDot_build(uType* type)
 {
-    ::STRINGS[29] = uString::Const("Color");
-    ::STRINGS[30] = uString::Const("TheCircle");
-    ::TYPES[48] = ::g::Fuse::Animations::Change_typeof()->MakeType(::g::Uno::Float4_typeof());
+    ::STRINGS[32] = uString::Const("Color");
+    ::STRINGS[33] = uString::Const("TheCircle");
+    ::TYPES[52] = ::g::Fuse::Animations::Change_typeof()->MakeType(::g::Uno::Float4_typeof());
     ::TYPES[27] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Animations::Animator_typeof());
     ::TYPES[4] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof());
     type->SetInterfaces(
@@ -7445,7 +8376,7 @@ static void PageIndicatorDot_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface12));
-    type->SetFields(92,
+    type->SetFields(93,
         ::g::Fuse::Controls::Circle_typeof(), offsetof(::g::Fuse::Controls::PageIndicatorDot, TheCircle), 0,
         ::g::Uno::UX::Property1_typeof()->MakeType(::g::Uno::Float4_typeof()), offsetof(::g::Fuse::Controls::PageIndicatorDot, TheCircle_Color_inst), 0,
         ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::PageIndicatorDot::__selector0_, uFieldFlagsStatic,
@@ -7459,7 +8390,7 @@ static void PageIndicatorDot_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::Panel_typeof();
-    options.FieldCount = 96;
+    options.FieldCount = 97;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(PageIndicatorDot);
     options.TypeSize = sizeof(::g::Fuse::Controls::Control_type);
@@ -7534,7 +8465,7 @@ void PageIndicatorDot::InitializeUX()
     TheCircle_Color_inst = ::g::FuseControlsNavigation_FuseControlsCircle_Color_Property::New1(TheCircle, PageIndicatorDot::__selector0());
     ::g::Fuse::Navigation::ActivatingAnimation* temp = ::g::Fuse::Navigation::ActivatingAnimation::New2();
     ::g::Fuse::Animations::Scale* temp1 = ::g::Fuse::Animations::Scale::New2();
-    ::g::Fuse::Animations::Change* temp2 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[48/*Fuse.Animations.Change<float4>*/], TheCircle_Color_inst);
+    ::g::Fuse::Animations::Change* temp2 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[52/*Fuse.Animations.Change<float4>*/], TheCircle_Color_inst);
     Width(::g::Uno::UX::Size__New1(6.0f, 1));
     Height(::g::Uno::UX::Size__New1(6.0f, 1));
     Margin(::g::Uno::Float4__New2(5.0f, 5.0f, 5.0f, 5.0f));
@@ -7598,12 +8529,16 @@ void PageIndicatorDotTemplate__New1_fn(PageIndicatorDotTemplate* __this, uObject
 // static Panel() :1595
 static void Panel__cctor_3_fn(uType* __type)
 {
-    Panel::ColorPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[29/*"Color"*/]);
+    Panel::ColorPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[32/*"Color"*/]);
 }
 
 static void Panel_build(uType* type)
 {
-    ::STRINGS[29] = uString::Const("Color");
+    ::STRINGS[32] = uString::Const("Color");
+    ::TYPES[53] = ::g::Uno::UX::IPropertyListener_typeof();
+    ::TYPES[54] = ::g::Fuse::Drawing::SolidColor_typeof();
+    ::TYPES[55] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Uno::Float4_typeof());
+    ::TYPES[56] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Uno::Float4_typeof());
     type->SetInterfaces(
         ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(::g::Fuse::Controls::Control_type, interface0),
         ::g::Fuse::Scripting::IScriptObject_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface1),
@@ -7618,7 +8553,7 @@ static void Panel_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface12));
-    type->SetFields(92,
+    type->SetFields(93,
         ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::Panel::ColorPropertyName_, uFieldFlagsStatic);
 }
 
@@ -7629,7 +8564,7 @@ static void Panel_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::LayoutControl_typeof();
-    options.FieldCount = 93;
+    options.FieldCount = 94;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(Panel);
     options.TypeSize = sizeof(::g::Fuse::Controls::Control_type);
@@ -7676,6 +8611,18 @@ void Panel__ctor_6_fn(Panel* __this)
     __this->ctor_6();
 }
 
+// public float4 get_Color() :1610
+void Panel__get_Color_fn(Panel* __this, ::g::Uno::Float4* __retval)
+{
+    *__retval = __this->Color();
+}
+
+// public void set_Color(float4 value) :1611
+void Panel__set_Color_fn(Panel* __this, ::g::Uno::Float4* value)
+{
+    __this->Color(*value);
+}
+
 // protected override sealed bool FastTrackDrawWithOpacity(Fuse.DrawContext dc) :1635
 void Panel__FastTrackDrawWithOpacity_fn(Panel* __this, ::g::Fuse::DrawContext* dc, bool* __retval)
 {
@@ -7695,12 +8642,58 @@ void Panel__New3_fn(Panel** __retval)
     *__retval = Panel::New3();
 }
 
+// private void OnColorChanged(float4 value, Uno.UX.IPropertyListener origin) :1625
+void Panel__OnColorChanged_fn(Panel* __this, ::g::Uno::Float4* value, uObject* origin)
+{
+    __this->OnColorChanged(*value, origin);
+}
+
+// public void SetColor(float4 value, Uno.UX.IPropertyListener origin) :1614
+void Panel__SetColor_fn(Panel* __this, ::g::Uno::Float4* value, uObject* origin)
+{
+    __this->SetColor(*value, origin);
+}
+
 ::g::Uno::UX::Selector Panel::ColorPropertyName_;
 
 // public generated Panel() [instance] :1595
 void Panel::ctor_6()
 {
     ctor_5();
+}
+
+// public float4 get_Color() [instance] :1610
+::g::Uno::Float4 Panel::Color()
+{
+    ::g::Uno::Float4 ret2;
+    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[56/*Fuse.Visual.Get<float4>*/], uCRef<int>(1), uCRef(::g::Uno::Float4__New1(0.0f)), &ret2), ret2);
+}
+
+// public void set_Color(float4 value) [instance] :1611
+void Panel::Color(::g::Uno::Float4 value)
+{
+    SetColor(value, (uObject*)this);
+}
+
+// private void OnColorChanged(float4 value, Uno.UX.IPropertyListener origin) [instance] :1625
+void Panel::OnColorChanged(::g::Uno::Float4 value, uObject* origin)
+{
+    OnPropertyChanged1(Panel::ColorPropertyName(), uAs<uObject*>(origin, ::TYPES[53/*Uno.UX.IPropertyListener*/]));
+
+    if (!uIs((::g::Fuse::Drawing::Brush*)Background(), ::TYPES[54/*Fuse.Drawing.SolidColor*/]))
+        Background(::g::Fuse::Drawing::SolidColor::New3(value));
+    else 
+        uPtr(uCast< ::g::Fuse::Drawing::SolidColor*>(Background(), ::TYPES[54/*Fuse.Drawing.SolidColor*/]))->Color(value);
+}
+
+// public void SetColor(float4 value, Uno.UX.IPropertyListener origin) [instance] :1614
+void Panel::SetColor(::g::Uno::Float4 value, uObject* origin)
+{
+    if (::g::Uno::Float4__op_Inequality(Color(), value))
+    {
+        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[55/*Fuse.Visual.Set<float4>*/], uCRef<int>(1), uCRef(value), uCRef(::g::Uno::Float4__New1(0.0f)));
+        OnColorChanged(value, origin);
+    }
 }
 
 // public generated Panel New() [static] :1595
@@ -7920,13 +8913,13 @@ static void ReadPropertyBinding_build(uType* type)
 // static Rectangle() :767
 static void Rectangle__cctor_4_fn(uType* __type)
 {
-    Rectangle::CornerRadiusPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[31/*"CornerRadius"*/]);
+    Rectangle::CornerRadiusPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[34/*"CornerRadius"*/]);
 }
 
 static void Rectangle_build(uType* type)
 {
-    ::STRINGS[31] = uString::Const("CornerRadius");
-    ::TYPES[49] = ::g::Fuse::Controls::Native::IRectangleView_typeof();
+    ::STRINGS[34] = uString::Const("CornerRadius");
+    ::TYPES[57] = ::g::Fuse::Controls::Native::IRectangleView_typeof();
     type->SetInterfaces(
         ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(::g::Fuse::Controls::Shape_type, interface0),
         ::g::Fuse::Scripting::IScriptObject_typeof(), offsetof(::g::Fuse::Controls::Shape_type, interface1),
@@ -7941,7 +8934,7 @@ static void Rectangle_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Shape_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Shape_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Shape_type, interface12));
-    type->SetFields(95,
+    type->SetFields(96,
         ::g::Uno::Float4_typeof(), offsetof(::g::Fuse::Controls::Rectangle, _cornerRadius), 0,
         ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::Rectangle::CornerRadiusPropertyName_, uFieldFlagsStatic);
 }
@@ -7953,7 +8946,7 @@ static void Rectangle_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::Shape_typeof();
-    options.FieldCount = 97;
+    options.FieldCount = 98;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(Rectangle);
     options.TypeSize = sizeof(::g::Fuse::Controls::Shape_type);
@@ -8088,7 +9081,7 @@ void Rectangle__PushPropertiesToNativeView_fn(Rectangle* __this)
     uObject* nr = __this->NativeRect();
 
     if (nr != NULL)
-        ::g::Fuse::Controls::Native::IRectangleView::CornerRadius(uInterface(uPtr(nr), ::TYPES[49/*Fuse.Controls.Native.IRectangleView*/]), __this->CornerRadius());
+        ::g::Fuse::Controls::Native::IRectangleView::CornerRadius(uInterface(uPtr(nr), ::TYPES[57/*Fuse.Controls.Native.IRectangleView*/]), __this->CornerRadius());
 }
 
 // public void SetCornerRadius(float4 value, Uno.UX.IPropertyListener origin) :784
@@ -8120,7 +9113,7 @@ void Rectangle::CornerRadius(::g::Uno::Float4 value)
 // private Fuse.Controls.Native.IRectangleView get_NativeRect() [instance] :801
 uObject* Rectangle::NativeRect()
 {
-    return uAs<uObject*>(NativeView(), ::TYPES[49/*Fuse.Controls.Native.IRectangleView*/]);
+    return uAs<uObject*>(NativeView(), ::TYPES[57/*Fuse.Controls.Native.IRectangleView*/]);
 }
 
 // public void SetCornerRadius(float4 value, Uno.UX.IPropertyListener origin) [instance] :784
@@ -8133,7 +9126,7 @@ void Rectangle::SetCornerRadius(::g::Uno::Float4 value, uObject* origin)
         uObject* nr = NativeRect();
 
         if (nr != NULL)
-            ::g::Fuse::Controls::Native::IRectangleView::CornerRadius(uInterface(uPtr(nr), ::TYPES[49/*Fuse.Controls.Native.IRectangleView*/]), CornerRadius());
+            ::g::Fuse::Controls::Native::IRectangleView::CornerRadius(uInterface(uPtr(nr), ::TYPES[57/*Fuse.Controls.Native.IRectangleView*/]), CornerRadius());
 
         OnPropertyChanged1(Rectangle::CornerRadiusPropertyName(), origin);
     }
@@ -8363,15 +9356,15 @@ uDelegateType* ScrollPositionChangedHandler_typeof()
 // static ScrollView() :57
 static void ScrollView__cctor_4_fn(uType* __type)
 {
-    ScrollView::__selector0_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[32/*"s"*/]);
+    ScrollView::__selector0_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[35/*"s"*/]);
 }
 
 static void ScrollView_build(uType* type)
 {
-    ::STRINGS[32] = uString::Const("s");
+    ::STRINGS[35] = uString::Const("s");
     ::TYPES[4] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof());
-    ::TYPES[50] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ScrollView__DefaultScroller_typeof());
-    ::TYPES[51] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ScrollView__DefaultTrigger_typeof());
+    ::TYPES[58] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ScrollView__DefaultScroller_typeof());
+    ::TYPES[59] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ScrollView__DefaultTrigger_typeof());
     type->SetInterfaces(
         ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(::g::Fuse::Controls::ScrollViewBase_type, interface0),
         ::g::Fuse::Scripting::IScriptObject_typeof(), offsetof(::g::Fuse::Controls::ScrollViewBase_type, interface1),
@@ -8387,7 +9380,7 @@ static void ScrollView_build(uType* type)
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::ScrollViewBase_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::ScrollViewBase_type, interface12),
         ::g::Fuse::Controls::Native::IScrollViewHost_typeof(), offsetof(::g::Fuse::Controls::ScrollViewBase_type, interface13));
-    type->SetFields(113,
+    type->SetFields(114,
         ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::ScrollView::__selector0_, uFieldFlagsStatic);
 }
 
@@ -8398,7 +9391,7 @@ static void ScrollView_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::ScrollViewBase_typeof();
-    options.FieldCount = 114;
+    options.FieldCount = 115;
     options.InterfaceCount = 14;
     options.ObjectSize = sizeof(ScrollView);
     options.TypeSize = sizeof(::g::Fuse::Controls::ScrollViewBase_type);
@@ -8470,8 +9463,8 @@ void ScrollView__OnRooted_fn(ScrollView* __this)
 // protected override sealed void OnUnrooted() :1452
 void ScrollView__OnUnrooted_fn(ScrollView* __this)
 {
-    __this->RemoveAllChildren(::TYPES[50/*Fuse.Visual.RemoveAllChildren<Fuse.Controls.ScrollView.DefaultScroller>*/]);
-    __this->RemoveAllChildren(::TYPES[51/*Fuse.Visual.RemoveAllChildren<Fuse.Controls.ScrollView.DefaultTrigger>*/]);
+    __this->RemoveAllChildren(::TYPES[58/*Fuse.Visual.RemoveAllChildren<Fuse.Controls.ScrollView.DefaultScroller>*/]);
+    __this->RemoveAllChildren(::TYPES[59/*Fuse.Visual.RemoveAllChildren<Fuse.Controls.ScrollView.DefaultTrigger>*/]);
     ::g::Fuse::Controls::ScrollViewBase__OnUnrooted_fn(__this);
 }
 
@@ -8509,42 +9502,42 @@ static void ScrollViewBase__cctor_3_fn(uType* __type)
 {
     ScrollViewBase::UserScrollName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[8/*"UserScroll"*/]);
     ScrollViewBase::_keepFocusInViewName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[9/*"KeepFocusIn...*/]);
-    ScrollViewBase::_allowedScrollDirectionsName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[33/*"AllowedScro...*/]);
-    ScrollViewBase::ScrollPositionName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[34/*"ScrollPosit...*/]);
-    ::g::Fuse::Scripting::ScriptClass::Register(ScrollViewBase_typeof(), uArray::Init< ::g::Fuse::Scripting::ScriptMember*>(::TYPES[19/*Fuse.Scripting.ScriptMember[]*/], 4, (::g::Fuse::Scripting::ScriptMethod1*)::g::Fuse::Scripting::ScriptMethod1::New1(::TYPES[52/*Fuse.Scripting.ScriptMethod<Fuse.Controls.ScrollViewBase>*/], ::STRINGS[26/*"goto"*/], uDelegate::New(::TYPES[53/*Uno.Action<Fuse.Scripting.Context, Fuse.Controls.ScrollViewBase, object[]>*/], (void*)ScrollViewBase__goto__fn), 2), (::g::Fuse::Scripting::ScriptMethod1*)::g::Fuse::Scripting::ScriptMethod1::New1(::TYPES[52/*Fuse.Scripting.ScriptMethod<Fuse.Controls.ScrollViewBase>*/], ::STRINGS[35/*"gotoRelative"*/], uDelegate::New(::TYPES[53/*Uno.Action<Fuse.Scripting.Context, Fuse.Controls.ScrollViewBase, object[]>*/], (void*)ScrollViewBase__gotoRelative_fn), 2), (::g::Fuse::Scripting::ScriptMethod1*)::g::Fuse::Scripting::ScriptMethod1::New1(::TYPES[52/*Fuse.Scripting.ScriptMethod<Fuse.Controls.ScrollViewBase>*/], ::STRINGS[36/*"seekTo"*/], uDelegate::New(::TYPES[53/*Uno.Action<Fuse.Scripting.Context, Fuse.Controls.ScrollViewBase, object[]>*/], (void*)ScrollViewBase__seekTo_fn), 2), (::g::Fuse::Scripting::ScriptMethod1*)::g::Fuse::Scripting::ScriptMethod1::New1(::TYPES[52/*Fuse.Scripting.ScriptMethod<Fuse.Controls.ScrollViewBase>*/], ::STRINGS[37/*"seekToRelat...*/], uDelegate::New(::TYPES[53/*Uno.Action<Fuse.Scripting.Context, Fuse.Controls.ScrollViewBase, object[]>*/], (void*)ScrollViewBase__seekToRelative_fn), 2)));
+    ScrollViewBase::_allowedScrollDirectionsName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[36/*"AllowedScro...*/]);
+    ScrollViewBase::ScrollPositionName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[37/*"ScrollPosit...*/]);
+    ::g::Fuse::Scripting::ScriptClass::Register(ScrollViewBase_typeof(), uArray::Init< ::g::Fuse::Scripting::ScriptMember*>(::TYPES[19/*Fuse.Scripting.ScriptMember[]*/], 4, (::g::Fuse::Scripting::ScriptMethod1*)::g::Fuse::Scripting::ScriptMethod1::New1(::TYPES[60/*Fuse.Scripting.ScriptMethod<Fuse.Controls.ScrollViewBase>*/], ::STRINGS[29/*"goto"*/], uDelegate::New(::TYPES[61/*Uno.Action<Fuse.Scripting.Context, Fuse.Controls.ScrollViewBase, object[]>*/], (void*)ScrollViewBase__goto__fn), 2), (::g::Fuse::Scripting::ScriptMethod1*)::g::Fuse::Scripting::ScriptMethod1::New1(::TYPES[60/*Fuse.Scripting.ScriptMethod<Fuse.Controls.ScrollViewBase>*/], ::STRINGS[38/*"gotoRelative"*/], uDelegate::New(::TYPES[61/*Uno.Action<Fuse.Scripting.Context, Fuse.Controls.ScrollViewBase, object[]>*/], (void*)ScrollViewBase__gotoRelative_fn), 2), (::g::Fuse::Scripting::ScriptMethod1*)::g::Fuse::Scripting::ScriptMethod1::New1(::TYPES[60/*Fuse.Scripting.ScriptMethod<Fuse.Controls.ScrollViewBase>*/], ::STRINGS[39/*"seekTo"*/], uDelegate::New(::TYPES[61/*Uno.Action<Fuse.Scripting.Context, Fuse.Controls.ScrollViewBase, object[]>*/], (void*)ScrollViewBase__seekTo_fn), 2), (::g::Fuse::Scripting::ScriptMethod1*)::g::Fuse::Scripting::ScriptMethod1::New1(::TYPES[60/*Fuse.Scripting.ScriptMethod<Fuse.Controls.ScrollViewBase>*/], ::STRINGS[40/*"seekToRelat...*/], uDelegate::New(::TYPES[61/*Uno.Action<Fuse.Scripting.Context, Fuse.Controls.ScrollViewBase, object[]>*/], (void*)ScrollViewBase__seekToRelative_fn), 2)));
 }
 
 static void ScrollViewBase_build(uType* type)
 {
     ::STRINGS[8] = uString::Const("UserScroll");
     ::STRINGS[9] = uString::Const("KeepFocusInView");
-    ::STRINGS[33] = uString::Const("AllowedScrollDirections");
-    ::STRINGS[34] = uString::Const("ScrollPosition");
-    ::STRINGS[26] = uString::Const("goto");
-    ::STRINGS[35] = uString::Const("gotoRelative");
-    ::STRINGS[36] = uString::Const("seekTo");
-    ::STRINGS[37] = uString::Const("seekToRelative");
-    ::STRINGS[38] = uString::Const("AllowedScrollDirections is not valid: ");
-    ::STRINGS[39] = uString::Const("/usr/local/share/uno/Packages/Fuse.Controls.ScrollView/0.39.3/$.uno");
-    ::STRINGS[40] = uString::Const("ArrangeContent");
-    ::STRINGS[41] = uString::Const("ScrollViewBase.");
-    ::STRINGS[42] = uString::Const(" requires 1 or 2 arguments");
-    ::STRINGS[43] = uString::Const("getParams");
-    ::STRINGS[44] = uString::Const("gotoToRelative");
-    ::STRINGS[45] = uString::Const("Visual content of ScrollView must be of type Element");
-    ::STRINGS[46] = uString::Const("Motion should not be changed post-rooting");
-    ::STRINGS[47] = uString::Const("set_Motion");
+    ::STRINGS[36] = uString::Const("AllowedScrollDirections");
+    ::STRINGS[37] = uString::Const("ScrollPosition");
+    ::STRINGS[29] = uString::Const("goto");
+    ::STRINGS[38] = uString::Const("gotoRelative");
+    ::STRINGS[39] = uString::Const("seekTo");
+    ::STRINGS[40] = uString::Const("seekToRelative");
+    ::STRINGS[41] = uString::Const("AllowedScrollDirections is not valid: ");
+    ::STRINGS[42] = uString::Const("/usr/local/share/uno/Packages/Fuse.Controls.ScrollView/0.39.3/$.uno");
+    ::STRINGS[43] = uString::Const("ArrangeContent");
+    ::STRINGS[44] = uString::Const("ScrollViewBase.");
+    ::STRINGS[45] = uString::Const(" requires 1 or 2 arguments");
+    ::STRINGS[46] = uString::Const("getParams");
+    ::STRINGS[47] = uString::Const("gotoToRelative");
+    ::STRINGS[48] = uString::Const("Visual content of ScrollView must be of type Element");
+    ::STRINGS[49] = uString::Const("Motion should not be changed post-rooting");
+    ::STRINGS[50] = uString::Const("set_Motion");
     ::TYPES[18] = ::g::Uno::Type_typeof();
     ::TYPES[19] = ::g::Fuse::Scripting::ScriptMember_typeof()->Array();
-    ::TYPES[52] = ::g::Fuse::Scripting::ScriptMethod1_typeof()->MakeType(ScrollViewBase_typeof());
-    ::TYPES[53] = ::g::Uno::Action3_typeof()->MakeType(::g::Fuse::Scripting::Context_typeof(), ScrollViewBase_typeof(), uObject_typeof()->Array());
+    ::TYPES[60] = ::g::Fuse::Scripting::ScriptMethod1_typeof()->MakeType(ScrollViewBase_typeof());
+    ::TYPES[61] = ::g::Uno::Action3_typeof()->MakeType(::g::Fuse::Scripting::Context_typeof(), ScrollViewBase_typeof(), uObject_typeof()->Array());
     ::TYPES[6] = ::g::Fuse::Elements::Element_typeof();
     ::TYPES[12] = ::g::Uno::Action_typeof();
     ::TYPES[4] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof());
     ::TYPES[23] = ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Node_typeof());
-    ::TYPES[54] = ::g::Fuse::Gestures::Scroller_typeof();
-    ::TYPES[55] = ::g::Fuse::Controls::Native::IScrollView_typeof();
-    ::TYPES[56] = ::g::Fuse::Controls::ScrollPositionChangedHandler_typeof();
+    ::TYPES[62] = ::g::Fuse::Gestures::Scroller_typeof();
+    ::TYPES[63] = ::g::Fuse::Controls::Native::IScrollView_typeof();
+    ::TYPES[64] = ::g::Fuse::Controls::ScrollPositionChangedHandler_typeof();
     type->SetInterfaces(
         ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(ScrollViewBase_type, interface0),
         ::g::Fuse::Scripting::IScriptObject_typeof(), offsetof(ScrollViewBase_type, interface1),
@@ -8560,7 +9553,7 @@ static void ScrollViewBase_build(uType* type)
         ::g::Fuse::IActualPlacement_typeof(), offsetof(ScrollViewBase_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(ScrollViewBase_type, interface12),
         ::g::Fuse::Controls::Native::IScrollViewHost_typeof(), offsetof(ScrollViewBase_type, interface13));
-    type->SetFields(91,
+    type->SetFields(92,
         ::g::Fuse::Controls::ScrollDirections_typeof(), offsetof(::g::Fuse::Controls::ScrollViewBase, _allowedScrollDirections), 0,
         ::g::Fuse::Elements::Alignment_typeof(), offsetof(::g::Fuse::Controls::ScrollViewBase, _contentAlignment), 0,
         ::g::Uno::Float2_typeof(), offsetof(::g::Fuse::Controls::ScrollViewBase, _contentMarginSize), 0,
@@ -8596,7 +9589,7 @@ ScrollViewBase_type* ScrollViewBase_typeof()
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::ContentControl_typeof();
-    options.FieldCount = 117;
+    options.FieldCount = 118;
     options.InterfaceCount = 14;
     options.ObjectSize = sizeof(ScrollViewBase);
     options.TypeSize = sizeof(ScrollViewBase_type);
@@ -8882,8 +9875,8 @@ void ScrollViewBase__OnChildAdded_fn(ScrollViewBase* __this, ::g::Fuse::Node* b)
 {
     ::g::Fuse::Controls::ContentControl__OnChildAdded_fn(__this, b);
 
-    if (uIs(b, ::TYPES[54/*Fuse.Gestures.Scroller*/]))
-        __this->_scroller = uAs< ::g::Fuse::Gestures::Scroller*>(b, ::TYPES[54/*Fuse.Gestures.Scroller*/]);
+    if (uIs(b, ::TYPES[62/*Fuse.Gestures.Scroller*/]))
+        __this->_scroller = uAs< ::g::Fuse::Gestures::Scroller*>(b, ::TYPES[62/*Fuse.Gestures.Scroller*/]);
 }
 
 // protected override sealed void OnChildRemoved(Fuse.Node b) :1070
@@ -8902,7 +9895,7 @@ void ScrollViewBase__OnContentChanged_fn(ScrollViewBase* __this)
     ::g::Fuse::Controls::ContentControl__OnContentChanged_fn(__this);
 
     if ((__this->Content() != NULL) && !uIs((::g::Fuse::Elements::Element*)__this->Content(), ::TYPES[6/*Fuse.Elements.Element*/]))
-        U_THROW(::g::Uno::Exception::New2(::STRINGS[45/*"Visual cont...*/]));
+        U_THROW(::g::Uno::Exception::New2(::STRINGS[48/*"Visual cont...*/]));
 
     if (__this->_currentContent != NULL)
         ::g::Uno::Collections::ICollection::Remove_ex(uInterface(uPtr(uPtr(__this->_currentContent)->Children()), ::TYPES[4/*Uno.Collections.ICollection<Fuse.Node>*/]), __this->_scrollTranslation, &ret13);
@@ -9090,7 +10083,7 @@ void ScrollViewBase::AllowedScrollDirections(int value)
         uObject* s = NativeScrollView();
 
         if (s != NULL)
-            ::g::Fuse::Controls::Native::IScrollView::AllowedScrollDirections(uInterface(uPtr(s), ::TYPES[55/*Fuse.Controls.Native.IScrollView*/]), _allowedScrollDirections);
+            ::g::Fuse::Controls::Native::IScrollView::AllowedScrollDirections(uInterface(uPtr(s), ::TYPES[63/*Fuse.Controls.Native.IScrollView*/]), _allowedScrollDirections);
     }
 }
 
@@ -9126,7 +10119,7 @@ void ScrollViewBase::ArrangeContent(::g::Fuse::LayoutParams lp)
         setHeight = true;
     }
     else 
-        ::g::Fuse::Diagnostics::UserError(::g::Uno::String::op_Addition1(::STRINGS[38/*"AllowedScro...*/], uBox<int>(::g::Fuse::Controls::ScrollDirections_typeof(), AllowedScrollDirections())), this, ::STRINGS[39/*"/usr/local/...*/], 706, ::STRINGS[40/*"ArrangeCont...*/]);
+        ::g::Fuse::Diagnostics::UserError(::g::Uno::String::op_Addition1(::STRINGS[41/*"AllowedScro...*/], uBox<int>(::g::Fuse::Controls::ScrollDirections_typeof(), AllowedScrollDirections())), this, ::STRINGS[42/*"/usr/local/...*/], 706, ::STRINGS[43/*"ArrangeCont...*/]);
 
     int hAlign = 0;
 
@@ -9329,13 +10322,13 @@ void ScrollViewBase::Motion(::g::Fuse::Motion::MotionConfig* value)
     _motion = value;
 
     if (IsRootingCompleted())
-        ::g::Fuse::Diagnostics::UserError(::STRINGS[46/*"Motion shou...*/], this, ::STRINGS[39/*"/usr/local/...*/], 1057, ::STRINGS[47/*"set_Motion"*/]);
+        ::g::Fuse::Diagnostics::UserError(::STRINGS[49/*"Motion shou...*/], this, ::STRINGS[42/*"/usr/local/...*/], 1057, ::STRINGS[50/*"set_Motion"*/]);
 }
 
 // private Fuse.Controls.Native.IScrollView get_NativeScrollView() [instance] :791
 uObject* ScrollViewBase::NativeScrollView()
 {
-    return uAs<uObject*>(NativeView(), ::TYPES[55/*Fuse.Controls.Native.IScrollView*/]);
+    return uAs<uObject*>(NativeView(), ::TYPES[63/*Fuse.Controls.Native.IScrollView*/]);
 }
 
 // private void OnScrollPositionChanged(float2 arrangeOffset, bool adjustment, Uno.UX.IPropertyListener origin) [instance] :1293
@@ -9391,13 +10384,13 @@ void ScrollViewBase::ScrollPosition(::g::Uno::Float2 value)
 // public generated void add_ScrollPositionChanged(Fuse.Controls.ScrollPositionChangedHandler value) [instance] :1290
 void ScrollViewBase::add_ScrollPositionChanged(uDelegate* value)
 {
-    ScrollPositionChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(ScrollPositionChanged1, value), ::TYPES[56/*Fuse.Controls.ScrollPositionChangedHandler*/]);
+    ScrollPositionChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(ScrollPositionChanged1, value), ::TYPES[64/*Fuse.Controls.ScrollPositionChangedHandler*/]);
 }
 
 // public generated void remove_ScrollPositionChanged(Fuse.Controls.ScrollPositionChangedHandler value) [instance] :1290
 void ScrollViewBase::remove_ScrollPositionChanged(uDelegate* value)
 {
-    ScrollPositionChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(ScrollPositionChanged1, value), ::TYPES[56/*Fuse.Controls.ScrollPositionChangedHandler*/]);
+    ScrollPositionChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(ScrollPositionChanged1, value), ::TYPES[64/*Fuse.Controls.ScrollPositionChangedHandler*/]);
 }
 
 // private void SetScrollPosition(float2 position, float2 arrangeOffset, Uno.UX.IPropertyListener origin) [instance] :1155
@@ -9451,7 +10444,7 @@ void ScrollViewBase::SetScrollPositionImpl(::g::Uno::Float2 position, ::g::Uno::
         uObject* sv = NativeScrollView();
 
         if (sv != NULL)
-            ::g::Fuse::Controls::Native::IScrollView::ScrollPosition(uInterface(uPtr(sv), ::TYPES[55/*Fuse.Controls.Native.IScrollView*/]), position);
+            ::g::Fuse::Controls::Native::IScrollView::ScrollPosition(uInterface(uPtr(sv), ::TYPES[63/*Fuse.Controls.Native.IScrollView*/]), position);
     }
 
     if (changed)
@@ -9541,7 +10534,7 @@ bool ScrollViewBase::getParams(ScrollViewBase* s, uArray* args, uString* func, :
 
     if ((uPtr(args)->Length() == 0) || (uPtr(args)->Length() > 2))
     {
-        ::g::Fuse::Diagnostics::UserError(::g::Uno::String::op_Addition2(::g::Uno::String::op_Addition2(::STRINGS[41/*"ScrollViewB...*/], func), ::STRINGS[42/*" requires 1...*/]), s, ::STRINGS[39/*"/usr/local/...*/], 852, ::STRINGS[43/*"getParams"*/]);
+        ::g::Fuse::Diagnostics::UserError(::g::Uno::String::op_Addition2(::g::Uno::String::op_Addition2(::STRINGS[44/*"ScrollViewB...*/], func), ::STRINGS[45/*" requires 1...*/]), s, ::STRINGS[42/*"/usr/local/...*/], 852, ::STRINGS[46/*"getParams"*/]);
         *pos = ::g::Uno::Float2__New1(0.0f);
         return false;
     }
@@ -9556,7 +10549,7 @@ void ScrollViewBase::goto_(::g::Fuse::Scripting::Context* c, ScrollViewBase* s, 
     ScrollViewBase_typeof()->Init();
     ::g::Uno::Float2 pos;
 
-    if (!ScrollViewBase::getParams(s, args, ::STRINGS[26/*"goto"*/], &pos))
+    if (!ScrollViewBase::getParams(s, args, ::STRINGS[29/*"goto"*/], &pos))
         return;
 
     uPtr(s)->Goto(pos);
@@ -9568,7 +10561,7 @@ void ScrollViewBase::gotoRelative(::g::Fuse::Scripting::Context* c, ScrollViewBa
     ScrollViewBase_typeof()->Init();
     ::g::Uno::Float2 pos;
 
-    if (!ScrollViewBase::getParams(s, args, ::STRINGS[44/*"gotoToRelat...*/], &pos))
+    if (!ScrollViewBase::getParams(s, args, ::STRINGS[47/*"gotoToRelat...*/], &pos))
         return;
 
     uPtr(s)->GotoRelative(pos);
@@ -9580,7 +10573,7 @@ void ScrollViewBase::seekTo(::g::Fuse::Scripting::Context* c, ScrollViewBase* s,
     ScrollViewBase_typeof()->Init();
     ::g::Uno::Float2 pos;
 
-    if (!ScrollViewBase::getParams(s, args, ::STRINGS[36/*"seekTo"*/], &pos))
+    if (!ScrollViewBase::getParams(s, args, ::STRINGS[39/*"seekTo"*/], &pos))
         return;
 
     uPtr(s)->ScrollPosition(pos);
@@ -9592,7 +10585,7 @@ void ScrollViewBase::seekToRelative(::g::Fuse::Scripting::Context* c, ScrollView
     ScrollViewBase_typeof()->Init();
     ::g::Uno::Float2 pos;
 
-    if (!ScrollViewBase::getParams(s, args, ::STRINGS[37/*"seekToRelat...*/], &pos))
+    if (!ScrollViewBase::getParams(s, args, ::STRINGS[40/*"seekToRelat...*/], &pos))
         return;
 
     uPtr(s)->RelativeScrollPosition(pos);
@@ -9623,39 +10616,39 @@ uEnumType* ScrollViewLayoutMode_typeof()
 // static Shape() :1017
 static void Shape__cctor_3_fn(uType* __type)
 {
-    Shape::ColorPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[29/*"Color"*/]);
-    Shape::_widthName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[48/*"Width"*/]);
-    Shape::_offsetName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[49/*"Offset"*/]);
+    Shape::ColorPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[32/*"Color"*/]);
+    Shape::_widthName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[51/*"Width"*/]);
+    Shape::_offsetName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[52/*"Offset"*/]);
 }
 
 static void Shape_build(uType* type)
 {
-    ::STRINGS[29] = uString::Const("Color");
-    ::STRINGS[48] = uString::Const("Width");
-    ::STRINGS[49] = uString::Const("Offset");
-    ::TYPES[57] = ::g::Uno::Collections::IEnumerable_typeof()->MakeType(::g::Fuse::Drawing::Stroke_typeof());
-    ::TYPES[58] = ::g::Uno::Collections::IEnumerator_typeof();
-    ::TYPES[59] = ::g::Uno::Collections::IEnumerator1_typeof()->MakeType(::g::Fuse::Drawing::Stroke_typeof());
-    ::TYPES[60] = ::g::Uno::Collections::IEnumerable_typeof()->MakeType(::g::Fuse::Drawing::Brush_typeof());
-    ::TYPES[61] = ::g::Uno::Collections::IEnumerator1_typeof()->MakeType(::g::Fuse::Drawing::Brush_typeof());
-    ::TYPES[62] = ::g::Fuse::Drawing::SolidColor_typeof();
-    ::TYPES[63] = ::g::Uno::UX::IPropertyListener_typeof();
+    ::STRINGS[32] = uString::Const("Color");
+    ::STRINGS[51] = uString::Const("Width");
+    ::STRINGS[52] = uString::Const("Offset");
+    ::TYPES[65] = ::g::Uno::Collections::IEnumerable_typeof()->MakeType(::g::Fuse::Drawing::Stroke_typeof());
+    ::TYPES[66] = ::g::Uno::Collections::IEnumerator_typeof();
+    ::TYPES[67] = ::g::Uno::Collections::IEnumerator1_typeof()->MakeType(::g::Fuse::Drawing::Stroke_typeof());
+    ::TYPES[68] = ::g::Uno::Collections::IEnumerable_typeof()->MakeType(::g::Fuse::Drawing::Brush_typeof());
+    ::TYPES[69] = ::g::Uno::Collections::IEnumerator1_typeof()->MakeType(::g::Fuse::Drawing::Brush_typeof());
+    ::TYPES[54] = ::g::Fuse::Drawing::SolidColor_typeof();
+    ::TYPES[53] = ::g::Uno::UX::IPropertyListener_typeof();
     ::TYPES[13] = ::g::Fuse::Drawing::DynamicBrush_typeof();
-    ::TYPES[64] = ::g::Fuse::Drawing::Brush_typeof();
-    ::TYPES[65] = ::g::Fuse::Drawing::Stroke_typeof();
-    ::TYPES[66] = ::g::Uno::Collections::EnumerableExtensions_typeof()->MakeMethod(1, ::g::Fuse::Drawing::Brush_typeof());
-    ::TYPES[67] = ::g::Fuse::Drawing::Brush_typeof()->Array();
-    ::TYPES[68] = ::g::Uno::Collections::EnumerableExtensions_typeof()->MakeMethod(1, ::g::Fuse::Drawing::Stroke_typeof());
-    ::TYPES[69] = ::g::Fuse::Drawing::Stroke_typeof()->Array();
-    ::TYPES[70] = ::g::Fuse::Controls::Native::IShapeView_typeof();
+    ::TYPES[70] = ::g::Fuse::Drawing::Brush_typeof();
+    ::TYPES[71] = ::g::Fuse::Drawing::Stroke_typeof();
+    ::TYPES[72] = ::g::Uno::Collections::EnumerableExtensions_typeof()->MakeMethod(1, ::g::Fuse::Drawing::Brush_typeof());
+    ::TYPES[73] = ::g::Fuse::Drawing::Brush_typeof()->Array();
+    ::TYPES[74] = ::g::Uno::Collections::EnumerableExtensions_typeof()->MakeMethod(1, ::g::Fuse::Drawing::Stroke_typeof());
+    ::TYPES[75] = ::g::Fuse::Drawing::Stroke_typeof()->Array();
+    ::TYPES[76] = ::g::Fuse::Controls::Native::IShapeView_typeof();
     ::TYPES[11] = ::g::Fuse::ICommonViewport_typeof();
-    ::TYPES[71] = ::g::Fuse::Drawing::ISolidColor_typeof();
-    ::TYPES[72] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Drawing::Brush_typeof());
-    ::TYPES[73] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Drawing::Stroke_typeof());
-    ::TYPES[74] = ::g::Uno::Collections::ObservableList_typeof()->MakeType(::g::Fuse::Drawing::Brush_typeof());
-    ::TYPES[75] = ::g::Uno::Action1_typeof()->MakeType(::g::Fuse::Drawing::Brush_typeof());
-    ::TYPES[76] = ::g::Uno::Collections::ObservableList_typeof()->MakeType(::g::Fuse::Drawing::Stroke_typeof());
-    ::TYPES[77] = ::g::Uno::Action1_typeof()->MakeType(::g::Fuse::Drawing::Stroke_typeof());
+    ::TYPES[77] = ::g::Fuse::Drawing::ISolidColor_typeof();
+    ::TYPES[78] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Drawing::Brush_typeof());
+    ::TYPES[79] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Drawing::Stroke_typeof());
+    ::TYPES[80] = ::g::Uno::Collections::ObservableList_typeof()->MakeType(::g::Fuse::Drawing::Brush_typeof());
+    ::TYPES[81] = ::g::Uno::Action1_typeof()->MakeType(::g::Fuse::Drawing::Brush_typeof());
+    ::TYPES[82] = ::g::Uno::Collections::ObservableList_typeof()->MakeType(::g::Fuse::Drawing::Stroke_typeof());
+    ::TYPES[83] = ::g::Uno::Action1_typeof()->MakeType(::g::Fuse::Drawing::Stroke_typeof());
     type->SetInterfaces(
         ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(Shape_type, interface0),
         ::g::Fuse::Scripting::IScriptObject_typeof(), offsetof(Shape_type, interface1),
@@ -9670,7 +10663,7 @@ static void Shape_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(Shape_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(Shape_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(Shape_type, interface12));
-    type->SetFields(92,
+    type->SetFields(93,
         ::g::Uno::Collections::ObservableList_typeof()->MakeType(::g::Fuse::Drawing::Brush_typeof()), offsetof(::g::Fuse::Controls::Shape, _fills), 0,
         ::g::Uno::Float_typeof(), offsetof(::g::Fuse::Controls::Shape, _smoothness), 0,
         ::g::Uno::Collections::ObservableList_typeof()->MakeType(::g::Fuse::Drawing::Stroke_typeof()), offsetof(::g::Fuse::Controls::Shape, _strokes), 0,
@@ -9686,7 +10679,7 @@ Shape_type* Shape_typeof()
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::LayoutControl_typeof();
-    options.FieldCount = 98;
+    options.FieldCount = 99;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(Shape);
     options.TypeSize = sizeof(Shape_type);
@@ -9753,9 +10746,9 @@ void Shape__CalcRenderBounds_fn(Shape* __this, ::g::Fuse::VisualBounds** __retva
 
     if (__this->HasStrokes())
 
-        for (uObject* enum3 = (uObject*)::g::Uno::Collections::IEnumerable::GetEnumerator(uInterface(uPtr(__this->Strokes()), ::TYPES[57/*Uno.Collections.IEnumerable<Fuse.Drawing.Stroke>*/])); ::g::Uno::Collections::IEnumerator::MoveNext(uInterface(uPtr(enum3), ::TYPES[58/*Uno.Collections.IEnumerator*/])); )
+        for (uObject* enum3 = (uObject*)::g::Uno::Collections::IEnumerable::GetEnumerator(uInterface(uPtr(__this->Strokes()), ::TYPES[65/*Uno.Collections.IEnumerable<Fuse.Drawing.Stroke>*/])); ::g::Uno::Collections::IEnumerator::MoveNext(uInterface(uPtr(enum3), ::TYPES[66/*Uno.Collections.IEnumerator*/])); )
         {
-            ::g::Fuse::Drawing::Stroke* stroke = (::g::Uno::Collections::IEnumerator1::get_Current_ex(uInterface(uPtr(enum3), ::TYPES[59/*Uno.Collections.IEnumerator<Fuse.Drawing.Stroke>*/]), &ret5), ret5);
+            ::g::Fuse::Drawing::Stroke* stroke = (::g::Uno::Collections::IEnumerator1::get_Current_ex(uInterface(uPtr(enum3), ::TYPES[67/*Uno.Collections.IEnumerator<Fuse.Drawing.Stroke>*/]), &ret5), ret5);
             float b = uPtr(stroke)->Offset() + uPtr(stroke)->Width();
 
             if (b > 0.0f)
@@ -9823,17 +10816,17 @@ void Shape__DrawVisual_fn(Shape* __this, ::g::Fuse::DrawContext* dc)
 
     if (__this->HasFills())
 
-        for (uObject* enum1 = (uObject*)::g::Uno::Collections::IEnumerable::GetEnumerator(uInterface(uPtr(__this->Fills()), ::TYPES[60/*Uno.Collections.IEnumerable<Fuse.Drawing.Brush>*/])); ::g::Uno::Collections::IEnumerator::MoveNext(uInterface(uPtr(enum1), ::TYPES[58/*Uno.Collections.IEnumerator*/])); )
+        for (uObject* enum1 = (uObject*)::g::Uno::Collections::IEnumerable::GetEnumerator(uInterface(uPtr(__this->Fills()), ::TYPES[68/*Uno.Collections.IEnumerable<Fuse.Drawing.Brush>*/])); ::g::Uno::Collections::IEnumerator::MoveNext(uInterface(uPtr(enum1), ::TYPES[66/*Uno.Collections.IEnumerator*/])); )
         {
-            ::g::Fuse::Drawing::Brush* fill = (::g::Uno::Collections::IEnumerator1::get_Current_ex(uInterface(uPtr(enum1), ::TYPES[61/*Uno.Collections.IEnumerator<Fuse.Drawing.Brush>*/]), &ret6), ret6);
+            ::g::Fuse::Drawing::Brush* fill = (::g::Uno::Collections::IEnumerator1::get_Current_ex(uInterface(uPtr(enum1), ::TYPES[69/*Uno.Collections.IEnumerator<Fuse.Drawing.Brush>*/]), &ret6), ret6);
             __this->DrawFill(dc, fill);
         }
 
     if (__this->HasStrokes())
 
-        for (uObject* enum2 = (uObject*)::g::Uno::Collections::IEnumerable::GetEnumerator(uInterface(uPtr(__this->Strokes()), ::TYPES[57/*Uno.Collections.IEnumerable<Fuse.Drawing.Stroke>*/])); ::g::Uno::Collections::IEnumerator::MoveNext(uInterface(uPtr(enum2), ::TYPES[58/*Uno.Collections.IEnumerator*/])); )
+        for (uObject* enum2 = (uObject*)::g::Uno::Collections::IEnumerable::GetEnumerator(uInterface(uPtr(__this->Strokes()), ::TYPES[65/*Uno.Collections.IEnumerable<Fuse.Drawing.Stroke>*/])); ::g::Uno::Collections::IEnumerator::MoveNext(uInterface(uPtr(enum2), ::TYPES[66/*Uno.Collections.IEnumerator*/])); )
         {
-            ::g::Fuse::Drawing::Stroke* stroke = (::g::Uno::Collections::IEnumerator1::get_Current_ex(uInterface(uPtr(enum2), ::TYPES[59/*Uno.Collections.IEnumerator<Fuse.Drawing.Stroke>*/]), &ret7), ret7);
+            ::g::Fuse::Drawing::Stroke* stroke = (::g::Uno::Collections::IEnumerator1::get_Current_ex(uInterface(uPtr(enum2), ::TYPES[67/*Uno.Collections.IEnumerator<Fuse.Drawing.Stroke>*/]), &ret7), ret7);
             __this->DrawStroke(dc, stroke);
         }
 }
@@ -9912,9 +10905,9 @@ void Shape__OnPropertyChanged2_fn(Shape* __this, ::g::Uno::UX::PropertyObject* s
 {
     ::g::Uno::UX::Selector property_ = *property;
 
-    if (uIs(sender, ::TYPES[64/*Fuse.Drawing.Brush*/]))
+    if (uIs(sender, ::TYPES[70/*Fuse.Drawing.Brush*/]))
         __this->InvalidateVisual();
-    else  if (uIs(sender, ::TYPES[65/*Fuse.Drawing.Stroke*/]))
+    else  if (uIs(sender, ::TYPES[71/*Fuse.Drawing.Stroke*/]))
     {
         __this->InvalidateVisual();
 
@@ -10042,10 +11035,10 @@ void Shape::ctor_6()
 // public float4 get_Color() [instance] :1023
 ::g::Uno::Float4 Shape::Color()
 {
-    uObject* f = uAs<uObject*>(Fill(), ::TYPES[71/*Fuse.Drawing.ISolidColor*/]);
+    uObject* f = uAs<uObject*>(Fill(), ::TYPES[77/*Fuse.Drawing.ISolidColor*/]);
 
     if (f != NULL)
-        return ::g::Fuse::Drawing::ISolidColor::Color(uInterface(uPtr(f), ::TYPES[71/*Fuse.Drawing.ISolidColor*/]));
+        return ::g::Fuse::Drawing::ISolidColor::Color(uInterface(uPtr(f), ::TYPES[77/*Fuse.Drawing.ISolidColor*/]));
 
     return ::g::Uno::Float4__New1(0.0f);
 }
@@ -10074,10 +11067,10 @@ float Shape::CurrentDrawCost()
     float cost = 0.0f;
 
     if (HasFills())
-        cost = cost + (float)::g::Uno::Collections::ICollection::Count(uInterface(uPtr(Fills()), ::TYPES[72/*Uno.Collections.ICollection<Fuse.Drawing.Brush>*/]));
+        cost = cost + (float)::g::Uno::Collections::ICollection::Count(uInterface(uPtr(Fills()), ::TYPES[78/*Uno.Collections.ICollection<Fuse.Drawing.Brush>*/]));
 
     if (HasStrokes())
-        cost = cost + (float)::g::Uno::Collections::ICollection::Count(uInterface(uPtr(Strokes()), ::TYPES[73/*Uno.Collections.ICollection<Fuse.Drawing.Stroke>*/]));
+        cost = cost + (float)::g::Uno::Collections::ICollection::Count(uInterface(uPtr(Strokes()), ::TYPES[79/*Uno.Collections.ICollection<Fuse.Drawing.Stroke>*/]));
 
     return cost;
 }
@@ -10096,17 +11089,17 @@ float Shape::CurrentDrawCost()
 // public void set_Fill(Fuse.Drawing.Brush value) [instance] :1061
 void Shape::Fill(::g::Fuse::Drawing::Brush* value)
 {
-    ::g::Uno::Collections::ICollection::Clear(uInterface(uPtr(Fills()), ::TYPES[72/*Uno.Collections.ICollection<Fuse.Drawing.Brush>*/]));
+    ::g::Uno::Collections::ICollection::Clear(uInterface(uPtr(Fills()), ::TYPES[78/*Uno.Collections.ICollection<Fuse.Drawing.Brush>*/]));
 
     if (value != NULL)
-        ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(Fills()), ::TYPES[72/*Uno.Collections.ICollection<Fuse.Drawing.Brush>*/]), value);
+        ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(Fills()), ::TYPES[78/*Uno.Collections.ICollection<Fuse.Drawing.Brush>*/]), value);
 }
 
 // public Uno.Collections.IList<Fuse.Drawing.Brush> get_Fills() [instance] :1075
 uObject* Shape::Fills()
 {
     if (_fills == NULL)
-        _fills = ((::g::Uno::Collections::ObservableList*)::g::Uno::Collections::ObservableList::New1(::TYPES[74/*Uno.Collections.ObservableList<Fuse.Drawing.Brush>*/], uDelegate::New(::TYPES[75/*Uno.Action<Fuse.Drawing.Brush>*/], (void*)Shape__OnFillAdded_fn, this), uDelegate::New(::TYPES[75/*Uno.Action<Fuse.Drawing.Brush>*/], (void*)Shape__OnFillRemoved_fn, this)));
+        _fills = ((::g::Uno::Collections::ObservableList*)::g::Uno::Collections::ObservableList::New1(::TYPES[80/*Uno.Collections.ObservableList<Fuse.Drawing.Brush>*/], uDelegate::New(::TYPES[81/*Uno.Action<Fuse.Drawing.Brush>*/], (void*)Shape__OnFillAdded_fn, this), uDelegate::New(::TYPES[81/*Uno.Action<Fuse.Drawing.Brush>*/], (void*)Shape__OnFillRemoved_fn, this)));
 
     return (uObject*)_fills;
 }
@@ -10126,18 +11119,18 @@ bool Shape::HasStrokes()
 // private Fuse.Controls.Native.IShapeView get_NativeShape() [instance] :1307
 uObject* Shape::NativeShape()
 {
-    return uAs<uObject*>(NativeView(), ::TYPES[70/*Fuse.Controls.Native.IShapeView*/]);
+    return uAs<uObject*>(NativeView(), ::TYPES[76/*Fuse.Controls.Native.IShapeView*/]);
 }
 
 // private void OnColorChanged(float4 value, Uno.UX.IPropertyListener origin) [instance] :1043
 void Shape::OnColorChanged(::g::Uno::Float4 value, uObject* origin)
 {
-    if (!uIs((::g::Fuse::Drawing::Brush*)Fill(), ::TYPES[62/*Fuse.Drawing.SolidColor*/]))
+    if (!uIs((::g::Fuse::Drawing::Brush*)Fill(), ::TYPES[54/*Fuse.Drawing.SolidColor*/]))
         Fill(::g::Fuse::Drawing::SolidColor::New3(value));
     else 
-        uPtr(uCast< ::g::Fuse::Drawing::SolidColor*>(Fill(), ::TYPES[62/*Fuse.Drawing.SolidColor*/]))->Color(value);
+        uPtr(uCast< ::g::Fuse::Drawing::SolidColor*>(Fill(), ::TYPES[54/*Fuse.Drawing.SolidColor*/]))->Color(value);
 
-    OnPropertyChanged1(Shape::ColorPropertyName(), uAs<uObject*>(origin, ::TYPES[63/*Uno.UX.IPropertyListener*/]));
+    OnPropertyChanged1(Shape::ColorPropertyName(), uAs<uObject*>(origin, ::TYPES[53/*Uno.UX.IPropertyListener*/]));
 }
 
 // private void OnFillAdded(Fuse.Drawing.Brush f) [instance] :1083
@@ -10246,7 +11239,7 @@ void Shape::Smoothness(float value)
 uObject* Shape::Strokes()
 {
     if (_strokes == NULL)
-        _strokes = ((::g::Uno::Collections::ObservableList*)::g::Uno::Collections::ObservableList::New1(::TYPES[76/*Uno.Collections.ObservableList<Fuse.Drawing.Stroke>*/], uDelegate::New(::TYPES[77/*Uno.Action<Fuse.Drawing.Stroke>*/], (void*)Shape__OnStrokeAdded_fn, this), uDelegate::New(::TYPES[77/*Uno.Action<Fuse.Drawing.Stroke>*/], (void*)Shape__OnStrokeRemoved_fn, this)));
+        _strokes = ((::g::Uno::Collections::ObservableList*)::g::Uno::Collections::ObservableList::New1(::TYPES[82/*Uno.Collections.ObservableList<Fuse.Drawing.Stroke>*/], uDelegate::New(::TYPES[83/*Uno.Action<Fuse.Drawing.Stroke>*/], (void*)Shape__OnStrokeAdded_fn, this), uDelegate::New(::TYPES[83/*Uno.Action<Fuse.Drawing.Stroke>*/], (void*)Shape__OnStrokeRemoved_fn, this)));
 
     return (uObject*)_strokes;
 }
@@ -10258,9 +11251,9 @@ void Shape::UpdateNativeShape()
 
     if (ns != NULL)
     {
-        uArray* fills = HasFills() ? (uArray*)::g::Uno::Collections::EnumerableExtensions::ToArray(::TYPES[66/*Uno.Collections.EnumerableExtensions.ToArray<Fuse.Drawing.Brush>*/], Fills()) : uArray::New(::TYPES[67/*Fuse.Drawing.Brush[]*/], 0);
-        uArray* strokes = HasStrokes() ? (uArray*)::g::Uno::Collections::EnumerableExtensions::ToArray(::TYPES[68/*Uno.Collections.EnumerableExtensions.ToArray<Fuse.Drawing.Stroke>*/], Strokes()) : uArray::New(::TYPES[69/*Fuse.Drawing.Stroke[]*/], 0);
-        ::g::Fuse::Controls::Native::IShapeView::Update(uInterface(uPtr(ns), ::TYPES[70/*Fuse.Controls.Native.IShapeView*/]), fills, strokes, ::g::Fuse::ICommonViewport::PixelsPerPoint(uInterface(uPtr(Viewport()), ::TYPES[11/*Fuse.ICommonViewport*/])));
+        uArray* fills = HasFills() ? (uArray*)::g::Uno::Collections::EnumerableExtensions::ToArray(::TYPES[72/*Uno.Collections.EnumerableExtensions.ToArray<Fuse.Drawing.Brush>*/], Fills()) : uArray::New(::TYPES[73/*Fuse.Drawing.Brush[]*/], 0);
+        uArray* strokes = HasStrokes() ? (uArray*)::g::Uno::Collections::EnumerableExtensions::ToArray(::TYPES[74/*Uno.Collections.EnumerableExtensions.ToArray<Fuse.Drawing.Stroke>*/], Strokes()) : uArray::New(::TYPES[75/*Fuse.Drawing.Stroke[]*/], 0);
+        ::g::Fuse::Controls::Native::IShapeView::Update(uInterface(uPtr(ns), ::TYPES[76/*Fuse.Controls.Native.IShapeView*/]), fills, strokes, ::g::Fuse::ICommonViewport::PixelsPerPoint(uInterface(uPtr(Viewport()), ::TYPES[11/*Fuse.ICommonViewport*/])));
     }
 }
 // }
@@ -10286,7 +11279,7 @@ static void StackPanel_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface12));
-    type->SetFields(92,
+    type->SetFields(93,
         ::g::Fuse::Layouts::StackLayout_typeof(), offsetof(::g::Fuse::Controls::StackPanel, _stackLayout), 0);
 }
 
@@ -10297,7 +11290,7 @@ static void StackPanel_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::Panel_typeof();
-    options.FieldCount = 93;
+    options.FieldCount = 94;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(StackPanel);
     options.TypeSize = sizeof(::g::Fuse::Controls::Control_type);
@@ -10393,7 +11386,7 @@ static void Switch_build(uType* type)
         ::g::Fuse::Triggers::IValue_typeof()->MakeType(::g::Uno::Bool_typeof()), offsetof(::g::Fuse::Controls::ToggleControl_type, interface13),
         ::g::Fuse::Controls::Native::IToggleViewHost_typeof(), offsetof(::g::Fuse::Controls::ToggleControl_type, interface14),
         ::g::Fuse::Triggers::Actions::IToggleable_typeof(), offsetof(::g::Fuse::Controls::ToggleControl_type, interface15));
-    type->SetFields(94);
+    type->SetFields(95);
 }
 
 ::g::Fuse::Controls::ToggleControl_type* Switch_typeof()
@@ -10403,7 +11396,7 @@ static void Switch_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::ToggleControl_typeof();
-    options.FieldCount = 94;
+    options.FieldCount = 95;
     options.InterfaceCount = 16;
     options.ObjectSize = sizeof(Switch);
     options.TypeSize = sizeof(::g::Fuse::Controls::ToggleControl_type);
@@ -10452,170 +11445,41 @@ static void Switch_build(uType* type)
 // /usr/local/share/uno/Packages/Fuse.Controls.Primitives/0.39.3/.uno/ux11/$.uno
 // -----------------------------------------------------------------------------
 
-// public partial sealed class Button.Template :49
-// {
-// static Template() :63
-static void Button__Template__cctor__fn(uType* __type)
-{
-    Button__Template::__selector0_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[0/*"Value"*/]);
-    Button__Template::__selector1_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[1/*"Text"*/]);
-    Button__Template::__selector2_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[50/*"TextColor"*/]);
-    Button__Template::__selector3_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[15/*"Opacity"*/]);
-    Button__Template::__selector4_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[6/*"GraphicsApp...*/]);
-    Button__Template::__selector5_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[51/*"Button_Text"*/]);
-}
-
-static void Button__Template_build(uType* type)
-{
-    ::STRINGS[0] = uString::Const("Value");
-    ::STRINGS[1] = uString::Const("Text");
-    ::STRINGS[50] = uString::Const("TextColor");
-    ::STRINGS[15] = uString::Const("Opacity");
-    ::STRINGS[6] = uString::Const("GraphicsAppearance");
-    ::STRINGS[51] = uString::Const("Button_Text");
-    ::TYPES[78] = ::g::Fuse::Controls::PropertyBinding_typeof()->MakeType(::g::Uno::String_typeof());
-    ::TYPES[48] = ::g::Fuse::Animations::Change_typeof()->MakeType(::g::Uno::Float4_typeof());
-    ::TYPES[40] = ::g::Fuse::Animations::Change_typeof()->MakeType(::g::Uno::Float_typeof());
-    ::TYPES[16] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Binding_typeof());
-    ::TYPES[27] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Animations::Animator_typeof());
-    ::TYPES[4] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof());
-    type->SetFields(2,
-        ::g::Fuse::Controls::Button_typeof(), offsetof(::g::Fuse::Controls::Button__Template, __parent1), uFieldFlagsWeak,
-        ::g::Fuse::Controls::Button_typeof(), offsetof(::g::Fuse::Controls::Button__Template, __parentInstance1), uFieldFlagsWeak,
-        ::g::Uno::UX::Property1_typeof()->MakeType(::g::Uno::Float_typeof()), offsetof(::g::Fuse::Controls::Button__Template, Button_Text_Opacity_inst), 0,
-        ::g::Uno::UX::Property1_typeof()->MakeType(::g::Uno::Float4_typeof()), offsetof(::g::Fuse::Controls::Button__Template, Button_Text_TextColor_inst), 0,
-        ::g::Uno::UX::Property1_typeof()->MakeType(::g::Uno::String_typeof()), offsetof(::g::Fuse::Controls::Button__Template, Button_Text_Value_inst), 0,
-        ::g::Uno::UX::Property1_typeof()->MakeType(::g::Uno::String_typeof()), offsetof(::g::Fuse::Controls::Button__Template, this1_Text_inst), 0,
-        ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::Button__Template::__selector0_, uFieldFlagsStatic,
-        ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::Button__Template::__selector1_, uFieldFlagsStatic,
-        ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::Button__Template::__selector2_, uFieldFlagsStatic,
-        ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::Button__Template::__selector3_, uFieldFlagsStatic,
-        ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::Button__Template::__selector4_, uFieldFlagsStatic,
-        ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::Button__Template::__selector5_, uFieldFlagsStatic);
-}
-
-::g::Uno::UX::Template_type* Button__Template_typeof()
-{
-    static uSStrong< ::g::Uno::UX::Template_type*> type;
-    if (type != NULL) return type;
-
-    uTypeOptions options;
-    options.BaseDefinition = ::g::Uno::UX::Template_typeof();
-    options.FieldCount = 14;
-    options.ObjectSize = sizeof(Button__Template);
-    options.TypeSize = sizeof(::g::Uno::UX::Template_type);
-    type = (::g::Uno::UX::Template_type*)uClassType::New("Fuse.Controls.Button.Template", options);
-    type->fp_build_ = Button__Template_build;
-    type->fp_cctor_ = Button__Template__cctor__fn;
-    type->fp_New1 = (void(*)(::g::Uno::UX::Template*, uObject**))Button__Template__New1_fn;
-    return type;
-}
-
-// public Template(Fuse.Controls.Button parent, Fuse.Controls.Button parentInstance) :53
-void Button__Template__ctor_1_fn(Button__Template* __this, ::g::Fuse::Controls::Button* parent, ::g::Fuse::Controls::Button* parentInstance)
-{
-    __this->ctor_1(parent, parentInstance);
-}
-
-// public override sealed object New() :66
-void Button__Template__New1_fn(Button__Template* __this, uObject** __retval)
-{
-    ::g::Fuse::Controls::Panel* self = ::g::Fuse::Controls::Panel::New3();
-    ::g::Fuse::Controls::Text* Button_Text1 = ::g::Fuse::Controls::Text::New3();
-    __this->Button_Text_Value_inst = ::g::FuseControlsPrimitives_FuseControlsText_Value_Property::New1(Button_Text1, Button__Template::__selector0());
-    __this->this1_Text_inst = ::g::FuseControlsPrimitives_FuseControlsButton_Text_Property::New1(__this->__parent1, Button__Template::__selector1());
-    __this->Button_Text_TextColor_inst = ::g::FuseControlsPrimitives_FuseControlsText_TextColor_Property::New1(Button_Text1, Button__Template::__selector2());
-    __this->Button_Text_Opacity_inst = ::g::FuseControlsPrimitives_FuseControlsText_Opacity_Property::New1(Button_Text1, Button__Template::__selector3());
-    ::g::Fuse::Controls::PropertyBinding* temp = (::g::Fuse::Controls::PropertyBinding*)::g::Fuse::Controls::PropertyBinding::New1(::TYPES[78/*Fuse.Controls.PropertyBinding<string>*/], __this->Button_Text_Value_inst, __this->this1_Text_inst);
-    ::g::Fuse::Gestures::WhilePressed* temp1 = ::g::Fuse::Gestures::WhilePressed::New2();
-    ::g::Fuse::Animations::Change* temp2 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[48/*Fuse.Animations.Change<float4>*/], __this->Button_Text_TextColor_inst);
-    ::g::Fuse::Triggers::WhileDisabled* temp3 = ::g::Fuse::Triggers::WhileDisabled::New2();
-    ::g::Fuse::Animations::Change* temp4 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[40/*Fuse.Animations.Change<float>*/], __this->Button_Text_Opacity_inst);
-    self->Name(Button__Template::__selector4());
-    Button_Text1->FontSize(16.0f);
-    Button_Text1->TextAlignment(1);
-    Button_Text1->TextColor(::g::Uno::Float4__New2(0.3686275f, 0.6627451f, 0.9843137f, 1.0f));
-    Button_Text1->Alignment(10);
-    Button_Text1->Name(Button__Template::__selector5());
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(Button_Text1->Bindings()), ::TYPES[16/*Uno.Collections.ICollection<Fuse.Binding>*/]), temp);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp1->Animators()), ::TYPES[27/*Uno.Collections.ICollection<Fuse.Animations.Animator>*/]), temp2);
-    ::g::Fuse::Animations::Change__set_Value_fn(temp2, uCRef(::g::Uno::Float4__New2(0.1411765f, 0.1411765f, 0.8f, 1.0f)));
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp3->Animators()), ::TYPES[27/*Uno.Collections.ICollection<Fuse.Animations.Animator>*/]), temp4);
-    ::g::Fuse::Animations::Change__set_Value_fn(temp4, uCRef(0.5f));
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(self->Children()), ::TYPES[4/*Uno.Collections.ICollection<Fuse.Node>*/]), Button_Text1);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(self->Children()), ::TYPES[4/*Uno.Collections.ICollection<Fuse.Node>*/]), temp1);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(self->Children()), ::TYPES[4/*Uno.Collections.ICollection<Fuse.Node>*/]), temp3);
-    return *__retval = self, void();
-}
-
-// public Template New(Fuse.Controls.Button parent, Fuse.Controls.Button parentInstance) :53
-void Button__Template__New2_fn(::g::Fuse::Controls::Button* parent, ::g::Fuse::Controls::Button* parentInstance, Button__Template** __retval)
-{
-    *__retval = Button__Template::New2(parent, parentInstance);
-}
-
-::g::Uno::UX::Selector Button__Template::__selector0_;
-::g::Uno::UX::Selector Button__Template::__selector1_;
-::g::Uno::UX::Selector Button__Template::__selector2_;
-::g::Uno::UX::Selector Button__Template::__selector3_;
-::g::Uno::UX::Selector Button__Template::__selector4_;
-::g::Uno::UX::Selector Button__Template::__selector5_;
-
-// public Template(Fuse.Controls.Button parent, Fuse.Controls.Button parentInstance) [instance] :53
-void Button__Template::ctor_1(::g::Fuse::Controls::Button* parent, ::g::Fuse::Controls::Button* parentInstance)
-{
-    ctor_(::STRINGS[6/*"GraphicsApp...*/], false);
-    __parent1 = parent;
-    __parentInstance1 = parentInstance;
-}
-
-// public Template New(Fuse.Controls.Button parent, Fuse.Controls.Button parentInstance) [static] :53
-Button__Template* Button__Template::New2(::g::Fuse::Controls::Button* parent, ::g::Fuse::Controls::Button* parentInstance)
-{
-    Button__Template* obj1 = (Button__Template*)uNew(Button__Template_typeof());
-    obj1->ctor_1(parent, parentInstance);
-    return obj1;
-}
-// }
-
-// /usr/local/share/uno/Packages/Fuse.Controls.Primitives/0.39.3/.uno/ux11/$.uno
-// -----------------------------------------------------------------------------
-
 // public partial sealed class Switch.Template :399
 // {
 // static Template() :423
 static void Switch__Template__cctor__fn(uType* __type)
 {
-    Switch__Template::__selector0_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[52/*"IsActive"*/]);
+    Switch__Template::__selector0_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[53/*"IsActive"*/]);
     Switch__Template::__selector1_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[0/*"Value"*/]);
-    Switch__Template::__selector2_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[29/*"Color"*/]);
-    Switch__Template::__selector3_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[53/*"Size"*/]);
-    Switch__Template::__selector4_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[54/*"Distance"*/]);
+    Switch__Template::__selector2_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[32/*"Color"*/]);
+    Switch__Template::__selector3_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[54/*"Size"*/]);
+    Switch__Template::__selector4_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[55/*"Distance"*/]);
     Switch__Template::__selector5_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[6/*"GraphicsApp...*/]);
-    Switch__Template::__selector6_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[55/*"swipe"*/]);
-    Switch__Template::__selector7_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[56/*"thumb"*/]);
-    Switch__Template::__selector8_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[57/*"switch_thum...*/]);
+    Switch__Template::__selector6_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[56/*"swipe"*/]);
+    Switch__Template::__selector7_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[57/*"thumb"*/]);
+    Switch__Template::__selector8_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[58/*"switch_thum...*/]);
 }
 
 static void Switch__Template_build(uType* type)
 {
-    ::STRINGS[52] = uString::Const("IsActive");
+    ::STRINGS[53] = uString::Const("IsActive");
     ::STRINGS[0] = uString::Const("Value");
-    ::STRINGS[29] = uString::Const("Color");
-    ::STRINGS[53] = uString::Const("Size");
-    ::STRINGS[54] = uString::Const("Distance");
+    ::STRINGS[32] = uString::Const("Color");
+    ::STRINGS[54] = uString::Const("Size");
+    ::STRINGS[55] = uString::Const("Distance");
     ::STRINGS[6] = uString::Const("GraphicsAppearance");
-    ::STRINGS[55] = uString::Const("swipe");
-    ::STRINGS[56] = uString::Const("thumb");
-    ::STRINGS[57] = uString::Const("switch_thumb_shadow");
+    ::STRINGS[56] = uString::Const("swipe");
+    ::STRINGS[57] = uString::Const("thumb");
+    ::STRINGS[58] = uString::Const("switch_thumb_shadow");
     ::TYPES[15] = ::g::Fuse::Controls::PropertyBinding_typeof()->MakeType(::g::Uno::Bool_typeof());
-    ::TYPES[48] = ::g::Fuse::Animations::Change_typeof()->MakeType(::g::Uno::Float4_typeof());
-    ::TYPES[40] = ::g::Fuse::Animations::Change_typeof()->MakeType(::g::Uno::Float_typeof());
-    ::TYPES[79] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Triggers::Actions::TriggerAction_typeof());
+    ::TYPES[52] = ::g::Fuse::Animations::Change_typeof()->MakeType(::g::Uno::Float4_typeof());
+    ::TYPES[44] = ::g::Fuse::Animations::Change_typeof()->MakeType(::g::Uno::Float_typeof());
+    ::TYPES[84] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Triggers::Actions::TriggerAction_typeof());
     ::TYPES[16] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Binding_typeof());
     ::TYPES[27] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Animations::Animator_typeof());
-    ::TYPES[72] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Drawing::Brush_typeof());
-    ::TYPES[73] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Drawing::Stroke_typeof());
+    ::TYPES[78] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Drawing::Brush_typeof());
+    ::TYPES[79] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Drawing::Stroke_typeof());
     ::TYPES[4] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof());
     type->SetFields(2,
         ::g::Fuse::Controls::Switch_typeof(), offsetof(::g::Fuse::Controls::Switch__Template, __parent1), uFieldFlagsWeak,
@@ -10678,22 +11542,22 @@ void Switch__Template__New1_fn(Switch__Template* __this, uObject** __retval)
     ::g::Fuse::Controls::PropertyBinding* temp2 = (::g::Fuse::Controls::PropertyBinding*)::g::Fuse::Controls::PropertyBinding::New1(::TYPES[15/*Fuse.Controls.PropertyBinding<bool>*/], __this->swipe_IsActive_inst, __this->this1_Value_inst);
     ::g::Fuse::Gestures::SwipingAnimation* temp3 = ::g::Fuse::Gestures::SwipingAnimation::New2(swipe1);
     ::g::Fuse::Animations::Move* temp4 = ::g::Fuse::Animations::Move::New2();
-    ::g::Fuse::Animations::Change* temp5 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[48/*Fuse.Animations.Change<float4>*/], __this->trackFill_Color_inst);
+    ::g::Fuse::Animations::Change* temp5 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[52/*Fuse.Animations.Change<float4>*/], __this->trackFill_Color_inst);
     ::g::Fuse::Controls::Circle* thumb1 = ::g::Fuse::Controls::Circle::New3();
     ::g::Fuse::Controls::Rectangle* temp6 = ::g::Fuse::Controls::Rectangle::New3();
     ::g::Fuse::Drawing::Stroke* temp7 = ::g::Fuse::Drawing::Stroke::New2();
     ::g::Fuse::Triggers::WhileDisabled* temp8 = ::g::Fuse::Triggers::WhileDisabled::New2();
-    ::g::Fuse::Animations::Change* temp9 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[48/*Fuse.Animations.Change<float4>*/], __this->thumbFill_Color_inst);
-    ::g::Fuse::Animations::Change* temp10 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[48/*Fuse.Animations.Change<float4>*/], __this->trackFill_Color_inst);
-    ::g::Fuse::Animations::Change* temp11 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[48/*Fuse.Animations.Change<float4>*/], __this->switch_thumb_stroke_Color_inst);
-    ::g::Fuse::Animations::Change* temp12 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[48/*Fuse.Animations.Change<float4>*/], __this->strokeColor_Color_inst);
-    ::g::Fuse::Animations::Change* temp13 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[40/*Fuse.Animations.Change<float>*/], __this->switch_thumb_shadow_Size_inst);
-    ::g::Fuse::Animations::Change* temp14 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[40/*Fuse.Animations.Change<float>*/], __this->switch_thumb_shadow_Distance_inst);
+    ::g::Fuse::Animations::Change* temp9 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[52/*Fuse.Animations.Change<float4>*/], __this->thumbFill_Color_inst);
+    ::g::Fuse::Animations::Change* temp10 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[52/*Fuse.Animations.Change<float4>*/], __this->trackFill_Color_inst);
+    ::g::Fuse::Animations::Change* temp11 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[52/*Fuse.Animations.Change<float4>*/], __this->switch_thumb_stroke_Color_inst);
+    ::g::Fuse::Animations::Change* temp12 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[52/*Fuse.Animations.Change<float4>*/], __this->strokeColor_Color_inst);
+    ::g::Fuse::Animations::Change* temp13 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[44/*Fuse.Animations.Change<float>*/], __this->switch_thumb_shadow_Size_inst);
+    ::g::Fuse::Animations::Change* temp14 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[44/*Fuse.Animations.Change<float>*/], __this->switch_thumb_shadow_Distance_inst);
     self->Width(::g::Uno::UX::Size__New1(50.0f, 1));
     self->Height(::g::Uno::UX::Size__New1(31.0f, 1));
     self->SnapToPixels(false);
     self->Name(Switch__Template::__selector5());
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp->Actions()), ::TYPES[79/*Uno.Collections.ICollection<Fuse.Triggers.Actions.TriggerAction>*/]), temp1);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp->Actions()), ::TYPES[84/*Uno.Collections.ICollection<Fuse.Triggers.Actions.TriggerAction>*/]), temp1);
     temp1->Target((uObject*)__this->__parent1);
     swipe1->Type(1);
     swipe1->Direction(2);
@@ -10711,8 +11575,8 @@ void Switch__Template__New1_fn(Switch__Template* __this, uObject** __retval)
     thumb1->Alignment(9);
     thumb1->Margin(::g::Uno::Float4__New2(2.0f, 0.0f, 14.0f, 0.0f));
     thumb1->Name(Switch__Template::__selector7());
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(thumb1->Fills()), ::TYPES[72/*Uno.Collections.ICollection<Fuse.Drawing.Brush>*/]), thumbFill1);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(thumb1->Strokes()), ::TYPES[73/*Uno.Collections.ICollection<Fuse.Drawing.Stroke>*/]), switch_thumb_stroke1);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(thumb1->Fills()), ::TYPES[78/*Uno.Collections.ICollection<Fuse.Drawing.Brush>*/]), thumbFill1);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(thumb1->Strokes()), ::TYPES[79/*Uno.Collections.ICollection<Fuse.Drawing.Stroke>*/]), switch_thumb_stroke1);
     ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(thumb1->Children()), ::TYPES[4/*Uno.Collections.ICollection<Fuse.Node>*/]), switch_thumb_shadow1);
     thumbFill1->Color(::g::Uno::Float4__New2(1.0f, 1.0f, 1.0f, 1.0f));
     switch_thumb_stroke1->Color(::g::Uno::Float4__New2(0.6039216f, 0.6039216f, 0.6039216f, 1.0f));
@@ -10726,8 +11590,8 @@ void Switch__Template__New1_fn(Switch__Template* __this, uObject** __retval)
     temp6->Width(::g::Uno::UX::Size__New1(51.0f, 1));
     temp6->Height(::g::Uno::UX::Size__New1(31.0f, 1));
     temp6->Alignment(10);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp6->Fills()), ::TYPES[72/*Uno.Collections.ICollection<Fuse.Drawing.Brush>*/]), trackFill1);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp6->Strokes()), ::TYPES[73/*Uno.Collections.ICollection<Fuse.Drawing.Stroke>*/]), temp7);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp6->Fills()), ::TYPES[78/*Uno.Collections.ICollection<Fuse.Drawing.Brush>*/]), trackFill1);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp6->Strokes()), ::TYPES[79/*Uno.Collections.ICollection<Fuse.Drawing.Stroke>*/]), temp7);
     trackFill1->Color(::g::Uno::Float4__New2(0.8941177f, 0.8941177f, 0.8941177f, 1.0f));
     temp7->Brush(strokeColor1);
     strokeColor1->Color(::g::Uno::Float4__New2(0.6039216f, 0.6039216f, 0.6039216f, 1.0f));
@@ -10773,6 +11637,135 @@ void Switch__Template__New1_fn(Switch__Template* __this, uObject** __retval)
 ::g::Uno::UX::Selector Switch__Template::__selector6_;
 ::g::Uno::UX::Selector Switch__Template::__selector7_;
 ::g::Uno::UX::Selector Switch__Template::__selector8_;
+// }
+
+// /usr/local/share/uno/Packages/Fuse.Controls.Primitives/0.39.3/.uno/ux11/$.uno
+// -----------------------------------------------------------------------------
+
+// public partial sealed class Button.Template :49
+// {
+// static Template() :63
+static void Button__Template__cctor__fn(uType* __type)
+{
+    Button__Template::__selector0_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[0/*"Value"*/]);
+    Button__Template::__selector1_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[1/*"Text"*/]);
+    Button__Template::__selector2_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[59/*"TextColor"*/]);
+    Button__Template::__selector3_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[15/*"Opacity"*/]);
+    Button__Template::__selector4_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[6/*"GraphicsApp...*/]);
+    Button__Template::__selector5_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[60/*"Button_Text"*/]);
+}
+
+static void Button__Template_build(uType* type)
+{
+    ::STRINGS[0] = uString::Const("Value");
+    ::STRINGS[1] = uString::Const("Text");
+    ::STRINGS[59] = uString::Const("TextColor");
+    ::STRINGS[15] = uString::Const("Opacity");
+    ::STRINGS[6] = uString::Const("GraphicsAppearance");
+    ::STRINGS[60] = uString::Const("Button_Text");
+    ::TYPES[85] = ::g::Fuse::Controls::PropertyBinding_typeof()->MakeType(::g::Uno::String_typeof());
+    ::TYPES[52] = ::g::Fuse::Animations::Change_typeof()->MakeType(::g::Uno::Float4_typeof());
+    ::TYPES[44] = ::g::Fuse::Animations::Change_typeof()->MakeType(::g::Uno::Float_typeof());
+    ::TYPES[16] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Binding_typeof());
+    ::TYPES[27] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Animations::Animator_typeof());
+    ::TYPES[4] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof());
+    type->SetFields(2,
+        ::g::Fuse::Controls::Button_typeof(), offsetof(::g::Fuse::Controls::Button__Template, __parent1), uFieldFlagsWeak,
+        ::g::Fuse::Controls::Button_typeof(), offsetof(::g::Fuse::Controls::Button__Template, __parentInstance1), uFieldFlagsWeak,
+        ::g::Uno::UX::Property1_typeof()->MakeType(::g::Uno::Float_typeof()), offsetof(::g::Fuse::Controls::Button__Template, Button_Text_Opacity_inst), 0,
+        ::g::Uno::UX::Property1_typeof()->MakeType(::g::Uno::Float4_typeof()), offsetof(::g::Fuse::Controls::Button__Template, Button_Text_TextColor_inst), 0,
+        ::g::Uno::UX::Property1_typeof()->MakeType(::g::Uno::String_typeof()), offsetof(::g::Fuse::Controls::Button__Template, Button_Text_Value_inst), 0,
+        ::g::Uno::UX::Property1_typeof()->MakeType(::g::Uno::String_typeof()), offsetof(::g::Fuse::Controls::Button__Template, this1_Text_inst), 0,
+        ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::Button__Template::__selector0_, uFieldFlagsStatic,
+        ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::Button__Template::__selector1_, uFieldFlagsStatic,
+        ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::Button__Template::__selector2_, uFieldFlagsStatic,
+        ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::Button__Template::__selector3_, uFieldFlagsStatic,
+        ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::Button__Template::__selector4_, uFieldFlagsStatic,
+        ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::Button__Template::__selector5_, uFieldFlagsStatic);
+}
+
+::g::Uno::UX::Template_type* Button__Template_typeof()
+{
+    static uSStrong< ::g::Uno::UX::Template_type*> type;
+    if (type != NULL) return type;
+
+    uTypeOptions options;
+    options.BaseDefinition = ::g::Uno::UX::Template_typeof();
+    options.FieldCount = 14;
+    options.ObjectSize = sizeof(Button__Template);
+    options.TypeSize = sizeof(::g::Uno::UX::Template_type);
+    type = (::g::Uno::UX::Template_type*)uClassType::New("Fuse.Controls.Button.Template", options);
+    type->fp_build_ = Button__Template_build;
+    type->fp_cctor_ = Button__Template__cctor__fn;
+    type->fp_New1 = (void(*)(::g::Uno::UX::Template*, uObject**))Button__Template__New1_fn;
+    return type;
+}
+
+// public Template(Fuse.Controls.Button parent, Fuse.Controls.Button parentInstance) :53
+void Button__Template__ctor_1_fn(Button__Template* __this, ::g::Fuse::Controls::Button* parent, ::g::Fuse::Controls::Button* parentInstance)
+{
+    __this->ctor_1(parent, parentInstance);
+}
+
+// public override sealed object New() :66
+void Button__Template__New1_fn(Button__Template* __this, uObject** __retval)
+{
+    ::g::Fuse::Controls::Panel* self = ::g::Fuse::Controls::Panel::New3();
+    ::g::Fuse::Controls::Text* Button_Text1 = ::g::Fuse::Controls::Text::New3();
+    __this->Button_Text_Value_inst = ::g::FuseControlsPrimitives_FuseControlsText_Value_Property::New1(Button_Text1, Button__Template::__selector0());
+    __this->this1_Text_inst = ::g::FuseControlsPrimitives_FuseControlsButton_Text_Property::New1(__this->__parent1, Button__Template::__selector1());
+    __this->Button_Text_TextColor_inst = ::g::FuseControlsPrimitives_FuseControlsText_TextColor_Property::New1(Button_Text1, Button__Template::__selector2());
+    __this->Button_Text_Opacity_inst = ::g::FuseControlsPrimitives_FuseControlsText_Opacity_Property::New1(Button_Text1, Button__Template::__selector3());
+    ::g::Fuse::Controls::PropertyBinding* temp = (::g::Fuse::Controls::PropertyBinding*)::g::Fuse::Controls::PropertyBinding::New1(::TYPES[85/*Fuse.Controls.PropertyBinding<string>*/], __this->Button_Text_Value_inst, __this->this1_Text_inst);
+    ::g::Fuse::Gestures::WhilePressed* temp1 = ::g::Fuse::Gestures::WhilePressed::New2();
+    ::g::Fuse::Animations::Change* temp2 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[52/*Fuse.Animations.Change<float4>*/], __this->Button_Text_TextColor_inst);
+    ::g::Fuse::Triggers::WhileDisabled* temp3 = ::g::Fuse::Triggers::WhileDisabled::New2();
+    ::g::Fuse::Animations::Change* temp4 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[44/*Fuse.Animations.Change<float>*/], __this->Button_Text_Opacity_inst);
+    self->Name(Button__Template::__selector4());
+    Button_Text1->FontSize(16.0f);
+    Button_Text1->TextAlignment(1);
+    Button_Text1->TextColor(::g::Uno::Float4__New2(0.3686275f, 0.6627451f, 0.9843137f, 1.0f));
+    Button_Text1->Alignment(10);
+    Button_Text1->Name(Button__Template::__selector5());
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(Button_Text1->Bindings()), ::TYPES[16/*Uno.Collections.ICollection<Fuse.Binding>*/]), temp);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp1->Animators()), ::TYPES[27/*Uno.Collections.ICollection<Fuse.Animations.Animator>*/]), temp2);
+    ::g::Fuse::Animations::Change__set_Value_fn(temp2, uCRef(::g::Uno::Float4__New2(0.1411765f, 0.1411765f, 0.8f, 1.0f)));
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp3->Animators()), ::TYPES[27/*Uno.Collections.ICollection<Fuse.Animations.Animator>*/]), temp4);
+    ::g::Fuse::Animations::Change__set_Value_fn(temp4, uCRef(0.5f));
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(self->Children()), ::TYPES[4/*Uno.Collections.ICollection<Fuse.Node>*/]), Button_Text1);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(self->Children()), ::TYPES[4/*Uno.Collections.ICollection<Fuse.Node>*/]), temp1);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(self->Children()), ::TYPES[4/*Uno.Collections.ICollection<Fuse.Node>*/]), temp3);
+    return *__retval = self, void();
+}
+
+// public Template New(Fuse.Controls.Button parent, Fuse.Controls.Button parentInstance) :53
+void Button__Template__New2_fn(::g::Fuse::Controls::Button* parent, ::g::Fuse::Controls::Button* parentInstance, Button__Template** __retval)
+{
+    *__retval = Button__Template::New2(parent, parentInstance);
+}
+
+::g::Uno::UX::Selector Button__Template::__selector0_;
+::g::Uno::UX::Selector Button__Template::__selector1_;
+::g::Uno::UX::Selector Button__Template::__selector2_;
+::g::Uno::UX::Selector Button__Template::__selector3_;
+::g::Uno::UX::Selector Button__Template::__selector4_;
+::g::Uno::UX::Selector Button__Template::__selector5_;
+
+// public Template(Fuse.Controls.Button parent, Fuse.Controls.Button parentInstance) [instance] :53
+void Button__Template::ctor_1(::g::Fuse::Controls::Button* parent, ::g::Fuse::Controls::Button* parentInstance)
+{
+    ctor_(::STRINGS[6/*"GraphicsApp...*/], false);
+    __parent1 = parent;
+    __parentInstance1 = parentInstance;
+}
+
+// public Template New(Fuse.Controls.Button parent, Fuse.Controls.Button parentInstance) [static] :53
+Button__Template* Button__Template::New2(::g::Fuse::Controls::Button* parent, ::g::Fuse::Controls::Button* parentInstance)
+{
+    Button__Template* obj1 = (Button__Template*)uNew(Button__Template_typeof());
+    obj1->ctor_1(parent, parentInstance);
+    return obj1;
+}
 // }
 
 // /usr/local/share/uno/Packages/Fuse.Controls.Primitives/0.39.3/.uno/ux11/$.uno
@@ -10860,7 +11853,7 @@ void Switch__Template2__New1_fn(Switch__Template2* __this, uObject** __retval)
 // /usr/local/share/uno/Packages/Fuse.Controls.Primitives/0.39.3/textcontrols/$.uno
 // --------------------------------------------------------------------------------
 
-// public sealed class Text :1226
+// public class Text :1226
 // {
 static void Text_build(uType* type)
 {
@@ -10879,7 +11872,7 @@ static void Text_build(uType* type)
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::TextControl_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::TextControl_type, interface12),
         ::g::Fuse::Triggers::IValue_typeof()->MakeType(::g::Uno::String_typeof()), offsetof(::g::Fuse::Controls::TextControl_type, interface13));
-    type->SetFields(99);
+    type->SetFields(100);
 }
 
 ::g::Fuse::Controls::TextControl_type* Text_typeof()
@@ -10889,7 +11882,7 @@ static void Text_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::TextControl_typeof();
-    options.FieldCount = 99;
+    options.FieldCount = 100;
     options.InterfaceCount = 14;
     options.ObjectSize = sizeof(Text);
     options.TypeSize = sizeof(::g::Fuse::Controls::TextControl_type);
@@ -10984,19 +11977,19 @@ uEnumType* TextAlignment_typeof()
 // static TextBox() :343
 static void TextBox__cctor_3_fn(uType* __type)
 {
-    TextBox::__selector0_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[29/*"Color"*/]);
-    TextBox::__selector1_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[58/*"Fill"*/]);
-    TextBox::__selector2_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[59/*"text_box"*/]);
+    TextBox::__selector0_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[32/*"Color"*/]);
+    TextBox::__selector1_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[61/*"Fill"*/]);
+    TextBox::__selector2_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[62/*"text_box"*/]);
 }
 
 static void TextBox_build(uType* type)
 {
-    ::STRINGS[29] = uString::Const("Color");
-    ::STRINGS[58] = uString::Const("Fill");
-    ::STRINGS[59] = uString::Const("text_box");
-    ::TYPES[48] = ::g::Fuse::Animations::Change_typeof()->MakeType(::g::Uno::Float4_typeof());
-    ::TYPES[80] = ::g::Fuse::Animations::Change_typeof()->MakeType(::g::Fuse::Drawing::Brush_typeof());
-    ::TYPES[73] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Drawing::Stroke_typeof());
+    ::STRINGS[32] = uString::Const("Color");
+    ::STRINGS[61] = uString::Const("Fill");
+    ::STRINGS[62] = uString::Const("text_box");
+    ::TYPES[52] = ::g::Fuse::Animations::Change_typeof()->MakeType(::g::Uno::Float4_typeof());
+    ::TYPES[86] = ::g::Fuse::Animations::Change_typeof()->MakeType(::g::Fuse::Drawing::Brush_typeof());
+    ::TYPES[79] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Drawing::Stroke_typeof());
     ::TYPES[4] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof());
     ::TYPES[27] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Animations::Animator_typeof());
     type->SetInterfaces(
@@ -11014,7 +12007,7 @@ static void TextBox_build(uType* type)
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::TextInputControl_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::TextInputControl_type, interface12),
         ::g::Fuse::Triggers::IValue_typeof()->MakeType(::g::Uno::String_typeof()), offsetof(::g::Fuse::Controls::TextInputControl_type, interface13));
-    type->SetFields(93,
+    type->SetFields(94,
         ::g::Fuse::Drawing::Stroke_typeof(), offsetof(::g::Fuse::Controls::TextBox, stroke), 0,
         ::g::Uno::UX::Property1_typeof()->MakeType(::g::Uno::Float4_typeof()), offsetof(::g::Fuse::Controls::TextBox, stroke_Color_inst), 0,
         ::g::Fuse::Controls::Rectangle_typeof(), offsetof(::g::Fuse::Controls::TextBox, text_box), 0,
@@ -11031,7 +12024,7 @@ static void TextBox_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::TextInput_typeof();
-    options.FieldCount = 100;
+    options.FieldCount = 101;
     options.InterfaceCount = 14;
     options.ObjectSize = sizeof(TextBox);
     options.TypeSize = sizeof(::g::Fuse::Controls::TextInputControl_type);
@@ -11112,18 +12105,18 @@ void TextBox::InitializeUX()
     text_box = ::g::Fuse::Controls::Rectangle::New3();
     text_box_Fill_inst = ::g::FuseControlsPrimitives_FuseControlsRectangle_Fill_Property::New1(text_box, TextBox::__selector1());
     ::g::Fuse::Triggers::WhileFocusWithin* temp = ::g::Fuse::Triggers::WhileFocusWithin::New2();
-    ::g::Fuse::Animations::Change* temp1 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[48/*Fuse.Animations.Change<float4>*/], stroke_Color_inst);
+    ::g::Fuse::Animations::Change* temp1 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[52/*Fuse.Animations.Change<float4>*/], stroke_Color_inst);
     ::g::Fuse::Triggers::WhileDisabled* temp2 = ::g::Fuse::Triggers::WhileDisabled::New2();
-    ::g::Fuse::Animations::Change* temp3 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[80/*Fuse.Animations.Change<Fuse.Drawing.Brush>*/], text_box_Fill_inst);
+    ::g::Fuse::Animations::Change* temp3 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[86/*Fuse.Animations.Change<Fuse.Drawing.Brush>*/], text_box_Fill_inst);
     ::g::Fuse::Drawing::StaticSolidColor* temp4 = ::g::Fuse::Drawing::StaticSolidColor::New2(::g::Uno::Float4__New2(0.9647059f, 0.9647059f, 0.9647059f, 1.0f));
-    ::g::Fuse::Animations::Change* temp5 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[48/*Fuse.Animations.Change<float4>*/], stroke_Color_inst);
+    ::g::Fuse::Animations::Change* temp5 = (::g::Fuse::Animations::Change*)::g::Fuse::Animations::Change::New2(::TYPES[52/*Fuse.Animations.Change<float4>*/], stroke_Color_inst);
     ::g::Fuse::Drawing::StaticSolidColor* temp6 = ::g::Fuse::Drawing::StaticSolidColor::New2(::g::Uno::Float4__New2(1.0f, 1.0f, 1.0f, 0.0f));
     Padding(::g::Uno::Float4__New2(6.0f, 6.0f, 6.0f, 6.0f));
     uPtr(text_box)->CornerRadius(::g::Uno::Float4__New2(4.0f, 4.0f, 4.0f, 4.0f));
     uPtr(text_box)->Layer(1);
     uPtr(text_box)->Name(TextBox::__selector2());
     uPtr(text_box)->Fill(temp6);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(uPtr(text_box)->Strokes()), ::TYPES[73/*Uno.Collections.ICollection<Fuse.Drawing.Stroke>*/]), stroke);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(uPtr(text_box)->Strokes()), ::TYPES[79/*Uno.Collections.ICollection<Fuse.Drawing.Stroke>*/]), stroke);
     ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(uPtr(text_box)->Children()), ::TYPES[4/*Uno.Collections.ICollection<Fuse.Node>*/]), temp);
     ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(uPtr(text_box)->Children()), ::TYPES[4/*Uno.Collections.ICollection<Fuse.Node>*/]), temp2);
     uPtr(stroke)->Color(::g::Uno::Float4__New2(0.8078431f, 0.8078431f, 0.8078431f, 1.0f));
@@ -11157,41 +12150,41 @@ TextBox* TextBox::New4()
 static void TextControl__cctor_3_fn(uType* __type)
 {
     TextControl::ValuePropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[0/*"Value"*/]);
-    TextControl::MaxLengthPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[60/*"MaxLength"*/]);
-    TextControl::TextWrappingPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[61/*"TextWrapping"*/]);
-    TextControl::LineSpacingPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[62/*"LineSpacing"*/]);
-    TextControl::FontSizePropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[63/*"FontSize"*/]);
-    TextControl::FontPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[64/*"Font"*/]);
-    TextControl::TextAlignmentPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[65/*"TextAlignment"*/]);
-    TextControl::ColorPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[29/*"Color"*/]);
-    TextControl::TextColorPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[50/*"TextColor"*/]);
-    TextControl::TextTruncationPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[66/*"TextTruncat...*/]);
+    TextControl::MaxLengthPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[63/*"MaxLength"*/]);
+    TextControl::TextWrappingPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[64/*"TextWrapping"*/]);
+    TextControl::LineSpacingPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[65/*"LineSpacing"*/]);
+    TextControl::FontSizePropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[66/*"FontSize"*/]);
+    TextControl::FontPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[67/*"Font"*/]);
+    TextControl::TextAlignmentPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[68/*"TextAlignment"*/]);
+    TextControl::ColorPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[32/*"Color"*/]);
+    TextControl::TextColorPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[59/*"TextColor"*/]);
+    TextControl::TextTruncationPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[69/*"TextTruncat...*/]);
 }
 
 static void TextControl_build(uType* type)
 {
     ::STRINGS[0] = uString::Const("Value");
-    ::STRINGS[60] = uString::Const("MaxLength");
-    ::STRINGS[61] = uString::Const("TextWrapping");
-    ::STRINGS[62] = uString::Const("LineSpacing");
-    ::STRINGS[63] = uString::Const("FontSize");
-    ::STRINGS[64] = uString::Const("Font");
-    ::STRINGS[65] = uString::Const("TextAlignment");
-    ::STRINGS[29] = uString::Const("Color");
-    ::STRINGS[50] = uString::Const("TextColor");
-    ::STRINGS[66] = uString::Const("TextTruncation");
+    ::STRINGS[63] = uString::Const("MaxLength");
+    ::STRINGS[64] = uString::Const("TextWrapping");
+    ::STRINGS[65] = uString::Const("LineSpacing");
+    ::STRINGS[66] = uString::Const("FontSize");
+    ::STRINGS[67] = uString::Const("Font");
+    ::STRINGS[68] = uString::Const("TextAlignment");
+    ::STRINGS[32] = uString::Const("Color");
+    ::STRINGS[59] = uString::Const("TextColor");
+    ::STRINGS[69] = uString::Const("TextTruncation");
     ::STRINGS[16] = uString::Const("");
-    ::TYPES[81] = ::g::Fuse::Controls::ITextRenderer_typeof();
-    ::TYPES[82] = ::g::Fuse::Controls::Native::ITextView_typeof();
-    ::TYPES[83] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Uno::Float_typeof());
-    ::TYPES[84] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Uno::Float_typeof());
-    ::TYPES[85] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextAlignment_typeof());
-    ::TYPES[86] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextAlignment_typeof());
-    ::TYPES[87] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextTruncation_typeof());
-    ::TYPES[88] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextTruncation_typeof());
-    ::TYPES[89] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextWrapping_typeof());
-    ::TYPES[90] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextWrapping_typeof());
-    ::TYPES[91] = ::g::Uno::UX::ValueChangedHandler_typeof()->MakeType(::g::Uno::String_typeof());
+    ::TYPES[87] = ::g::Fuse::Controls::ITextRenderer_typeof();
+    ::TYPES[88] = ::g::Fuse::Controls::Native::ITextView_typeof();
+    ::TYPES[89] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Uno::Float_typeof());
+    ::TYPES[90] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Uno::Float_typeof());
+    ::TYPES[91] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextAlignment_typeof());
+    ::TYPES[92] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextAlignment_typeof());
+    ::TYPES[93] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextTruncation_typeof());
+    ::TYPES[94] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextTruncation_typeof());
+    ::TYPES[95] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextWrapping_typeof());
+    ::TYPES[96] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextWrapping_typeof());
+    ::TYPES[97] = ::g::Uno::UX::ValueChangedHandler_typeof()->MakeType(::g::Uno::String_typeof());
     type->SetInterfaces(
         ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(TextControl_type, interface0),
         ::g::Fuse::Scripting::IScriptObject_typeof(), offsetof(TextControl_type, interface1),
@@ -11207,7 +12200,7 @@ static void TextControl_build(uType* type)
         ::g::Fuse::IActualPlacement_typeof(), offsetof(TextControl_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(TextControl_type, interface12),
         ::g::Fuse::Triggers::IValue_typeof()->MakeType(::g::Uno::String_typeof()), offsetof(TextControl_type, interface13));
-    type->SetFields(92,
+    type->SetFields(93,
         ::g::Uno::Float4_typeof(), offsetof(::g::Fuse::Controls::TextControl, _color), 0,
         ::g::Fuse::Font_typeof(), offsetof(::g::Fuse::Controls::TextControl, _font), 0,
         ::g::Uno::Float_typeof(), offsetof(::g::Fuse::Controls::TextControl, _fontSize), 0,
@@ -11235,7 +12228,7 @@ TextControl_type* TextControl_typeof()
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::LayoutControl_typeof();
-    options.FieldCount = 110;
+    options.FieldCount = 111;
     options.InterfaceCount = 14;
     options.ObjectSize = sizeof(TextControl);
     options.TypeSize = sizeof(TextControl_type);
@@ -11306,7 +12299,7 @@ void TextControl__ArrangePaddingBox_fn(TextControl* __this, ::g::Fuse::LayoutPar
     ::g::Fuse::Controls::LayoutControl__ArrangePaddingBox_fn(__this, uCRef(lp_));
 
     if (__this->_textRenderer != NULL)
-        ::g::Fuse::Controls::ITextRenderer::Arrange(uInterface(uPtr(__this->_textRenderer), ::TYPES[81/*Fuse.Controls.ITextRenderer*/]), ::g::Uno::Float2__New1(0.0f), lp_.Size());
+        ::g::Fuse::Controls::ITextRenderer::Arrange(uInterface(uPtr(__this->_textRenderer), ::TYPES[87/*Fuse.Controls.ITextRenderer*/]), ::g::Uno::Float2__New1(0.0f), lp_.Size());
 }
 
 // protected override Fuse.VisualBounds CalcRenderBounds() :1528
@@ -11316,7 +12309,7 @@ void TextControl__CalcRenderBounds_fn(TextControl* __this, ::g::Fuse::VisualBoun
     ::g::Fuse::VisualBounds* b = (::g::Fuse::Controls::Control__CalcRenderBounds_fn(__this, &ret3), ret3);
 
     if (__this->_textRenderer != NULL)
-        b = uPtr(b)->AddRect1(::g::Fuse::Controls::ITextRenderer::GetRenderBounds(uInterface(uPtr(__this->_textRenderer), ::TYPES[81/*Fuse.Controls.ITextRenderer*/])));
+        b = uPtr(b)->AddRect1(::g::Fuse::Controls::ITextRenderer::GetRenderBounds(uInterface(uPtr(__this->_textRenderer), ::TYPES[87/*Fuse.Controls.ITextRenderer*/])));
 
     return *__retval = b, void();
 }
@@ -11345,7 +12338,7 @@ void TextControl__DrawVisual_fn(TextControl* __this, ::g::Fuse::DrawContext* dc)
     uString* str = __this->RenderValue();
 
     if ((__this->_textRenderer != NULL) && !::g::Uno::String::IsNullOrEmpty(str))
-        ::g::Fuse::Controls::ITextRenderer::Draw(uInterface(uPtr(__this->_textRenderer), ::TYPES[81/*Fuse.Controls.ITextRenderer*/]), dc, __this);
+        ::g::Fuse::Controls::ITextRenderer::Draw(uInterface(uPtr(__this->_textRenderer), ::TYPES[87/*Fuse.Controls.ITextRenderer*/]), dc, __this);
 }
 
 // private bool EnforceMaxLength(string& v) :1660
@@ -11393,7 +12386,7 @@ void TextControl__GetContentSize_fn(TextControl* __this, ::g::Fuse::LayoutParams
 
     if (__this->_textRenderer != NULL)
     {
-        ::g::Uno::Float2 t = ::g::Fuse::Controls::ITextRenderer::GetContentSize(uInterface(uPtr(__this->_textRenderer), ::TYPES[81/*Fuse.Controls.ITextRenderer*/]), lp_);
+        ::g::Uno::Float2 t = ::g::Fuse::Controls::ITextRenderer::GetContentSize(uInterface(uPtr(__this->_textRenderer), ::TYPES[87/*Fuse.Controls.ITextRenderer*/]), lp_);
         b = ::g::Uno::Math::Max3(t, b);
     }
 
@@ -11528,7 +12521,7 @@ void TextControl__OnUnrooted_fn(TextControl* __this)
         __this->RemoveDrawCost(2.0);
 
         if (__this->_textRenderer != NULL)
-            ::g::Fuse::Controls::ITextRenderer::SoftDispose(uInterface(uPtr(__this->_textRenderer), ::TYPES[81/*Fuse.Controls.ITextRenderer*/]));
+            ::g::Fuse::Controls::ITextRenderer::SoftDispose(uInterface(uPtr(__this->_textRenderer), ::TYPES[87/*Fuse.Controls.ITextRenderer*/]));
 
         __this->_textRenderer = NULL;
     }
@@ -11555,16 +12548,16 @@ void TextControl__OnValueChanged_fn(TextControl* __this, uObject* origin)
 void TextControl__PushPropertiesToNativeView_fn(TextControl* __this)
 {
     ::g::Fuse::Controls::Control__PushPropertiesToNativeView_fn(__this);
-    uObject* tv = uAs<uObject*>(__this->NativeView(), ::TYPES[82/*Fuse.Controls.Native.ITextView*/]);
-    ::g::Fuse::Controls::Native::ITextView::Value(uInterface(uPtr(tv), ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), __this->Value());
-    ::g::Fuse::Controls::Native::ITextView::MaxLength(uInterface(tv, ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), __this->MaxLength());
-    ::g::Fuse::Controls::Native::ITextView::TextWrapping(uInterface(tv, ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), __this->TextWrapping());
-    ::g::Fuse::Controls::Native::ITextView::LineSpacing(uInterface(tv, ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), __this->LineSpacing());
-    ::g::Fuse::Controls::Native::ITextView::FontSize(uInterface(tv, ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), __this->FontSize());
-    ::g::Fuse::Controls::Native::ITextView::Font(uInterface(tv, ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), __this->Font());
-    ::g::Fuse::Controls::Native::ITextView::TextAlignment(uInterface(tv, ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), __this->TextAlignment());
-    ::g::Fuse::Controls::Native::ITextView::TextColor(uInterface(tv, ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), __this->Color());
-    ::g::Fuse::Controls::Native::ITextView::TextTruncation(uInterface(tv, ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), __this->TextTruncation());
+    uObject* tv = uAs<uObject*>(__this->NativeView(), ::TYPES[88/*Fuse.Controls.Native.ITextView*/]);
+    ::g::Fuse::Controls::Native::ITextView::Value(uInterface(uPtr(tv), ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), __this->Value());
+    ::g::Fuse::Controls::Native::ITextView::MaxLength(uInterface(tv, ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), __this->MaxLength());
+    ::g::Fuse::Controls::Native::ITextView::TextWrapping(uInterface(tv, ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), __this->TextWrapping());
+    ::g::Fuse::Controls::Native::ITextView::LineSpacing(uInterface(tv, ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), __this->LineSpacing());
+    ::g::Fuse::Controls::Native::ITextView::FontSize(uInterface(tv, ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), __this->FontSize());
+    ::g::Fuse::Controls::Native::ITextView::Font(uInterface(tv, ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), __this->Font());
+    ::g::Fuse::Controls::Native::ITextView::TextAlignment(uInterface(tv, ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), __this->TextAlignment());
+    ::g::Fuse::Controls::Native::ITextView::TextColor(uInterface(tv, ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), __this->Color());
+    ::g::Fuse::Controls::Native::ITextView::TextTruncation(uInterface(tv, ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), __this->TextTruncation());
 }
 
 // internal virtual string get_RenderValue() :1419
@@ -11598,7 +12591,7 @@ void TextControl__SoftDispose_fn(TextControl* __this)
     ::g::Fuse::Node__SoftDispose_fn(__this);
 
     if (__this->_textRenderer != NULL)
-        ::g::Fuse::Controls::ITextRenderer::SoftDispose(uInterface(uPtr(__this->_textRenderer), ::TYPES[81/*Fuse.Controls.ITextRenderer*/]));
+        ::g::Fuse::Controls::ITextRenderer::SoftDispose(uInterface(uPtr(__this->_textRenderer), ::TYPES[87/*Fuse.Controls.ITextRenderer*/]));
 }
 
 // public Fuse.Controls.TextAlignment get_TextAlignment() :1733
@@ -11767,14 +12760,14 @@ void TextControl::FontSize(float value)
 // protected Fuse.Controls.Native.ITextView GetITextView() [instance] :1278
 uObject* TextControl::GetITextView()
 {
-    return uAs<uObject*>(NativeView(), ::TYPES[82/*Fuse.Controls.Native.ITextView*/]);
+    return uAs<uObject*>(NativeView(), ::TYPES[88/*Fuse.Controls.Native.ITextView*/]);
 }
 
 // private void InvalidateTextRenderer() [instance] :1464
 void TextControl::InvalidateTextRenderer()
 {
     if (_textRenderer != NULL)
-        ::g::Fuse::Controls::ITextRenderer::Invalidate(uInterface(uPtr(_textRenderer), ::TYPES[81/*Fuse.Controls.ITextRenderer*/]));
+        ::g::Fuse::Controls::ITextRenderer::Invalidate(uInterface(uPtr(_textRenderer), ::TYPES[87/*Fuse.Controls.ITextRenderer*/]));
 
     InvalidateRenderBounds();
 }
@@ -11783,7 +12776,7 @@ void TextControl::InvalidateTextRenderer()
 float TextControl::LineSpacing()
 {
     float ret6;
-    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[83/*Fuse.Visual.Get<float>*/], uCRef<int>(512), uCRef(1.0f), &ret6), ret6);
+    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[89/*Fuse.Visual.Get<float>*/], uCRef<int>(512), uCRef(1.0f), &ret6), ret6);
 }
 
 // public void set_LineSpacing(float value) [instance] :1690
@@ -11791,7 +12784,7 @@ void TextControl::LineSpacing(float value)
 {
     if (LineSpacing() != value)
     {
-        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[84/*Fuse.Visual.Set<float>*/], uCRef<int>(512), uCRef(value), uCRef(1.0f));
+        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[90/*Fuse.Visual.Set<float>*/], uCRef<int>(512), uCRef(value), uCRef(1.0f));
         OnLineSpacingChanged();
     }
 }
@@ -11824,7 +12817,7 @@ void TextControl::OnColorChanged(uObject* origin)
     uObject* edit = GetITextView();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextView::TextColor(uInterface(uPtr(edit), ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), Color());
+        ::g::Fuse::Controls::Native::ITextView::TextColor(uInterface(uPtr(edit), ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), Color());
 
     InvalidateVisual();
     InvalidateRenderer();
@@ -11837,7 +12830,7 @@ void TextControl::OnFontChanged()
     uObject* edit = GetITextView();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextView::Font(uInterface(uPtr(edit), ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), Font());
+        ::g::Fuse::Controls::Native::ITextView::Font(uInterface(uPtr(edit), ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), Font());
 
     InvalidateLayout(2);
     InvalidateVisual();
@@ -11851,7 +12844,7 @@ void TextControl::OnFontSizeChanged()
     uObject* edit = GetITextView();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextView::FontSize(uInterface(uPtr(edit), ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), FontSize());
+        ::g::Fuse::Controls::Native::ITextView::FontSize(uInterface(uPtr(edit), ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), FontSize());
 
     InvalidateLayout(2);
     InvalidateVisual();
@@ -11865,7 +12858,7 @@ void TextControl::OnLineSpacingChanged()
     uObject* edit = GetITextView();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextView::LineSpacing(uInterface(uPtr(edit), ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), LineSpacing());
+        ::g::Fuse::Controls::Native::ITextView::LineSpacing(uInterface(uPtr(edit), ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), LineSpacing());
 
     InvalidateLayout(2);
     InvalidateVisual();
@@ -11879,7 +12872,7 @@ void TextControl::OnMaxLengthChanged()
     uObject* edit = GetITextView();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextView::MaxLength(uInterface(uPtr(edit), ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), MaxLength());
+        ::g::Fuse::Controls::Native::ITextView::MaxLength(uInterface(uPtr(edit), ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), MaxLength());
 
     InvalidateLayout(2);
     InvalidateVisual();
@@ -11893,7 +12886,7 @@ void TextControl::OnTextAlignmentChanged()
     uObject* edit = GetITextView();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextView::TextAlignment(uInterface(uPtr(edit), ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), TextAlignment());
+        ::g::Fuse::Controls::Native::ITextView::TextAlignment(uInterface(uPtr(edit), ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), TextAlignment());
 
     InvalidateLayout(2);
     InvalidateVisual();
@@ -11907,7 +12900,7 @@ void TextControl::OnTextTruncationChanged()
     uObject* edit = GetITextView();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextView::TextTruncation(uInterface(uPtr(edit), ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), TextTruncation());
+        ::g::Fuse::Controls::Native::ITextView::TextTruncation(uInterface(uPtr(edit), ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), TextTruncation());
 
     InvalidateLayout(2);
     InvalidateVisual();
@@ -11921,7 +12914,7 @@ void TextControl::OnTextWrappingChanged()
     uObject* edit = GetITextView();
 
     if (edit != NULL)
-        ::g::Fuse::Controls::Native::ITextView::TextWrapping(uInterface(uPtr(edit), ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), TextWrapping());
+        ::g::Fuse::Controls::Native::ITextView::TextWrapping(uInterface(uPtr(edit), ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), TextWrapping());
 
     InvalidateLayout(2);
     InvalidateVisual();
@@ -11950,7 +12943,7 @@ void TextControl::SetValue(uString* value, uObject* origin)
         uObject* edit = GetITextView();
 
         if (edit != NULL)
-            ::g::Fuse::Controls::Native::ITextView::Value(uInterface(uPtr(edit), ::TYPES[82/*Fuse.Controls.Native.ITextView*/]), _value);
+            ::g::Fuse::Controls::Native::ITextView::Value(uInterface(uPtr(edit), ::TYPES[88/*Fuse.Controls.Native.ITextView*/]), _value);
 
         OnValueChanged(origin);
         InvalidateTextRenderer();
@@ -11971,7 +12964,7 @@ void TextControl::SetValueInternal(uString* newValue)
 int TextControl::TextAlignment()
 {
     int ret7;
-    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[85/*Fuse.Visual.Get<Fuse.Controls.TextAlignment>*/], uCRef<int>(1024), uCRef<int>(0), &ret7), ret7);
+    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[91/*Fuse.Visual.Get<Fuse.Controls.TextAlignment>*/], uCRef<int>(1024), uCRef<int>(0), &ret7), ret7);
 }
 
 // public void set_TextAlignment(Fuse.Controls.TextAlignment value) [instance] :1734
@@ -11979,7 +12972,7 @@ void TextControl::TextAlignment(int value)
 {
     if (TextAlignment() != value)
     {
-        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[86/*Fuse.Visual.Set<Fuse.Controls.TextAlignment>*/], uCRef<int>(1024), uCRef<int>(value), uCRef<int>(0));
+        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[92/*Fuse.Visual.Set<Fuse.Controls.TextAlignment>*/], uCRef<int>(1024), uCRef<int>(value), uCRef<int>(0));
         OnTextAlignmentChanged();
     }
 }
@@ -12000,7 +12993,7 @@ void TextControl::TextColor(::g::Uno::Float4 value)
 int TextControl::TextTruncation()
 {
     int ret8;
-    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[87/*Fuse.Visual.Get<Fuse.Controls.TextTruncation>*/], uCRef<int>(2048), uCRef<int>(0), &ret8), ret8);
+    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[93/*Fuse.Visual.Get<Fuse.Controls.TextTruncation>*/], uCRef<int>(2048), uCRef<int>(0), &ret8), ret8);
 }
 
 // public void set_TextTruncation(Fuse.Controls.TextTruncation value) [instance] :1779
@@ -12008,7 +13001,7 @@ void TextControl::TextTruncation(int value)
 {
     if (TextTruncation() != value)
     {
-        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[88/*Fuse.Visual.Set<Fuse.Controls.TextTruncation>*/], uCRef<int>(2048), uCRef<int>(value), uCRef<int>(0));
+        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[94/*Fuse.Visual.Set<Fuse.Controls.TextTruncation>*/], uCRef<int>(2048), uCRef<int>(value), uCRef<int>(0));
         OnTextTruncationChanged();
     }
 }
@@ -12017,7 +13010,7 @@ void TextControl::TextTruncation(int value)
 int TextControl::TextWrapping()
 {
     int ret9;
-    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[89/*Fuse.Visual.Get<Fuse.Controls.TextWrapping>*/], uCRef<int>(2), uCRef<int>(0), &ret9), ret9);
+    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[95/*Fuse.Visual.Get<Fuse.Controls.TextWrapping>*/], uCRef<int>(2), uCRef<int>(0), &ret9), ret9);
 }
 
 // public void set_TextWrapping(Fuse.Controls.TextWrapping value) [instance] :1675
@@ -12025,7 +13018,7 @@ void TextControl::TextWrapping(int value)
 {
     if (TextWrapping() != value)
     {
-        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[90/*Fuse.Visual.Set<Fuse.Controls.TextWrapping>*/], uCRef<int>(2), uCRef<int>(value), uCRef<int>(0));
+        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[96/*Fuse.Visual.Set<Fuse.Controls.TextWrapping>*/], uCRef<int>(2), uCRef<int>(value), uCRef<int>(0));
         OnTextWrappingChanged();
     }
 }
@@ -12045,13 +13038,13 @@ void TextControl::Value(uString* value)
 // public generated void add_ValueChanged(Uno.UX.ValueChangedHandler<string> value) [instance] :1640
 void TextControl::add_ValueChanged(uDelegate* value)
 {
-    ValueChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(ValueChanged1, value), ::TYPES[91/*Uno.UX.ValueChangedHandler<string>*/]);
+    ValueChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(ValueChanged1, value), ::TYPES[97/*Uno.UX.ValueChangedHandler<string>*/]);
 }
 
 // public generated void remove_ValueChanged(Uno.UX.ValueChangedHandler<string> value) [instance] :1640
 void TextControl::remove_ValueChanged(uDelegate* value)
 {
-    ValueChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(ValueChanged1, value), ::TYPES[91/*Uno.UX.ValueChangedHandler<string>*/]);
+    ValueChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(ValueChanged1, value), ::TYPES[97/*Uno.UX.ValueChangedHandler<string>*/]);
 }
 
 // internal static generated extern Uno.Func<Fuse.Controls.TextControl, Fuse.Controls.ITextRenderer> get_TextRendererFactory() [static] :1415
@@ -12077,46 +13070,46 @@ void TextControl::TextRendererFactory(uDelegate* value)
 // static TextEdit() :1817
 static void TextEdit__cctor_4_fn(uType* __type)
 {
-    TextEdit::IsPasswordPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[67/*"IsPassword"*/]);
-    TextEdit::IsReadOnlyPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[68/*"IsReadOnly"*/]);
-    TextEdit::InputHintPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[69/*"InputHint"*/]);
-    TextEdit::CaretColorPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[70/*"CaretColor"*/]);
-    TextEdit::SelectionColorPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[71/*"SelectionCo...*/]);
-    TextEdit::ActionStylePropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[72/*"ActionStyle"*/]);
-    TextEdit::AutoCorrectHintPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[73/*"AutoCorrect...*/]);
-    TextEdit::AutoCapitalizationHintPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[74/*"AutoCapital...*/]);
-    TextEdit::PlaceholderTextPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[75/*"Placeholder...*/]);
-    TextEdit::PlaceholderColorPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[76/*"Placeholder...*/]);
+    TextEdit::IsPasswordPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[70/*"IsPassword"*/]);
+    TextEdit::IsReadOnlyPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[71/*"IsReadOnly"*/]);
+    TextEdit::InputHintPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[72/*"InputHint"*/]);
+    TextEdit::CaretColorPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[73/*"CaretColor"*/]);
+    TextEdit::SelectionColorPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[74/*"SelectionCo...*/]);
+    TextEdit::ActionStylePropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[75/*"ActionStyle"*/]);
+    TextEdit::AutoCorrectHintPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[76/*"AutoCorrect...*/]);
+    TextEdit::AutoCapitalizationHintPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[77/*"AutoCapital...*/]);
+    TextEdit::PlaceholderTextPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[78/*"Placeholder...*/]);
+    TextEdit::PlaceholderColorPropertyName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[79/*"Placeholder...*/]);
 }
 
 static void TextEdit_build(uType* type)
 {
-    ::STRINGS[67] = uString::Const("IsPassword");
-    ::STRINGS[68] = uString::Const("IsReadOnly");
-    ::STRINGS[69] = uString::Const("InputHint");
-    ::STRINGS[70] = uString::Const("CaretColor");
-    ::STRINGS[71] = uString::Const("SelectionColor");
-    ::STRINGS[72] = uString::Const("ActionStyle");
-    ::STRINGS[73] = uString::Const("AutoCorrectHint");
-    ::STRINGS[74] = uString::Const("AutoCapitalizationHint");
-    ::STRINGS[75] = uString::Const("PlaceholderText");
-    ::STRINGS[76] = uString::Const("PlaceholderColor");
+    ::STRINGS[70] = uString::Const("IsPassword");
+    ::STRINGS[71] = uString::Const("IsReadOnly");
+    ::STRINGS[72] = uString::Const("InputHint");
+    ::STRINGS[73] = uString::Const("CaretColor");
+    ::STRINGS[74] = uString::Const("SelectionColor");
+    ::STRINGS[75] = uString::Const("ActionStyle");
+    ::STRINGS[76] = uString::Const("AutoCorrectHint");
+    ::STRINGS[77] = uString::Const("AutoCapitalizationHint");
+    ::STRINGS[78] = uString::Const("PlaceholderText");
+    ::STRINGS[79] = uString::Const("PlaceholderColor");
     ::STRINGS[16] = uString::Const("");
-    ::TYPES[92] = ::g::Fuse::Gestures::TappedHandler_typeof();
+    ::TYPES[98] = ::g::Fuse::Gestures::TappedHandler_typeof();
     ::TYPES[4] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof());
-    ::TYPES[93] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextInputActionStyle_typeof());
-    ::TYPES[94] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextInputActionStyle_typeof());
-    ::TYPES[95] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::AutoCapitalizationHint_typeof());
-    ::TYPES[96] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::AutoCapitalizationHint_typeof());
-    ::TYPES[97] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::AutoCorrectHint_typeof());
-    ::TYPES[98] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::AutoCorrectHint_typeof());
-    ::TYPES[99] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Uno::Float4_typeof());
-    ::TYPES[100] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Uno::Float4_typeof());
-    ::TYPES[101] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextInputHint_typeof());
-    ::TYPES[102] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextInputHint_typeof());
-    ::TYPES[103] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Uno::String_typeof());
-    ::TYPES[104] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Uno::String_typeof());
-    ::TYPES[105] = ::g::Fuse::Controls::TextInputActionHandler_typeof();
+    ::TYPES[99] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextInputActionStyle_typeof());
+    ::TYPES[100] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextInputActionStyle_typeof());
+    ::TYPES[101] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::AutoCapitalizationHint_typeof());
+    ::TYPES[102] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::AutoCapitalizationHint_typeof());
+    ::TYPES[103] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::AutoCorrectHint_typeof());
+    ::TYPES[104] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::AutoCorrectHint_typeof());
+    ::TYPES[56] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Uno::Float4_typeof());
+    ::TYPES[55] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Uno::Float4_typeof());
+    ::TYPES[105] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextInputHint_typeof());
+    ::TYPES[106] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::TextInputHint_typeof());
+    ::TYPES[107] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Uno::String_typeof());
+    ::TYPES[108] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Uno::String_typeof());
+    ::TYPES[109] = ::g::Fuse::Controls::TextInputActionHandler_typeof();
     type->SetInterfaces(
         ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(TextEdit_type, interface0),
         ::g::Fuse::Scripting::IScriptObject_typeof(), offsetof(TextEdit_type, interface1),
@@ -12132,7 +13125,7 @@ static void TextEdit_build(uType* type)
         ::g::Fuse::IActualPlacement_typeof(), offsetof(TextEdit_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(TextEdit_type, interface12),
         ::g::Fuse::Triggers::IValue_typeof()->MakeType(::g::Uno::String_typeof()), offsetof(TextEdit_type, interface13));
-    type->SetFields(99,
+    type->SetFields(100,
         ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Controls::TextEdit, _isMultiline), 0,
         ::g::Fuse::Controls::TextInputActionHandler_typeof(), offsetof(::g::Fuse::Controls::TextEdit, ActionTriggered1), 0,
         ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::TextEdit::ActionStylePropertyName_, uFieldFlagsStatic,
@@ -12154,7 +13147,7 @@ TextEdit_type* TextEdit_typeof()
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::TextControl_typeof();
-    options.FieldCount = 111;
+    options.FieldCount = 112;
     options.InterfaceCount = 14;
     options.ObjectSize = sizeof(TextEdit);
     options.TypeSize = sizeof(TextEdit_type);
@@ -12460,7 +13453,7 @@ void TextEdit::ctor_7(bool multiline)
     ::g::Fuse::Input::Focus::SetIsFocusable(this, true);
     ClipToBounds(true);
     ::g::Fuse::Gestures::Tapped* tapped = ::g::Fuse::Gestures::Tapped::New2();
-    tapped->add_Handler(uDelegate::New(::TYPES[92/*Fuse.Gestures.TappedHandler*/], (void*)TextEdit__OnTapped_fn, this));
+    tapped->add_Handler(uDelegate::New(::TYPES[98/*Fuse.Gestures.TappedHandler*/], (void*)TextEdit__OnTapped_fn, this));
     ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(Children()), ::TYPES[4/*Uno.Collections.ICollection<Fuse.Node>*/]), tapped);
 }
 
@@ -12468,7 +13461,7 @@ void TextEdit::ctor_7(bool multiline)
 int TextEdit::ActionStyle()
 {
     int ret2;
-    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[93/*Fuse.Visual.Get<Fuse.Controls.TextInputActionStyle>*/], uCRef<int>(64), uCRef<int>(2), &ret2), ret2);
+    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[99/*Fuse.Visual.Get<Fuse.Controls.TextInputActionStyle>*/], uCRef<int>(64), uCRef<int>(2), &ret2), ret2);
 }
 
 // public void set_ActionStyle(Fuse.Controls.TextInputActionStyle value) [instance] :1949
@@ -12476,7 +13469,7 @@ void TextEdit::ActionStyle(int value)
 {
     if (ActionStyle() != value)
     {
-        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[94/*Fuse.Visual.Set<Fuse.Controls.TextInputActionStyle>*/], uCRef<int>(64), uCRef<int>(value), uCRef<int>(2));
+        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[100/*Fuse.Visual.Set<Fuse.Controls.TextInputActionStyle>*/], uCRef<int>(64), uCRef<int>(value), uCRef<int>(2));
         OnActionStyleChanged();
     }
 }
@@ -12484,20 +13477,20 @@ void TextEdit::ActionStyle(int value)
 // public generated void add_ActionTriggered(Fuse.Controls.TextInputActionHandler value) [instance] :2037
 void TextEdit::add_ActionTriggered(uDelegate* value)
 {
-    ActionTriggered1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(ActionTriggered1, value), ::TYPES[105/*Fuse.Controls.TextInputActionHandler*/]);
+    ActionTriggered1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(ActionTriggered1, value), ::TYPES[109/*Fuse.Controls.TextInputActionHandler*/]);
 }
 
 // public generated void remove_ActionTriggered(Fuse.Controls.TextInputActionHandler value) [instance] :2037
 void TextEdit::remove_ActionTriggered(uDelegate* value)
 {
-    ActionTriggered1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(ActionTriggered1, value), ::TYPES[105/*Fuse.Controls.TextInputActionHandler*/]);
+    ActionTriggered1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(ActionTriggered1, value), ::TYPES[109/*Fuse.Controls.TextInputActionHandler*/]);
 }
 
 // public Fuse.Controls.AutoCapitalizationHint get_AutoCapitalizationHint() [instance] :1984
 int TextEdit::AutoCapitalizationHint()
 {
     int ret3;
-    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[95/*Fuse.Visual.Get<Fuse.Controls.AutoCapitalizationHint>*/], uCRef<int>(32768), uCRef<int>(0), &ret3), ret3);
+    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[101/*Fuse.Visual.Get<Fuse.Controls.AutoCapitalizationHint>*/], uCRef<int>(32768), uCRef<int>(0), &ret3), ret3);
 }
 
 // public void set_AutoCapitalizationHint(Fuse.Controls.AutoCapitalizationHint value) [instance] :1985
@@ -12505,7 +13498,7 @@ void TextEdit::AutoCapitalizationHint(int value)
 {
     if (AutoCapitalizationHint() != value)
     {
-        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[96/*Fuse.Visual.Set<Fuse.Controls.AutoCapitalizationHint>*/], uCRef<int>(32768), uCRef<int>(value), uCRef<int>(0));
+        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[102/*Fuse.Visual.Set<Fuse.Controls.AutoCapitalizationHint>*/], uCRef<int>(32768), uCRef<int>(value), uCRef<int>(0));
         OnAutoCapitalizationHintChanged();
     }
 }
@@ -12514,7 +13507,7 @@ void TextEdit::AutoCapitalizationHint(int value)
 int TextEdit::AutoCorrectHint()
 {
     int ret4;
-    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[97/*Fuse.Visual.Get<Fuse.Controls.AutoCorrectHint>*/], uCRef<int>(16384), uCRef<int>(0), &ret4), ret4);
+    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[103/*Fuse.Visual.Get<Fuse.Controls.AutoCorrectHint>*/], uCRef<int>(16384), uCRef<int>(0), &ret4), ret4);
 }
 
 // public void set_AutoCorrectHint(Fuse.Controls.AutoCorrectHint value) [instance] :1967
@@ -12522,7 +13515,7 @@ void TextEdit::AutoCorrectHint(int value)
 {
     if (AutoCorrectHint() != value)
     {
-        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[98/*Fuse.Visual.Set<Fuse.Controls.AutoCorrectHint>*/], uCRef<int>(16384), uCRef<int>(value), uCRef<int>(0));
+        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[104/*Fuse.Visual.Set<Fuse.Controls.AutoCorrectHint>*/], uCRef<int>(16384), uCRef<int>(value), uCRef<int>(0));
         OnAutoCorrectHintChanged();
     }
 }
@@ -12531,7 +13524,7 @@ void TextEdit::AutoCorrectHint(int value)
 ::g::Uno::Float4 TextEdit::CaretColor()
 {
     ::g::Uno::Float4 ret5;
-    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[99/*Fuse.Visual.Get<float4>*/], uCRef<int>(128), uCRef(::g::Uno::Float4__New2(0.0f, 0.0f, 0.0f, 1.0f)), &ret5), ret5);
+    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[56/*Fuse.Visual.Get<float4>*/], uCRef<int>(128), uCRef(::g::Uno::Float4__New2(0.0f, 0.0f, 0.0f, 1.0f)), &ret5), ret5);
 }
 
 // public void set_CaretColor(float4 value) [instance] :1911
@@ -12539,7 +13532,7 @@ void TextEdit::CaretColor(::g::Uno::Float4 value)
 {
     if (::g::Uno::Float4__op_Inequality(CaretColor(), value))
     {
-        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[100/*Fuse.Visual.Set<float4>*/], uCRef<int>(128), uCRef(value), uCRef(::g::Uno::Float4__New2(0.0f, 0.0f, 0.0f, 1.0f)));
+        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[55/*Fuse.Visual.Set<float4>*/], uCRef<int>(128), uCRef(value), uCRef(::g::Uno::Float4__New2(0.0f, 0.0f, 0.0f, 1.0f)));
         OnCaretColorChanged();
     }
 }
@@ -12548,7 +13541,7 @@ void TextEdit::CaretColor(::g::Uno::Float4 value)
 int TextEdit::InputHint()
 {
     int ret6;
-    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[101/*Fuse.Visual.Get<Fuse.Controls.TextInputHint>*/], uCRef<int>(8), uCRef<int>(0), &ret6), ret6);
+    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[105/*Fuse.Visual.Get<Fuse.Controls.TextInputHint>*/], uCRef<int>(8), uCRef<int>(0), &ret6), ret6);
 }
 
 // public void set_InputHint(Fuse.Controls.TextInputHint value) [instance] :1893
@@ -12556,7 +13549,7 @@ void TextEdit::InputHint(int value)
 {
     if (InputHint() != value)
     {
-        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[102/*Fuse.Visual.Set<Fuse.Controls.TextInputHint>*/], uCRef<int>(8), uCRef<int>(value), uCRef<int>(0));
+        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[106/*Fuse.Visual.Set<Fuse.Controls.TextInputHint>*/], uCRef<int>(8), uCRef<int>(value), uCRef<int>(0));
         OnInputHintChanged();
     }
 }
@@ -12625,7 +13618,7 @@ void TextEdit::OnTapped(uObject* sender, ::g::Uno::EventArgs* args)
 ::g::Uno::Float4 TextEdit::PlaceholderColor()
 {
     ::g::Uno::Float4 ret7;
-    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[99/*Fuse.Visual.Get<float4>*/], uCRef<int>(32), uCRef(::g::Uno::Float4__New2(0.0f, 0.0f, 0.0f, 1.0f)), &ret7), ret7);
+    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[56/*Fuse.Visual.Get<float4>*/], uCRef<int>(32), uCRef(::g::Uno::Float4__New2(0.0f, 0.0f, 0.0f, 1.0f)), &ret7), ret7);
 }
 
 // public void set_PlaceholderColor(float4 value) [instance] :2022
@@ -12633,7 +13626,7 @@ void TextEdit::PlaceholderColor(::g::Uno::Float4 value)
 {
     if (::g::Uno::Float4__op_Inequality(PlaceholderColor(), value))
     {
-        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[100/*Fuse.Visual.Set<float4>*/], uCRef<int>(32), uCRef(value), uCRef(::g::Uno::Float4__New2(0.0f, 0.0f, 0.0f, 1.0f)));
+        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[55/*Fuse.Visual.Set<float4>*/], uCRef<int>(32), uCRef(value), uCRef(::g::Uno::Float4__New2(0.0f, 0.0f, 0.0f, 1.0f)));
         OnPlaceholderColorChanged();
     }
 }
@@ -12642,7 +13635,7 @@ void TextEdit::PlaceholderColor(::g::Uno::Float4 value)
 uString* TextEdit::PlaceholderText()
 {
     uString* ret8;
-    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[103/*Fuse.Visual.Get<string>*/], uCRef<int>(16), ::STRINGS[16/*""*/], &ret8), ret8);
+    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[107/*Fuse.Visual.Get<string>*/], uCRef<int>(16), ::STRINGS[16/*""*/], &ret8), ret8);
 }
 
 // public void set_PlaceholderText(string value) [instance] :2003
@@ -12650,7 +13643,7 @@ void TextEdit::PlaceholderText(uString* value)
 {
     if (::g::Uno::String::op_Inequality(PlaceholderText(), value))
     {
-        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[104/*Fuse.Visual.Set<string>*/], uCRef<int>(16), (value != NULL) ? value : (uString*)::g::Uno::String::Empty(), ::STRINGS[16/*""*/]);
+        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[108/*Fuse.Visual.Set<string>*/], uCRef<int>(16), (value != NULL) ? value : (uString*)::g::Uno::String::Empty(), ::STRINGS[16/*""*/]);
         OnPlaceholderTextChanged();
     }
 }
@@ -12659,7 +13652,7 @@ void TextEdit::PlaceholderText(uString* value)
 ::g::Uno::Float4 TextEdit::SelectionColor()
 {
     ::g::Uno::Float4 ret9;
-    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[99/*Fuse.Visual.Get<float4>*/], uCRef<int>(256), uCRef(::g::Uno::Float4__New2(0.6f, 0.8f, 1.0f, 0.5f)), &ret9), ret9);
+    return (::g::Fuse::Visual__Get1_fn(this, ::TYPES[56/*Fuse.Visual.Get<float4>*/], uCRef<int>(256), uCRef(::g::Uno::Float4__New2(0.6f, 0.8f, 1.0f, 0.5f)), &ret9), ret9);
 }
 
 // public void set_SelectionColor(float4 value) [instance] :1930
@@ -12667,7 +13660,7 @@ void TextEdit::SelectionColor(::g::Uno::Float4 value)
 {
     if (::g::Uno::Float4__op_Inequality(SelectionColor(), value))
     {
-        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[100/*Fuse.Visual.Set<float4>*/], uCRef<int>(256), uCRef(value), uCRef(::g::Uno::Float4__New2(0.6f, 0.8f, 1.0f, 0.5f)));
+        ::g::Fuse::Visual__Set1_fn(this, ::TYPES[55/*Fuse.Visual.Set<float4>*/], uCRef<int>(256), uCRef(value), uCRef(::g::Uno::Float4__New2(0.6f, 0.8f, 1.0f, 0.5f)));
         OnSelectionColorChanged();
     }
 }
@@ -12695,7 +13688,7 @@ static void TextInput_build(uType* type)
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::TextInputControl_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::TextInputControl_type, interface12),
         ::g::Fuse::Triggers::IValue_typeof()->MakeType(::g::Uno::String_typeof()), offsetof(::g::Fuse::Controls::TextInputControl_type, interface13));
-    type->SetFields(93);
+    type->SetFields(94);
 }
 
 ::g::Fuse::Controls::TextInputControl_type* TextInput_typeof()
@@ -12705,7 +13698,7 @@ static void TextInput_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::TextInputControl_typeof();
-    options.FieldCount = 93;
+    options.FieldCount = 94;
     options.InterfaceCount = 14;
     options.ObjectSize = sizeof(TextInput);
     options.TypeSize = sizeof(::g::Fuse::Controls::TextInputControl_type);
@@ -12913,7 +13906,7 @@ uEnumType* TextInputActionType_typeof()
 // {
 static void TextInputControl_build(uType* type)
 {
-    ::TYPES[106] = ::g::Fuse::Input::FocusDelegator_typeof();
+    ::TYPES[110] = ::g::Fuse::Input::FocusDelegator_typeof();
     ::TYPES[4] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof());
     type->SetInterfaces(
         ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(TextInputControl_type, interface0),
@@ -12930,7 +13923,7 @@ static void TextInputControl_build(uType* type)
         ::g::Fuse::IActualPlacement_typeof(), offsetof(TextInputControl_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(TextInputControl_type, interface12),
         ::g::Fuse::Triggers::IValue_typeof()->MakeType(::g::Uno::String_typeof()), offsetof(TextInputControl_type, interface13));
-    type->SetFields(92,
+    type->SetFields(93,
         ::g::Fuse::Controls::TextEdit_typeof(), offsetof(::g::Fuse::Controls::TextInputControl, _editor), 0);
 }
 
@@ -12941,7 +13934,7 @@ TextInputControl_type* TextInputControl_typeof()
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::LayoutControl_typeof();
-    options.FieldCount = 93;
+    options.FieldCount = 94;
     options.InterfaceCount = 14;
     options.ObjectSize = sizeof(TextInputControl);
     options.TypeSize = sizeof(TextInputControl_type);
@@ -13075,7 +14068,7 @@ void TextInputControl::ctor_6(::g::Fuse::Controls::TextEdit* editor)
 {
     ctor_5();
     ::g::Fuse::Input::Focus::SetIsFocusable(this, true);
-    ::g::Fuse::Input::Focus::SetDelegator(this, uDelegate::New(::TYPES[106/*Fuse.Input.FocusDelegator*/], (void*)TextInputControl__FocusDelegator_fn, this));
+    ::g::Fuse::Input::Focus::SetDelegator(this, uDelegate::New(::TYPES[110/*Fuse.Input.FocusDelegator*/], (void*)TextInputControl__FocusDelegator_fn, this));
     HitTestMode(6);
     _editor = editor;
     ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(Children()), ::TYPES[4/*Uno.Collections.ICollection<Fuse.Node>*/]), _editor);
@@ -13204,8 +14197,8 @@ static void ToggleControl__cctor_4_fn(uType* __type)
 static void ToggleControl_build(uType* type)
 {
     ::STRINGS[0] = uString::Const("Value");
-    ::TYPES[107] = ::g::Fuse::Controls::Native::IToggleView_typeof();
-    ::TYPES[108] = ::g::Uno::UX::ValueChangedHandler_typeof()->MakeType(::g::Uno::Bool_typeof());
+    ::TYPES[111] = ::g::Fuse::Controls::Native::IToggleView_typeof();
+    ::TYPES[112] = ::g::Uno::UX::ValueChangedHandler_typeof()->MakeType(::g::Uno::Bool_typeof());
     type->SetInterfaces(
         ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(ToggleControl_type, interface0),
         ::g::Fuse::Scripting::IScriptObject_typeof(), offsetof(ToggleControl_type, interface1),
@@ -13223,7 +14216,7 @@ static void ToggleControl_build(uType* type)
         ::g::Fuse::Triggers::IValue_typeof()->MakeType(::g::Uno::Bool_typeof()), offsetof(ToggleControl_type, interface13),
         ::g::Fuse::Controls::Native::IToggleViewHost_typeof(), offsetof(ToggleControl_type, interface14),
         ::g::Fuse::Triggers::Actions::IToggleable_typeof(), offsetof(ToggleControl_type, interface15));
-    type->SetFields(92,
+    type->SetFields(93,
         ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Controls::ToggleControl, _value), 0,
         ::g::Uno::UX::ValueChangedHandler_typeof()->MakeType(::g::Uno::Bool_typeof()), offsetof(::g::Fuse::Controls::ToggleControl, ValueChanged1), 0,
         ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Fuse::Controls::ToggleControl::_valueName_, uFieldFlagsStatic);
@@ -13236,7 +14229,7 @@ ToggleControl_type* ToggleControl_typeof()
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::Panel_typeof();
-    options.FieldCount = 95;
+    options.FieldCount = 96;
     options.InterfaceCount = 16;
     options.ObjectSize = sizeof(ToggleControl);
     options.TypeSize = sizeof(ToggleControl_type);
@@ -13301,7 +14294,7 @@ void ToggleControl__PushPropertiesToNativeView_fn(ToggleControl* __this)
     uObject* tv = __this->ToggleView();
 
     if (tv != NULL)
-        ::g::Fuse::Controls::Native::IToggleView::Value(uInterface(uPtr(tv), ::TYPES[107/*Fuse.Controls.Native.IToggleView*/]), __this->Value());
+        ::g::Fuse::Controls::Native::IToggleView::Value(uInterface(uPtr(tv), ::TYPES[111/*Fuse.Controls.Native.IToggleView*/]), __this->Value());
 }
 
 // public void SetValue(bool value, Uno.UX.IPropertyListener origin) :86
@@ -13371,7 +14364,7 @@ void ToggleControl::SetValue(bool value, uObject* origin)
             uObject* tv = ToggleView();
 
             if (tv != NULL)
-                ::g::Fuse::Controls::Native::IToggleView::Value(uInterface(uPtr(tv), ::TYPES[107/*Fuse.Controls.Native.IToggleView*/]), value);
+                ::g::Fuse::Controls::Native::IToggleView::Value(uInterface(uPtr(tv), ::TYPES[111/*Fuse.Controls.Native.IToggleView*/]), value);
         }
     }
 }
@@ -13385,7 +14378,7 @@ void ToggleControl::Toggle()
 // private Fuse.Controls.Native.IToggleView get_ToggleView() [instance] :73
 uObject* ToggleControl::ToggleView()
 {
-    return uAs<uObject*>(NativeView(), ::TYPES[107/*Fuse.Controls.Native.IToggleView*/]);
+    return uAs<uObject*>(NativeView(), ::TYPES[111/*Fuse.Controls.Native.IToggleView*/]);
 }
 
 // public bool get_Value() [instance] :83
@@ -13403,13 +14396,13 @@ void ToggleControl::Value(bool value)
 // public generated void add_ValueChanged(Uno.UX.ValueChangedHandler<bool> value) [instance] :130
 void ToggleControl::add_ValueChanged(uDelegate* value)
 {
-    ValueChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(ValueChanged1, value), ::TYPES[108/*Uno.UX.ValueChangedHandler<bool>*/]);
+    ValueChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(ValueChanged1, value), ::TYPES[112/*Uno.UX.ValueChangedHandler<bool>*/]);
 }
 
 // public generated void remove_ValueChanged(Uno.UX.ValueChangedHandler<bool> value) [instance] :130
 void ToggleControl::remove_ValueChanged(uDelegate* value)
 {
-    ValueChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(ValueChanged1, value), ::TYPES[108/*Uno.UX.ValueChangedHandler<bool>*/]);
+    ValueChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(ValueChanged1, value), ::TYPES[112/*Uno.UX.ValueChangedHandler<bool>*/]);
 }
 // }
 
@@ -13435,7 +14428,7 @@ static void TopFrameBackground_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface12));
-    type->SetFields(91);
+    type->SetFields(92);
 }
 
 ::g::Fuse::Controls::Control_type* TopFrameBackground_typeof()
@@ -13445,7 +14438,7 @@ static void TopFrameBackground_build(uType* type)
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::Control_typeof();
-    options.FieldCount = 91;
+    options.FieldCount = 92;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(TopFrameBackground);
     options.TypeSize = sizeof(::g::Fuse::Controls::Control_type);
@@ -13556,19 +14549,19 @@ TopFrameBackground* TopFrameBackground::New2()
 // static Video() :198
 static void Video__cctor_4_fn(uType* __type)
 {
-    Video::_progressName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[77/*"Progress"*/]);
+    Video::_progressName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[80/*"Progress"*/]);
 }
 
 static void Video_build(uType* type)
 {
-    ::STRINGS[77] = uString::Const("Progress");
-    ::TYPES[109] = ::g::Uno::UX::ValueChangedArgs_typeof()->MakeType(::g::Uno::Double_typeof());
+    ::STRINGS[80] = uString::Const("Progress");
+    ::TYPES[113] = ::g::Uno::UX::ValueChangedArgs_typeof()->MakeType(::g::Uno::Double_typeof());
     ::TYPES[4] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof());
-    ::TYPES[110] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::VideoImpl::VideoVisual_typeof());
-    ::TYPES[111] = ::g::Fuse::Triggers::IPlayback_typeof();
-    ::TYPES[112] = ::g::Fuse::Triggers::IProgress_typeof();
+    ::TYPES[114] = ::g::Fuse::Visual_typeof()->MakeMethod(1, ::g::Fuse::Controls::VideoImpl::VideoVisual_typeof());
+    ::TYPES[115] = ::g::Fuse::Triggers::IPlayback_typeof();
+    ::TYPES[116] = ::g::Fuse::Triggers::IProgress_typeof();
     ::TYPES[30] = ::g::Uno::UX::ValueChangedHandler_typeof()->MakeType(::g::Uno::Double_typeof());
-    ::TYPES[113] = ::g::Fuse::Triggers::IMediaPlayback_typeof();
+    ::TYPES[117] = ::g::Fuse::Triggers::IMediaPlayback_typeof();
     ::TYPES[29] = ::g::Uno::EventHandler_typeof();
     type->SetInterfaces(
         ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(Video_type, interface0),
@@ -13587,7 +14580,7 @@ static void Video_build(uType* type)
         ::g::Fuse::Triggers::IMediaPlayback_typeof(), offsetof(Video_type, interface13),
         ::g::Fuse::Triggers::IPlayback_typeof(), offsetof(Video_type, interface14),
         ::g::Fuse::Triggers::IProgress_typeof(), offsetof(Video_type, interface15));
-    type->SetFields(92,
+    type->SetFields(93,
         ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Controls::Video, _autoPlay), 0,
         ::g::Fuse::Elements::Alignment_typeof(), offsetof(::g::Fuse::Controls::Video, _contentAlignment), 0,
         ::g::Uno::UX::FileSource_typeof(), offsetof(::g::Fuse::Controls::Video, _file), 0,
@@ -13614,7 +14607,7 @@ Video_type* Video_typeof()
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::Panel_typeof();
-    options.FieldCount = 109;
+    options.FieldCount = 110;
     options.InterfaceCount = 16;
     options.ObjectSize = sizeof(Video);
     options.TypeSize = sizeof(Video_type);
@@ -13776,7 +14769,7 @@ void Video__OnSourceChanged_fn(Video* __this)
 // protected override sealed void OnUnrooted() :437
 void Video__OnUnrooted_fn(Video* __this)
 {
-    __this->RemoveAllChildren(::TYPES[110/*Fuse.Visual.RemoveAllChildren<Fuse.Controls.VideoImpl.VideoVisual>*/]);
+    __this->RemoveAllChildren(::TYPES[114/*Fuse.Visual.RemoveAllChildren<Fuse.Controls.VideoImpl.VideoVisual>*/]);
     ::g::Fuse::Controls::LayoutControl__OnUnrooted_fn(__this);
 }
 
@@ -13987,25 +14980,25 @@ void Video::AutoPlay(bool value)
 // public bool get_CanPause() [instance] :506
 bool Video::CanPause()
 {
-    return (Playback() != NULL) ? ::g::Fuse::Triggers::IPlayback::CanPause(uInterface(uPtr(Playback()), ::TYPES[111/*Fuse.Triggers.IPlayback*/])) : false;
+    return (Playback() != NULL) ? ::g::Fuse::Triggers::IPlayback::CanPause(uInterface(uPtr(Playback()), ::TYPES[115/*Fuse.Triggers.IPlayback*/])) : false;
 }
 
 // public bool get_CanPlayTo() [instance] :496
 bool Video::CanPlayTo()
 {
-    return (Playback() != NULL) ? ::g::Fuse::Triggers::IPlayback::CanPlayTo(uInterface(uPtr(Playback()), ::TYPES[111/*Fuse.Triggers.IPlayback*/])) : false;
+    return (Playback() != NULL) ? ::g::Fuse::Triggers::IPlayback::CanPlayTo(uInterface(uPtr(Playback()), ::TYPES[115/*Fuse.Triggers.IPlayback*/])) : false;
 }
 
 // public bool get_CanResume() [instance] :511
 bool Video::CanResume()
 {
-    return (Playback() != NULL) ? ::g::Fuse::Triggers::IPlayback::CanResume(uInterface(uPtr(Playback()), ::TYPES[111/*Fuse.Triggers.IPlayback*/])) : false;
+    return (Playback() != NULL) ? ::g::Fuse::Triggers::IPlayback::CanResume(uInterface(uPtr(Playback()), ::TYPES[115/*Fuse.Triggers.IPlayback*/])) : false;
 }
 
 // public bool get_CanStop() [instance] :501
 bool Video::CanStop()
 {
-    return (Playback() != NULL) ? ::g::Fuse::Triggers::IPlayback::CanStop(uInterface(uPtr(Playback()), ::TYPES[111/*Fuse.Triggers.IPlayback*/])) : false;
+    return (Playback() != NULL) ? ::g::Fuse::Triggers::IPlayback::CanStop(uInterface(uPtr(Playback()), ::TYPES[115/*Fuse.Triggers.IPlayback*/])) : false;
 }
 
 // public Fuse.Elements.Alignment get_ContentAlignment() [instance] :403
@@ -14070,7 +15063,7 @@ void Video::OnProgressChanged(uObject* sender, ::g::Uno::EventArgs* args)
     OnPropertyChanged(Video::_progressName());
 
     if (::g::Uno::Delegate::op_Inequality(ProgressChanged1, NULL))
-        uPtr(ProgressChanged1)->Invoke(2, this, (::g::Uno::UX::ValueChangedArgs__New2_fn(::TYPES[109/*Uno.UX.ValueChangedArgs<double>*/], uCRef(Progress()), &ret2), ret2));
+        uPtr(ProgressChanged1)->Invoke(2, this, (::g::Uno::UX::ValueChangedArgs__New2_fn(::TYPES[113/*Uno.UX.ValueChangedArgs<double>*/], uCRef(Progress()), &ret2), ret2));
 }
 
 // private void OnRenderParamChanged() [instance] :452
@@ -14103,7 +15096,7 @@ void Video::remove_ParamChanged(uDelegate* value)
 void Video::Pause()
 {
     if (Playback() != NULL)
-        ::g::Fuse::Triggers::IPlayback::Pause(uInterface(uPtr(Playback()), ::TYPES[111/*Fuse.Triggers.IPlayback*/]));
+        ::g::Fuse::Triggers::IPlayback::Pause(uInterface(uPtr(Playback()), ::TYPES[115/*Fuse.Triggers.IPlayback*/]));
 }
 
 // private Fuse.Triggers.IMediaPlayback get_Playback() [instance] :538
@@ -14116,12 +15109,12 @@ uObject* Video::Playback()
 void Video::Playback(uObject* value)
 {
     if (_playback != NULL)
-        ::g::Fuse::Triggers::IProgress::remove_ProgressChanged(uInterface(uPtr(_playback), ::TYPES[112/*Fuse.Triggers.IProgress*/]), uDelegate::New(::TYPES[30/*Uno.UX.ValueChangedHandler<double>*/], (void*)Video__OnProgressChanged_fn, this));
+        ::g::Fuse::Triggers::IProgress::remove_ProgressChanged(uInterface(uPtr(_playback), ::TYPES[116/*Fuse.Triggers.IProgress*/]), uDelegate::New(::TYPES[30/*Uno.UX.ValueChangedHandler<double>*/], (void*)Video__OnProgressChanged_fn, this));
 
     _playback = value;
 
     if (_playback != NULL)
-        ::g::Fuse::Triggers::IProgress::add_ProgressChanged(uInterface(uPtr(_playback), ::TYPES[112/*Fuse.Triggers.IProgress*/]), uDelegate::New(::TYPES[30/*Uno.UX.ValueChangedHandler<double>*/], (void*)Video__OnProgressChanged_fn, this));
+        ::g::Fuse::Triggers::IProgress::add_ProgressChanged(uInterface(uPtr(_playback), ::TYPES[116/*Fuse.Triggers.IProgress*/]), uDelegate::New(::TYPES[30/*Uno.UX.ValueChangedHandler<double>*/], (void*)Video__OnProgressChanged_fn, this));
 
     if (IsRootingCompleted())
         OnProgressChanged(NULL, NULL);
@@ -14131,33 +15124,33 @@ void Video::Playback(uObject* value)
 void Video::PlayTo(double progress)
 {
     if (Playback() != NULL)
-        ::g::Fuse::Triggers::IPlayback::PlayTo(uInterface(uPtr(Playback()), ::TYPES[111/*Fuse.Triggers.IPlayback*/]), progress);
+        ::g::Fuse::Triggers::IPlayback::PlayTo(uInterface(uPtr(Playback()), ::TYPES[115/*Fuse.Triggers.IPlayback*/]), progress);
 }
 
 // public double get_Position() [instance] :524
 double Video::Position()
 {
-    return (Playback() != NULL) ? ::g::Fuse::Triggers::IMediaPlayback::Position(uInterface(uPtr(Playback()), ::TYPES[113/*Fuse.Triggers.IMediaPlayback*/])) : 0.0;
+    return (Playback() != NULL) ? ::g::Fuse::Triggers::IMediaPlayback::Position(uInterface(uPtr(Playback()), ::TYPES[117/*Fuse.Triggers.IMediaPlayback*/])) : 0.0;
 }
 
 // public void set_Position(double value) [instance] :525
 void Video::Position(double value)
 {
     if (Playback() != NULL)
-        ::g::Fuse::Triggers::IMediaPlayback::Position(uInterface(uPtr(Playback()), ::TYPES[113/*Fuse.Triggers.IMediaPlayback*/]), value);
+        ::g::Fuse::Triggers::IMediaPlayback::Position(uInterface(uPtr(Playback()), ::TYPES[117/*Fuse.Triggers.IMediaPlayback*/]), value);
 }
 
 // public double get_Progress() [instance] :517
 double Video::Progress()
 {
-    return (Playback() != NULL) ? ::g::Fuse::Triggers::IPlayback::Progress(uInterface(uPtr(uAs<uObject*>(Playback(), ::TYPES[111/*Fuse.Triggers.IPlayback*/])), ::TYPES[111/*Fuse.Triggers.IPlayback*/])) : 0.0;
+    return (Playback() != NULL) ? ::g::Fuse::Triggers::IPlayback::Progress(uInterface(uPtr(uAs<uObject*>(Playback(), ::TYPES[115/*Fuse.Triggers.IPlayback*/])), ::TYPES[115/*Fuse.Triggers.IPlayback*/])) : 0.0;
 }
 
 // public void set_Progress(double value) [instance] :518
 void Video::Progress(double value)
 {
     if (Playback() != NULL)
-        ::g::Fuse::Triggers::IPlayback::Progress(uInterface(uPtr(uAs<uObject*>(Playback(), ::TYPES[111/*Fuse.Triggers.IPlayback*/])), ::TYPES[111/*Fuse.Triggers.IPlayback*/]), value);
+        ::g::Fuse::Triggers::IPlayback::Progress(uInterface(uPtr(uAs<uObject*>(Playback(), ::TYPES[115/*Fuse.Triggers.IPlayback*/])), ::TYPES[115/*Fuse.Triggers.IPlayback*/]), value);
 }
 
 // public generated void add_ProgressChanged(Uno.UX.ValueChangedHandler<double> value) [instance] :533
@@ -14188,7 +15181,7 @@ void Video::remove_RenderParamChanged(uDelegate* value)
 void Video::Resume()
 {
     if (Playback() != NULL)
-        ::g::Fuse::Triggers::IPlayback::Resume(uInterface(uPtr(Playback()), ::TYPES[111/*Fuse.Triggers.IPlayback*/]));
+        ::g::Fuse::Triggers::IPlayback::Resume(uInterface(uPtr(Playback()), ::TYPES[115/*Fuse.Triggers.IPlayback*/]));
 }
 
 // public float4 get_Scale9Margin() [instance] :296
@@ -14230,7 +15223,7 @@ void Video::remove_SourceChanged(uDelegate* value)
 void Video::Stop()
 {
     if (Playback() != NULL)
-        ::g::Fuse::Triggers::IPlayback::Stop(uInterface(uPtr(Playback()), ::TYPES[111/*Fuse.Triggers.IPlayback*/]));
+        ::g::Fuse::Triggers::IPlayback::Stop(uInterface(uPtr(Playback()), ::TYPES[115/*Fuse.Triggers.IPlayback*/]));
 }
 
 // public Fuse.Elements.StretchDirection get_StretchDirection() [instance] :365
@@ -14322,37 +15315,37 @@ void Video::Volume(float value)
 // static WebView() :499
 static void WebView__cctor_4_fn(uType* __type)
 {
-    WebView::_urlName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[78/*"Url"*/]);
-    ::g::Fuse::Scripting::ScriptClass::Register(WebView_typeof(), uArray::Init< ::g::Fuse::Scripting::ScriptMember*>(::TYPES[19/*Fuse.Scripting.ScriptMember[]*/], 3, (::g::Fuse::Scripting::ScriptMethod1*)::g::Fuse::Scripting::ScriptMethod1::New1(::TYPES[114/*Fuse.Scripting.ScriptMethod<Fuse.Controls.WebView>*/], ::STRINGS[26/*"goto"*/], uDelegate::New(::TYPES[115/*Uno.Action<Fuse.Scripting.Context, Fuse.Controls.WebView, object[]>*/], (void*)WebView__setUrl_fn), 2), (::g::Fuse::Scripting::ScriptMethod1*)::g::Fuse::Scripting::ScriptMethod1::New1(::TYPES[114/*Fuse.Scripting.ScriptMethod<Fuse.Controls.WebView>*/], ::STRINGS[79/*"loadHtml"*/], uDelegate::New(::TYPES[115/*Uno.Action<Fuse.Scripting.Context, Fuse.Controls.WebView, object[]>*/], (void*)WebView__loadHtml_fn), 2), (::g::Fuse::Scripting::ScriptMethod1*)::g::Fuse::Scripting::ScriptMethod1::New1(::TYPES[114/*Fuse.Scripting.ScriptMethod<Fuse.Controls.WebView>*/], ::STRINGS[80/*"setBaseUrl"*/], uDelegate::New(::TYPES[115/*Uno.Action<Fuse.Scripting.Context, Fuse.Controls.WebView, object[]>*/], (void*)WebView__setBaseUrl_fn), 2)));
+    WebView::_urlName_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[81/*"Url"*/]);
+    ::g::Fuse::Scripting::ScriptClass::Register(WebView_typeof(), uArray::Init< ::g::Fuse::Scripting::ScriptMember*>(::TYPES[19/*Fuse.Scripting.ScriptMember[]*/], 3, (::g::Fuse::Scripting::ScriptMethod1*)::g::Fuse::Scripting::ScriptMethod1::New1(::TYPES[118/*Fuse.Scripting.ScriptMethod<Fuse.Controls.WebView>*/], ::STRINGS[29/*"goto"*/], uDelegate::New(::TYPES[119/*Uno.Action<Fuse.Scripting.Context, Fuse.Controls.WebView, object[]>*/], (void*)WebView__setUrl_fn), 2), (::g::Fuse::Scripting::ScriptMethod1*)::g::Fuse::Scripting::ScriptMethod1::New1(::TYPES[118/*Fuse.Scripting.ScriptMethod<Fuse.Controls.WebView>*/], ::STRINGS[82/*"loadHtml"*/], uDelegate::New(::TYPES[119/*Uno.Action<Fuse.Scripting.Context, Fuse.Controls.WebView, object[]>*/], (void*)WebView__loadHtml_fn), 2), (::g::Fuse::Scripting::ScriptMethod1*)::g::Fuse::Scripting::ScriptMethod1::New1(::TYPES[118/*Fuse.Scripting.ScriptMethod<Fuse.Controls.WebView>*/], ::STRINGS[83/*"setBaseUrl"*/], uDelegate::New(::TYPES[119/*Uno.Action<Fuse.Scripting.Context, Fuse.Controls.WebView, object[]>*/], (void*)WebView__setBaseUrl_fn), 2)));
 }
 
 static void WebView_build(uType* type)
 {
-    ::STRINGS[78] = uString::Const("Url");
-    ::STRINGS[26] = uString::Const("goto");
-    ::STRINGS[79] = uString::Const("loadHtml");
-    ::STRINGS[80] = uString::Const("setBaseUrl");
+    ::STRINGS[81] = uString::Const("Url");
+    ::STRINGS[29] = uString::Const("goto");
+    ::STRINGS[82] = uString::Const("loadHtml");
+    ::STRINGS[83] = uString::Const("setBaseUrl");
     ::STRINGS[16] = uString::Const("");
-    ::STRINGS[81] = uString::Const("WebView.loadHtml takes either one url argument, or an url and a baseUrl argument");
-    ::STRINGS[82] = uString::Const("/usr/local/share/uno/Packages/Fuse.Controls.WebView/0.39.3/$.uno");
-    ::STRINGS[83] = uString::Const("about:blank");
-    ::STRINGS[84] = uString::Const("WebView.setBaseUrl requires 1 string argument");
-    ::STRINGS[85] = uString::Const("WebView.setUrl requires 1 string argument");
-    ::STRINGS[86] = uString::Const("setUrl");
+    ::STRINGS[84] = uString::Const("WebView.loadHtml takes either one url argument, or an url and a baseUrl argument");
+    ::STRINGS[85] = uString::Const("/usr/local/share/uno/Packages/Fuse.Controls.WebView/0.39.3/$.uno");
+    ::STRINGS[86] = uString::Const("about:blank");
+    ::STRINGS[87] = uString::Const("WebView.setBaseUrl requires 1 string argument");
+    ::STRINGS[88] = uString::Const("WebView.setUrl requires 1 string argument");
+    ::STRINGS[89] = uString::Const("setUrl");
     ::TYPES[18] = ::g::Uno::Type_typeof();
     ::TYPES[19] = ::g::Fuse::Scripting::ScriptMember_typeof()->Array();
-    ::TYPES[114] = ::g::Fuse::Scripting::ScriptMethod1_typeof()->MakeType(WebView_typeof());
-    ::TYPES[115] = ::g::Uno::Action3_typeof()->MakeType(::g::Fuse::Scripting::Context_typeof(), WebView_typeof(), uObject_typeof()->Array());
-    ::TYPES[116] = ::g::Fuse::Controls::FallbackWebViewClient_typeof();
-    ::TYPES[33] = ::g::Fuse::Controls::IWebView_typeof();
-    ::TYPES[117] = ::g::Fuse::Navigation::IBaseNavigation_typeof();
-    ::TYPES[118] = ::g::Uno::String_typeof();
-    ::TYPES[109] = ::g::Uno::UX::ValueChangedArgs_typeof()->MakeType(::g::Uno::Double_typeof());
-    ::TYPES[112] = ::g::Fuse::Triggers::IProgress_typeof();
-    ::TYPES[119] = ::g::Fuse::Controls::ISourceReceiver_typeof();
+    ::TYPES[118] = ::g::Fuse::Scripting::ScriptMethod1_typeof()->MakeType(WebView_typeof());
+    ::TYPES[119] = ::g::Uno::Action3_typeof()->MakeType(::g::Fuse::Scripting::Context_typeof(), WebView_typeof(), uObject_typeof()->Array());
+    ::TYPES[120] = ::g::Fuse::Controls::FallbackWebViewClient_typeof();
+    ::TYPES[37] = ::g::Fuse::Controls::IWebView_typeof();
+    ::TYPES[121] = ::g::Fuse::Navigation::IBaseNavigation_typeof();
+    ::TYPES[122] = ::g::Uno::String_typeof();
+    ::TYPES[113] = ::g::Uno::UX::ValueChangedArgs_typeof()->MakeType(::g::Uno::Double_typeof());
+    ::TYPES[116] = ::g::Fuse::Triggers::IProgress_typeof();
+    ::TYPES[123] = ::g::Fuse::Controls::ISourceReceiver_typeof();
     ::TYPES[30] = ::g::Uno::UX::ValueChangedHandler_typeof()->MakeType(::g::Uno::Double_typeof());
     ::TYPES[29] = ::g::Uno::EventHandler_typeof();
-    ::TYPES[120] = ::g::Fuse::Navigation::HistoryChangedHandler_typeof();
+    ::TYPES[124] = ::g::Fuse::Navigation::HistoryChangedHandler_typeof();
     type->SetInterfaces(
         ::g::Uno::Collections::IList_typeof()->MakeType(::g::Fuse::Binding_typeof()), offsetof(WebView_type, interface0),
         ::g::Fuse::Scripting::IScriptObject_typeof(), offsetof(WebView_type, interface1),
@@ -14371,7 +15364,7 @@ static void WebView_build(uType* type)
         ::g::Fuse::Triggers::IProgress_typeof(), offsetof(WebView_type, interface14),
         ::g::Fuse::Navigation::IBaseNavigation_typeof(), offsetof(WebView_type, interface15),
         ::g::Fuse::Controls::ISourceReceiver_typeof(), offsetof(WebView_type, interface16));
-    type->SetFields(92,
+    type->SetFields(93,
         ::g::Fuse::Controls::IWebView_typeof(), offsetof(::g::Fuse::Controls::WebView, _fallbackClient), 0,
         ::g::Fuse::Controls::IWebView_typeof(), offsetof(::g::Fuse::Controls::WebView, _webViewClient), 0,
         ::g::Uno::EventHandler_typeof(), offsetof(::g::Fuse::Controls::WebView, BeginLoading1), 0,
@@ -14389,7 +15382,7 @@ WebView_type* WebView_typeof()
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Controls::Panel_typeof();
-    options.FieldCount = 100;
+    options.FieldCount = 101;
     options.InterfaceCount = 17;
     options.ObjectSize = sizeof(WebView);
     options.TypeSize = sizeof(WebView_type);
@@ -14740,20 +15733,20 @@ void WebView__set_WebViewClient_fn(WebView* __this, uObject* value)
 // private void applyFallbackCalls(Fuse.Controls.IWebView client) [instance] :240
 void WebView::applyFallbackCalls(uObject* client)
 {
-    ::g::Fuse::Controls::FallbackWebViewClient* fbc = uAs< ::g::Fuse::Controls::FallbackWebViewClient*>(_fallbackClient, ::TYPES[116/*Fuse.Controls.FallbackWebViewClient*/]);
+    ::g::Fuse::Controls::FallbackWebViewClient* fbc = uAs< ::g::Fuse::Controls::FallbackWebViewClient*>(_fallbackClient, ::TYPES[120/*Fuse.Controls.FallbackWebViewClient*/]);
     uPtr(fbc)->ApplyBufferedCalls(client);
 }
 
 // public string get_BaseUrl() [instance] :287
 uString* WebView::BaseUrl()
 {
-    return ::g::Fuse::Controls::IWebView::BaseUrl(uInterface(uPtr(WebViewClient()), ::TYPES[33/*Fuse.Controls.IWebView*/]));
+    return ::g::Fuse::Controls::IWebView::BaseUrl(uInterface(uPtr(WebViewClient()), ::TYPES[37/*Fuse.Controls.IWebView*/]));
 }
 
 // public void set_BaseUrl(string value) [instance] :288
 void WebView::BaseUrl(uString* value)
 {
-    ::g::Fuse::Controls::IWebView::BaseUrl(uInterface(uPtr(WebViewClient()), ::TYPES[33/*Fuse.Controls.IWebView*/]), (value != NULL) ? value : ::STRINGS[16/*""*/]);
+    ::g::Fuse::Controls::IWebView::BaseUrl(uInterface(uPtr(WebViewClient()), ::TYPES[37/*Fuse.Controls.IWebView*/]), (value != NULL) ? value : ::STRINGS[16/*""*/]);
 }
 
 // public generated void add_BeginLoading(Uno.EventHandler value) [instance] :146
@@ -14771,79 +15764,79 @@ void WebView::remove_BeginLoading(uDelegate* value)
 // public bool get_CanGoBack() [instance] :327
 bool WebView::CanGoBack()
 {
-    return ::g::Fuse::Navigation::IBaseNavigation::CanGoBack(uInterface(uPtr(WebViewClient()), ::TYPES[117/*Fuse.Navigation.IBaseNavigation*/]));
+    return ::g::Fuse::Navigation::IBaseNavigation::CanGoBack(uInterface(uPtr(WebViewClient()), ::TYPES[121/*Fuse.Navigation.IBaseNavigation*/]));
 }
 
 // public bool get_CanGoForward() [instance] :332
 bool WebView::CanGoForward()
 {
-    return ::g::Fuse::Navigation::IBaseNavigation::CanGoForward(uInterface(uPtr(WebViewClient()), ::TYPES[117/*Fuse.Navigation.IBaseNavigation*/]));
+    return ::g::Fuse::Navigation::IBaseNavigation::CanGoForward(uInterface(uPtr(WebViewClient()), ::TYPES[121/*Fuse.Navigation.IBaseNavigation*/]));
 }
 
 // public void Eval(string js) [instance] :335
 void WebView::Eval(uString* js)
 {
-    ::g::Fuse::Controls::IWebView::Eval(uInterface(uPtr(WebViewClient()), ::TYPES[33/*Fuse.Controls.IWebView*/]), (js != NULL) ? js : ::STRINGS[16/*""*/]);
+    ::g::Fuse::Controls::IWebView::Eval(uInterface(uPtr(WebViewClient()), ::TYPES[37/*Fuse.Controls.IWebView*/]), (js != NULL) ? js : ::STRINGS[16/*""*/]);
 }
 
 // public void Eval(string js, Uno.Action<string> resultHandler) [instance] :340
 void WebView::Eval1(uString* js, uDelegate* resultHandler)
 {
-    ::g::Fuse::Controls::IWebView::Eval1(uInterface(uPtr(WebViewClient()), ::TYPES[33/*Fuse.Controls.IWebView*/]), (js != NULL) ? js : ::STRINGS[16/*""*/], resultHandler);
+    ::g::Fuse::Controls::IWebView::Eval1(uInterface(uPtr(WebViewClient()), ::TYPES[37/*Fuse.Controls.IWebView*/]), (js != NULL) ? js : ::STRINGS[16/*""*/], resultHandler);
 }
 
 // public Uno.UX.FileSource get_File() [instance] :321
 ::g::Uno::UX::FileSource* WebView::File()
 {
-    return ::g::Fuse::Controls::IWebView::File(uInterface(uPtr(WebViewClient()), ::TYPES[33/*Fuse.Controls.IWebView*/]));
+    return ::g::Fuse::Controls::IWebView::File(uInterface(uPtr(WebViewClient()), ::TYPES[37/*Fuse.Controls.IWebView*/]));
 }
 
 // public void set_File(Uno.UX.FileSource value) [instance] :322
 void WebView::File(::g::Uno::UX::FileSource* value)
 {
-    ::g::Fuse::Controls::IWebView::File(uInterface(uPtr(WebViewClient()), ::TYPES[33/*Fuse.Controls.IWebView*/]), value);
+    ::g::Fuse::Controls::IWebView::File(uInterface(uPtr(WebViewClient()), ::TYPES[37/*Fuse.Controls.IWebView*/]), value);
 }
 
 // public void GoBack() [instance] :345
 void WebView::GoBack()
 {
-    ::g::Fuse::Navigation::IBaseNavigation::GoBack(uInterface(uPtr(WebViewClient()), ::TYPES[117/*Fuse.Navigation.IBaseNavigation*/]));
+    ::g::Fuse::Navigation::IBaseNavigation::GoBack(uInterface(uPtr(WebViewClient()), ::TYPES[121/*Fuse.Navigation.IBaseNavigation*/]));
 }
 
 // public void GoForward() [instance] :350
 void WebView::GoForward()
 {
-    ::g::Fuse::Navigation::IBaseNavigation::GoForward(uInterface(uPtr(WebViewClient()), ::TYPES[117/*Fuse.Navigation.IBaseNavigation*/]));
+    ::g::Fuse::Navigation::IBaseNavigation::GoForward(uInterface(uPtr(WebViewClient()), ::TYPES[121/*Fuse.Navigation.IBaseNavigation*/]));
 }
 
 // public generated void add_HistoryChanged(Fuse.Navigation.HistoryChangedHandler value) [instance] :370
 void WebView::add_HistoryChanged(uDelegate* value)
 {
-    HistoryChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(HistoryChanged1, value), ::TYPES[120/*Fuse.Navigation.HistoryChangedHandler*/]);
+    HistoryChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(HistoryChanged1, value), ::TYPES[124/*Fuse.Navigation.HistoryChangedHandler*/]);
 }
 
 // public generated void remove_HistoryChanged(Fuse.Navigation.HistoryChangedHandler value) [instance] :370
 void WebView::remove_HistoryChanged(uDelegate* value)
 {
-    HistoryChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(HistoryChanged1, value), ::TYPES[120/*Fuse.Navigation.HistoryChangedHandler*/]);
+    HistoryChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(HistoryChanged1, value), ::TYPES[124/*Fuse.Navigation.HistoryChangedHandler*/]);
 }
 
 // public void LoadHtml(string html) [instance] :280
 void WebView::LoadHtml(uString* html)
 {
-    ::g::Fuse::Controls::IWebView::LoadHtml(uInterface(uPtr(WebViewClient()), ::TYPES[33/*Fuse.Controls.IWebView*/]), (html != NULL) ? html : ::STRINGS[16/*""*/]);
+    ::g::Fuse::Controls::IWebView::LoadHtml(uInterface(uPtr(WebViewClient()), ::TYPES[37/*Fuse.Controls.IWebView*/]), (html != NULL) ? html : ::STRINGS[16/*""*/]);
 }
 
 // public void LoadHtml(string html, string baseUrl) [instance] :276
 void WebView::LoadHtml1(uString* html, uString* baseUrl)
 {
-    ::g::Fuse::Controls::IWebView::LoadHtml1(uInterface(uPtr(WebViewClient()), ::TYPES[33/*Fuse.Controls.IWebView*/]), (html != NULL) ? html : ::STRINGS[16/*""*/], baseUrl);
+    ::g::Fuse::Controls::IWebView::LoadHtml1(uInterface(uPtr(WebViewClient()), ::TYPES[37/*Fuse.Controls.IWebView*/]), (html != NULL) ? html : ::STRINGS[16/*""*/], baseUrl);
 }
 
 // public void LoadUrl(string url) [instance] :365
 void WebView::LoadUrl(uString* url)
 {
-    ::g::Fuse::Controls::IWebView::LoadUrl(uInterface(uPtr(WebViewClient()), ::TYPES[33/*Fuse.Controls.IWebView*/]), (url != NULL) ? url : ::STRINGS[83/*"about:blank"*/]);
+    ::g::Fuse::Controls::IWebView::LoadUrl(uInterface(uPtr(WebViewClient()), ::TYPES[37/*Fuse.Controls.IWebView*/]), (url != NULL) ? url : ::STRINGS[86/*"about:blank"*/]);
 }
 
 // private void OnBeginLoading(object sender, Uno.EventArgs args) [instance] :253
@@ -14882,7 +15875,7 @@ void WebView::OnProgressChanged(uObject* sender, ::g::Uno::EventArgs* args)
     ::g::Uno::UX::ValueChangedArgs* ret4;
 
     if (::g::Uno::Delegate::op_Inequality(ProgressChanged1, NULL))
-        uPtr(ProgressChanged1)->Invoke(2, this, (::g::Uno::UX::ValueChangedArgs__New2_fn(::TYPES[109/*Uno.UX.ValueChangedArgs<double>*/], uCRef(Progress()), &ret4), ret4));
+        uPtr(ProgressChanged1)->Invoke(2, this, (::g::Uno::UX::ValueChangedArgs__New2_fn(::TYPES[113/*Uno.UX.ValueChangedArgs<double>*/], uCRef(Progress()), &ret4), ret4));
 }
 
 // public generated void add_PageLoaded(Uno.EventHandler value) [instance] :145
@@ -14900,7 +15893,7 @@ void WebView::remove_PageLoaded(uDelegate* value)
 // public double get_Progress() [instance] :141
 double WebView::Progress()
 {
-    return ::g::Fuse::Triggers::IProgress::Progress(uInterface(uPtr(WebViewClient()), ::TYPES[112/*Fuse.Triggers.IProgress*/]));
+    return ::g::Fuse::Triggers::IProgress::Progress(uInterface(uPtr(WebViewClient()), ::TYPES[116/*Fuse.Triggers.IProgress*/]));
 }
 
 // public generated void add_ProgressChanged(Uno.UX.ValueChangedHandler<double> value) [instance] :144
@@ -14918,33 +15911,33 @@ void WebView::remove_ProgressChanged(uDelegate* value)
 // public void Reload() [instance] :355
 void WebView::Reload()
 {
-    ::g::Fuse::Controls::IWebView::Reload(uInterface(uPtr(WebViewClient()), ::TYPES[33/*Fuse.Controls.IWebView*/]));
+    ::g::Fuse::Controls::IWebView::Reload(uInterface(uPtr(WebViewClient()), ::TYPES[37/*Fuse.Controls.IWebView*/]));
 }
 
 // public void SetUrl(string value, Uno.UX.IPropertyListener origin) [instance] :305
 void WebView::SetUrl(uString* value, uObject* origin)
 {
     OnPropertyChanged1(WebView::_urlName(), origin);
-    ::g::Fuse::Controls::IWebView::Url(uInterface(uPtr(WebViewClient()), ::TYPES[33/*Fuse.Controls.IWebView*/]), value);
+    ::g::Fuse::Controls::IWebView::Url(uInterface(uPtr(WebViewClient()), ::TYPES[37/*Fuse.Controls.IWebView*/]), value);
     UpdateRestState();
 }
 
 // public string get_Source() [instance] :293
 uString* WebView::Source()
 {
-    return ::g::Fuse::Controls::ISourceReceiver::Source(uInterface(uPtr(WebViewClient()), ::TYPES[119/*Fuse.Controls.ISourceReceiver*/]));
+    return ::g::Fuse::Controls::ISourceReceiver::Source(uInterface(uPtr(WebViewClient()), ::TYPES[123/*Fuse.Controls.ISourceReceiver*/]));
 }
 
 // public void set_Source(string value) [instance] :294
 void WebView::Source(uString* value)
 {
-    ::g::Fuse::Controls::ISourceReceiver::Source(uInterface(uPtr(WebViewClient()), ::TYPES[119/*Fuse.Controls.ISourceReceiver*/]), (value != NULL) ? value : ::STRINGS[16/*""*/]);
+    ::g::Fuse::Controls::ISourceReceiver::Source(uInterface(uPtr(WebViewClient()), ::TYPES[123/*Fuse.Controls.ISourceReceiver*/]), (value != NULL) ? value : ::STRINGS[16/*""*/]);
 }
 
 // public void Stop() [instance] :360
 void WebView::Stop()
 {
-    ::g::Fuse::Controls::IWebView::Stop(uInterface(uPtr(WebViewClient()), ::TYPES[33/*Fuse.Controls.IWebView*/]));
+    ::g::Fuse::Controls::IWebView::Stop(uInterface(uPtr(WebViewClient()), ::TYPES[37/*Fuse.Controls.IWebView*/]));
 }
 
 // internal void UpdateRestState() [instance] :297
@@ -14957,13 +15950,13 @@ void WebView::UpdateRestState()
 // public string get_Url() [instance] :315
 uString* WebView::Url()
 {
-    return ::g::Fuse::Controls::IWebView::Url(uInterface(uPtr(WebViewClient()), ::TYPES[33/*Fuse.Controls.IWebView*/]));
+    return ::g::Fuse::Controls::IWebView::Url(uInterface(uPtr(WebViewClient()), ::TYPES[37/*Fuse.Controls.IWebView*/]));
 }
 
 // public void set_Url(string value) [instance] :316
 void WebView::Url(uString* value)
 {
-    SetUrl((value != NULL) ? value : ::STRINGS[83/*"about:blank"*/], (uObject*)this);
+    SetUrl((value != NULL) ? value : ::STRINGS[86/*"about:blank"*/], (uObject*)this);
 }
 
 // public generated void add_UrlChanged(Uno.EventHandler value) [instance] :147
@@ -14989,38 +15982,38 @@ uObject* WebView::WebViewClient()
 void WebView::WebViewClient(uObject* value)
 {
     uString* ind2;
-    uString* url = ::STRINGS[83/*"about:blank"*/];
+    uString* url = ::STRINGS[86/*"about:blank"*/];
     uString* source = ::STRINGS[16/*""*/];
     uString* baseUrl = NULL;
     ::g::Uno::UX::FileSource* file = NULL;
 
     if (_webViewClient != NULL)
     {
-        ::g::Fuse::Triggers::IProgress::remove_ProgressChanged(uInterface(uPtr(_webViewClient), ::TYPES[112/*Fuse.Triggers.IProgress*/]), uDelegate::New(::TYPES[30/*Uno.UX.ValueChangedHandler<double>*/], (void*)WebView__OnProgressChanged_fn, this));
-        ::g::Fuse::Controls::IWebView::remove_PageLoaded(uInterface(uPtr(_webViewClient), ::TYPES[33/*Fuse.Controls.IWebView*/]), uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)WebView__OnPageLoaded_fn, this));
-        ::g::Fuse::Controls::IWebView::remove_BeginLoading(uInterface(uPtr(_webViewClient), ::TYPES[33/*Fuse.Controls.IWebView*/]), uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)WebView__OnBeginLoading_fn, this));
-        ::g::Fuse::Controls::IWebView::remove_UrlChanged(uInterface(uPtr(_webViewClient), ::TYPES[33/*Fuse.Controls.IWebView*/]), uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)WebView__OnPageChanged_fn, this));
-        url = ::g::Fuse::Controls::IWebView::Url(uInterface(uPtr(_webViewClient), ::TYPES[33/*Fuse.Controls.IWebView*/]));
-        source = (ind2 = ::g::Fuse::Controls::ISourceReceiver::Source(uInterface(uPtr(_webViewClient), ::TYPES[119/*Fuse.Controls.ISourceReceiver*/])), (ind2 != NULL) ? ind2 : ::STRINGS[16/*""*/]);
-        baseUrl = ::g::Fuse::Controls::IWebView::BaseUrl(uInterface(uPtr(_webViewClient), ::TYPES[33/*Fuse.Controls.IWebView*/]));
-        file = ::g::Fuse::Controls::IWebView::File(uInterface(uPtr(_webViewClient), ::TYPES[33/*Fuse.Controls.IWebView*/]));
+        ::g::Fuse::Triggers::IProgress::remove_ProgressChanged(uInterface(uPtr(_webViewClient), ::TYPES[116/*Fuse.Triggers.IProgress*/]), uDelegate::New(::TYPES[30/*Uno.UX.ValueChangedHandler<double>*/], (void*)WebView__OnProgressChanged_fn, this));
+        ::g::Fuse::Controls::IWebView::remove_PageLoaded(uInterface(uPtr(_webViewClient), ::TYPES[37/*Fuse.Controls.IWebView*/]), uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)WebView__OnPageLoaded_fn, this));
+        ::g::Fuse::Controls::IWebView::remove_BeginLoading(uInterface(uPtr(_webViewClient), ::TYPES[37/*Fuse.Controls.IWebView*/]), uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)WebView__OnBeginLoading_fn, this));
+        ::g::Fuse::Controls::IWebView::remove_UrlChanged(uInterface(uPtr(_webViewClient), ::TYPES[37/*Fuse.Controls.IWebView*/]), uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)WebView__OnPageChanged_fn, this));
+        url = ::g::Fuse::Controls::IWebView::Url(uInterface(uPtr(_webViewClient), ::TYPES[37/*Fuse.Controls.IWebView*/]));
+        source = (ind2 = ::g::Fuse::Controls::ISourceReceiver::Source(uInterface(uPtr(_webViewClient), ::TYPES[123/*Fuse.Controls.ISourceReceiver*/])), (ind2 != NULL) ? ind2 : ::STRINGS[16/*""*/]);
+        baseUrl = ::g::Fuse::Controls::IWebView::BaseUrl(uInterface(uPtr(_webViewClient), ::TYPES[37/*Fuse.Controls.IWebView*/]));
+        file = ::g::Fuse::Controls::IWebView::File(uInterface(uPtr(_webViewClient), ::TYPES[37/*Fuse.Controls.IWebView*/]));
     }
 
     _webViewClient = ((value != NULL) ? value : (uObject*)_fallbackClient);
 
     if (_webViewClient != NULL)
     {
-        ::g::Fuse::Triggers::IProgress::add_ProgressChanged(uInterface(uPtr(_webViewClient), ::TYPES[112/*Fuse.Triggers.IProgress*/]), uDelegate::New(::TYPES[30/*Uno.UX.ValueChangedHandler<double>*/], (void*)WebView__OnProgressChanged_fn, this));
-        ::g::Fuse::Controls::IWebView::add_PageLoaded(uInterface(uPtr(_webViewClient), ::TYPES[33/*Fuse.Controls.IWebView*/]), uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)WebView__OnPageLoaded_fn, this));
-        ::g::Fuse::Controls::IWebView::add_BeginLoading(uInterface(uPtr(_webViewClient), ::TYPES[33/*Fuse.Controls.IWebView*/]), uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)WebView__OnBeginLoading_fn, this));
-        ::g::Fuse::Controls::IWebView::add_UrlChanged(uInterface(uPtr(_webViewClient), ::TYPES[33/*Fuse.Controls.IWebView*/]), uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)WebView__OnPageChanged_fn, this));
-        ::g::Fuse::Controls::IWebView::BaseUrl(uInterface(uPtr(_webViewClient), ::TYPES[33/*Fuse.Controls.IWebView*/]), baseUrl);
-        ::g::Fuse::Controls::ISourceReceiver::Source(uInterface(uPtr(_webViewClient), ::TYPES[119/*Fuse.Controls.ISourceReceiver*/]), source);
+        ::g::Fuse::Triggers::IProgress::add_ProgressChanged(uInterface(uPtr(_webViewClient), ::TYPES[116/*Fuse.Triggers.IProgress*/]), uDelegate::New(::TYPES[30/*Uno.UX.ValueChangedHandler<double>*/], (void*)WebView__OnProgressChanged_fn, this));
+        ::g::Fuse::Controls::IWebView::add_PageLoaded(uInterface(uPtr(_webViewClient), ::TYPES[37/*Fuse.Controls.IWebView*/]), uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)WebView__OnPageLoaded_fn, this));
+        ::g::Fuse::Controls::IWebView::add_BeginLoading(uInterface(uPtr(_webViewClient), ::TYPES[37/*Fuse.Controls.IWebView*/]), uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)WebView__OnBeginLoading_fn, this));
+        ::g::Fuse::Controls::IWebView::add_UrlChanged(uInterface(uPtr(_webViewClient), ::TYPES[37/*Fuse.Controls.IWebView*/]), uDelegate::New(::TYPES[29/*Uno.EventHandler*/], (void*)WebView__OnPageChanged_fn, this));
+        ::g::Fuse::Controls::IWebView::BaseUrl(uInterface(uPtr(_webViewClient), ::TYPES[37/*Fuse.Controls.IWebView*/]), baseUrl);
+        ::g::Fuse::Controls::ISourceReceiver::Source(uInterface(uPtr(_webViewClient), ::TYPES[123/*Fuse.Controls.ISourceReceiver*/]), source);
 
         if (::g::Uno::String::op_Equality(source, ::STRINGS[16/*""*/]))
-            ::g::Fuse::Controls::IWebView::Url(uInterface(uPtr(_webViewClient), ::TYPES[33/*Fuse.Controls.IWebView*/]), url);
+            ::g::Fuse::Controls::IWebView::Url(uInterface(uPtr(_webViewClient), ::TYPES[37/*Fuse.Controls.IWebView*/]), url);
 
-        ::g::Fuse::Controls::IWebView::File(uInterface(uPtr(_webViewClient), ::TYPES[33/*Fuse.Controls.IWebView*/]), file);
+        ::g::Fuse::Controls::IWebView::File(uInterface(uPtr(_webViewClient), ::TYPES[37/*Fuse.Controls.IWebView*/]), file);
         applyFallbackCalls(_webViewClient);
     }
 }
@@ -15034,17 +16027,17 @@ void WebView::loadHtml(::g::Fuse::Scripting::Context* c, WebView* view, uArray* 
     {
         case 1:
         {
-            uPtr(view)->LoadHtml(uAs<uString*>(uPtr(args)->Strong<uObject*>(0), ::TYPES[118/*string*/]));
+            uPtr(view)->LoadHtml(uAs<uString*>(uPtr(args)->Strong<uObject*>(0), ::TYPES[122/*string*/]));
             return;
         }
         case 2:
         {
-            uPtr(view)->LoadHtml1(uAs<uString*>(uPtr(args)->Strong<uObject*>(0), ::TYPES[118/*string*/]), uAs<uString*>(uPtr(args)->Strong<uObject*>(1), ::TYPES[118/*string*/]));
+            uPtr(view)->LoadHtml1(uAs<uString*>(uPtr(args)->Strong<uObject*>(0), ::TYPES[122/*string*/]), uAs<uString*>(uPtr(args)->Strong<uObject*>(1), ::TYPES[122/*string*/]));
             return;
         }
         default:
         {
-            ::g::Fuse::Diagnostics::UserError(::STRINGS[81/*"WebView.loa...*/], view, ::STRINGS[82/*"/usr/local/...*/], 527, ::STRINGS[79/*"loadHtml"*/]);
+            ::g::Fuse::Diagnostics::UserError(::STRINGS[84/*"WebView.loa...*/], view, ::STRINGS[85/*"/usr/local/...*/], 527, ::STRINGS[82/*"loadHtml"*/]);
             return;
         }
     }
@@ -15059,12 +16052,12 @@ void WebView::setBaseUrl(::g::Fuse::Scripting::Context* c, WebView* view, uArray
     {
         case 1:
         {
-            uPtr(view)->BaseUrl(uAs<uString*>(uPtr(args)->Strong<uObject*>(0), ::TYPES[118/*string*/]));
+            uPtr(view)->BaseUrl(uAs<uString*>(uPtr(args)->Strong<uObject*>(0), ::TYPES[122/*string*/]));
             return;
         }
         default:
         {
-            ::g::Fuse::Diagnostics::UserError(::STRINGS[84/*"WebView.set...*/], view, ::STRINGS[82/*"/usr/local/...*/], 566, ::STRINGS[80/*"setBaseUrl"*/]);
+            ::g::Fuse::Diagnostics::UserError(::STRINGS[87/*"WebView.set...*/], view, ::STRINGS[85/*"/usr/local/...*/], 566, ::STRINGS[83/*"setBaseUrl"*/]);
             return;
         }
     }
@@ -15079,12 +16072,12 @@ void WebView::setUrl(::g::Fuse::Scripting::Context* c, WebView* view, uArray* ar
     {
         case 1:
         {
-            uPtr(view)->Url(uAs<uString*>(uPtr(args)->Strong<uObject*>(0), ::TYPES[118/*string*/]));
+            uPtr(view)->Url(uAs<uString*>(uPtr(args)->Strong<uObject*>(0), ::TYPES[122/*string*/]));
             return;
         }
         default:
         {
-            ::g::Fuse::Diagnostics::UserError(::STRINGS[85/*"WebView.set...*/], view, ::STRINGS[82/*"/usr/local/...*/], 547, ::STRINGS[86/*"setUrl"*/]);
+            ::g::Fuse::Diagnostics::UserError(::STRINGS[88/*"WebView.set...*/], view, ::STRINGS[85/*"/usr/local/...*/], 547, ::STRINGS[89/*"setUrl"*/]);
             return;
         }
     }

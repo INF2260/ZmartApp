@@ -383,6 +383,7 @@ namespace g{namespace Fuse{namespace Controls{namespace Native{namespace iOS{str
 namespace g{namespace Fuse{namespace Controls{namespace Native{namespace iOS{struct Circle_type; Circle_type* Circle_typeof();}}}}}
 namespace g{namespace Fuse{namespace Controls{namespace Native{namespace iOS{struct DrawableViewGroup_type; DrawableViewGroup_type* DrawableViewGroup_typeof();}}}}}
 namespace g{namespace Fuse{namespace Controls{namespace Native{namespace iOS{struct GraphicsView_type; GraphicsView_type* GraphicsView_typeof();}}}}}
+namespace g{namespace Fuse{namespace Controls{namespace Native{namespace iOS{struct ImageView_type; ImageView_type* ImageView_typeof();}}}}}
 namespace g{namespace Fuse{namespace Controls{namespace Native{namespace iOS{struct LeafView_type; LeafView_type* LeafView_typeof();}}}}}
 namespace g{namespace Fuse{namespace Controls{namespace Native{namespace iOS{struct MultiLineTextEdit_type; MultiLineTextEdit_type* MultiLineTextEdit_typeof();}}}}}
 namespace g{namespace Fuse{namespace Controls{namespace Native{namespace iOS{struct NativeViewRenderer_type; NativeViewRenderer_type* NativeViewRenderer_typeof();}}}}}
@@ -430,6 +431,8 @@ namespace g{namespace Fuse{namespace Controls{struct Control_type; ::g::Fuse::Co
 namespace g{namespace Fuse{namespace Controls{struct Control_type; ::g::Fuse::Controls::Control_type* ClientPanel_typeof();}}}
 namespace g{namespace Fuse{namespace Controls{struct Control_type; ::g::Fuse::Controls::Control_type* DockPanel_typeof();}}}
 namespace g{namespace Fuse{namespace Controls{struct Control_type; ::g::Fuse::Controls::Control_type* EdgeNavigator_typeof();}}}
+namespace g{namespace Fuse{namespace Controls{struct Control_type; ::g::Fuse::Controls::Control_type* Grid_typeof();}}}
+namespace g{namespace Fuse{namespace Controls{struct Control_type; ::g::Fuse::Controls::Control_type* Image_typeof();}}}
 namespace g{namespace Fuse{namespace Controls{struct Control_type; ::g::Fuse::Controls::Control_type* LayoutControl_typeof();}}}
 namespace g{namespace Fuse{namespace Controls{struct Control_type; ::g::Fuse::Controls::Control_type* Page_typeof();}}}
 namespace g{namespace Fuse{namespace Controls{struct Control_type; ::g::Fuse::Controls::Control_type* PageIndicatorDot_typeof();}}}
@@ -438,8 +441,10 @@ namespace g{namespace Fuse{namespace Controls{struct Control_type; ::g::Fuse::Co
 namespace g{namespace Fuse{namespace Controls{struct Control_type; ::g::Fuse::Controls::Control_type* TopFrameBackground_typeof();}}}
 namespace g{namespace Fuse{namespace Controls{struct Control_type; Control_type* Control_typeof();}}}
 namespace g{namespace Fuse{namespace Controls{struct Control_type;}} ::g::Fuse::Controls::Control_type* CreateUser_typeof();}
-namespace g{namespace Fuse{namespace Controls{struct Control_type;}} ::g::Fuse::Controls::Control_type* Login_typeof();}
+namespace g{namespace Fuse{namespace Controls{struct Control_type;}} ::g::Fuse::Controls::Control_type* HidingPanel_typeof();}
 namespace g{namespace Fuse{namespace Controls{struct Control_type;}} ::g::Fuse::Controls::Control_type* Overview_typeof();}
+namespace g{namespace Fuse{namespace Controls{struct Control_type;}} ::g::Fuse::Controls::Control_type* Teamview_typeof();}
+namespace g{namespace Fuse{namespace Controls{struct Control_type;}} namespace zmart{::g::Fuse::Controls::Control_type* Button_typeof();}}
 namespace g{namespace Fuse{namespace Controls{struct FallbackWebViewClient_type; FallbackWebViewClient_type* FallbackWebViewClient_typeof();}}}
 namespace g{namespace Fuse{namespace Controls{struct ForwardProperties_type; ForwardProperties_type* ForwardProperties_typeof();}}}
 namespace g{namespace Fuse{namespace Controls{struct GraphicsView_type; GraphicsView_type* GraphicsView_typeof();}}}
@@ -464,6 +469,7 @@ namespace g{namespace Fuse{namespace Controls{struct Shape_type; ::g::Fuse::Cont
 namespace g{namespace Fuse{namespace Controls{struct Shape_type; Shape_type* Shape_typeof();}}}
 namespace g{namespace Fuse{namespace Controls{struct TextControl_type; ::g::Fuse::Controls::TextControl_type* Text_typeof();}}}
 namespace g{namespace Fuse{namespace Controls{struct TextControl_type; TextControl_type* TextControl_typeof();}}}
+namespace g{namespace Fuse{namespace Controls{struct TextControl_type;}} namespace zmart{::g::Fuse::Controls::TextControl_type* Text_typeof();}}
 namespace g{namespace Fuse{namespace Controls{struct TextEdit_type; TextEdit_type* TextEdit_typeof();}}}
 namespace g{namespace Fuse{namespace Controls{struct TextInputControl_type; ::g::Fuse::Controls::TextInputControl_type* TextBox_typeof();}}}
 namespace g{namespace Fuse{namespace Controls{struct TextInputControl_type; ::g::Fuse::Controls::TextInputControl_type* TextInput_typeof();}}}
@@ -473,6 +479,7 @@ namespace g{namespace Fuse{namespace Controls{struct ToggleControl_type; ToggleC
 namespace g{namespace Fuse{namespace Controls{struct Video_type; Video_type* Video_typeof();}}}
 namespace g{namespace Fuse{namespace Controls{struct WebView_type; WebView_type* WebView_typeof();}}}
 namespace g{namespace Fuse{namespace Controls{uType* EdgeNavigator__PageData_typeof();}}}
+namespace g{namespace Fuse{namespace Controls{uType* ImageElementDraw_typeof();}}}
 namespace g{namespace Fuse{namespace Controls{uType* NavigationControl__PageData_typeof();}}}
 namespace g{namespace Fuse{namespace Controls{uType* ScrollPositionChangedArgs_typeof();}}}
 namespace g{namespace Fuse{namespace Drawing{namespace Batching{uClassType* BatchHelpers_typeof();}}}}
@@ -508,6 +515,7 @@ namespace g{namespace Fuse{namespace Drawing{struct SolidColor_type; SolidColor_
 namespace g{namespace Fuse{namespace Drawing{struct StaticSolidColor_type; StaticSolidColor_type* StaticSolidColor_typeof();}}}
 namespace g{namespace Fuse{namespace Drawing{struct Stroke_type; Stroke_type* Stroke_typeof();}}}
 namespace g{namespace Fuse{namespace Drawing{uClassType* BlendModeHelpers_typeof();}}}
+namespace g{namespace Fuse{namespace Drawing{uClassType* Colors_typeof();}}}
 namespace g{namespace Fuse{namespace Drawing{uStructType* ImageFill__DrawParams_typeof();}}}
 namespace g{namespace Fuse{namespace Drawing{uType* GradientStop_typeof();}}}
 namespace g{namespace Fuse{namespace Drawing{uType* LinearGradientDrawable_typeof();}}}
@@ -521,9 +529,11 @@ namespace g{namespace Fuse{namespace Effects{struct Effect_type; Effect_type* Ef
 namespace g{namespace Fuse{namespace Effects{struct Mask_type; Mask_type* Mask_typeof();}}}
 namespace g{namespace Fuse{namespace Effects{uType* DropShadow__Blitter_typeof();}}}
 namespace g{namespace Fuse{namespace Effects{uType* EffectHelpers_typeof();}}}
+namespace g{namespace Fuse{namespace Elements{namespace Internal{uType* Scale9Rectangle_typeof();}}}}
 namespace g{namespace Fuse{namespace Elements{struct BoxSizing_type; ::g::Fuse::Elements::BoxSizing_type* FillAspectBoxSizing_typeof();}}}
 namespace g{namespace Fuse{namespace Elements{struct BoxSizing_type; ::g::Fuse::Elements::BoxSizing_type* LayoutMasterBoxSizing_typeof();}}}
 namespace g{namespace Fuse{namespace Elements{struct BoxSizing_type; ::g::Fuse::Elements::BoxSizing_type* LimitBoxSizing_typeof();}}}
+namespace g{namespace Fuse{namespace Elements{struct BoxSizing_type; ::g::Fuse::Elements::BoxSizing_type* NoImplicitMaxBoxSizing_typeof();}}}
 namespace g{namespace Fuse{namespace Elements{struct BoxSizing_type; ::g::Fuse::Elements::BoxSizing_type* StandardBoxSizing_typeof();}}}
 namespace g{namespace Fuse{namespace Elements{struct BoxSizing_type; BoxSizing_type* BoxSizing_typeof();}}}
 namespace g{namespace Fuse{namespace Elements{struct Element_type; Element_type* Element_typeof();}}}
@@ -633,6 +643,7 @@ namespace g{namespace Fuse{namespace Layouts{struct Layout_type; ::g::Fuse::Layo
 namespace g{namespace Fuse{namespace Layouts{struct Layout_type; ::g::Fuse::Layouts::Layout_type* WrapLayout_typeof();}}}
 namespace g{namespace Fuse{namespace Layouts{struct Layout_type; Layout_type* Layout_typeof();}}}
 namespace g{namespace Fuse{namespace Layouts{uClassType* Layouts_typeof();}}}
+namespace g{namespace Fuse{namespace Layouts{uStructType* DefinitionBase__ParseDataItem_typeof();}}}
 namespace g{namespace Fuse{namespace Layouts{uType* Column_typeof();}}}
 namespace g{namespace Fuse{namespace Layouts{uType* DefinitionBase_typeof();}}}
 namespace g{namespace Fuse{namespace Layouts{uType* Row_typeof();}}}
@@ -727,6 +738,8 @@ namespace g{namespace Fuse{namespace Resources{struct NumericResourceConverter_t
 namespace g{namespace Fuse{namespace Resources{struct NumericResourceConverter_type; ::g::Fuse::Resources::NumericResourceConverter_type* IntResourceConverter_typeof();}}}
 namespace g{namespace Fuse{namespace Resources{struct NumericResourceConverter_type; NumericResourceConverter_type* NumericResourceConverter_typeof();}}}
 namespace g{namespace Fuse{namespace Resources{uClassType* DisposalManager_typeof();}}}
+namespace g{namespace Fuse{namespace Resources{uClassType* FileImageSourceCache_typeof();}}}
+namespace g{namespace Fuse{namespace Resources{uClassType* HttpImageSourceCache_typeof();}}}
 namespace g{namespace Fuse{namespace Resources{uClassType* ResourceConverters_typeof();}}}
 namespace g{namespace Fuse{namespace Resources{uClassType* ResourceRegistry_typeof();}}}
 namespace g{namespace Fuse{namespace Resources{uType* FileImageSourceImpl__BackgroundLoad_typeof();}}}
@@ -1248,9 +1261,16 @@ namespace g{namespace Uno{namespace UX{struct Property1_type;}} ::g::Uno::UX::Pr
 namespace g{namespace Uno{namespace UX{struct Property1_type;}} ::g::Uno::UX::Property1_type* FuseControlsScrollView_FuseControlsScrollView_UserScroll_Property_typeof();}
 namespace g{namespace Uno{namespace UX{struct Property1_type;}} ::g::Uno::UX::Property1_type* FuseControlsScrollView_FuseControlsScrollViewDefaultScroller_UserScroll_Property_typeof();}
 namespace g{namespace Uno{namespace UX{struct Property1_type;}} ::g::Uno::UX::Property1_type* FuseControlsScrollView_FuseControlsScrollViewDefaultTrigger_Value_Property_typeof();}
-namespace g{namespace Uno{namespace UX{struct Property1_type;}} ::g::Uno::UX::Property1_type* Zmart_FuseControlsButton_Text_Property_typeof();}
+namespace g{namespace Uno{namespace UX{struct Property1_type;}} ::g::Uno::UX::Property1_type* Zmart_FuseControlsRectangle_CornerRadius_Property_typeof();}
+namespace g{namespace Uno{namespace UX{struct Property1_type;}} ::g::Uno::UX::Property1_type* Zmart_FuseControlsRectangle_ElementLayoutMaster_Property_typeof();}
 namespace g{namespace Uno{namespace UX{struct Property1_type;}} ::g::Uno::UX::Property1_type* Zmart_FuseControlsTextBox_Value_Property_typeof();}
 namespace g{namespace Uno{namespace UX{struct Property1_type;}} ::g::Uno::UX::Property1_type* Zmart_FuseReactiveEach_Items_Property_typeof();}
+namespace g{namespace Uno{namespace UX{struct Property1_type;}} ::g::Uno::UX::Property1_type* Zmart_FuseTriggersStateGroup_Active_Property_typeof();}
+namespace g{namespace Uno{namespace UX{struct Property1_type;}} ::g::Uno::UX::Property1_type* Zmart_FuseTriggersWhileTrue_Value_Property_typeof();}
+namespace g{namespace Uno{namespace UX{struct Property1_type;}} ::g::Uno::UX::Property1_type* Zmart_HidingPanel_IsEnabled_Property_typeof();}
+namespace g{namespace Uno{namespace UX{struct Property1_type;}} ::g::Uno::UX::Property1_type* Zmart_HidingPanel_Opacity_Property_typeof();}
+namespace g{namespace Uno{namespace UX{struct Property1_type;}} ::g::Uno::UX::Property1_type* Zmart_zmartButton_Text_Property_typeof();}
+namespace g{namespace Uno{namespace UX{struct Property1_type;}} ::g::Uno::UX::Property1_type* Zmart_zmartText_Value_Property_typeof();}
 namespace g{namespace Uno{namespace UX{struct Property1_type;}} namespace Fuse{::g::Uno::UX::Property1_type* Visual__ParameterProperty_typeof();}}
 namespace g{namespace Uno{namespace UX{struct Property1_type;}} namespace Fuse{namespace Controls{::g::Uno::UX::Property1_type* Element_Opacity_Property_typeof();}}}
 namespace g{namespace Uno{namespace UX{struct Template_type; Template_type* Template_typeof();}}}
@@ -1258,6 +1278,7 @@ namespace g{namespace Uno{namespace UX{struct Template_type;}} ::g::Uno::UX::Tem
 namespace g{namespace Uno{namespace UX{struct Template_type;}} ::g::Uno::UX::Template_type* MainView__Template1_typeof();}
 namespace g{namespace Uno{namespace UX{struct Template_type;}} ::g::Uno::UX::Template_type* MainView__Template2_typeof();}
 namespace g{namespace Uno{namespace UX{struct Template_type;}} ::g::Uno::UX::Template_type* Overview__Template_typeof();}
+namespace g{namespace Uno{namespace UX{struct Template_type;}} ::g::Uno::UX::Template_type* Overview__Template1_typeof();}
 namespace g{namespace Uno{namespace UX{struct Template_type;}} namespace Fuse{namespace Controls{::g::Uno::UX::Template_type* Button__Template_typeof();}}}
 namespace g{namespace Uno{namespace UX{struct Template_type;}} namespace Fuse{namespace Controls{::g::Uno::UX::Template_type* PageIndicatorDotTemplate_typeof();}}}
 namespace g{namespace Uno{namespace UX{struct Template_type;}} namespace Fuse{namespace Controls{::g::Uno::UX::Template_type* Switch__Template_typeof();}}}
@@ -1280,6 +1301,7 @@ namespace g{namespace Uno{struct Exception_type; ::g::Uno::Exception_type* Forma
 namespace g{namespace Uno{struct Exception_type; ::g::Uno::Exception_type* IndexOutOfRangeException_typeof();}}
 namespace g{namespace Uno{struct Exception_type; ::g::Uno::Exception_type* InvalidCastException_typeof();}}
 namespace g{namespace Uno{struct Exception_type; ::g::Uno::Exception_type* InvalidOperationException_typeof();}}
+namespace g{namespace Uno{struct Exception_type; ::g::Uno::Exception_type* NotImplementedException_typeof();}}
 namespace g{namespace Uno{struct Exception_type; ::g::Uno::Exception_type* NotSupportedException_typeof();}}
 namespace g{namespace Uno{struct Exception_type; ::g::Uno::Exception_type* NullReferenceException_typeof();}}
 namespace g{namespace Uno{struct Exception_type; ::g::Uno::Exception_type* ObjectDisposedException_typeof();}}
@@ -1342,8 +1364,10 @@ namespace g{namespace Uno{uType* Delegate_typeof();}}
 namespace g{namespace Uno{uType* EventArgs_typeof();}}
 namespace g{namespace Uno{uType* String_typeof();}}
 namespace g{namespace Uno{uType* Type_typeof();}}
+namespace g{namespace Uno{uType* WeakReference_typeof();}}
 namespace g{uClassType* FuseControls_bundle_typeof();}
 namespace g{uClassType* FuseControlsNative_bundle_typeof();}
+namespace g{uClassType* FuseControlsPrimitives_bundle_typeof();}
 namespace g{uClassType* FuseControlsVideo_bundle_typeof();}
 namespace g{uClassType* FuseCore_bundle_typeof();}
 namespace g{uClassType* FuseDrawing_bundle_typeof();}
@@ -1484,6 +1508,9 @@ void uInitRtti()
         (uType*(*)())&::g::Fuse::Controls::Graphics::ControlVisual_typeof,
         (uType*(*)())&::g::Fuse::Controls::Graphics::Visual_typeof,
         (uType*(*)())&::g::Fuse::Controls::GraphicsView_typeof,
+        (uType*(*)())&::g::Fuse::Controls::Grid_typeof,
+        (uType*(*)())&::g::Fuse::Controls::Image_typeof,
+        (uType*(*)())&::g::Fuse::Controls::ImageElementDraw_typeof,
         (uType*(*)())&::g::Fuse::Controls::JavaScriptCall_typeof,
         (uType*(*)())&::g::Fuse::Controls::LayoutControl_typeof,
         (uType*(*)())&::g::Fuse::Controls::LoadHtmlCall_typeof,
@@ -1499,6 +1526,7 @@ void uInitRtti()
         (uType*(*)())&::g::Fuse::Controls::Native::iOS::FocusHelpers_typeof,
         (uType*(*)())&::g::Fuse::Controls::Native::iOS::FontCache_typeof,
         (uType*(*)())&::g::Fuse::Controls::Native::iOS::GraphicsView_typeof,
+        (uType*(*)())&::g::Fuse::Controls::Native::iOS::ImageView_typeof,
         (uType*(*)())&::g::Fuse::Controls::Native::iOS::InputDispatch_typeof,
         (uType*(*)())&::g::Fuse::Controls::Native::iOS::iOSBlitter_typeof,
         (uType*(*)())&::g::Fuse::Controls::Native::iOS::iOSDevice_typeof,
@@ -1593,6 +1621,7 @@ void uInitRtti()
         (uType*(*)())&::g::Fuse::Drawing::BlendModeHelpers_typeof,
         (uType*(*)())&::g::Fuse::Drawing::Brush__Converter_typeof,
         (uType*(*)())&::g::Fuse::Drawing::Brush_typeof,
+        (uType*(*)())&::g::Fuse::Drawing::Colors_typeof,
         (uType*(*)())&::g::Fuse::Drawing::DynamicBrush_typeof,
         (uType*(*)())&::g::Fuse::Drawing::GradientStop_typeof,
         (uType*(*)())&::g::Fuse::Drawing::ImageFill__DrawParams_typeof,
@@ -1649,9 +1678,11 @@ void uInitRtti()
         (uType*(*)())&::g::Fuse::Elements::ElementBatcher_typeof,
         (uType*(*)())&::g::Fuse::Elements::FillAspectBoxSizing_typeof,
         (uType*(*)())&::g::Fuse::Elements::InteractiveTransform_typeof,
+        (uType*(*)())&::g::Fuse::Elements::Internal::Scale9Rectangle_typeof,
         (uType*(*)())&::g::Fuse::Elements::LayoutMasterBoxSizing__LayoutMasterData_typeof,
         (uType*(*)())&::g::Fuse::Elements::LayoutMasterBoxSizing_typeof,
         (uType*(*)())&::g::Fuse::Elements::LimitBoxSizing_typeof,
+        (uType*(*)())&::g::Fuse::Elements::NoImplicitMaxBoxSizing_typeof,
         (uType*(*)())&::g::Fuse::Elements::PreplacementArgs_typeof,
         (uType*(*)())&::g::Fuse::Elements::SingleVisualDrawable_typeof,
         (uType*(*)())&::g::Fuse::Elements::StandardBoxSizing_typeof,
@@ -1795,6 +1826,7 @@ void uInitRtti()
         (uType*(*)())&::g::Fuse::Layouts::Column_typeof,
         (uType*(*)())&::g::Fuse::Layouts::ColumnLayout_typeof,
         (uType*(*)())&::g::Fuse::Layouts::DefaultLayout_typeof,
+        (uType*(*)())&::g::Fuse::Layouts::DefinitionBase__ParseDataItem_typeof,
         (uType*(*)())&::g::Fuse::Layouts::DefinitionBase_typeof,
         (uType*(*)())&::g::Fuse::Layouts::DockLayout_typeof,
         (uType*(*)())&::g::Fuse::Layouts::GridLayout_typeof,
@@ -1893,12 +1925,14 @@ void uInitRtti()
         (uType*(*)())&::g::Fuse::Resources::DisposalManager_typeof,
         (uType*(*)())&::g::Fuse::Resources::DoubleResourceConverter_typeof,
         (uType*(*)())&::g::Fuse::Resources::FileImageSource_typeof,
+        (uType*(*)())&::g::Fuse::Resources::FileImageSourceCache_typeof,
         (uType*(*)())&::g::Fuse::Resources::FileImageSourceImpl__BackgroundLoad_typeof,
         (uType*(*)())&::g::Fuse::Resources::FileImageSourceImpl_typeof,
         (uType*(*)())&::g::Fuse::Resources::FileResource_typeof,
         (uType*(*)())&::g::Fuse::Resources::FloatResourceConverter_typeof,
         (uType*(*)())&::g::Fuse::Resources::GenericResourceConverter_typeof,
         (uType*(*)())&::g::Fuse::Resources::HttpImageSource_typeof,
+        (uType*(*)())&::g::Fuse::Resources::HttpImageSourceCache_typeof,
         (uType*(*)())&::g::Fuse::Resources::HttpImageSourceImpl__BackgroundLoad_typeof,
         (uType*(*)())&::g::Fuse::Resources::HttpImageSourceImpl_typeof,
         (uType*(*)())&::g::Fuse::Resources::ImageSource_typeof,
@@ -2103,6 +2137,7 @@ void uInitRtti()
         (uType*(*)())&::g::FuseControls_bundle_typeof,
         (uType*(*)())&::g::FuseControlsNative_bundle_typeof,
         (uType*(*)())&::g::FuseControlsNavigation_FuseControlsCircle_Color_Property_typeof,
+        (uType*(*)())&::g::FuseControlsPrimitives_bundle_typeof,
         (uType*(*)())&::g::FuseControlsPrimitives_FuseControlsBackButton_Text_Property_typeof,
         (uType*(*)())&::g::FuseControlsPrimitives_FuseControlsButton_Text_Property_typeof,
         (uType*(*)())&::g::FuseControlsPrimitives_FuseControlsCircle_Fill_Property_typeof,
@@ -2140,7 +2175,7 @@ void uInitRtti()
         (uType*(*)())&::g::FuseJS::RaiseEvent_typeof,
         (uType*(*)())&::g::FuseJS::UserEvents_typeof,
         (uType*(*)())&::g::FuseReactive_bundle_typeof,
-        (uType*(*)())&::g::Login_typeof,
+        (uType*(*)())&::g::HidingPanel_typeof,
         (uType*(*)())&::g::MainView__Template_typeof,
         (uType*(*)())&::g::MainView__Template1_typeof,
         (uType*(*)())&::g::MainView__Template2_typeof,
@@ -2155,8 +2190,10 @@ void uInitRtti()
         (uType*(*)())&::g::OpenGL::GLShaderHandle_typeof,
         (uType*(*)())&::g::OpenGL::GLTextureHandle_typeof,
         (uType*(*)())&::g::Overview__Template_typeof,
+        (uType*(*)())&::g::Overview__Template1_typeof,
         (uType*(*)())&::g::Overview_typeof,
         (uType*(*)())&::g::Polyfills::Window::WindowModule_typeof,
+        (uType*(*)())&::g::Teamview_typeof,
         (uType*(*)())&::g::Uno::AggregateException_typeof,
         (uType*(*)())&::g::Uno::Application_typeof,
         (uType*(*)())&::g::Uno::ArgumentException_typeof,
@@ -2289,6 +2326,7 @@ void uInitRtti()
         (uType*(*)())&::g::Uno::Net::Sockets::Socket__SocketHandle_typeof,
         (uType*(*)())&::g::Uno::Net::Sockets::Socket_typeof,
         (uType*(*)())&::g::Uno::Net::Sockets::SocketException_typeof,
+        (uType*(*)())&::g::Uno::NotImplementedException_typeof,
         (uType*(*)())&::g::Uno::NotSupportedException_typeof,
         (uType*(*)())&::g::Uno::NullReferenceException_typeof,
         (uType*(*)())&::g::Uno::ObjectDisposedException_typeof,
@@ -2428,10 +2466,20 @@ void uInitRtti()
         (uType*(*)())&::g::Uno::UX::Template_typeof,
         (uType*(*)())&::g::Uno::UX::ValueChangedArgs_typeof,
         (uType*(*)())&::g::Uno::Vector_typeof,
+        (uType*(*)())&::g::Uno::WeakReference_typeof,
+        (uType*(*)())&::g::zmart::Button_typeof,
+        (uType*(*)())&::g::zmart::Text_typeof,
         (uType*(*)())&::g::Zmart_bundle_typeof,
-        (uType*(*)())&::g::Zmart_FuseControlsButton_Text_Property_typeof,
+        (uType*(*)())&::g::Zmart_FuseControlsRectangle_CornerRadius_Property_typeof,
+        (uType*(*)())&::g::Zmart_FuseControlsRectangle_ElementLayoutMaster_Property_typeof,
         (uType*(*)())&::g::Zmart_FuseControlsTextBox_Value_Property_typeof,
         (uType*(*)())&::g::Zmart_FuseReactiveEach_Items_Property_typeof,
+        (uType*(*)())&::g::Zmart_FuseTriggersStateGroup_Active_Property_typeof,
+        (uType*(*)())&::g::Zmart_FuseTriggersWhileTrue_Value_Property_typeof,
+        (uType*(*)())&::g::Zmart_HidingPanel_IsEnabled_Property_typeof,
+        (uType*(*)())&::g::Zmart_HidingPanel_Opacity_Property_typeof,
+        (uType*(*)())&::g::Zmart_zmartButton_Text_Property_typeof,
+        (uType*(*)())&::g::Zmart_zmartText_Value_Property_typeof,
         NULL
     };
 

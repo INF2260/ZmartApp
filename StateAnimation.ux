@@ -1,0 +1,32 @@
+<StateGroup ux:Name="state" Transition="Exclusive">
+	<!-- Default state -->
+	<State Name="overviewState">
+		
+		<Change userPanel.IsEnabled="true" DelayBack="0"/>
+		<Set moveMountain.Value="false"/>
+		<Set movePetter.Value="false"/>
+		<Set moveLasse.Value="false"/>
+		<Set backRect.LayoutMaster="BackButtonCollapsed" Delay="0.2"/>
+		<Set statRect.LayoutMaster="StatRectCollapsed" Delay="0.2"/>
+	</State>
+
+	<!-- StatForm state -->
+	<State Name="petterStat">
+		<Change PetterForm.IsEnabled="true" Delay="0.6" DelayBack="0"/>
+		<Set moveMountain.Value="true"/>
+		<Set movePetter.Value="true"/>
+		<Set backRect.LayoutMaster="BackButton" Delay="0.2"/>
+		<Change userPanel.IsEnabled="true"/>
+		<Set statRect.LayoutMaster="PetterForm" Delay="0.2"/>
+	</State>
+
+	<State Name="lasseStat">
+		<Change LasseForm.IsEnabled="true" Delay="0.6" DelayBack="0.6"/>
+		<Set moveMountain.Value="true"/>
+		<Set moveLasse.Value="true"/>
+		<Change userPanel.IsEnabled="true"/>
+		<Set statRect.LayoutMaster="LasseForm" Delay="0.2"/>
+		<Set backRect.LayoutMaster="BackButton2" Delay="0.2"/>
+	</State>
+
+</StateGroup>

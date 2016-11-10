@@ -1,0 +1,5 @@
+<Panel>
+	<float4 ux:Global="Blue" ux:Value="#4391CF"/>
+	<float4 ux:Global="DarkGrey" ux:Value="#484848"/>
+	<float4 ux:Global="Grey" ux:Value="#676767"/>
+</Panel>

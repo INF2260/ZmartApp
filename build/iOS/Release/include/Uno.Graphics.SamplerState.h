@@ -18,6 +18,7 @@ void SamplerState__get_LinearWrap_fn(SamplerState* __retval);
 void SamplerState__get_MinFilterNoMipmap_fn(SamplerState* __this, int* __retval);
 void SamplerState__get_NearestClamp_fn(SamplerState* __retval);
 void SamplerState__New1_fn(int* minFilter, int* magFilter, int* addressMode, SamplerState* __retval);
+void SamplerState__get_TrilinearClamp_fn(SamplerState* __retval);
 
 struct SamplerState
 {
@@ -35,6 +36,7 @@ SamplerState SamplerState__New1(int minFilter, int magFilter, int addressMode);
 SamplerState SamplerState__LinearClamp();
 SamplerState SamplerState__LinearWrap();
 SamplerState SamplerState__NearestClamp();
+SamplerState SamplerState__TrilinearClamp();
 // }
 
 }}} // ::g::Uno::Graphics

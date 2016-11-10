@@ -61,6 +61,7 @@
 #include <Uno.Long.h>
 #include <Uno.Math.h>
 #include <Uno.Matrix.h>
+#include <Uno.NotImplementedException.h>
 #include <Uno.NotSupportedException.h>
 #include <Uno.NullReferenceException.h>
 #include <Uno.Object.h>
@@ -92,8 +93,9 @@
 #include <Uno.UShort2.h>
 #include <Uno.UShort4.h>
 #include <Uno.Vector.h>
+#include <Uno.WeakReference-1.h>
 #include <Uno/Support.h>
-static uString* STRINGS[43];
+static uString* STRINGS[44];
 static uType* TYPES[21];
 
 namespace g{
@@ -1572,6 +1574,12 @@ void Color__FromRgba32_fn(::g::Uno::Int4* rgba, ::g::Uno::Float4* __retval)
     *__retval = Color::FromRgba32(*rgba);
 }
 
+// public static float4 FromRgba32(uint rgba) :1372
+void Color__FromRgba321_fn(uint32_t* rgba, ::g::Uno::Float4* __retval)
+{
+    *__retval = Color::FromRgba321(*rgba);
+}
+
 // public static int4 Rgba32FromHex(string hex) :1443
 void Color__Rgba32FromHex_fn(uString* hex, ::g::Uno::Int4* __retval)
 {
@@ -1593,6 +1601,13 @@ void Color__Rgba32FromHex_fn(uString* hex, ::g::Uno::Int4* __retval)
 {
     Color_typeof()->Init();
     return ::g::Uno::Float4__New2((float)rgba.X / 255.0f, (float)rgba.Y / 255.0f, (float)rgba.Z / 255.0f, (float)rgba.W / 255.0f);
+}
+
+// public static float4 FromRgba32(uint rgba) [static] :1372
+::g::Uno::Float4 Color::FromRgba321(uint32_t rgba)
+{
+    Color_typeof()->Init();
+    return ::g::Uno::Float4__New2((float)((rgba >> 24) & 255U) / 255.0f, (float)((rgba >> 16) & 255U) / 255.0f, (float)((rgba >> 8) & 255U) / 255.0f, (float)((rgba >> 0) & 255U) / 255.0f);
 }
 
 // public static int4 Rgba32FromHex(string hex) [static] :1443
@@ -5288,6 +5303,12 @@ uClassType* Matrix_typeof()
     return type;
 }
 
+// public static float4x4 Compose(float3 scale, float4 rotationQuaternion, float3 translation) :5062
+void Matrix__Compose_fn(::g::Uno::Float3* scale, ::g::Uno::Float4* rotationQuaternion, ::g::Uno::Float3* translation, ::g::Uno::Float4x4* __retval)
+{
+    *__retval = Matrix::Compose(*scale, *rotationQuaternion, *translation);
+}
+
 // public static bool Decompose(float4x4 value, float3& scale, float4& rotationQuaternion, float3& translation) :5070
 void Matrix__Decompose_fn(::g::Uno::Float4x4* value, ::g::Uno::Float3* scale, ::g::Uno::Float4* rotationQuaternion, ::g::Uno::Float3* translation, bool* __retval)
 {
@@ -5388,6 +5409,12 @@ void Matrix__Transpose2_fn(::g::Uno::Float4x4* m, ::g::Uno::Float4x4* __retval)
 void Matrix__TryInvert2_fn(::g::Uno::Float4x4* value, ::g::Uno::Float4x4* result, bool* __retval)
 {
     *__retval = Matrix::TryInvert2(*value, result);
+}
+
+// public static float4x4 Compose(float3 scale, float4 rotationQuaternion, float3 translation) [static] :5062
+::g::Uno::Float4x4 Matrix::Compose(::g::Uno::Float3 scale, ::g::Uno::Float4 rotationQuaternion, ::g::Uno::Float3 translation)
+{
+    return Matrix::Mul8(Matrix::Mul8(Matrix::Scaling2(scale), Matrix::RotationQuaternion(rotationQuaternion)), Matrix::Translation1(translation));
 }
 
 // public static bool Decompose(float4x4 value, float3& scale, float4& rotationQuaternion, float3& translation) [static] :5070
@@ -5658,11 +5685,65 @@ bool Matrix::TryInvert2(::g::Uno::Float4x4 value, ::g::Uno::Float4x4* result)
 // /usr/local/share/uno/Packages/UnoCore/0.39.1/source/uno/exceptions/$.uno
 // ------------------------------------------------------------------------
 
+// public sealed class NotImplementedException :265
+// {
+static void NotImplementedException_build(uType* type)
+{
+    ::STRINGS[29] = uString::Const("Not implemented");
+    type->SetFields(3);
+}
+
+::g::Uno::Exception_type* NotImplementedException_typeof()
+{
+    static uSStrong< ::g::Uno::Exception_type*> type;
+    if (type != NULL) return type;
+
+    uTypeOptions options;
+    options.BaseDefinition = ::g::Uno::Exception_typeof();
+    options.FieldCount = 3;
+    options.ObjectSize = sizeof(NotImplementedException);
+    options.TypeSize = sizeof(::g::Uno::Exception_type);
+    type = (::g::Uno::Exception_type*)uClassType::New("Uno.NotImplementedException", options);
+    type->fp_build_ = NotImplementedException_build;
+    type->fp_ctor_ = (void*)NotImplementedException__New4_fn;
+    return type;
+}
+
+// public NotImplementedException() :267
+void NotImplementedException__ctor_3_fn(NotImplementedException* __this)
+{
+    __this->ctor_3();
+}
+
+// public NotImplementedException New() :267
+void NotImplementedException__New4_fn(NotImplementedException** __retval)
+{
+    *__retval = NotImplementedException::New4();
+}
+
+// public NotImplementedException() [instance] :267
+void NotImplementedException::ctor_3()
+{
+    ctor_1(::STRINGS[29/*"Not impleme...*/]);
+}
+
+// public NotImplementedException New() [static] :267
+NotImplementedException* NotImplementedException::New4()
+{
+    NotImplementedException* obj1 = (NotImplementedException*)uNew(NotImplementedException_typeof());
+    obj1->ctor_3();
+    return obj1;
+}
+// }
+
+// /usr/local/share/uno/Packages/UnoCore/0.39.1/source/uno/exceptions/$.uno
+// ------------------------------------------------------------------------
+
 // public sealed class NotSupportedException :282
 // {
 static void NotSupportedException_build(uType* type)
 {
-    ::STRINGS[29] = uString::Const("Method not supported");
+    ::STRINGS[30] = uString::Const("Method not supported");
     type->SetFields(3);
 }
 
@@ -5697,7 +5778,7 @@ void NotSupportedException__New4_fn(NotSupportedException** __retval)
 // public NotSupportedException() [instance] :284
 void NotSupportedException::ctor_3()
 {
-    ctor_1(::STRINGS[29/*"Method not ...*/]);
+    ctor_1(::STRINGS[30/*"Method not ...*/]);
 }
 
 // public NotSupportedException New() [static] :284
@@ -5716,7 +5797,7 @@ NotSupportedException* NotSupportedException::New4()
 // {
 static void NullReferenceException_build(uType* type)
 {
-    ::STRINGS[30] = uString::Const("Object reference was null");
+    ::STRINGS[31] = uString::Const("Object reference was null");
     type->SetFields(3);
 }
 
@@ -5751,7 +5832,7 @@ void NullReferenceException__New4_fn(NullReferenceException** __retval)
 // public NullReferenceException() [instance] :306
 void NullReferenceException::ctor_3()
 {
-    ctor_1(::STRINGS[30/*"Object refe...*/]);
+    ctor_1(::STRINGS[31/*"Object refe...*/]);
 }
 
 // public NullReferenceException New() [static] :306
@@ -5873,7 +5954,7 @@ bool Object::ReferenceEquals(uObject* left, uObject* right)
 // {
 static void ObjectDisposedException_build(uType* type)
 {
-    ::STRINGS[31] = uString::Const("Attempt to access disposed object: ");
+    ::STRINGS[32] = uString::Const("Attempt to access disposed object: ");
     type->SetFields(3);
 }
 
@@ -5907,7 +5988,7 @@ void ObjectDisposedException__New4_fn(uString* objectName, ObjectDisposedExcepti
 // public ObjectDisposedException(string objectName) [instance] :323
 void ObjectDisposedException::ctor_3(uString* objectName)
 {
-    ctor_1(::g::Uno::String::op_Addition2(::STRINGS[31/*"Attempt to ...*/], objectName));
+    ctor_1(::g::Uno::String::op_Addition2(::STRINGS[32/*"Attempt to ...*/], objectName));
 }
 
 // public ObjectDisposedException New(string objectName) [static] :323
@@ -7151,8 +7232,8 @@ SByte4 SByte4__New2(int8_t x, int8_t y, int8_t z, int8_t w)
 // {
 static void Short_build(uType* type)
 {
-    ::STRINGS[32] = uString::Const("Value was either too large or too small for short");
-    ::STRINGS[33] = uString::Const("Unable to convert string to short");
+    ::STRINGS[33] = uString::Const("Value was either too large or too small for short");
+    ::STRINGS[34] = uString::Const("Unable to convert string to short");
     ::TYPES[3] = uObject_typeof();
 }
 
@@ -7371,11 +7452,11 @@ static void String__cctor__fn(uType* __type)
 static void String_build(uType* type)
 {
     ::STRINGS[22] = uString::Const("");
-    ::STRINGS[34] = uString::Const("value");
-    ::STRINGS[35] = uString::Const("startIndex");
-    ::STRINGS[36] = uString::Const("str");
-    ::STRINGS[37] = uString::Const("pos");
-    ::STRINGS[38] = uString::Const("oldValue");
+    ::STRINGS[35] = uString::Const("value");
+    ::STRINGS[36] = uString::Const("startIndex");
+    ::STRINGS[37] = uString::Const("str");
+    ::STRINGS[38] = uString::Const("pos");
+    ::STRINGS[39] = uString::Const("oldValue");
     ::TYPES[15] = ::g::Uno::Char_typeof()->Array();
     ::TYPES[16] = ::g::Uno::Collections::List__Enumerator_typeof()->MakeType(::g::Uno::Runtime::Implementation::Internal::FormatStringToken_typeof());
     ::TYPES[17] = String_typeof()->Array();
@@ -7666,7 +7747,7 @@ bool String::Contains(uString* __this, uString* str)
 bool String::EndsWith(uString* __this, uString* value)
 {
     if (String::op_Equality(value, NULL))
-        U_THROW(::g::Uno::ArgumentNullException::New6(::STRINGS[34/*"value"*/]));
+        U_THROW(::g::Uno::ArgumentNullException::New6(::STRINGS[35/*"value"*/]));
 
     if (__this->Length() < uPtr(value)->Length())
         return false;
@@ -7684,7 +7765,7 @@ bool String::EndsWith(uString* __this, uString* value)
 int String::IndexOf(uString* __this, uChar c, int startIndex)
 {
     if (startIndex > __this->Length())
-        U_THROW(::g::Uno::ArgumentOutOfRangeException::New6(::STRINGS[35/*"startIndex"*/]));
+        U_THROW(::g::Uno::ArgumentOutOfRangeException::New6(::STRINGS[36/*"startIndex"*/]));
 
     for (int i = startIndex; i < __this->Length(); i++)
         if (__this->Item(i) == c)
@@ -7697,13 +7778,13 @@ int String::IndexOf(uString* __this, uChar c, int startIndex)
 int String::IndexOf1(uString* __this, uString* str, int startIndex)
 {
     if (String::op_Equality(str, NULL))
-        U_THROW(::g::Uno::ArgumentNullException::New6(::STRINGS[36/*"str"*/]));
+        U_THROW(::g::Uno::ArgumentNullException::New6(::STRINGS[37/*"str"*/]));
 
     if (String::op_Equality(str, String::Empty()))
         return 0;
 
     if (startIndex > __this->Length())
-        U_THROW(::g::Uno::ArgumentOutOfRangeException::New6(::STRINGS[35/*"startIndex"*/]));
+        U_THROW(::g::Uno::ArgumentOutOfRangeException::New6(::STRINGS[36/*"startIndex"*/]));
 
     for (int hay = startIndex; hay < __this->Length(); hay++)
     {
@@ -7761,10 +7842,10 @@ int String::IndexOfLastNotWhiteSpace(uString* __this)
 uString* String::Insert(uString* __this, int pos, uString* str)
 {
     if (String::op_Equality(str, NULL))
-        U_THROW(::g::Uno::ArgumentNullException::New6(::STRINGS[36/*"str"*/]));
+        U_THROW(::g::Uno::ArgumentNullException::New6(::STRINGS[37/*"str"*/]));
 
     if ((pos < 0) || (pos > __this->Length()))
-        U_THROW(::g::Uno::ArgumentOutOfRangeException::New6(::STRINGS[37/*"pos"*/]));
+        U_THROW(::g::Uno::ArgumentOutOfRangeException::New6(::STRINGS[38/*"pos"*/]));
 
     if (uPtr(str)->Length() == 0)
         return __this;
@@ -7806,7 +7887,7 @@ int String::LastIndexOf(uString* __this, uChar c)
 int String::LastIndexOf1(uString* __this, uChar c, int startIndex)
 {
     if ((startIndex >= __this->Length()) && (__this->Length() > 0))
-        U_THROW(::g::Uno::ArgumentOutOfRangeException::New6(::STRINGS[35/*"startIndex"*/]));
+        U_THROW(::g::Uno::ArgumentOutOfRangeException::New6(::STRINGS[36/*"startIndex"*/]));
 
     if (__this->Length() == 0)
         return -1;
@@ -7848,10 +7929,10 @@ uString* String::Replace(uString* __this, uChar oldChar, uChar newChar)
 uString* String::Replace1(uString* __this, uString* oldValue, uString* newValue)
 {
     if (String::op_Equality(oldValue, NULL))
-        U_THROW(::g::Uno::ArgumentNullException::New6(::STRINGS[38/*"oldValue"*/]));
+        U_THROW(::g::Uno::ArgumentNullException::New6(::STRINGS[39/*"oldValue"*/]));
 
     if (String::op_Equality(oldValue, String::Empty()))
-        U_THROW(::g::Uno::ArgumentException::New5(::STRINGS[22/*""*/], ::STRINGS[38/*"oldValue"*/]));
+        U_THROW(::g::Uno::ArgumentException::New5(::STRINGS[22/*""*/], ::STRINGS[39/*"oldValue"*/]));
 
     int index = String::IndexOf1(__this, oldValue, 0);
 
@@ -7931,7 +8012,7 @@ uArray* String::Split(uString* __this, uArray* splitChars)
 bool String::StartsWith(uString* __this, uString* value)
 {
     if (String::op_Equality(value, NULL))
-        U_THROW(::g::Uno::ArgumentNullException::New6(::STRINGS[34/*"value"*/]));
+        U_THROW(::g::Uno::ArgumentNullException::New6(::STRINGS[35/*"value"*/]));
 
     if (__this->Length() < uPtr(value)->Length())
         return false;
@@ -8350,8 +8431,8 @@ bool Type::op_Inequality(uType* a, uType* b)
 // {
 static void UInt_build(uType* type)
 {
-    ::STRINGS[39] = uString::Const("Value was either too large or too small for unsigned int");
-    ::STRINGS[40] = uString::Const("Unable to convert string to unsigned int");
+    ::STRINGS[40] = uString::Const("Value was either too large or too small for unsigned int");
+    ::STRINGS[41] = uString::Const("Unable to convert string to unsigned int");
     ::TYPES[3] = uObject_typeof();
 }
 
@@ -8446,8 +8527,8 @@ void ULong__ToString_fn(uint64_t* __this, uType* __type, uString** __retval)
 // {
 static void UShort_build(uType* type)
 {
-    ::STRINGS[41] = uString::Const("Value was either too large or too small for unsigned short");
-    ::STRINGS[42] = uString::Const("Unable to convert string to unsigned short");
+    ::STRINGS[42] = uString::Const("Value was either too large or too small for unsigned short");
+    ::STRINGS[43] = uString::Const("Unable to convert string to unsigned short");
     ::TYPES[3] = uObject_typeof();
 }
 
@@ -8913,6 +8994,73 @@ float Vector::LengthSquared2(::g::Uno::Float4 v)
 ::g::Uno::Float3 Vector::TransformNormal1(::g::Uno::Float3 vector, ::g::Uno::Float4x4 matrix)
 {
     return ::g::Uno::Float3__New2(((vector.X * matrix.M11) + (vector.Y * matrix.M21)) + (vector.Z * matrix.M31), ((vector.X * matrix.M12) + (vector.Y * matrix.M22)) + (vector.Z * matrix.M32), ((vector.X * matrix.M13) + (vector.Y * matrix.M23)) + (vector.Z * matrix.M33));
+}
+// }
+
+// /usr/local/share/uno/Packages/UnoCore/0.39.1/source/uno/$.uno
+// -------------------------------------------------------------
+
+// public sealed class WeakReference<T> :8789
+// {
+static void WeakReference_build(uType* type)
+{
+    type->SetFields(0,
+        type->T(0), offsetof(::g::Uno::WeakReference, _target), uFieldFlagsWeak);
+}
+
+uType* WeakReference_typeof()
+{
+    static uSStrong<uType*> type;
+    if (type != NULL) return type;
+
+    uTypeOptions options;
+    options.FieldCount = 1;
+    options.GenericCount = 1;
+    options.ObjectSize = sizeof(WeakReference);
+    options.TypeSize = sizeof(uType);
+    type = uClassType::New("Uno.WeakReference`1", options);
+    type->fp_build_ = WeakReference_build;
+    return type;
+}
+
+// public WeakReference(T target) :8795
+void WeakReference__ctor__fn(WeakReference* __this, uObject* target)
+{
+    __this->ctor_(target);
+}
+
+// public WeakReference New(T target) :8795
+void WeakReference__New1_fn(uType* __type, uObject* target, WeakReference** __retval)
+{
+    *__retval = WeakReference::New1(__type, target);
+}
+
+// public bool TryGetTarget(T& target) :8805
+void WeakReference__TryGetTarget_fn(WeakReference* __this, uObject** target, bool* __retval)
+{
+    *__retval = __this->TryGetTarget(target);
+}
+
+// public WeakReference(T target) [instance] :8795
+void WeakReference::ctor_(uObject* target)
+{
+    _target = target;
+}
+
+// public bool TryGetTarget(T& target) [instance] :8805
+bool WeakReference::TryGetTarget(uObject** target)
+{
+    uObject* result = _target;
+    *target = result;
+    return result != NULL;
+}
+
+// public WeakReference New(T target) [static] :8795
+WeakReference* WeakReference::New1(uType* __type, uObject* target)
+{
+    WeakReference* obj1 = (WeakReference*)uNew(__type);
+    obj1->ctor_(target);
+    return obj1;
 }
 // }
 

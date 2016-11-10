@@ -22,10 +22,12 @@ namespace Triggers{
 ::g::Fuse::Triggers::WhileBool_type* WhileTrue_typeof();
 void WhileTrue__ctor_7_fn(WhileTrue* __this);
 void WhileTrue__get_IsOn_fn(WhileTrue* __this, bool* __retval);
+void WhileTrue__New2_fn(WhileTrue** __retval);
 
 struct WhileTrue : ::g::Fuse::Triggers::WhileBool
 {
     void ctor_7();
+    static WhileTrue* New2();
 };
 // }
 

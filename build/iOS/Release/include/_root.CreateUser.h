@@ -43,7 +43,6 @@ struct CreateUser : ::g::Fuse::Controls::Page
     uStrong< ::g::Uno::UX::Property1*> temp_Value_inst;
     uStrong< ::g::Uno::UX::Property1*> temp1_Value_inst;
     uStrong< ::g::Uno::UX::Property1*> temp2_Value_inst;
-    uStrong< ::g::Uno::UX::Property1*> temp3_Value_inst;
 
     void ctor_8(::g::Fuse::Navigation::Router* router1);
     void InitializeUX();

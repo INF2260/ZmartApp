@@ -22,6 +22,7 @@ void BusyTask__Done_fn(BusyTask* __this);
 void BusyTask__New1_fn(::g::Fuse::Node* n, BusyTask** __retval);
 void BusyTask__OnBusyChanged_fn(::g::Fuse::Node* n);
 void BusyTask__OnUnrooted_fn(BusyTask* __this);
+void BusyTask__SetBusy_fn(::g::Fuse::Node* n, BusyTask** bt, bool* busy);
 
 struct BusyTask : uObject
 {
@@ -37,6 +38,7 @@ struct BusyTask : uObject
     static void done(::g::Fuse::Scripting::Context* c, BusyTask* bt, uArray* args);
     static BusyTask* New1(::g::Fuse::Node* n);
     static void OnBusyChanged(::g::Fuse::Node* n);
+    static void SetBusy(::g::Fuse::Node* n, BusyTask** bt, bool busy);
 };
 // }
 

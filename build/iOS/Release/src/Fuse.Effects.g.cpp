@@ -1598,6 +1598,8 @@ Mask_type* Mask_typeof()
     type->fp_ModifyRenderBounds = (void(*)(::g::Fuse::Effects::Effect*, ::g::Fuse::VisualBounds*, ::g::Fuse::VisualBounds**))Mask__ModifyRenderBounds_fn;
     type->fp_OnRender = (void(*)(::g::Fuse::Effects::BasicEffect*, ::g::Fuse::DrawContext*, ::g::Uno::Rect*))Mask__OnRender_fn;
     type->interface4.fp_OnSourceChanged = (void(*)(uObject*))Mask__FuseInternalIImageContainerOwnerOnSourceChanged_fn;
+    type->interface4.fp_OnParamChanged = (void(*)(uObject*))Mask__FuseInternalIImageContainerOwnerOnParamChanged_fn;
+    type->interface4.fp_OnSizingChanged = (void(*)(uObject*))Mask__FuseInternalIImageContainerOwnerOnSizingChanged_fn;
     type->interface1.fp_SetScriptObject = (void(*)(uObject*, uObject*, ::g::Fuse::Scripting::Context*))::g::Fuse::Node__FuseScriptingIScriptObjectSetScriptObject_fn;
     type->interface2.fp_Clear = (void(*)(uObject*))::g::Fuse::Node__UnoCollectionsICollectionFuseBindingClear_fn;
     type->interface2.fp_Contains = (void(*)(uObject*, void*, bool*))::g::Fuse::Node__UnoCollectionsICollectionFuseBindingContains_fn;
@@ -1611,6 +1613,18 @@ Mask_type* Mask_typeof()
     type->interface2.fp_Add = (void(*)(uObject*, void*))::g::Fuse::Node__Add_fn;
     type->interface2.fp_Remove = (void(*)(uObject*, void*, bool*))::g::Fuse::Node__Remove_fn;
     return type;
+}
+
+// private void Fuse.Internal.IImageContainerOwner.OnParamChanged() :799
+void Mask__FuseInternalIImageContainerOwnerOnParamChanged_fn(Mask* __this)
+{
+    __this->OnRenderingChanged();
+}
+
+// private void Fuse.Internal.IImageContainerOwner.OnSizingChanged() :804
+void Mask__FuseInternalIImageContainerOwnerOnSizingChanged_fn(Mask* __this)
+{
+    __this->OnRenderingChanged();
 }
 
 // private void Fuse.Internal.IImageContainerOwner.OnSourceChanged() :794

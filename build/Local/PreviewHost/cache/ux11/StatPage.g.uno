@@ -4,7 +4,7 @@ public partial class StatPage: Fuse.Controls.Page
     readonly Fuse.Navigation.Router router;
     global::Uno.UX.Property<string> temp_Value_inst;
     global::Uno.UX.Property<string> temp1_Value_inst;
-    internal Fuse.Reactive.EventBinding temp_eb4;
+    internal Fuse.Reactive.EventBinding temp_eb1;
     global::Uno.UX.NameTable __g_nametable;
     static string[] __g_static_nametable = new string[] {
         "router"
@@ -34,10 +34,10 @@ public partial class StatPage: Fuse.Controls.Page
         var temp7 = new Fuse.Controls.Text();
         var temp8 = new Fuse.Reactive.DataBinding<string>(temp1_Value_inst, "age");
         var temp9 = new Fuse.Controls.Button();
-        temp_eb4 = new Fuse.Reactive.EventBinding("goBack");
+        temp_eb1 = new Fuse.Reactive.EventBinding("goBack");
         temp2.LineNumber = 5;
-        temp2.FileName = "Pages/StatPage.ux";
-        temp2.File = new global::Uno.UX.BundleFileSource(import global::Uno.IO.BundleFile("../../../../../Pages/StatPage.js"));
+        temp2.FileName = "StatPage.ux";
+        temp2.File = new global::Uno.UX.BundleFileSource(import global::Uno.IO.BundleFile("../../../../../StatPage.js"));
         temp3.Children.Add(temp4);
         temp4.Children.Add(temp5);
         temp4.Children.Add(temp);
@@ -49,8 +49,8 @@ public partial class StatPage: Fuse.Controls.Page
         temp7.Value = "age:";
         temp1.Bindings.Add(temp8);
         temp9.Text = "Back";
-        global::Fuse.Gestures.Clicked.AddHandler(temp9, temp_eb4.OnEvent);
-        temp9.Bindings.Add(temp_eb4);
+        global::Fuse.Gestures.Clicked.AddHandler(temp9, temp_eb1.OnEvent);
+        temp9.Bindings.Add(temp_eb1);
         __g_nametable.This = this;
         __g_nametable.Objects.Add(router);
         this.Children.Add(temp2);

@@ -4,6 +4,7 @@
 #pragma once
 #include <Uno.UX.PropertyObject.h>
 namespace g{namespace Fuse{namespace Layouts{struct DefinitionBase;}}}
+namespace g{namespace Fuse{namespace Layouts{struct DefinitionBase__ParseDataItem;}}}
 
 namespace g{
 namespace Fuse{
@@ -20,6 +21,8 @@ void DefinitionBase__remove_Changed_fn(DefinitionBase* __this, uDelegate* value)
 void DefinitionBase__get_Implicit_fn(DefinitionBase* __this, bool* __retval);
 void DefinitionBase__set_Implicit_fn(DefinitionBase* __this, bool* value);
 void DefinitionBase__OnChanged_fn(DefinitionBase* __this);
+void DefinitionBase__ParseData_fn(uString* data, uObject** __retval);
+void DefinitionBase__ParseDataSingle_fn(uString* data, DefinitionBase__ParseDataItem* __retval);
 
 struct DefinitionBase : ::g::Uno::UX::PropertyObject
 {
@@ -35,6 +38,8 @@ struct DefinitionBase : ::g::Uno::UX::PropertyObject
     bool Implicit();
     void Implicit(bool value);
     void OnChanged();
+    static uObject* ParseData(uString* data);
+    static DefinitionBase__ParseDataItem ParseDataSingle(uString* data);
 };
 // }
 

@@ -2,10 +2,12 @@
   "RootNamespace":"",
   "Packages": [
     "Fuse",
-    "FuseJS"
+    "FuseJS",
+    "Fuse.Scripting"
   ],
   "Includes": [
     "*",
-    "modules/*.js:Bundle"
+    "Modules/*.js:Bundle",
+    "HidingPanel.ux:UXFile",
   ]
 }

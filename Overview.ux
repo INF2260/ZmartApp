@@ -1,0 +1,116 @@
+<Page ux:Class="Overview">
+	<Router ux:Dependency="router"/>
+	<JavaScript File ="Overview.js"/>
+	<ux:Include File="StateAnimation.ux"/>
+	<ux:Include File="Resources/colors.ux"/>
+
+	<ClientPanel>
+
+		<!-- Statform panel -->
+		<HidingPanel ux:Name="PetterForm" Width="90%" Height="45%" Offset="0%,10%">
+			<Grid ux:Name="Grid" RowCount="3" Margin="30,40,30,60">
+				<Each Items="{users}">
+					<TextBox Value="{name}" Alignment="VerticalCenter"/>
+					<TextBox Value="{age}" Alignment="VerticalCenter"/>
+				</Each>
+			</Grid>
+			<Panel ux:Name="StatRectCollapsed" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
+
+			<Panel>
+				<Panel ux:Name="BackButton" Width="100" Offset="0%,50%" Height="50" HitTestMode="LocalBoundsAndChildren">
+					<Text Value="Back" Alignment="Center" Color="White"/>
+					<Clicked>
+						<Set state.Active="overviewState"/>
+					</Clicked>
+				</Panel> 
+				<Panel ux:Name="BackButtonCollapsed" Color="Grey" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
+			</Panel>
+		</HidingPanel>
+
+		<HidingPanel ux:Name="LasseForm" Width="90%" Height="45%" Offset="0%,10%">
+			<Grid ux:Name="Grid2" RowCount="3" Margin="30,40,30,60">
+				<Text>Lasse</Text>
+			</Grid>
+			<Panel ux:Name="StatRectCollapsed2" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
+
+			<Panel>
+				<Panel ux:Name="BackButton2" Width="100" Offset="0%,50%" Height="50" HitTestMode="LocalBoundsAndChildren">
+					<Text Value="Back" Alignment="Center" Color="White"/>
+					<Clicked>
+						<Set state.Active="overviewState"/>
+					</Clicked>
+				</Panel> 
+				<Panel ux:Name="BackButtonCollapsed2" Color="Grey" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
+			</Panel>
+		</HidingPanel>
+
+		<!-- Back button rectangle -->
+		<Rectangle ux:Name="backRect" Color="Grey" LayoutMaster="BackButtonCollapsed" CornerRadius="10"/>
+		<Attractor ux:Name="backRectCornerRadiusAttractor" Target="backRect.CornerRadius" Value="25" Type="SmoothSnap" Unit="Points"/>
+
+		<!-- StatForm rectangle-->
+		<Rectangle ux:Name="statRect" Color="White" LayoutMaster="StatRectCollapsed" CornerRadius="15"/>
+		<Attractor ux:Name="statRectCornerRadiusAttractor" Target="statRect.CornerRadius" Value="25"
+		Type="SmoothSnap" Unit="Points"/>
+
+		<!-- Default panel -->
+		<HidingPanel ux:Name="userPanel" Alignment="Bottom" Height="60%" Padding="15,0,15,15">
+			<GridLayout Rows="1*,15,15"/>
+			
+			<StackPanel ux:Name="stack" Height="100%" Width="100%">
+				
+				<!-- StatPage buttons -->
+				<Button ux:Name="petterB" LayoutMaster="petter">
+					<Clicked>
+						<Set state.Active="petterStat"/>
+					</Clicked>
+				</Button>
+				<Button ux:Name="lasseB" LayoutMaster="lasse">
+					<Clicked>
+						<Set state.Active="lasseStat"/>
+					</Clicked>
+				</Button>
+				
+				<!-- BoatImage-->
+				<Image ux:Name="boatfront" File="Images/boat-front.png" LayoutMaster="stack" Alignment="Bottom" Width="100%" Height="50%"/>
+				
+				<!-- Petter -->
+				<Panel ux:Name="petter" Width="120" Height="200" LayoutMaster="stack" Alignment="BottomCenter" HitTestMode="LocalBoundsAndChildren" >
+					<Image File="Images/petter.png" Alignment="Center" HitTestMode="LocalBounds"/>
+					<Text Alignment="TopCenter" Margin="0,0,30,0">Petter</Text>
+
+					<WhileTrue ux:Name="movePetter">
+						<Move Target="petter" Y="-1.75" RelativeTo="Size" Duration="0.5" Delay="0.3" Easing="CubicInOut"/>
+					</WhileTrue>
+				</Panel>
+
+				<!-- Lasse -->
+				<Panel ux:Name="lasse" Width="120" Height="200" LayoutMaster="stack" Alignment="BottomLeft" HitTestMode="LocalBoundsAndChildren">
+					<Image File="Images/lasse.png" Width="100" Height="180" Alignment="Center" HitTestMode="LocalBounds"/>
+					<Text Alignment="TopCenter" Margin="30,0,0,0" Color="White">Lasse</Text>
+					<Clicked>
+						<Set state.Active="lasseStat"/>
+					</Clicked>
+					<WhileTrue ux:Name="moveLasse">
+						<Move Target="lasse" Y="-1.75" X="0.75" RelativeTo="Size" Duration="0.5" Delay="0.3" Easing="CubicInOut"/>
+					</WhileTrue>
+				</Panel>
+
+				<!-- Flag -->
+				 <Image ux:Name="flag" File="Images/boat-flag.png" LayoutMaster="stack" Alignment="TopCenter" Width="75%" Height="100%"/>
+			 </StackPanel>
+		</HidingPanel>
+
+		<!-- Mountain panel-->
+		<HidingPanel ux:Name="BoatLogoPanel" Alignment="Top" Height="100%" IsEnabled="true" HitTestMode="None" Layer="Background">
+
+ 			<Image ux:Name="Mountain" File="Images/mountain.png" Margin="0,20,0,0" Alignment="TopCenter" Width="100%"/>
+			<WhileTrue ux:Name="moveMountain">
+				<Move Target="Mountain" Y="-0.6" RelativeTo="Size" Duration="0.5" Delay="0.3" Easing="CubicInOut"/>
+			</WhileTrue>
+
+		</HidingPanel>
+
+	</ClientPanel>
+
+</Page>

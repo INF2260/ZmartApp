@@ -115,6 +115,8 @@
 #include <Fuse.IScalingMode.h>
 #include <Fuse.ITranslationMode.h>
 #include <Fuse.Motion.DestinationMotion-1.h>
+#include <Fuse.Motion.MotionDestinationType.h>
+#include <Fuse.Motion.MotionUnit.h>
 #include <Fuse.Motion.Simulation.DestinationSimulation-1.h>
 #include <Fuse.Motion.Simulation.MotionSimulation-1.h>
 #include <Fuse.Motion.Simulation.Simulation.h>
@@ -160,7 +162,7 @@
 #include <Uno.UX.Size.h>
 #include <Uno.UX.Size2.h>
 static uString* STRINGS[15];
-static uType* TYPES[39];
+static uType* TYPES[40];
 
 namespace g{
 namespace Fuse{
@@ -358,14 +360,17 @@ uEnumType* AnimatorVariant_typeof()
 // {
 static void Attractor_build(uType* type)
 {
-    ::STRINGS[0] = uString::Const("Motion should not be changed post-rooting");
-    ::STRINGS[1] = uString::Const("/usr/local/share/uno/Packages/Fuse.Animations/0.39.3/$.uno");
-    ::STRINGS[2] = uString::Const("set_Motion");
-    ::TYPES[0] = ::g::Fuse::Motion::Simulation::Simulation_typeof();
-    ::TYPES[1] = ::g::Uno::Action_typeof();
-    ::TYPES[2] = ::g::Fuse::Motion::Simulation::DestinationSimulation_typeof();
-    ::TYPES[3] = ::g::Fuse::Motion::Simulation::MotionSimulation_typeof();
+    ::STRINGS[0] = uString::Const("target");
+    ::STRINGS[1] = uString::Const("Motion should not be changed post-rooting");
+    ::STRINGS[2] = uString::Const("/usr/local/share/uno/Packages/Fuse.Animations/0.39.3/$.uno");
+    ::STRINGS[3] = uString::Const("set_Motion");
+    ::TYPES[0] = ::g::Fuse::Motion::DestinationMotion_typeof();
+    ::TYPES[1] = ::g::Fuse::Motion::Simulation::Simulation_typeof();
+    ::TYPES[2] = ::g::Uno::Action_typeof();
+    ::TYPES[3] = ::g::Fuse::Motion::Simulation::DestinationSimulation_typeof();
+    ::TYPES[4] = ::g::Fuse::Motion::Simulation::MotionSimulation_typeof();
     type->SetPrecalc(
+        ::g::Fuse::Motion::DestinationMotion_typeof()->MakeType(type->T(0)),
         ::g::Fuse::Motion::Simulation::DestinationSimulation_typeof()->MakeType(type->T(0)),
         ::g::Fuse::Motion::Simulation::MotionSimulation_typeof()->MakeType(type->T(0)));
     type->SetInterfaces(
@@ -393,7 +398,7 @@ Attractor_type* Attractor_typeof()
     options.FieldCount = 19;
     options.GenericCount = 1;
     options.InterfaceCount = 5;
-    options.PrecalcCount = 2;
+    options.PrecalcCount = 3;
     options.ObjectSize = sizeof(Attractor);
     options.TypeSize = sizeof(Attractor_type);
     type = (Attractor_type*)uClassType::New("Fuse.Animations.Attractor`1", options);
@@ -414,6 +419,12 @@ Attractor_type* Attractor_typeof()
     type->interface2.fp_Add = (void(*)(uObject*, void*))::g::Fuse::Node__Add_fn;
     type->interface2.fp_Remove = (void(*)(uObject*, void*, bool*))::g::Fuse::Node__Remove_fn;
     return type;
+}
+
+// public Attractor(Uno.UX.Property<T> target) :186
+void Attractor__ctor_4_fn(Attractor* __this, ::g::Uno::UX::Property1* target)
+{
+    __this->ctor_4(target);
 }
 
 // private void CheckNeedUpdate() :303
@@ -446,12 +457,18 @@ void Attractor__set_Motion_fn(Attractor* __this, ::g::Fuse::Motion::DestinationM
     __this->Motion(value);
 }
 
+// public Attractor New(Uno.UX.Property<T> target) :186
+void Attractor__New3_fn(uType* __type, ::g::Uno::UX::Property1* target, Attractor** __retval)
+{
+    *__retval = Attractor::New3(__type, target);
+}
+
 // protected override sealed void OnRooted() :316
 void Attractor__OnRooted_fn(Attractor* __this)
 {
     uType* __types[] = {
         __this->__type->T(0),
-        __this->__type->Precalced(0/*Fuse.Motion.Simulation.DestinationSimulation<T>*/),
+        __this->__type->Precalced(1/*Fuse.Motion.Simulation.DestinationSimulation<T>*/),
     };
     uT ret3(__types[0], U_ALLOCA(__types[0]->ValueSize));
     ::g::Fuse::Node__OnRooted_fn(__this);
@@ -481,13 +498,37 @@ void Attractor__set_Target_fn(Attractor* __this, ::g::Uno::UX::Property1* value)
     __this->Target(value);
 }
 
+// public Fuse.Motion.MotionDestinationType get_Type() :209
+void Attractor__get_Type_fn(Attractor* __this, int* __retval)
+{
+    *__retval = __this->Type();
+}
+
+// public void set_Type(Fuse.Motion.MotionDestinationType value) :210
+void Attractor__set_Type_fn(Attractor* __this, int* value)
+{
+    __this->Type(*value);
+}
+
+// public Fuse.Motion.MotionUnit get_Unit() :251
+void Attractor__get_Unit_fn(Attractor* __this, int* __retval)
+{
+    *__retval = __this->Unit();
+}
+
+// public void set_Unit(Fuse.Motion.MotionUnit value) :252
+void Attractor__set_Unit_fn(Attractor* __this, int* value)
+{
+    __this->Unit(*value);
+}
+
 // private void Uno.UX.IPropertyListener.OnPropertyChanged(Uno.UX.PropertyObject obj, Uno.UX.Selector prop) :342
 void Attractor__UnoUXIPropertyListenerOnPropertyChanged_fn(Attractor* __this, ::g::Uno::UX::PropertyObject* obj, ::g::Uno::UX::Selector* prop)
 {
     uType* __types[] = {
         __this->__type->T(0),
-        __this->__type->Precalced(0/*Fuse.Motion.Simulation.DestinationSimulation<T>*/),
-        __this->__type->Precalced(1/*Fuse.Motion.Simulation.MotionSimulation<T>*/),
+        __this->__type->Precalced(1/*Fuse.Motion.Simulation.DestinationSimulation<T>*/),
+        __this->__type->Precalced(2/*Fuse.Motion.Simulation.MotionSimulation<T>*/),
     };
     uT ret4(__types[0], U_ALLOCA(__types[0]->ValueSize));
     uT val(__types[0], U_ALLOCA(__types[0]->ValueSize));
@@ -497,7 +538,7 @@ void Attractor__UnoUXIPropertyListenerOnPropertyChanged_fn(Attractor* __this, ::
 
     val = (uPtr(__this->Target())->Get_ex(&ret4), ret4);
 
-    if (!__this->IsEnabled() || ::g::Fuse::Motion::Simulation::Simulation::IsStatic(uInterface(uPtr(__this->_sim), ::TYPES[0/*Fuse.Motion.Simulation.Simulation*/])))
+    if (!__this->IsEnabled() || ::g::Fuse::Motion::Simulation::Simulation::IsStatic(uInterface(uPtr(__this->_sim), ::TYPES[1/*Fuse.Motion.Simulation.Simulation*/])))
         ::g::Fuse::Motion::Simulation::DestinationSimulation::Reset_ex(uInterface(uPtr(__this->_sim), __types[1]), val);
     else 
         ::g::Fuse::Motion::Simulation::MotionSimulation::set_Position_ex(uInterface(uPtr(__this->_sim), __types[2]), val);
@@ -511,18 +552,67 @@ void Attractor__Update_fn(Attractor* __this)
     __this->Update();
 }
 
+// public T get_Value() :282
+void Attractor__get_Value_fn(Attractor* __this, uTRef __retval)
+{
+    uType* __types[] = {
+        __this->__type->T(0),
+        __this->__type->Precalced(1/*Fuse.Motion.Simulation.DestinationSimulation<T>*/),
+    };
+    uT ret7(__types[0], U_ALLOCA(__types[0]->ValueSize));
+    uT ret8(__types[0], U_ALLOCA(__types[0]->ValueSize));
+
+    if (__this->IsRootingCompleted())
+        return __retval.Store((::g::Fuse::Motion::Simulation::DestinationSimulation::get_Destination_ex(uInterface(uPtr(__this->_sim), __types[1]), &ret7), ret7)), void();
+
+    return __retval.Store((uPtr(__this->Target())->Get_ex(&ret8), ret8)), void();
+}
+
+// public void set_Value(T value) :288
+void Attractor__set_Value_fn(Attractor* __this, void* value)
+{
+    uType* __types[] = {
+        __this->__type->Precalced(1/*Fuse.Motion.Simulation.DestinationSimulation<T>*/),
+    };
+
+    if (__this->IsRootingCompleted())
+    {
+        ::g::Fuse::Motion::Simulation::DestinationSimulation::set_Destination_ex(uInterface(uPtr(__this->_sim), __types[0]), value);
+        __this->CheckNeedUpdate();
+    }
+    else 
+        uPtr(__this->Target())->Set_ex(value, (uObject*)__this);
+}
+
+// public Attractor(Uno.UX.Property<T> target) [instance] :186
+void Attractor::ctor_4(::g::Uno::UX::Property1* target)
+{
+    uType* __types[] = {
+        __type->Precalced(0/*Fuse.Motion.DestinationMotion<T>*/),
+    };
+    _motion = ((::g::Fuse::Motion::DestinationMotion*)::g::Fuse::Motion::DestinationMotion::New1(__types[0]));
+    _isEnabled = true;
+    _timeMultiplier = 1.0f;
+    ctor_2();
+
+    if (target == NULL)
+        U_THROW(::g::Uno::ArgumentNullException::New6(::STRINGS[0/*"target"*/]));
+
+    Target(target);
+}
+
 // private void CheckNeedUpdate() [instance] :303
 void Attractor::CheckNeedUpdate()
 {
-    bool need = (_sim != NULL) && !::g::Fuse::Motion::Simulation::Simulation::IsStatic(uInterface(uPtr(_sim), ::TYPES[0/*Fuse.Motion.Simulation.Simulation*/]));
+    bool need = (_sim != NULL) && !::g::Fuse::Motion::Simulation::Simulation::IsStatic(uInterface(uPtr(_sim), ::TYPES[1/*Fuse.Motion.Simulation.Simulation*/]));
 
     if (need == _isUpdate)
         return;
 
     if (need)
-        ::g::Fuse::UpdateManager::AddAction1(uDelegate::New(::TYPES[1/*Uno.Action*/], (void*)Attractor__Update_fn, this), 0);
+        ::g::Fuse::UpdateManager::AddAction1(uDelegate::New(::TYPES[2/*Uno.Action*/], (void*)Attractor__Update_fn, this), 0);
     else 
-        ::g::Fuse::UpdateManager::RemoveAction1(uDelegate::New(::TYPES[1/*Uno.Action*/], (void*)Attractor__Update_fn, this), 0);
+        ::g::Fuse::UpdateManager::RemoveAction1(uDelegate::New(::TYPES[2/*Uno.Action*/], (void*)Attractor__Update_fn, this), 0);
 
     _isUpdate = need;
 }
@@ -538,7 +628,7 @@ void Attractor::IsEnabled(bool value)
 {
     uType* __types[] = {
         __type->T(0),
-        __type->Precalced(0/*Fuse.Motion.Simulation.DestinationSimulation<T>*/),
+        __type->Precalced(1/*Fuse.Motion.Simulation.DestinationSimulation<T>*/),
     };
     uT ret6(__types[0], U_ALLOCA(__types[0]->ValueSize));
 
@@ -565,7 +655,7 @@ void Attractor::Motion(::g::Fuse::Motion::DestinationMotion* value)
     _motion = value;
 
     if (IsRootingCompleted())
-        ::g::Fuse::Diagnostics::UserError(::STRINGS[0/*"Motion shou...*/], this, ::STRINGS[1/*"/usr/local/...*/], 201, ::STRINGS[2/*"set_Motion"*/]);
+        ::g::Fuse::Diagnostics::UserError(::STRINGS[1/*"Motion shou...*/], this, ::STRINGS[2/*"/usr/local/...*/], 201, ::STRINGS[3/*"set_Motion"*/]);
 }
 
 // public generated Uno.UX.Property<T> get_Target() [instance] :183
@@ -580,22 +670,54 @@ void Attractor::Target(::g::Uno::UX::Property1* value)
     _Target = value;
 }
 
+// public Fuse.Motion.MotionDestinationType get_Type() [instance] :209
+int Attractor::Type()
+{
+    return uPtr(_motion)->Type();
+}
+
+// public void set_Type(Fuse.Motion.MotionDestinationType value) [instance] :210
+void Attractor::Type(int value)
+{
+    uPtr(_motion)->Type(value);
+}
+
+// public Fuse.Motion.MotionUnit get_Unit() [instance] :251
+int Attractor::Unit()
+{
+    return uPtr(_motion)->Unit();
+}
+
+// public void set_Unit(Fuse.Motion.MotionUnit value) [instance] :252
+void Attractor::Unit(int value)
+{
+    uPtr(_motion)->Unit(value);
+}
+
 // private void Update() [instance] :332
 void Attractor::Update()
 {
     uType* __types[] = {
         __type->T(0),
-        __type->Precalced(1/*Fuse.Motion.Simulation.MotionSimulation<T>*/),
+        __type->Precalced(2/*Fuse.Motion.Simulation.MotionSimulation<T>*/),
     };
     uT ret5(__types[0], U_ALLOCA(__types[0]->ValueSize));
 
     if (_sim != NULL)
     {
-        ::g::Fuse::Motion::Simulation::Simulation::Update(uInterface(uPtr(_sim), ::TYPES[0/*Fuse.Motion.Simulation.Simulation*/]), ::g::Fuse::Time::FrameInterval() * (double)_timeMultiplier);
+        ::g::Fuse::Motion::Simulation::Simulation::Update(uInterface(uPtr(_sim), ::TYPES[1/*Fuse.Motion.Simulation.Simulation*/]), ::g::Fuse::Time::FrameInterval() * (double)_timeMultiplier);
         uPtr(Target())->Set_ex((::g::Fuse::Motion::Simulation::MotionSimulation::get_Position_ex(uInterface(uPtr(_sim), __types[1]), &ret5), ret5), (uObject*)this);
     }
 
     CheckNeedUpdate();
+}
+
+// public Attractor New(Uno.UX.Property<T> target) [static] :186
+Attractor* Attractor::New3(uType* __type, ::g::Uno::UX::Property1* target)
+{
+    Attractor* obj2 = (Attractor*)uNew(__type);
+    obj2->ctor_4(target);
+    return obj2;
 }
 // }
 
@@ -606,7 +728,7 @@ void Attractor::Update()
 // {
 static void AverageMasterProperty_build(uType* type)
 {
-    ::TYPES[4] = ::g::Fuse::Internal::BlenderMap_typeof();
+    ::TYPES[5] = ::g::Fuse::Internal::BlenderMap_typeof();
     type->SetBase(::g::Fuse::Animations::MasterProperty_typeof()->MakeType(type->T(0)));
     type->SetPrecalc(
         ::g::Fuse::Internal::BlenderMap_typeof()->MakeMethod(1, type->T(0)));
@@ -727,7 +849,7 @@ AverageMasterProperty* AverageMasterProperty::New1(uType* __type, ::g::Uno::UX::
 // {
 static void AverageMasterTransform_build(uType* type)
 {
-    ::TYPES[5] = ::g::Uno::Float4x4_typeof();
+    ::TYPES[6] = ::g::Uno::Float4x4_typeof();
     type->SetInterfaces(
         ::g::Fuse::Animations::IMixerMaster_typeof(), offsetof(::g::Fuse::Animations::MasterBase_type, interface0));
     type->SetFields(6);
@@ -783,7 +905,7 @@ void AverageMasterTransform__OnComplete_fn(AverageMasterTransform* __this)
             uPtr(uPtr(v)->Value().Strong< ::g::Fuse::Transform*>())->AppendTo(nv, uPtr(v)->Strength);
     }
 
-    if (!uPtr(nv)->Matrix().Equals(::TYPES[5/*float4x4*/], uBox(::TYPES[5/*float4x4*/], uPtr(uPtr(__this->FMT)->Matrix)->Matrix())))
+    if (!uPtr(nv)->Matrix().Equals(::TYPES[6/*float4x4*/], uBox(::TYPES[6/*float4x4*/], uPtr(uPtr(__this->FMT)->Matrix)->Matrix())))
     {
         uPtr(__this->FMT)->Matrix = nv;
         uPtr(__this->FMT)->Changed();
@@ -812,7 +934,7 @@ AverageMasterTransform* AverageMasterTransform::New1(::g::Fuse::Visual* node, ::
 // {
 static void AverageMixer_build(uType* type)
 {
-    ::TYPES[6] = ::g::Fuse::Animations::AverageMasterProperty_typeof();
+    ::TYPES[7] = ::g::Fuse::Animations::AverageMasterProperty_typeof();
     type->SetPrecalc(
         ::g::Fuse::Animations::AverageMasterProperty_typeof()->MakeType(type->U(0)));
     type->SetInterfaces(
@@ -1278,12 +1400,12 @@ Easing__BounceOutImpl* Easing__BounceOutImpl::New1()
 // {
 static void Change_build(uType* type)
 {
-    ::STRINGS[3] = uString::Const("target");
+    ::STRINGS[0] = uString::Const("target");
     ::STRINGS[4] = uString::Const("Unsupported change type: ");
-    ::TYPES[7] = ::g::Uno::Type_typeof();
-    ::TYPES[8] = ::g::Fuse::Animations::Converter_typeof();
-    ::TYPES[9] = ::g::Fuse::Animations::ContinuousTrackChangeState_typeof();
-    ::TYPES[10] = ::g::Fuse::Animations::DiscreteTrackChangeState_typeof();
+    ::TYPES[8] = ::g::Uno::Type_typeof();
+    ::TYPES[9] = ::g::Fuse::Animations::Converter_typeof();
+    ::TYPES[10] = ::g::Fuse::Animations::ContinuousTrackChangeState_typeof();
+    ::TYPES[11] = ::g::Fuse::Animations::DiscreteTrackChangeState_typeof();
     type->SetPrecalc(
         ::g::Fuse::Animations::Converter_typeof()->MakeType(type->T(0)),
         ::g::Fuse::Animations::ContinuousTrackChangeState_typeof()->MakeType(type->T(0)),
@@ -1385,7 +1507,7 @@ void Change::ctor_3(::g::Uno::UX::Property1* target)
     ctor_2();
 
     if (target == NULL)
-        U_THROW(::g::Uno::ArgumentNullException::New6(::STRINGS[3/*"target"*/]));
+        U_THROW(::g::Uno::ArgumentNullException::New6(::STRINGS[0/*"target"*/]));
 
     Target(target);
 
@@ -1637,8 +1759,8 @@ Easing__CircularOutImpl* Easing__CircularOutImpl::New1()
 // {
 static void ContinuousTrackChangeState_build(uType* type)
 {
-    ::TYPES[11] = ::g::Fuse::Animations::IMixer_typeof();
-    ::TYPES[12] = ::g::Fuse::Animations::IMixerHandle_typeof();
+    ::TYPES[12] = ::g::Fuse::Animations::IMixer_typeof();
+    ::TYPES[13] = ::g::Fuse::Animations::IMixerHandle_typeof();
     type->SetPrecalc(
         ::g::Fuse::Animations::IMixer_typeof()->MakeMethod(1, type->T(0)),
         ::g::Fuse::Animations::IMixerHandle_typeof()->MakeType(type->T(0)));
@@ -1717,7 +1839,7 @@ void ContinuousTrackChangeState::ctor_2(::g::Fuse::Animations::Change* animator,
     };
     ctor_1(animator, p, NULL);
     Animator1 = animator;
-    mixHandle = ((uObject*)::g::Fuse::Animations::IMixer::Register(uInterface(uPtr(uPtr(Animator1)->Mixer), ::TYPES[11/*Fuse.Animations.IMixer*/]), __types[0], (::g::Uno::UX::Property1*)uPtr(Animator1)->Target(), uPtr(Animator1)->MixOp()));
+    mixHandle = ((uObject*)::g::Fuse::Animations::IMixer::Register(uInterface(uPtr(uPtr(Animator1)->Mixer), ::TYPES[12/*Fuse.Animations.IMixer*/]), __types[0], (::g::Uno::UX::Property1*)uPtr(Animator1)->Target(), uPtr(Animator1)->MixOp()));
 }
 
 // public ContinuousTrackChangeState New(Fuse.Animations.Change<T> animator, Fuse.Animations.CreateStateParams p) [static] :666
@@ -2741,7 +2863,7 @@ Easing__CubicOutImpl* Easing__CubicOutImpl::New1()
 // {
 static void Cycle_build(uType* type)
 {
-    ::TYPES[13] = ::g::Fuse::Animations::CycleState_typeof();
+    ::TYPES[14] = ::g::Fuse::Animations::CycleState_typeof();
     type->SetPrecalc(
         ::g::Fuse::Animations::CycleState_typeof()->MakeType(type->T(0)));
     type->SetFields(6,
@@ -3081,9 +3203,9 @@ double Cycle::WaveformFunc(double i, double offset)
 // {
 static void CycleState_build(uType* type)
 {
-    ::TYPES[11] = ::g::Fuse::Animations::IMixer_typeof();
-    ::TYPES[4] = ::g::Fuse::Internal::BlenderMap_typeof();
-    ::TYPES[12] = ::g::Fuse::Animations::IMixerHandle_typeof();
+    ::TYPES[12] = ::g::Fuse::Animations::IMixer_typeof();
+    ::TYPES[5] = ::g::Fuse::Internal::BlenderMap_typeof();
+    ::TYPES[13] = ::g::Fuse::Animations::IMixerHandle_typeof();
     type->SetPrecalc(
         ::g::Fuse::Animations::IMixer_typeof()->MakeMethod(1, type->T(0)),
         ::g::Fuse::Internal::BlenderMap_typeof()->MakeMethod(1, type->T(0)),
@@ -3187,7 +3309,7 @@ void CycleState::ctor_2(::g::Fuse::Animations::Cycle* animator, ::g::Fuse::Anima
     };
     ctor_1(animator, p, NULL);
     Animator1 = animator;
-    mixHandle = ((uObject*)::g::Fuse::Animations::IMixer::Register(uInterface(uPtr(uPtr(Animator1)->Mixer), ::TYPES[11/*Fuse.Animations.IMixer*/]), __types[0], (::g::Uno::UX::Property1*)uPtr(Animator1)->Target(), uPtr(Animator1)->MixOp()));
+    mixHandle = ((uObject*)::g::Fuse::Animations::IMixer::Register(uInterface(uPtr(uPtr(Animator1)->Mixer), ::TYPES[12/*Fuse.Animations.IMixer*/]), __types[0], (::g::Uno::UX::Property1*)uPtr(Animator1)->Target(), uPtr(Animator1)->MixOp()));
     blender = ((::g::Fuse::Internal::Blender*)::g::Fuse::Internal::BlenderMap::Get(__types[1]));
 }
 
@@ -3393,7 +3515,7 @@ DiscreteMasterTransform* DiscreteMasterTransform::New1(::g::Fuse::Visual* node, 
 // {
 static void DiscreteMixer_build(uType* type)
 {
-    ::TYPES[14] = ::g::Fuse::Animations::DiscreteMasterProperty_typeof();
+    ::TYPES[15] = ::g::Fuse::Animations::DiscreteMasterProperty_typeof();
     type->SetPrecalc(
         ::g::Fuse::Animations::DiscreteMasterProperty_typeof()->MakeType(type->U(0)));
     type->SetInterfaces(
@@ -3584,8 +3706,8 @@ DiscreteSingleTrack* DiscreteSingleTrack::New1()
 // {
 static void DiscreteTrackChangeState_build(uType* type)
 {
-    ::TYPES[11] = ::g::Fuse::Animations::IMixer_typeof();
-    ::TYPES[12] = ::g::Fuse::Animations::IMixerHandle_typeof();
+    ::TYPES[12] = ::g::Fuse::Animations::IMixer_typeof();
+    ::TYPES[13] = ::g::Fuse::Animations::IMixerHandle_typeof();
     type->SetPrecalc(
         ::g::Fuse::Animations::IMixer_typeof()->MakeMethod(1, type->T(0)),
         ::g::Fuse::Animations::IMixerHandle_typeof()->MakeType(type->T(0)));
@@ -3663,7 +3785,7 @@ void DiscreteTrackChangeState::ctor_2(::g::Fuse::Animations::Change* animator, :
     };
     ctor_1(animator, p, NULL);
     Animator1 = animator;
-    mixHandle = ((uObject*)::g::Fuse::Animations::IMixer::Register(uInterface(uPtr(uPtr(Animator1)->Mixer), ::TYPES[11/*Fuse.Animations.IMixer*/]), __types[0], (::g::Uno::UX::Property1*)uPtr(Animator1)->Target(), uPtr(Animator1)->MixOp()));
+    mixHandle = ((uObject*)::g::Fuse::Animations::IMixer::Register(uInterface(uPtr(uPtr(Animator1)->Mixer), ::TYPES[12/*Fuse.Animations.IMixer*/]), __types[0], (::g::Uno::UX::Property1*)uPtr(Animator1)->Target(), uPtr(Animator1)->MixOp()));
 }
 
 // public DiscreteTrackChangeState New(Fuse.Animations.Change<T> animator, Fuse.Animations.CreateStateParams p) [static] :633
@@ -3839,7 +3961,7 @@ static void EasingTrack__cctor__fn(uType* __type)
 
 static void EasingTrack_build(uType* type)
 {
-    ::TYPES[15] = ::g::Fuse::Animations::ContinuousTrackProvider_typeof();
+    ::TYPES[16] = ::g::Fuse::Animations::ContinuousTrackProvider_typeof();
     type->SetInterfaces(
         ::g::Fuse::Animations::ContinuousTrackProvider_typeof(), offsetof(EasingTrack_type, interface0),
         ::g::Fuse::Animations::TrackProvider_typeof(), offsetof(EasingTrack_type, interface1));
@@ -3900,7 +4022,7 @@ void EasingTrack__FuseAnimationsContinuousTrackProviderGetSeekTime_fn(EasingTrac
     else 
         progress = (float)(elapsed_ / duration);
 
-    return *__retval = ::g::Fuse::Animations::ContinuousTrackProvider::GetSeekProgress(uInterface(uPtr(uAs<uObject*>(__this, ::TYPES[15/*Fuse.Animations.ContinuousTrackProvider*/])), ::TYPES[15/*Fuse.Animations.ContinuousTrackProvider*/]), tas, (double)progress, interval_, dir_, value, strength), void();
+    return *__retval = ::g::Fuse::Animations::ContinuousTrackProvider::GetSeekProgress(uInterface(uPtr(uAs<uObject*>(__this, ::TYPES[16/*Fuse.Animations.ContinuousTrackProvider*/])), ::TYPES[16/*Fuse.Animations.ContinuousTrackProvider*/]), tas, (double)progress, interval_, dir_, value, strength), void();
 }
 
 // private Fuse.Animations.AnimatorVariant Fuse.Animations.TrackProvider.GetAnimatorVariant(Fuse.Animations.TrackAnimator ta) :1236
@@ -4629,10 +4751,10 @@ static void MasterBase__Finalize_fn(MasterBase* __this)
 static void MasterBase_build(uType* type)
 {
     ::STRINGS[5] = uString::Const("Attempt to register in inactive Master");
-    ::STRINGS[1] = uString::Const("/usr/local/share/uno/Packages/Fuse.Animations/0.39.3/$.uno");
+    ::STRINGS[2] = uString::Const("/usr/local/share/uno/Packages/Fuse.Animations/0.39.3/$.uno");
     ::STRINGS[6] = uString::Const("Register");
-    ::TYPES[16] = ::g::Uno::Collections::List_typeof();
-    ::TYPES[1] = ::g::Uno::Action_typeof();
+    ::TYPES[17] = ::g::Uno::Collections::List_typeof();
+    ::TYPES[2] = ::g::Uno::Action_typeof();
     type->SetPrecalc(
         ::g::Uno::Collections::List_typeof()->MakeType(::g::Fuse::Animations::MixerHandle_typeof()->MakeType(type->T(0))));
     type->SetInterfaces(
@@ -4766,7 +4888,7 @@ void MasterBase::MarkDirty()
         return;
     }
 
-    ::g::Fuse::UpdateManager::AddDeferredAction(uDelegate::New(::TYPES[1/*Uno.Action*/], (void*)MasterBase__Complete_fn, this), -1, 0);
+    ::g::Fuse::UpdateManager::AddDeferredAction(uDelegate::New(::TYPES[2/*Uno.Action*/], (void*)MasterBase__Complete_fn, this), -1, 0);
 }
 
 // public void Register(Fuse.Animations.MixerHandle<T> handle) [instance] :1611
@@ -4776,7 +4898,7 @@ void MasterBase::Register(::g::Fuse::Animations::MixerHandle* handle)
 
     if (_inactive)
     {
-        ::g::Fuse::Diagnostics::InternalError(::STRINGS[5/*"Attempt to ...*/], this, ::STRINGS[1/*"/usr/local/...*/], 1615, ::STRINGS[6/*"Register"*/]);
+        ::g::Fuse::Diagnostics::InternalError(::STRINGS[5/*"Attempt to ...*/], this, ::STRINGS[2/*"/usr/local/...*/], 1615, ::STRINGS[6/*"Register"*/]);
         return;
     }
 
@@ -4819,7 +4941,7 @@ static void MasterProperty_build(uType* type)
     ::STRINGS[7] = uString::Const("The property ");
     ::STRINGS[8] = uString::Const(" of ");
     ::STRINGS[9] = uString::Const(" cannot be reliably animated because it does not provide an origin-setter. Animating this property may lead to visual glitches or inconsistencies.");
-    ::STRINGS[1] = uString::Const("/usr/local/share/uno/Packages/Fuse.Animations/0.39.3/$.uno");
+    ::STRINGS[2] = uString::Const("/usr/local/share/uno/Packages/Fuse.Animations/0.39.3/$.uno");
     ::STRINGS[10] = uString::Const("GiveOriginSetterWarning");
     type->SetBase(::g::Fuse::Animations::MasterBase_typeof()->MakeType(type->T(0)));
     type->SetInterfaces(
@@ -4966,7 +5088,7 @@ void MasterProperty::GiveOriginSetterWarning()
     if (!_warningGiven)
     {
         _warningGiven = true;
-        ::g::Fuse::Diagnostics::UserWarning(::g::Uno::String::op_Addition2(::g::Uno::String::op_Addition1(::g::Uno::String::op_Addition2(::g::Uno::String::op_Addition2(::STRINGS[7/*"The property "*/], ::g::Uno::UX::Selector__op_Implicit1(uPtr(Property)->Name())), ::STRINGS[8/*" of "*/]), uPtr(Property)->Object()), ::STRINGS[9/*" cannot be ...*/]), this, ::STRINGS[1/*"/usr/local/...*/], 1772, ::STRINGS[10/*"GiveOriginS...*/]);
+        ::g::Fuse::Diagnostics::UserWarning(::g::Uno::String::op_Addition2(::g::Uno::String::op_Addition1(::g::Uno::String::op_Addition2(::g::Uno::String::op_Addition2(::STRINGS[7/*"The property "*/], ::g::Uno::UX::Selector__op_Implicit1(uPtr(Property)->Name())), ::STRINGS[8/*" of "*/]), uPtr(Property)->Object()), ::STRINGS[9/*" cannot be ...*/]), this, ::STRINGS[2/*"/usr/local/...*/], 1772, ::STRINGS[10/*"GiveOriginS...*/]);
     }
 }
 // }
@@ -4999,7 +5121,7 @@ static void MasterTransform__cctor__fn(uType* __type)
 
 static void MasterTransform_build(uType* type)
 {
-    ::TYPES[17] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof());
+    ::TYPES[18] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof());
     type->SetBase(::g::Fuse::Animations::MasterBase_typeof()->MakeType(::g::Fuse::Transform_typeof()));
     type->SetInterfaces(
         ::g::Fuse::Animations::IMixerMaster_typeof(), offsetof(::g::Fuse::Animations::MasterBase_type, interface0));
@@ -5038,14 +5160,14 @@ void MasterTransform__ctor_1_fn(MasterTransform* __this, ::g::Fuse::Visual* node
 void MasterTransform__OnActive_fn(MasterTransform* __this)
 {
     __this->FMT = ::g::Fuse::Animations::FastMatrixTransform::New2();
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(uPtr(__this->Visual)->Children()), ::TYPES[17/*Uno.Collections.ICollection<Fuse.Node>*/]), __this->FMT);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(uPtr(__this->Visual)->Children()), ::TYPES[18/*Uno.Collections.ICollection<Fuse.Node>*/]), __this->FMT);
 }
 
 // protected override sealed void OnInactive() :1843
 void MasterTransform__OnInactive_fn(MasterTransform* __this)
 {
     bool ret1;
-    ::g::Uno::Collections::ICollection::Remove_ex(uInterface(uPtr(uPtr(__this->Visual)->Children()), ::TYPES[17/*Uno.Collections.ICollection<Fuse.Node>*/]), __this->FMT, &ret1);
+    ::g::Uno::Collections::ICollection::Remove_ex(uInterface(uPtr(uPtr(__this->Visual)->Children()), ::TYPES[18/*Uno.Collections.ICollection<Fuse.Node>*/]), __this->FMT, &ret1);
     __this->FMT = NULL;
 }
 
@@ -5130,13 +5252,13 @@ uObject* Mixer::DefaultDiscrete()
 // {
 static void MixerBase_build(uType* type)
 {
-    ::TYPES[18] = ::g::Uno::Collections::Dictionary_typeof()->MakeType(uObject_typeof(), uObject_typeof());
-    ::TYPES[19] = ::g::Fuse::Animations::MasterBase_typeof();
-    ::TYPES[20] = ::g::Fuse::Animations::MixerHandle_typeof();
-    ::TYPES[21] = ::g::Fuse::Animations::MasterBase_typeof()->MakeType(::g::Fuse::Transform_typeof());
-    ::TYPES[22] = ::g::Fuse::Animations::MixerHandle_typeof()->MakeType(::g::Fuse::Transform_typeof());
-    ::TYPES[23] = ::g::Fuse::Animations::MasterPropertyGet_typeof();
-    ::TYPES[24] = ::g::Fuse::Animations::MasterTransform_typeof();
+    ::TYPES[19] = ::g::Uno::Collections::Dictionary_typeof()->MakeType(uObject_typeof(), uObject_typeof());
+    ::TYPES[20] = ::g::Fuse::Animations::MasterBase_typeof();
+    ::TYPES[21] = ::g::Fuse::Animations::MixerHandle_typeof();
+    ::TYPES[22] = ::g::Fuse::Animations::MasterBase_typeof()->MakeType(::g::Fuse::Transform_typeof());
+    ::TYPES[23] = ::g::Fuse::Animations::MixerHandle_typeof()->MakeType(::g::Fuse::Transform_typeof());
+    ::TYPES[24] = ::g::Fuse::Animations::MasterPropertyGet_typeof();
+    ::TYPES[25] = ::g::Fuse::Animations::MasterTransform_typeof();
     type->SetPrecalc(
         MixerBase_typeof()->MakeMethod(1, type->U(0)),
         ::g::Fuse::Animations::MasterBase_typeof()->MakeType(type->U(0)),
@@ -5194,7 +5316,7 @@ void MixerBase__Unused_fn(MixerBase* __this, uObject* mb)
 // protected generated MixerBase() [instance] :1542
 void MixerBase::ctor_()
 {
-    Masters = ((::g::Uno::Collections::Dictionary*)::g::Uno::Collections::Dictionary::New1(::TYPES[18/*Uno.Collections.Dictionary<object, object>*/]));
+    Masters = ((::g::Uno::Collections::Dictionary*)::g::Uno::Collections::Dictionary::New1(::TYPES[19/*Uno.Collections.Dictionary<object, object>*/]));
     _propHandle = ::g::Fuse::Properties::CreateHandle();
 }
 
@@ -5231,20 +5353,20 @@ uObject* MixerBase::RegisterTransform(::g::Fuse::Visual* element, int mode, int 
         uPtr(uPtr(element)->Properties())->Set(_propHandle, master);
     }
 
-    ::g::Fuse::Animations::MasterBase* masterT = uCast< ::g::Fuse::Animations::MasterBase*>(master, ::TYPES[21/*Fuse.Animations.MasterBase<Fuse.Transform>*/]);
-    return (uObject*)((::g::Fuse::Animations::MixerHandle*)::g::Fuse::Animations::MixerHandle::New1(::TYPES[22/*Fuse.Animations.MixerHandle<Fuse.Transform>*/], masterT, mode, priority));
+    ::g::Fuse::Animations::MasterBase* masterT = uCast< ::g::Fuse::Animations::MasterBase*>(master, ::TYPES[22/*Fuse.Animations.MasterBase<Fuse.Transform>*/]);
+    return (uObject*)((::g::Fuse::Animations::MixerHandle*)::g::Fuse::Animations::MixerHandle::New1(::TYPES[23/*Fuse.Animations.MixerHandle<Fuse.Transform>*/], masterT, mode, priority));
 }
 
 // public void Unused(Fuse.Animations.IMixerMaster mb) [instance] :1575
 void MixerBase::Unused(uObject* mb)
 {
     bool ret2;
-    uObject* prop = uAs<uObject*>(mb, ::TYPES[23/*Fuse.Animations.MasterPropertyGet*/]);
+    uObject* prop = uAs<uObject*>(mb, ::TYPES[24/*Fuse.Animations.MasterPropertyGet*/]);
 
     if (prop != NULL)
-        ::g::Uno::Collections::Dictionary__Remove_fn(uPtr(Masters), ::g::Fuse::Animations::MasterPropertyGet::GetPropertyObject(uInterface(uPtr(prop), ::TYPES[23/*Fuse.Animations.MasterPropertyGet*/])), &ret2);
+        ::g::Uno::Collections::Dictionary__Remove_fn(uPtr(Masters), ::g::Fuse::Animations::MasterPropertyGet::GetPropertyObject(uInterface(uPtr(prop), ::TYPES[24/*Fuse.Animations.MasterPropertyGet*/])), &ret2);
 
-    ::g::Fuse::Animations::MasterTransform* trans = uAs< ::g::Fuse::Animations::MasterTransform*>(mb, ::TYPES[24/*Fuse.Animations.MasterTransform*/]);
+    ::g::Fuse::Animations::MasterTransform* trans = uAs< ::g::Fuse::Animations::MasterTransform*>(mb, ::TYPES[25/*Fuse.Animations.MasterTransform*/]);
 
     if (trans != NULL)
         uPtr(uPtr(uPtr(trans)->Visual)->Properties())->Clear(_propHandle);
@@ -5799,7 +5921,7 @@ void OpenAnimatorState::ctor_1(::g::Fuse::Animations::OpenAnimator* animator, ::
 // {
 static void Player_build(uType* type)
 {
-    ::TYPES[25] = ::g::Fuse::Animations::IPlayerFeedback_typeof();
+    ::TYPES[26] = ::g::Fuse::Animations::IPlayerFeedback_typeof();
     type->SetInterfaces(
         ::g::Fuse::IUpdateListener_typeof(), offsetof(Player_type, interface0));
     type->SetFields(0,
@@ -6072,7 +6194,7 @@ void Player::CheckUpdate(bool interval)
             uPtr(_progress)->Step();
 
         if (Feedback != NULL)
-            ::g::Fuse::Animations::IPlayerFeedback::OnProgressUpdated(uInterface(uPtr(Feedback), ::TYPES[25/*Fuse.Animations.IPlayerFeedback*/]), this);
+            ::g::Fuse::Animations::IPlayerFeedback::OnProgressUpdated(uInterface(uPtr(Feedback), ::TYPES[26/*Fuse.Animations.IPlayerFeedback*/]), this);
     }
 
     if (uPtr(_strength)->Animate)
@@ -6096,7 +6218,7 @@ void Player::CheckUpdate(bool interval)
         _allStable = stable;
 
         if ((Feedback != NULL) && stable)
-            ::g::Fuse::Animations::IPlayerFeedback::OnStable(uInterface(uPtr(Feedback), ::TYPES[25/*Fuse.Animations.IPlayerFeedback*/]), this);
+            ::g::Fuse::Animations::IPlayerFeedback::OnStable(uInterface(uPtr(Feedback), ::TYPES[26/*Fuse.Animations.IPlayerFeedback*/]), this);
     }
 }
 
@@ -6125,7 +6247,7 @@ void Player::Done()
         _isDone = true;
 
         if (Feedback != NULL)
-            ::g::Fuse::Animations::IPlayerFeedback::OnPlaybackDone(uInterface(uPtr(Feedback), ::TYPES[25/*Fuse.Animations.IPlayerFeedback*/]), this);
+            ::g::Fuse::Animations::IPlayerFeedback::OnPlaybackDone(uInterface(uPtr(Feedback), ::TYPES[26/*Fuse.Animations.IPlayerFeedback*/]), this);
     }
 }
 
@@ -6221,7 +6343,7 @@ void Player::SeekProgress(double progress, bool triggerUpdate)
     CheckUpdate(false);
 
     if (triggerUpdate && (Feedback != NULL))
-        ::g::Fuse::Animations::IPlayerFeedback::OnProgressUpdated(uInterface(uPtr(Feedback), ::TYPES[25/*Fuse.Animations.IPlayerFeedback*/]), this);
+        ::g::Fuse::Animations::IPlayerFeedback::OnProgressUpdated(uInterface(uPtr(Feedback), ::TYPES[26/*Fuse.Animations.IPlayerFeedback*/]), this);
 }
 
 // private void Start() [instance] :2303
@@ -7392,13 +7514,13 @@ void Resize::Target(::g::Fuse::Visual* value)
 static void ResizeAnimatorState_build(uType* type)
 {
     ::STRINGS[12] = uString::Const("Resize started without a Target node");
-    ::STRINGS[1] = uString::Const("/usr/local/share/uno/Packages/Fuse.Animations/0.39.3/$.uno");
+    ::STRINGS[2] = uString::Const("/usr/local/share/uno/Packages/Fuse.Animations/0.39.3/$.uno");
     ::STRINGS[13] = uString::Const(".ctor");
     ::STRINGS[14] = uString::Const("Resize started without as RelativeTo");
-    ::TYPES[26] = ::g::Fuse::Animations::IResize_typeof();
-    ::TYPES[27] = ::g::Fuse::IActualPlacement_typeof();
-    ::TYPES[28] = ::g::Fuse::PlacedHandler_typeof();
-    ::TYPES[29] = ::g::Fuse::Animations::IResizeMode_typeof();
+    ::TYPES[27] = ::g::Fuse::Animations::IResize_typeof();
+    ::TYPES[28] = ::g::Fuse::IActualPlacement_typeof();
+    ::TYPES[29] = ::g::Fuse::PlacedHandler_typeof();
+    ::TYPES[30] = ::g::Fuse::Animations::IResizeMode_typeof();
     type->SetFields(6,
         ::g::Uno::Float_typeof(), offsetof(::g::Fuse::Animations::ResizeAnimatorState, _lastStrength), 0,
         ::g::Uno::Float4_typeof(), offsetof(::g::Fuse::Animations::ResizeAnimatorState, _lastValue), 0,
@@ -7440,15 +7562,15 @@ void ResizeAnimatorState__Disable_fn(ResizeAnimatorState* __this)
     if (!__this->_valid)
         return;
 
-    uObject* e = uAs<uObject*>(__this->_target, ::TYPES[27/*Fuse.IActualPlacement*/]);
+    uObject* e = uAs<uObject*>(__this->_target, ::TYPES[28/*Fuse.IActualPlacement*/]);
 
     if (e != NULL)
-        ::g::Fuse::IActualPlacement::remove_Placed(uInterface(uPtr(e), ::TYPES[27/*Fuse.IActualPlacement*/]), uDelegate::New(::TYPES[28/*Fuse.PlacedHandler*/], (void*)ResizeAnimatorState__OnPlaced_fn, __this));
+        ::g::Fuse::IActualPlacement::remove_Placed(uInterface(uPtr(e), ::TYPES[28/*Fuse.IActualPlacement*/]), uDelegate::New(::TYPES[29/*Fuse.PlacedHandler*/], (void*)ResizeAnimatorState__OnPlaced_fn, __this));
 
-    uObject* elm = uAs<uObject*>(__this->_relativeNode, ::TYPES[27/*Fuse.IActualPlacement*/]);
+    uObject* elm = uAs<uObject*>(__this->_relativeNode, ::TYPES[28/*Fuse.IActualPlacement*/]);
 
     if (elm != NULL)
-        ::g::Fuse::IActualPlacement::remove_Placed(uInterface(uPtr(elm), ::TYPES[27/*Fuse.IActualPlacement*/]), uDelegate::New(::TYPES[28/*Fuse.PlacedHandler*/], (void*)ResizeAnimatorState__OnPlaced_fn, __this));
+        ::g::Fuse::IActualPlacement::remove_Placed(uInterface(uPtr(elm), ::TYPES[28/*Fuse.IActualPlacement*/]), uDelegate::New(::TYPES[29/*Fuse.PlacedHandler*/], (void*)ResizeAnimatorState__OnPlaced_fn, __this));
 }
 
 // public ResizeAnimatorState New(Fuse.Animations.Resize r, Fuse.Animations.CreateStateParams p) :2711
@@ -7486,11 +7608,11 @@ void ResizeAnimatorState::ctor_2(::g::Fuse::Animations::Resize* r, ::g::Fuse::An
     _valid = true;
     ctor_1(r, p, uPtr(r)->Target());
     _resize = r;
-    _target = uAs<uObject*>(Visual, ::TYPES[26/*Fuse.Animations.IResize*/]);
+    _target = uAs<uObject*>(Visual, ::TYPES[27/*Fuse.Animations.IResize*/]);
 
     if (_target == NULL)
     {
-        ::g::Fuse::Diagnostics::InternalError(::STRINGS[12/*"Resize star...*/], r, ::STRINGS[1/*"/usr/local/...*/], 2717, ::STRINGS[13/*".ctor"*/]);
+        ::g::Fuse::Diagnostics::InternalError(::STRINGS[12/*"Resize star...*/], r, ::STRINGS[2/*"/usr/local/...*/], 2717, ::STRINGS[13/*".ctor"*/]);
         _valid = false;
         return;
     }
@@ -7499,21 +7621,21 @@ void ResizeAnimatorState::ctor_2(::g::Fuse::Animations::Resize* r, ::g::Fuse::An
 
     if (_relativeTo == NULL)
     {
-        ::g::Fuse::Diagnostics::InternalError(::STRINGS[14/*"Resize star...*/], r, ::STRINGS[1/*"/usr/local/...*/], 2725, ::STRINGS[13/*".ctor"*/]);
+        ::g::Fuse::Diagnostics::InternalError(::STRINGS[14/*"Resize star...*/], r, ::STRINGS[2/*"/usr/local/...*/], 2725, ::STRINGS[13/*".ctor"*/]);
         _valid = false;
         return;
     }
 
     _relativeNode = (ind1 = uPtr(_resize)->RelativeNode(), ((ind1 != NULL) ? ind1 : (::g::Fuse::Visual*)Visual));
-    uObject* elm = uAs<uObject*>(_relativeNode, ::TYPES[27/*Fuse.IActualPlacement*/]);
+    uObject* elm = uAs<uObject*>(_relativeNode, ::TYPES[28/*Fuse.IActualPlacement*/]);
 
     if (elm != NULL)
-        ::g::Fuse::IActualPlacement::add_Placed(uInterface(uPtr(elm), ::TYPES[27/*Fuse.IActualPlacement*/]), uDelegate::New(::TYPES[28/*Fuse.PlacedHandler*/], (void*)ResizeAnimatorState__OnPlaced_fn, this));
+        ::g::Fuse::IActualPlacement::add_Placed(uInterface(uPtr(elm), ::TYPES[28/*Fuse.IActualPlacement*/]), uDelegate::New(::TYPES[29/*Fuse.PlacedHandler*/], (void*)ResizeAnimatorState__OnPlaced_fn, this));
 
-    uObject* e = uAs<uObject*>(_target, ::TYPES[27/*Fuse.IActualPlacement*/]);
+    uObject* e = uAs<uObject*>(_target, ::TYPES[28/*Fuse.IActualPlacement*/]);
 
     if (e != NULL)
-        ::g::Fuse::IActualPlacement::add_Placed(uInterface(uPtr(e), ::TYPES[27/*Fuse.IActualPlacement*/]), uDelegate::New(::TYPES[28/*Fuse.PlacedHandler*/], (void*)ResizeAnimatorState__OnPlaced_fn, this));
+        ::g::Fuse::IActualPlacement::add_Placed(uInterface(uPtr(e), ::TYPES[28/*Fuse.IActualPlacement*/]), uDelegate::New(::TYPES[29/*Fuse.PlacedHandler*/], (void*)ResizeAnimatorState__OnPlaced_fn, this));
 }
 
 // private void OnPlaced(object s, object a) [instance] :2781
@@ -7531,10 +7653,10 @@ void ResizeAnimatorState::Update(::g::Uno::Float4 value, float strength)
     ::g::Uno::Float2 baseSize;
     ::g::Uno::Float2 deltaSize;
 
-    if (::g::Fuse::Animations::IResizeMode::GetSizeChange(uInterface(uPtr(_relativeTo), ::TYPES[29/*Fuse.Animations.IResizeMode*/]), Visual, _relativeNode, &baseSize, &deltaSize))
+    if (::g::Fuse::Animations::IResizeMode::GetSizeChange(uInterface(uPtr(_relativeTo), ::TYPES[30/*Fuse.Animations.IResizeMode*/]), Visual, _relativeNode, &baseSize, &deltaSize))
     {
         ::g::Uno::Float2 sz = ::g::Uno::Float2__op_Addition2(baseSize, ::g::Uno::Float2__op_Multiply1(::g::Uno::Float2__op_Multiply2(deltaSize, ::g::Uno::Float2__New2(value.X, value.Y)), strength));
-        ::g::Fuse::Animations::IResize::SetSize(uInterface(uPtr(_target), ::TYPES[26/*Fuse.Animations.IResize*/]), sz);
+        ::g::Fuse::Animations::IResize::SetSize(uInterface(uPtr(_target), ::TYPES[27/*Fuse.Animations.IResize*/]), sz);
     }
 }
 
@@ -8050,8 +8172,8 @@ void Spin::Target(::g::Fuse::Visual* value)
 // {
 static void SpinState_build(uType* type)
 {
-    ::TYPES[11] = ::g::Fuse::Animations::IMixer_typeof();
-    ::TYPES[30] = ::g::Fuse::Animations::IMixerHandle_typeof()->MakeType(::g::Fuse::Transform_typeof());
+    ::TYPES[12] = ::g::Fuse::Animations::IMixer_typeof();
+    ::TYPES[31] = ::g::Fuse::Animations::IMixerHandle_typeof()->MakeType(::g::Fuse::Transform_typeof());
     type->SetFields(5,
         ::g::Fuse::Animations::Spin_typeof(), offsetof(::g::Fuse::Animations::SpinState, Animator1), 0,
         ::g::Uno::Double_typeof(), offsetof(::g::Fuse::Animations::SpinState, degrees), 0,
@@ -8089,7 +8211,7 @@ void SpinState__Disable_fn(SpinState* __this)
         return;
 
     __this->degrees = 0.0;
-    ::g::Fuse::Animations::IMixerHandle::Unregister(uInterface(uPtr(__this->mixHandle), ::TYPES[30/*Fuse.Animations.IMixerHandle<Fuse.Transform>*/]));
+    ::g::Fuse::Animations::IMixerHandle::Unregister(uInterface(uPtr(__this->mixHandle), ::TYPES[31/*Fuse.Animations.IMixerHandle<Fuse.Transform>*/]));
     __this->mixHandle = NULL;
 }
 
@@ -8122,7 +8244,7 @@ void SpinState__Seek_fn(SpinState* __this, bool* on, float* interval, float* str
     }
 
     uPtr(__this->transform)->Degrees((float)__this->degrees);
-    ::g::Fuse::Animations::IMixerHandle::Set_ex(uInterface(uPtr(__this->mixHandle), ::TYPES[30/*Fuse.Animations.IMixerHandle<Fuse.Transform>*/]), __this->transform, uCRef(strength_));
+    ::g::Fuse::Animations::IMixerHandle::Set_ex(uInterface(uPtr(__this->mixHandle), ::TYPES[31/*Fuse.Animations.IMixerHandle<Fuse.Transform>*/]), __this->transform, uCRef(strength_));
     return *__retval = done, void();
 }
 
@@ -8132,7 +8254,7 @@ void SpinState::ctor_2(::g::Fuse::Animations::Spin* animator, ::g::Fuse::Animati
     transform = ::g::Fuse::Rotation::New2();
     ctor_1(animator, p, uPtr(animator)->Target());
     Animator1 = animator;
-    mixHandle = ::g::Fuse::Animations::IMixer::RegisterTransform(uInterface(uPtr(uPtr(Animator1)->Mixer), ::TYPES[11/*Fuse.Animations.IMixer*/]), Visual, uPtr(Animator1)->MixOp(), 3000);
+    mixHandle = ::g::Fuse::Animations::IMixer::RegisterTransform(uInterface(uPtr(uPtr(Animator1)->Mixer), ::TYPES[12/*Fuse.Animations.IMixer*/]), Visual, uPtr(Animator1)->MixOp(), 3000);
 }
 
 // public SpinState New(Fuse.Animations.Spin animator, Fuse.Animations.CreateStateParams p) [static] :2843
@@ -8151,7 +8273,7 @@ SpinState* SpinState::New1(::g::Fuse::Animations::Spin* animator, ::g::Fuse::Ani
 // {
 static void TrackAnimator_build(uType* type)
 {
-    ::TYPES[31] = ::g::Fuse::Animations::TrackProvider_typeof();
+    ::TYPES[32] = ::g::Fuse::Animations::TrackProvider_typeof();
     type->SetFields(4,
         ::g::Fuse::Animations::TrackProvider_typeof(), offsetof(::g::Fuse::Animations::TrackAnimator, _continuousProvider), 0,
         ::g::Uno::Double_typeof(), offsetof(::g::Fuse::Animations::TrackAnimator, _delayBack), 0,
@@ -8196,9 +8318,9 @@ void TrackAnimator__ctor_2_fn(TrackAnimator* __this)
 void TrackAnimator__get_AnimatorVariant_fn(TrackAnimator* __this, int* __retval)
 {
     if (__this->_discreteProvider != NULL)
-        return *__retval = ::g::Fuse::Animations::TrackProvider::GetAnimatorVariant(uInterface(uPtr(__this->_discreteProvider), ::TYPES[31/*Fuse.Animations.TrackProvider*/]), __this), void();
+        return *__retval = ::g::Fuse::Animations::TrackProvider::GetAnimatorVariant(uInterface(uPtr(__this->_discreteProvider), ::TYPES[32/*Fuse.Animations.TrackProvider*/]), __this), void();
     else  if (__this->_continuousProvider != NULL)
-        return *__retval = ::g::Fuse::Animations::TrackProvider::GetAnimatorVariant(uInterface(uPtr(__this->_continuousProvider), ::TYPES[31/*Fuse.Animations.TrackProvider*/]), __this), void();
+        return *__retval = ::g::Fuse::Animations::TrackProvider::GetAnimatorVariant(uInterface(uPtr(__this->_continuousProvider), ::TYPES[32/*Fuse.Animations.TrackProvider*/]), __this), void();
 
     return *__retval = 0, void();
 }
@@ -8270,9 +8392,9 @@ void TrackAnimator__GetDurationWithDelay_fn(TrackAnimator* __this, int* dir, dou
     double duration = 0.0;
 
     if (__this->_discreteProvider != NULL)
-        duration = ::g::Fuse::Animations::TrackProvider::GetDuration(uInterface(uPtr(__this->_discreteProvider), ::TYPES[31/*Fuse.Animations.TrackProvider*/]), __this, dir_);
+        duration = ::g::Fuse::Animations::TrackProvider::GetDuration(uInterface(uPtr(__this->_discreteProvider), ::TYPES[32/*Fuse.Animations.TrackProvider*/]), __this, dir_);
     else  if (__this->_continuousProvider != NULL)
-        duration = ::g::Fuse::Animations::TrackProvider::GetDuration(uInterface(uPtr(__this->_continuousProvider), ::TYPES[31/*Fuse.Animations.TrackProvider*/]), __this, dir_);
+        duration = ::g::Fuse::Animations::TrackProvider::GetDuration(uInterface(uPtr(__this->_continuousProvider), ::TYPES[32/*Fuse.Animations.TrackProvider*/]), __this, dir_);
 
     return *__retval = (((dir_ == 1) && __this->HasBack()) ? __this->DelayBack() : __this->Delay()) + duration, void();
 }
@@ -8420,8 +8542,8 @@ void TrackAnimator::Weight(double value)
 // {
 static void TrackAnimatorState_build(uType* type)
 {
-    ::TYPES[15] = ::g::Fuse::Animations::ContinuousTrackProvider_typeof();
-    ::TYPES[32] = ::g::Fuse::Animations::DiscreteTrackProvider_typeof();
+    ::TYPES[16] = ::g::Fuse::Animations::ContinuousTrackProvider_typeof();
+    ::TYPES[33] = ::g::Fuse::Animations::DiscreteTrackProvider_typeof();
     type->SetFields(3,
         ::g::Fuse::Animations::ContinuousTrackProvider_typeof(), offsetof(::g::Fuse::Animations::TrackAnimatorState, _continuousProvider), 0,
         ::g::Fuse::Animations::DiscreteTrackProvider_typeof(), offsetof(::g::Fuse::Animations::TrackAnimatorState, _discreteProvider), 0,
@@ -8488,7 +8610,7 @@ void TrackAnimatorState__SeekProgress_fn(TrackAnimatorState* __this, double* pro
     {
         double oStrength;
         ::g::Uno::Float4 oValue;
-        int r = ::g::Fuse::Animations::ContinuousTrackProvider::GetSeekProgress(uInterface(uPtr(__this->_continuousProvider), ::TYPES[15/*Fuse.Animations.ContinuousTrackProvider*/]), __this, progress_, interval_, dir_, &oValue, &oStrength);
+        int r = ::g::Fuse::Animations::ContinuousTrackProvider::GetSeekProgress(uInterface(uPtr(__this->_continuousProvider), ::TYPES[16/*Fuse.Animations.ContinuousTrackProvider*/]), __this, progress_, interval_, dir_, &oValue, &oStrength);
         __this->SeekValue(oValue, (float)((oStrength * strength_) * uPtr(__this->Animator)->Weight()));
         return *__retval = r, void();
     }
@@ -8497,7 +8619,7 @@ void TrackAnimatorState__SeekProgress_fn(TrackAnimatorState* __this, double* pro
     {
         double oStrength1;
         uObject* oValue1;
-        int r1 = ::g::Fuse::Animations::DiscreteTrackProvider::GetSeekProgress(uInterface(uPtr(__this->_discreteProvider), ::TYPES[32/*Fuse.Animations.DiscreteTrackProvider*/]), __this, progress_, interval_, dir_, &oValue1, &oStrength1);
+        int r1 = ::g::Fuse::Animations::DiscreteTrackProvider::GetSeekProgress(uInterface(uPtr(__this->_discreteProvider), ::TYPES[33/*Fuse.Animations.DiscreteTrackProvider*/]), __this, progress_, interval_, dir_, &oValue1, &oStrength1);
         __this->SeekObjectValue(oValue1, (float)((oStrength1 * strength_) * uPtr(__this->Animator)->Weight()));
         return *__retval = r1, void();
     }
@@ -8523,7 +8645,7 @@ void TrackAnimatorState__SeekTime_fn(TrackAnimatorState* __this, double* elapsed
     {
         double oStrength;
         ::g::Uno::Float4 oValue;
-        int r = ::g::Fuse::Animations::ContinuousTrackProvider::GetSeekTime(uInterface(uPtr(__this->_continuousProvider), ::TYPES[15/*Fuse.Animations.ContinuousTrackProvider*/]), __this, relTime, interval_, dir_, &oValue, &oStrength);
+        int r = ::g::Fuse::Animations::ContinuousTrackProvider::GetSeekTime(uInterface(uPtr(__this->_continuousProvider), ::TYPES[16/*Fuse.Animations.ContinuousTrackProvider*/]), __this, relTime, interval_, dir_, &oValue, &oStrength);
         __this->SeekValue(oValue, (float)((oStrength * strength_) * uPtr(__this->Animator)->Weight()));
         return *__retval = r, void();
     }
@@ -8532,7 +8654,7 @@ void TrackAnimatorState__SeekTime_fn(TrackAnimatorState* __this, double* elapsed
     {
         double oStrength1;
         uObject* oValue1;
-        int r1 = ::g::Fuse::Animations::DiscreteTrackProvider::GetSeekTime(uInterface(uPtr(__this->_discreteProvider), ::TYPES[32/*Fuse.Animations.DiscreteTrackProvider*/]), __this, relTime, interval_, dir_, &oValue1, &oStrength1);
+        int r1 = ::g::Fuse::Animations::DiscreteTrackProvider::GetSeekTime(uInterface(uPtr(__this->_discreteProvider), ::TYPES[33/*Fuse.Animations.DiscreteTrackProvider*/]), __this, relTime, interval_, dir_, &oValue1, &oStrength1);
         __this->SeekObjectValue(oValue1, (float)((oStrength1 * strength_) * uPtr(__this->Animator)->Weight()));
         return *__retval = r1, void();
     }
@@ -8551,8 +8673,8 @@ void TrackAnimatorState::ctor_1(::g::Fuse::Animations::TrackAnimator* animator, 
     ctor_(p, useVisual);
     Animator = animator;
     uObject* pr = uPtr(animator)->GetProvider(Variant);
-    _continuousProvider = uAs<uObject*>(pr, ::TYPES[15/*Fuse.Animations.ContinuousTrackProvider*/]);
-    _discreteProvider = uAs<uObject*>(pr, ::TYPES[32/*Fuse.Animations.DiscreteTrackProvider*/]);
+    _continuousProvider = uAs<uObject*>(pr, ::TYPES[16/*Fuse.Animations.ContinuousTrackProvider*/]);
+    _discreteProvider = uAs<uObject*>(pr, ::TYPES[33/*Fuse.Animations.DiscreteTrackProvider*/]);
 }
 
 // public double get_Duration() [instance] :3454
@@ -8596,7 +8718,7 @@ uInterfaceType* TrackProvider_typeof()
 // {
 static void TransformAnimator_build(uType* type)
 {
-    ::TYPES[33] = ::g::Fuse::Animations::TransformAnimatorState_typeof();
+    ::TYPES[34] = ::g::Fuse::Animations::TransformAnimatorState_typeof();
     type->SetPrecalc(
         ::g::Fuse::Animations::TransformAnimatorState_typeof()->MakeType(type->T(0)));
     type->SetFields(18,
@@ -8773,10 +8895,10 @@ void TransformAnimator::Y(float value)
 // {
 static void TransformAnimatorState_build(uType* type)
 {
-    ::TYPES[11] = ::g::Fuse::Animations::IMixer_typeof();
-    ::TYPES[34] = ::g::Uno::Action1_typeof()->MakeType(::g::Fuse::Transform_typeof());
-    ::TYPES[35] = ::g::Fuse::Transform_typeof();
-    ::TYPES[30] = ::g::Fuse::Animations::IMixerHandle_typeof()->MakeType(::g::Fuse::Transform_typeof());
+    ::TYPES[12] = ::g::Fuse::Animations::IMixer_typeof();
+    ::TYPES[35] = ::g::Uno::Action1_typeof()->MakeType(::g::Fuse::Transform_typeof());
+    ::TYPES[36] = ::g::Fuse::Transform_typeof();
+    ::TYPES[31] = ::g::Fuse::Animations::IMixerHandle_typeof()->MakeType(::g::Fuse::Transform_typeof());
     type->SetFields(6,
         ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Animations::TransformAnimatorState, _inSeek), 0,
         ::g::Uno::Float_typeof(), offsetof(::g::Fuse::Animations::TransformAnimatorState, _lastStrength), 0,
@@ -8816,9 +8938,9 @@ void TransformAnimatorState__Disable_fn(TransformAnimatorState* __this)
     if (__this->mixHandle == NULL)
         return;
 
-    ::g::Fuse::Animations::IMixerHandle::Unregister(uInterface(uPtr(__this->mixHandle), ::TYPES[30/*Fuse.Animations.IMixerHandle<Fuse.Transform>*/]));
+    ::g::Fuse::Animations::IMixerHandle::Unregister(uInterface(uPtr(__this->mixHandle), ::TYPES[31/*Fuse.Animations.IMixerHandle<Fuse.Transform>*/]));
     __this->mixHandle = NULL;
-    uPtr(uAs< ::g::Fuse::Transform*>(__this->transform, ::TYPES[35/*Fuse.Transform*/]))->remove_MatrixChanged(__this->_matAct);
+    uPtr(uAs< ::g::Fuse::Transform*>(__this->transform, ::TYPES[36/*Fuse.Transform*/]))->remove_MatrixChanged(__this->_matAct);
     ::g::Fuse::Node::Unrelate(__this->Visual, __this->transform);
     __this->_matAct = NULL;
     __this->transform = NULL;
@@ -8848,7 +8970,7 @@ void TransformAnimatorState__SeekValue_fn(TransformAnimatorState* __this, ::g::U
     __this->_inSeek = true;
     uPtr(__this->Animator1)->Update(__this->Visual, __this->transform, value_);
     __this->_lastStrength = strength_;
-    ::g::Fuse::Animations::IMixerHandle::Set_ex(uInterface(uPtr(__this->mixHandle), ::TYPES[30/*Fuse.Animations.IMixerHandle<Fuse.Transform>*/]), __this->transform, uCRef(__this->_lastStrength));
+    ::g::Fuse::Animations::IMixerHandle::Set_ex(uInterface(uPtr(__this->mixHandle), ::TYPES[31/*Fuse.Animations.IMixerHandle<Fuse.Transform>*/]), __this->transform, uCRef(__this->_lastStrength));
     __this->_inSeek = false;
 }
 
@@ -8861,9 +8983,9 @@ void TransformAnimatorState::ctor_2(::g::Fuse::Animations::TransformAnimator* an
     transform = (::g::Fuse::Transform*)__types[0]->New();
     ctor_1(animator, p, uPtr(animator)->Target());
     Animator1 = animator;
-    mixHandle = ::g::Fuse::Animations::IMixer::RegisterTransform(uInterface(uPtr(uPtr(Animator1)->Mixer), ::TYPES[11/*Fuse.Animations.IMixer*/]), Visual, uPtr(Animator1)->MixOp(), uPtr(Animator1)->Priority());
-    _matAct = uDelegate::New(::TYPES[34/*Uno.Action<Fuse.Transform>*/], (void*)TransformAnimatorState__OnMatrixChanged_fn, this);
-    uPtr(uAs< ::g::Fuse::Transform*>(transform, ::TYPES[35/*Fuse.Transform*/]))->add_MatrixChanged(_matAct);
+    mixHandle = ::g::Fuse::Animations::IMixer::RegisterTransform(uInterface(uPtr(uPtr(Animator1)->Mixer), ::TYPES[12/*Fuse.Animations.IMixer*/]), Visual, uPtr(Animator1)->MixOp(), uPtr(Animator1)->Priority());
+    _matAct = uDelegate::New(::TYPES[35/*Uno.Action<Fuse.Transform>*/], (void*)TransformAnimatorState__OnMatrixChanged_fn, this);
+    uPtr(uAs< ::g::Fuse::Transform*>(transform, ::TYPES[36/*Fuse.Transform*/]))->add_MatrixChanged(_matAct);
     ::g::Fuse::Node::Relate(Visual, transform);
 }
 
@@ -8871,7 +8993,7 @@ void TransformAnimatorState::ctor_2(::g::Fuse::Animations::TransformAnimator* an
 void TransformAnimatorState::OnMatrixChanged(::g::Fuse::Transform* ignore)
 {
     if ((!_inSeek && (mixHandle != NULL)) && (transform != NULL))
-        ::g::Fuse::Animations::IMixerHandle::Set_ex(uInterface(uPtr(mixHandle), ::TYPES[30/*Fuse.Animations.IMixerHandle<Fuse.Transform>*/]), transform, uCRef(_lastStrength));
+        ::g::Fuse::Animations::IMixerHandle::Set_ex(uInterface(uPtr(mixHandle), ::TYPES[31/*Fuse.Animations.IMixerHandle<Fuse.Transform>*/]), transform, uCRef(_lastStrength));
 }
 
 // public TransformAnimatorState New(Fuse.Animations.TransformAnimator<TransformType> animator, Fuse.Animations.CreateStateParams p) [static] :3605
@@ -8890,9 +9012,9 @@ TransformAnimatorState* TransformAnimatorState::New1(uType* __type, ::g::Fuse::A
 // {
 static void TriggerAnimation_build(uType* type)
 {
-    ::TYPES[36] = ::g::Fuse::Animations::AnimatorState_typeof()->Array();
-    ::TYPES[37] = ::g::Uno::Collections::List_typeof()->MakeType(::g::Fuse::Animations::Animator_typeof());
-    ::TYPES[1] = ::g::Uno::Action_typeof();
+    ::TYPES[37] = ::g::Fuse::Animations::AnimatorState_typeof()->Array();
+    ::TYPES[38] = ::g::Uno::Collections::List_typeof()->MakeType(::g::Fuse::Animations::Animator_typeof());
+    ::TYPES[2] = ::g::Uno::Action_typeof();
     type->SetFields(0,
         ::g::Uno::Collections::List_typeof()->MakeType(::g::Fuse::Animations::Animator_typeof()), offsetof(::g::Fuse::Animations::TriggerAnimation, _animators), 0,
         TriggerAnimation_typeof(), offsetof(::g::Fuse::Animations::TriggerAnimation, _backward), 0,
@@ -9068,7 +9190,7 @@ void TriggerAnimation::ctor_()
 uObject* TriggerAnimation::Animators()
 {
     if (_animators == NULL)
-        _animators = ((::g::Uno::Collections::List*)::g::Uno::Collections::List::New1(::TYPES[37/*Uno.Collections.List<Fuse.Animations.Animator>*/]));
+        _animators = ((::g::Uno::Collections::List*)::g::Uno::Collections::List::New1(::TYPES[38/*Uno.Collections.List<Fuse.Animations.Animator>*/]));
 
     return (uObject*)_animators;
 }
@@ -9100,9 +9222,9 @@ uArray* TriggerAnimation::CreateAnimatorsState(int variant, ::g::Fuse::Visual* e
     ::g::Fuse::Animations::CreateStateParams* csp = collection1;
 
     if (_animators == NULL)
-        return uArray::New(::TYPES[36/*Fuse.Animations.AnimatorState[]*/], 0);
+        return uArray::New(::TYPES[37/*Fuse.Animations.AnimatorState[]*/], 0);
 
-    uArray* state = uArray::New(::TYPES[36/*Fuse.Animations.AnimatorState[]*/], uPtr(_animators)->Count());
+    uArray* state = uArray::New(::TYPES[37/*Fuse.Animations.AnimatorState[]*/], uPtr(_animators)->Count());
 
     for (int i = 0; i < uPtr(_animators)->Count(); ++i)
         uPtr(state)->Strong< ::g::Fuse::Animations::AnimatorState*>(i) = uPtr((::g::Uno::Collections::List__get_Item_fn(uPtr(_animators), uCRef<int>(i), &ret3), ret3))->CreateState(csp);
@@ -9257,13 +9379,13 @@ int TriggerAnimation::RestrictVariant(int variant)
 // internal generated void add_TimeChanged(Uno.Action value) [instance] :4046
 void TriggerAnimation::add_TimeChanged(uDelegate* value)
 {
-    TimeChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(TimeChanged1, value), ::TYPES[1/*Uno.Action*/]);
+    TimeChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Combine(TimeChanged1, value), ::TYPES[2/*Uno.Action*/]);
 }
 
 // internal generated void remove_TimeChanged(Uno.Action value) [instance] :4046
 void TriggerAnimation::remove_TimeChanged(uDelegate* value)
 {
-    TimeChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(TimeChanged1, value), ::TYPES[1/*Uno.Action*/]);
+    TimeChanged1 = uCast<uDelegate*>(::g::Uno::Delegate::Remove(TimeChanged1, value), ::TYPES[2/*Uno.Action*/]);
 }
 
 // public double get_TimeMultiplier() [instance] :3986
@@ -9299,9 +9421,9 @@ TriggerAnimation* TriggerAnimation::New1()
 // {
 static void TriggerAnimationState_build(uType* type)
 {
-    ::TYPES[1] = ::g::Uno::Action_typeof();
-    ::TYPES[25] = ::g::Fuse::Animations::IPlayerFeedback_typeof();
-    ::TYPES[38] = ::g::Fuse::Animations::Player_typeof();
+    ::TYPES[2] = ::g::Uno::Action_typeof();
+    ::TYPES[26] = ::g::Fuse::Animations::IPlayerFeedback_typeof();
+    ::TYPES[39] = ::g::Fuse::Animations::Player_typeof();
     type->SetInterfaces(
         ::g::Fuse::Animations::IPlayerFeedback_typeof(), offsetof(TriggerAnimationState_type, interface0));
     type->SetFields(0,
@@ -9370,7 +9492,7 @@ void TriggerAnimationState__FuseAnimationsIPlayerFeedbackOnPlaybackDone_fn(Trigg
         return;
 
     if (__this->Feedback != NULL)
-        ::g::Fuse::Animations::IPlayerFeedback::OnPlaybackDone(uInterface(uPtr(__this->Feedback), ::TYPES[25/*Fuse.Animations.IPlayerFeedback*/]), __this);
+        ::g::Fuse::Animations::IPlayerFeedback::OnPlaybackDone(uInterface(uPtr(__this->Feedback), ::TYPES[26/*Fuse.Animations.IPlayerFeedback*/]), __this);
 }
 
 // private void Fuse.Animations.IPlayerFeedback.OnProgressUpdated(object s) :4159
@@ -9380,7 +9502,7 @@ void TriggerAnimationState__FuseAnimationsIPlayerFeedbackOnProgressUpdated_fn(Tr
         return;
 
     if (__this->Feedback != NULL)
-        ::g::Fuse::Animations::IPlayerFeedback::OnProgressUpdated(uInterface(uPtr(__this->Feedback), ::TYPES[25/*Fuse.Animations.IPlayerFeedback*/]), __this);
+        ::g::Fuse::Animations::IPlayerFeedback::OnProgressUpdated(uInterface(uPtr(__this->Feedback), ::TYPES[26/*Fuse.Animations.IPlayerFeedback*/]), __this);
 
     __this->_prevProgress = __this->Progress();
 }
@@ -9392,7 +9514,7 @@ void TriggerAnimationState__FuseAnimationsIPlayerFeedbackOnStable_fn(TriggerAnim
         return;
 
     if (__this->Feedback != NULL)
-        ::g::Fuse::Animations::IPlayerFeedback::OnStable(uInterface(uPtr(__this->Feedback), ::TYPES[25/*Fuse.Animations.IPlayerFeedback*/]), __this);
+        ::g::Fuse::Animations::IPlayerFeedback::OnStable(uInterface(uPtr(__this->Feedback), ::TYPES[26/*Fuse.Animations.IPlayerFeedback*/]), __this);
 }
 
 // private Fuse.Animations.Player GetCurrentPlayer(Fuse.Animations.AnimationVariant tendTo, Fuse.Animations.TriggerAnimationState.SeekFlags flags) :4317
@@ -9489,7 +9611,7 @@ void TriggerAnimationState__TrackProgress_fn(TriggerAnimationState* __this, ::g:
 void TriggerAnimationState::ctor_(::g::Fuse::Animations::TriggerAnimation* animation, ::g::Fuse::Visual* node)
 {
     Animation(animation);
-    uPtr(Animation())->add_TimeChanged(uDelegate::New(::TYPES[1/*Uno.Action*/], (void*)TriggerAnimationState__OnTimeChanged_fn, this));
+    uPtr(Animation())->add_TimeChanged(uDelegate::New(::TYPES[2/*Uno.Action*/], (void*)TriggerAnimationState__OnTimeChanged_fn, this));
     _node = node;
 }
 
@@ -9542,7 +9664,7 @@ void TriggerAnimationState::Dispose()
             return _curPlayer;
     }
 
-    return uAs< ::g::Fuse::Animations::Player*>(GetPlayer(tendTo, false), ::TYPES[38/*Fuse.Animations.Player*/]);
+    return uAs< ::g::Fuse::Animations::Player*>(GetPlayer(tendTo, false), ::TYPES[39/*Fuse.Animations.Player*/]);
 }
 
 // private Fuse.Animations.Player GetPlayer([Fuse.Animations.AnimationVariant variant], [bool noFade]) [instance] :4198

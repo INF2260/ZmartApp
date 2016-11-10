@@ -145,6 +145,12 @@ void View__SetBackground_fn(uObject* handle, float* r, float* g, float* b, float
     View::SetBackground(handle, *r, *g, *b, *a);
 }
 
+// public static void SetBounds(ObjC.Object handle, float x, float y, float w, float h) :3489
+void View__SetBounds_fn(uObject* handle, float* x, float* y, float* w, float* h)
+{
+    View::SetBounds(handle, *x, *y, *w, *h);
+}
+
 // private static void SetClipToBounds(ObjC.Object handle, bool clipToBounds) :3354
 void View__SetClipToBounds_fn(uObject* handle, bool* clipToBounds)
 {
@@ -161,6 +167,12 @@ void View__SetSize_fn(uObject* handle, float* w, float* h)
 void View__SetTransform_fn(uObject* handle, float* m11, float* m12, float* m13, float* m14, float* m21, float* m22, float* m23, float* m24, float* m31, float* m32, float* m33, float* m34, float* m41, float* m42, float* m43, float* m44)
 {
     View::SetTransform(handle, *m11, *m12, *m13, *m14, *m21, *m22, *m23, *m24, *m31, *m32, *m33, *m34, *m41, *m42, *m43, *m44);
+}
+
+// public static void SetTransform(ObjC.Object handle, float4x4 t) :3502
+void View__SetTransform1_fn(uObject* handle, ::g::Uno::Float4x4* t)
+{
+    View::SetTransform1(handle, *t);
 }
 
 // public void Show() :3411
@@ -330,6 +342,21 @@ void View::SetBackground(uObject* handle, float r, float g, float b, float a)
     
 }
 
+// public static void SetBounds(ObjC.Object handle, float x, float y, float w, float h) [static] :3489
+void View::SetBounds(uObject* handle, float x, float y, float w, float h)
+{
+    @autoreleasepool
+    {
+        [] (::id handle, float x, float y, float w, float h) -> void
+        {
+            ::UIView* view = (::UIView*)handle;
+            			[view setBounds: { { x, y }, { w, h } }];
+        } (::g::ObjC::Helpers::GetHandle(handle), x, y, w, h);
+        
+    }
+    
+}
+
 // private static void SetClipToBounds(ObjC.Object handle, bool clipToBounds) [static] :3354
 void View::SetClipToBounds(uObject* handle, bool clipToBounds)
 {
@@ -382,6 +409,12 @@ void View::SetTransform(uObject* handle, float m11, float m12, float m13, float 
         
     }
     
+}
+
+// public static void SetTransform(ObjC.Object handle, float4x4 t) [static] :3502
+void View::SetTransform1(uObject* handle, ::g::Uno::Float4x4 t)
+{
+    View::SetTransform(handle, t.M11, t.M12, t.M13, t.M14, t.M21, t.M22, t.M23, t.M24, t.M31, t.M32, t.M33, t.M34, t.M41, t.M42, t.M43, t.M44);
 }
 
 // public static void Show(ObjC.Object handle) [static] :3423

@@ -15,6 +15,7 @@ namespace Uno{
 // public static class Matrix :4526
 // {
 uClassType* Matrix_typeof();
+void Matrix__Compose_fn(::g::Uno::Float3* scale, ::g::Uno::Float4* rotationQuaternion, ::g::Uno::Float3* translation, ::g::Uno::Float4x4* __retval);
 void Matrix__Decompose_fn(::g::Uno::Float4x4* value, ::g::Uno::Float3* scale, ::g::Uno::Float4* rotationQuaternion, ::g::Uno::Float3* translation, bool* __retval);
 void Matrix__Invert2_fn(::g::Uno::Float4x4* value, ::g::Uno::Float4x4* __retval);
 void Matrix__Look_fn(::g::Uno::Float3* eye, ::g::Uno::Float3* xaxis, ::g::Uno::Float3* yaxis, ::g::Uno::Float3* zaxis, ::g::Uno::Float4x4* __retval);
@@ -35,6 +36,7 @@ void Matrix__TryInvert2_fn(::g::Uno::Float4x4* value, ::g::Uno::Float4x4* result
 
 struct Matrix : uObject
 {
+    static ::g::Uno::Float4x4 Compose(::g::Uno::Float3 scale, ::g::Uno::Float4 rotationQuaternion, ::g::Uno::Float3 translation);
     static bool Decompose(::g::Uno::Float4x4 value, ::g::Uno::Float3* scale, ::g::Uno::Float4* rotationQuaternion, ::g::Uno::Float3* translation);
     static ::g::Uno::Float4x4 Invert2(::g::Uno::Float4x4 value);
     static ::g::Uno::Float4x4 Look(::g::Uno::Float3 eye, ::g::Uno::Float3 xaxis, ::g::Uno::Float3 yaxis, ::g::Uno::Float3 zaxis);

@@ -1,9 +1,10 @@
-<App>
+<App Background="#4291CF">
+	<ux:Include File="Resources/colors.ux"/>
 	<Router ux:Name="router"/>
 	<ClientPanel>
-		<Navigator DefaultTemplate="Login">
-			<Login ux:Template="Login" router="router" />
+		<Navigator DefaultTemplate="Create">
 			<CreateUser ux:Template="Create" router="router" />
+			<Teamview ux:Template="Team" router="router" />
 			<Overview ux:Template="Over" router="router" />
 		</Navigator>
 	</ClientPanel>

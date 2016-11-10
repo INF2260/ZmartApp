@@ -196,6 +196,8 @@ void Visual__get_IsLocalFlat_fn(Visual* __this, bool* __retval);
 void Visual__get_IsLocalVisible_fn(Visual* __this, bool* __retval);
 void Visual__IsMarginBoxDependent_fn(Visual* __this, Visual* child, int* __retval);
 void Visual__get_IsVisible_fn(Visual* __this, bool* __retval);
+void Visual__add_IsVisibleChanged_fn(Visual* __this, uDelegate* value);
+void Visual__remove_IsVisibleChanged_fn(Visual* __this, uDelegate* value);
 void Visual__get_Layer_fn(Visual* __this, int* __retval);
 void Visual__set_Layer_fn(Visual* __this, int* value);
 void Visual__get_LayoutRole_fn(Visual* __this, int* __retval);
@@ -485,6 +487,8 @@ struct Visual : ::g::Fuse::Node
     bool IsLocalVisible() { bool __retval; return (((Visual_type*)__type)->fp_get_IsLocalVisible)(this, &__retval), __retval; }
     int IsMarginBoxDependent(Visual* child) { int __retval; return (((Visual_type*)__type)->fp_IsMarginBoxDependent)(this, child, &__retval), __retval; }
     bool IsVisible();
+    void add_IsVisibleChanged(uDelegate* value);
+    void remove_IsVisibleChanged(uDelegate* value);
     int Layer();
     void Layer(int value);
     int LayoutRole();

@@ -27,17 +27,25 @@ struct Attractor_type : ::g::Fuse::Node_type
 };
 
 Attractor_type* Attractor_typeof();
+void Attractor__ctor_4_fn(Attractor* __this, ::g::Uno::UX::Property1* target);
 void Attractor__CheckNeedUpdate_fn(Attractor* __this);
 void Attractor__get_IsEnabled_fn(Attractor* __this, bool* __retval);
 void Attractor__set_IsEnabled_fn(Attractor* __this, bool* value);
 void Attractor__get_Motion_fn(Attractor* __this, ::g::Fuse::Motion::DestinationMotion** __retval);
 void Attractor__set_Motion_fn(Attractor* __this, ::g::Fuse::Motion::DestinationMotion* value);
+void Attractor__New3_fn(uType* __type, ::g::Uno::UX::Property1* target, Attractor** __retval);
 void Attractor__OnRooted_fn(Attractor* __this);
 void Attractor__OnUnrooted_fn(Attractor* __this);
 void Attractor__get_Target_fn(Attractor* __this, ::g::Uno::UX::Property1** __retval);
 void Attractor__set_Target_fn(Attractor* __this, ::g::Uno::UX::Property1* value);
+void Attractor__get_Type_fn(Attractor* __this, int* __retval);
+void Attractor__set_Type_fn(Attractor* __this, int* value);
+void Attractor__get_Unit_fn(Attractor* __this, int* __retval);
+void Attractor__set_Unit_fn(Attractor* __this, int* value);
 void Attractor__UnoUXIPropertyListenerOnPropertyChanged_fn(Attractor* __this, ::g::Uno::UX::PropertyObject* obj, ::g::Uno::UX::Selector* prop);
 void Attractor__Update_fn(Attractor* __this);
+void Attractor__get_Value_fn(Attractor* __this, uTRef __retval);
+void Attractor__set_Value_fn(Attractor* __this, void* value);
 
 struct Attractor : ::g::Fuse::Behavior
 {
@@ -48,6 +56,7 @@ struct Attractor : ::g::Fuse::Behavior
     float _timeMultiplier;
     uStrong< ::g::Uno::UX::Property1*> _Target;
 
+    void ctor_4(::g::Uno::UX::Property1* target);
     void CheckNeedUpdate();
     bool IsEnabled();
     void IsEnabled(bool value);
@@ -55,7 +64,16 @@ struct Attractor : ::g::Fuse::Behavior
     void Motion(::g::Fuse::Motion::DestinationMotion* value);
     ::g::Uno::UX::Property1* Target();
     void Target(::g::Uno::UX::Property1* value);
+    int Type();
+    void Type(int value);
+    int Unit();
+    void Unit(int value);
     void Update();
+    template<class T>
+    T Value() { T __retval; return Attractor__get_Value_fn(this, &__retval), __retval; }
+    template<class T>
+    void Value(T value) { Attractor__set_Value_fn(this, uConstrain(__type->T(0), value)); }
+    static Attractor* New3(uType* __type, ::g::Uno::UX::Property1* target);
 };
 // }
 

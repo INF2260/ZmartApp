@@ -13,7 +13,7 @@ namespace g{
 namespace Fuse{
 namespace Elements{
 
-// internal sealed class StandardBoxSizing :364
+// internal class StandardBoxSizing :364
 // {
 ::g::Fuse::Elements::BoxSizing_type* StandardBoxSizing_typeof();
 void StandardBoxSizing__ctor_1_fn(StandardBoxSizing* __this);

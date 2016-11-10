@@ -71,6 +71,7 @@
 #include <Fuse.VisualEventMode.h>
 #include <Uno.Action.h>
 #include <Uno.Action-1.h>
+#include <Uno.ArgumentNullException.h>
 #include <Uno.Bool.h>
 #include <Uno.Collections.Dictionary-2.h>
 #include <Uno.Collections.ICollection-1.h>
@@ -91,7 +92,7 @@
 #include <Uno.UX.Expression-1.h>
 #include <Uno.UX.IPropertyListener.h>
 #include <Uno.UX.Property-1.h>
-static uString* STRINGS[7];
+static uString* STRINGS[8];
 static uType* TYPES[21];
 
 namespace g{
@@ -1698,6 +1699,7 @@ void SendToBack::Target(::g::Fuse::Visual* value)
 // {
 static void Set_build(uType* type)
 {
+    ::STRINGS[7] = uString::Const("target");
     type->SetFields(8,
         ::g::Fuse::Internal::Blender_typeof()->MakeType(type->T(0)), offsetof(::g::Fuse::Triggers::Actions::Set, _blender), 0,
         ::g::Uno::Bool_typeof(), offsetof(::g::Fuse::Triggers::Actions::Set, _hasIncrement), 0,
@@ -1724,6 +1726,12 @@ static void Set_build(uType* type)
     return type;
 }
 
+// public Set(Uno.UX.Property<T> target) :665
+void Set__ctor_2_fn(Set* __this, ::g::Uno::UX::Property1* target)
+{
+    __this->ctor_2(target);
+}
+
 // public generated Uno.UX.Expression<T> get_Expression() :662
 void Set__get_Expression_fn(Set* __this, uDelegate** __retval)
 {
@@ -1734,6 +1742,12 @@ void Set__get_Expression_fn(Set* __this, uDelegate** __retval)
 void Set__set_Expression_fn(Set* __this, uDelegate* value)
 {
     __this->Expression(value);
+}
+
+// public Set New(Uno.UX.Property<T> target) :665
+void Set__New2_fn(uType* __type, ::g::Uno::UX::Property1* target, Set** __retval)
+{
+    *__retval = Set::New2(__type, target);
 }
 
 // protected override sealed void Perform(Fuse.Node target) :677
@@ -1785,6 +1799,17 @@ void Set__set_Value_fn(Set* __this, void* value)
     __this->_Value() = value;
 }
 
+// public Set(Uno.UX.Property<T> target) [instance] :665
+void Set::ctor_2(::g::Uno::UX::Property1* target)
+{
+    ctor_1();
+
+    if (target == NULL)
+        U_THROW(::g::Uno::ArgumentNullException::New6(::STRINGS[7/*"target"*/]));
+
+    Target(target);
+}
+
 // public generated Uno.UX.Expression<T> get_Expression() [instance] :662
 uDelegate* Set::Expression()
 {
@@ -1807,6 +1832,14 @@ void Set::Expression(uDelegate* value)
 void Set::Target(::g::Uno::UX::Property1* value)
 {
     _Target = value;
+}
+
+// public Set New(Uno.UX.Property<T> target) [static] :665
+Set* Set::New2(uType* __type, ::g::Uno::UX::Property1* target)
+{
+    Set* obj1 = (Set*)uNew(__type);
+    obj1->ctor_2(target);
+    return obj1;
 }
 // }
 

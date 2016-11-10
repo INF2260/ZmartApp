@@ -23,6 +23,7 @@ struct LoadingImageSource_type : ::g::Fuse::Resources::ImageSource_type
 };
 
 LoadingImageSource_type* LoadingImageSource_typeof();
+void LoadingImageSource__ctor_2_fn(LoadingImageSource* __this);
 void LoadingImageSource__Cleanup_fn(LoadingImageSource* __this, int* reason);
 void LoadingImageSource__FuseResourcesIMemoryResourceget_IsPinned_fn(LoadingImageSource* __this, bool* __retval);
 void LoadingImageSource__FuseResourcesIMemoryResourceget_LastUsed_fn(LoadingImageSource* __this, double* __retval);
@@ -40,6 +41,7 @@ void LoadingImageSource__Reload_fn(LoadingImageSource* __this);
 void LoadingImageSource__SetTexture_fn(LoadingImageSource* __this, ::g::Uno::Graphics::Texture2D* texture);
 void LoadingImageSource__get_Size_fn(LoadingImageSource* __this, ::g::Uno::Float2* __retval);
 void LoadingImageSource__get_SizeDensity_fn(LoadingImageSource* __this, float* __retval);
+void LoadingImageSource__get_State_fn(LoadingImageSource* __this, int* __retval);
 
 struct LoadingImageSource : ::g::Fuse::Resources::ImageSource
 {
@@ -52,6 +54,7 @@ struct LoadingImageSource : ::g::Fuse::Resources::ImageSource
     uStrong< ::g::Uno::Graphics::Texture2D*> _texture;
     ::g::Uno::Int2 _textureSize;
 
+    void ctor_2();
     void AttemptLoad() { (((LoadingImageSource_type*)__type)->fp_AttemptLoad)(this); }
     void Cleanup(int reason);
     bool IsLoaded();

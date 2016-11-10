@@ -21,11 +21,14 @@ namespace Layouts{
 // public sealed class GridLayout :1046
 // {
 ::g::Fuse::Layouts::Layout_type* GridLayout_typeof();
+void GridLayout__ctor_2_fn(GridLayout* __this);
 void GridLayout__ArrangePaddingBox_fn(GridLayout* __this, uObject* elements, ::g::Uno::Float4* padding, ::g::Fuse::LayoutParams* lp);
 void GridLayout__get_CellSpacing_fn(GridLayout* __this, float* __retval);
 void GridLayout__set_CellSpacing_fn(GridLayout* __this, float* value);
 void GridLayout__Changed_fn(GridLayout* __this);
+void GridLayout__ColumnAdded_fn(GridLayout* __this, ::g::Fuse::Layouts::Column* c);
 void GridLayout__get_ColumnList_fn(GridLayout* __this, uObject** __retval);
+void GridLayout__ColumnRemoved_fn(GridLayout* __this, ::g::Fuse::Layouts::Column* c);
 void GridLayout__get_ContentAlignment_fn(GridLayout* __this, int* __retval);
 void GridLayout__set_ContentAlignment_fn(GridLayout* __this, int* value);
 void GridLayout__get_EffectiveCellSpacing_fn(GridLayout* __this, float* __retval);
@@ -43,6 +46,14 @@ void GridLayout__GetRowData_fn(GridLayout* __this, int* row, ::g::Fuse::Layouts:
 void GridLayout__GetRowSpan_fn(::g::Fuse::Visual* elm, int* __retval);
 void GridLayout__IsMarginBoxDependent_fn(GridLayout* __this, ::g::Fuse::Visual* child, int* __retval);
 void GridLayout__Measure_fn(GridLayout* __this, uObject* elements, ::g::Fuse::LayoutParams* lp, ::g::Uno::Float2* __retval);
+void GridLayout__New2_fn(GridLayout** __retval);
+void GridLayout__RowAdded_fn(GridLayout* __this, ::g::Fuse::Layouts::Row* r);
+void GridLayout__get_RowCount_fn(GridLayout* __this, int* __retval);
+void GridLayout__set_RowCount_fn(GridLayout* __this, int* value);
+void GridLayout__get_RowList_fn(GridLayout* __this, uObject** __retval);
+void GridLayout__RowRemoved_fn(GridLayout* __this, ::g::Fuse::Layouts::Row* r);
+void GridLayout__get_Rows_fn(GridLayout* __this, uString** __retval);
+void GridLayout__set_Rows_fn(GridLayout* __this, uString* value);
 
 struct GridLayout : ::g::Fuse::Layouts::Layout
 {
@@ -69,10 +80,13 @@ struct GridLayout : ::g::Fuse::Layouts::Layout
     static uSStrong< ::g::Fuse::Layouts::Row*> _staticDefaultRow_;
     static uSStrong< ::g::Fuse::Layouts::Row*>& _staticDefaultRow() { return GridLayout_typeof()->Init(), _staticDefaultRow_; }
 
+    void ctor_2();
     float CellSpacing();
     void CellSpacing(float value);
     void Changed();
+    void ColumnAdded(::g::Fuse::Layouts::Column* c);
     uObject* ColumnList();
+    void ColumnRemoved(::g::Fuse::Layouts::Column* c);
     int ContentAlignment();
     void ContentAlignment(int value);
     float EffectiveCellSpacing();
@@ -85,9 +99,17 @@ struct GridLayout : ::g::Fuse::Layouts::Layout
     ::g::Fuse::Layouts::Column* GetColumnData(int column);
     ::g::Fuse::Layouts::Row* GetRowData(int row);
     ::g::Uno::Float2 Measure(uObject* elements, ::g::Fuse::LayoutParams lp);
+    void RowAdded(::g::Fuse::Layouts::Row* r);
+    int RowCount();
+    void RowCount(int value);
+    uObject* RowList();
+    void RowRemoved(::g::Fuse::Layouts::Row* r);
+    uString* Rows();
+    void Rows(uString* value);
     static int GetColumn(::g::Fuse::Visual* elm);
     static int GetColumnSpan(::g::Fuse::Visual* elm);
     static int GetRowSpan(::g::Fuse::Visual* elm);
+    static GridLayout* New2();
 };
 // }
 

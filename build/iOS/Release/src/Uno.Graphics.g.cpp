@@ -1355,6 +1355,12 @@ void SamplerState__New1_fn(int* minFilter, int* magFilter, int* addressMode, Sam
     *__retval = SamplerState__New1(*minFilter, *magFilter, *addressMode);
 }
 
+// public static Uno.Graphics.SamplerState get_TrilinearClamp() :839
+void SamplerState__get_TrilinearClamp_fn(SamplerState* __retval)
+{
+    *__retval = SamplerState__TrilinearClamp();
+}
+
 // public SamplerState(Uno.Graphics.TextureFilter minFilter, Uno.Graphics.TextureFilter magFilter, Uno.Graphics.TextureAddressMode addressMode) [instance] :794
 void SamplerState::ctor_(int minFilter, int magFilter, int addressMode)
 {
@@ -1405,6 +1411,12 @@ SamplerState SamplerState__LinearWrap()
 SamplerState SamplerState__NearestClamp()
 {
     return SamplerState__New1(9728, 9728, 33071);
+}
+
+// public static Uno.Graphics.SamplerState get_TrilinearClamp() [static] :839
+SamplerState SamplerState__TrilinearClamp()
+{
+    return SamplerState__New1(9987, 9729, 33071);
 }
 // }
 

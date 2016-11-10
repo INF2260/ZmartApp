@@ -18,6 +18,7 @@
 #include <Fuse.Elements.CacheTile.h>
 #include <Fuse.Elements.CachingMode.h>
 #include <Fuse.Elements.DisplayHelpers.h>
+#include <Fuse.Elements.Element.BoxSizingMode.h>
 #include <Fuse.Elements.Element.GMSCacheItem.h>
 #include <Fuse.Elements.Element.h>
 #include <Fuse.Elements.ElementAtlas.h>
@@ -37,6 +38,7 @@
 #include <Fuse.Elements.LayoutMasterBoxSizing.LayoutMasterData.h>
 #include <Fuse.Elements.LayoutMasterMode.h>
 #include <Fuse.Elements.LimitBoxSizing.h>
+#include <Fuse.Elements.NoImplicitMaxBoxSizing.h>
 #include <Fuse.Elements.PreplacementArgs.h>
 #include <Fuse.Elements.PreplacementHandler.h>
 #include <Fuse.Elements.SimpleAlignment.h>
@@ -698,6 +700,25 @@ float BoxSizing::UnitSize(::g::Fuse::Elements::Element* element, ::g::Uno::UX::S
     return 0.0f;
 }
 // }
+
+// /usr/local/share/uno/Packages/Fuse.Elements/0.39.3/$.uno
+// --------------------------------------------------------
+
+// public enum Element.BoxSizingMode :1776
+uEnumType* Element__BoxSizingMode_typeof()
+{
+    static uSStrong<uEnumType*> type;
+    if (type != NULL) return type;
+
+    type = uEnumType::New("Fuse.Elements.Element.BoxSizingMode", ::g::Uno::Int_typeof(), 5);
+    type->SetLiterals(
+        "Standard", 0LL,
+        "NoImplicitMax", 1LL,
+        "Limit", 2LL,
+        "LayoutMaster", 3LL,
+        "FillAspect", 4LL);
+    return type;
+}
 
 // /usr/local/share/uno/Packages/Fuse.Elements/0.39.3/caching/$.uno
 // ----------------------------------------------------------------
@@ -1439,6 +1460,7 @@ static void Element_build(uType* type)
         ::g::Uno::Float2_typeof(), offsetof(::g::Fuse::Elements::Element, _actualSize), 0,
         ::g::Fuse::Elements::Alignment_typeof(), offsetof(::g::Fuse::Elements::Element, _alignment), 0,
         ::g::Fuse::Elements::BoxSizing_typeof(), offsetof(::g::Fuse::Elements::Element, _boxSizing), 0,
+        Element__BoxSizingMode_typeof(), offsetof(::g::Fuse::Elements::Element, _boxSizingMode), 0,
         ::g::Fuse::Elements::Cache_typeof(), offsetof(::g::Fuse::Elements::Element, _cache), 0,
         ::g::Uno::Int_typeof(), offsetof(::g::Fuse::Elements::Element, _compositionEffects), 0,
         ::g::Uno::Collections::List_typeof()->MakeType(::g::Fuse::Effects::Effect_typeof()), offsetof(::g::Fuse::Elements::Element, _effects), 0,
@@ -1477,7 +1499,7 @@ Element_type* Element_typeof()
 
     uTypeOptions options;
     options.BaseDefinition = ::g::Fuse::Visual_typeof();
-    options.FieldCount = 90;
+    options.FieldCount = 91;
     options.InterfaceCount = 13;
     options.ObjectSize = sizeof(Element);
     options.TypeSize = sizeof(Element_type);
@@ -1646,6 +1668,18 @@ void Element__get_AspectConstraint_fn(Element* __this, int* __retval)
 void Element__set_AspectConstraint_fn(Element* __this, int* value)
 {
     __this->AspectConstraint(*value);
+}
+
+// public Fuse.Elements.Element.BoxSizingMode get_BoxSizing() :1794
+void Element__get_BoxSizing_fn(Element* __this, int* __retval)
+{
+    *__retval = __this->BoxSizing();
+}
+
+// public void set_BoxSizing(Fuse.Elements.Element.BoxSizingMode value) :1795
+void Element__set_BoxSizing_fn(Element* __this, int* value)
+{
+    __this->BoxSizing(*value);
 }
 
 // internal Fuse.Elements.BoxSizing get_BoxSizingObject() :1816
@@ -2657,6 +2691,52 @@ void Element::AspectConstraint(int value)
         ::g::Fuse::Visual__Set_fn(this, ::TYPES[18/*Fuse.Visual.Set<Fuse.Elements.AspectConstraint>*/], uCRef<int>(131072), uCRef<int>(value), uCRef<int>(3));
         InvalidateLayout(2);
     }
+}
+
+// public Fuse.Elements.Element.BoxSizingMode get_BoxSizing() [instance] :1794
+int Element::BoxSizing()
+{
+    return _boxSizingMode;
+}
+
+// public void set_BoxSizing(Fuse.Elements.Element.BoxSizingMode value) [instance] :1795
+void Element::BoxSizing(int value)
+{
+    if (value == _boxSizingMode)
+        return;
+
+    _boxSizingMode = value;
+
+    switch (_boxSizingMode)
+    {
+        case 0:
+        {
+            _boxSizing = ::g::Fuse::Elements::StandardBoxSizing::Singleton();
+            break;
+        }
+        case 1:
+        {
+            _boxSizing = ::g::Fuse::Elements::NoImplicitMaxBoxSizing::Singleton1();
+            break;
+        }
+        case 2:
+        {
+            _boxSizing = ::g::Fuse::Elements::LimitBoxSizing::Singleton();
+            break;
+        }
+        case 3:
+        {
+            _boxSizing = ::g::Fuse::Elements::LayoutMasterBoxSizing::Singleton();
+            break;
+        }
+        case 4:
+        {
+            _boxSizing = ::g::Fuse::Elements::FillAspectBoxSizing::Singleton();
+            break;
+        }
+    }
+
+    InvalidateLayout(2);
 }
 
 // internal Fuse.Elements.BoxSizing get_BoxSizingObject() [instance] :1816
@@ -6207,6 +6287,12 @@ void LayoutMasterBoxSizing__RequestLayout_fn(LayoutMasterBoxSizing* __this, ::g:
     uPtr(data)->ScheduleCheckLayout();
 }
 
+// internal static void SetLayoutMaster(Fuse.Elements.Element elm, Fuse.Elements.Element master) :3039
+void LayoutMasterBoxSizing__SetLayoutMaster_fn(::g::Fuse::Elements::Element* elm, ::g::Fuse::Elements::Element* master)
+{
+    LayoutMasterBoxSizing::SetLayoutMaster(elm, master);
+}
+
 uSStrong< ::g::Fuse::PropertyHandle*> LayoutMasterBoxSizing::_layoutMasterDataProperty_;
 uSStrong<LayoutMasterBoxSizing*> LayoutMasterBoxSizing::Singleton_;
 
@@ -6244,6 +6330,13 @@ LayoutMasterBoxSizing* LayoutMasterBoxSizing::New1()
     LayoutMasterBoxSizing* obj1 = (LayoutMasterBoxSizing*)uNew(LayoutMasterBoxSizing_typeof());
     obj1->ctor_1();
     return obj1;
+}
+
+// internal static void SetLayoutMaster(Fuse.Elements.Element elm, Fuse.Elements.Element master) [static] :3039
+void LayoutMasterBoxSizing::SetLayoutMaster(::g::Fuse::Elements::Element* elm, ::g::Fuse::Elements::Element* master)
+{
+    LayoutMasterBoxSizing_typeof()->Init();
+    uPtr(LayoutMasterBoxSizing::GetLayoutMasterData(elm))->Master(master);
 }
 // }
 
@@ -6556,6 +6649,70 @@ LimitBoxSizing* LimitBoxSizing::New1()
 // /usr/local/share/uno/Packages/Fuse.Elements/0.39.3/$.uno
 // --------------------------------------------------------
 
+// internal sealed class NoImplicitMaxBoxSizing :521
+// {
+// static NoImplicitMaxBoxSizing() :521
+static void NoImplicitMaxBoxSizing__cctor_1_fn(uType* __type)
+{
+    NoImplicitMaxBoxSizing::Singleton1_ = NoImplicitMaxBoxSizing::New2();
+}
+
+static void NoImplicitMaxBoxSizing_build(uType* type)
+{
+    type->SetFields(2,
+        NoImplicitMaxBoxSizing_typeof(), (uintptr_t)&::g::Fuse::Elements::NoImplicitMaxBoxSizing::Singleton1_, uFieldFlagsStatic);
+}
+
+::g::Fuse::Elements::BoxSizing_type* NoImplicitMaxBoxSizing_typeof()
+{
+    static uSStrong< ::g::Fuse::Elements::BoxSizing_type*> type;
+    if (type != NULL) return type;
+
+    uTypeOptions options;
+    options.BaseDefinition = ::g::Fuse::Elements::StandardBoxSizing_typeof();
+    options.FieldCount = 3;
+    options.ObjectSize = sizeof(NoImplicitMaxBoxSizing);
+    options.TypeSize = sizeof(::g::Fuse::Elements::BoxSizing_type);
+    type = (::g::Fuse::Elements::BoxSizing_type*)uClassType::New("Fuse.Elements.NoImplicitMaxBoxSizing", options);
+    type->fp_build_ = NoImplicitMaxBoxSizing_build;
+    type->fp_ctor_ = (void*)NoImplicitMaxBoxSizing__New2_fn;
+    type->fp_cctor_ = NoImplicitMaxBoxSizing__cctor_1_fn;
+    return type;
+}
+
+// public NoImplicitMaxBoxSizing() :525
+void NoImplicitMaxBoxSizing__ctor_2_fn(NoImplicitMaxBoxSizing* __this)
+{
+    __this->ctor_2();
+}
+
+// public NoImplicitMaxBoxSizing New() :525
+void NoImplicitMaxBoxSizing__New2_fn(NoImplicitMaxBoxSizing** __retval)
+{
+    *__retval = NoImplicitMaxBoxSizing::New2();
+}
+
+uSStrong<NoImplicitMaxBoxSizing*> NoImplicitMaxBoxSizing::Singleton1_;
+
+// public NoImplicitMaxBoxSizing() [instance] :525
+void NoImplicitMaxBoxSizing::ctor_2()
+{
+    ctor_1();
+    ImplicitMax = false;
+}
+
+// public NoImplicitMaxBoxSizing New() [static] :525
+NoImplicitMaxBoxSizing* NoImplicitMaxBoxSizing::New2()
+{
+    NoImplicitMaxBoxSizing* obj1 = (NoImplicitMaxBoxSizing*)uNew(NoImplicitMaxBoxSizing_typeof());
+    obj1->ctor_2();
+    return obj1;
+}
+// }
+
+// /usr/local/share/uno/Packages/Fuse.Elements/0.39.3/$.uno
+// --------------------------------------------------------
+
 // public sealed class PreplacementArgs :1640
 // {
 static void PreplacementArgs_build(uType* type)
@@ -6735,7 +6892,7 @@ SingleVisualDrawable* SingleVisualDrawable::New1(::g::Fuse::Visual* elm)
 // /usr/local/share/uno/Packages/Fuse.Elements/0.39.3/$.uno
 // --------------------------------------------------------
 
-// internal sealed class StandardBoxSizing :364
+// internal class StandardBoxSizing :364
 // {
 // static StandardBoxSizing() :364
 static void StandardBoxSizing__cctor__fn(uType* __type)

@@ -4,15 +4,14 @@
 #include <_root.CreateUser.h>
 #include <_root.Zmart_bundle.h>
 #include <_root.Zmart_FuseControlsTextBox_Value_Property.h>
-#include <Fuse.Controls.Button.h>
-#include <Fuse.Controls.ButtonBase.h>
 #include <Fuse.Controls.ScrollView.h>
 #include <Fuse.Controls.StackPanel.h>
-#include <Fuse.Controls.Text.h>
+#include <Fuse.Controls.TextAlignment.h>
 #include <Fuse.Controls.TextBox.h>
 #include <Fuse.Controls.TextControl.h>
 #include <Fuse.Controls.TextInputControl.h>
 #include <Fuse.Controls.TextInputHint.h>
+#include <Fuse.Elements.Element.h>
 #include <Fuse.Gestures.Clicked.h>
 #include <Fuse.Gestures.ClickedHandler.h>
 #include <Fuse.Navigation.Router.h>
@@ -20,6 +19,8 @@
 #include <Fuse.Reactive.EventBinding.h>
 #include <Fuse.Reactive.JavaScript.h>
 #include <Fuse.Visual.h>
+#include <Uno.Float.h>
+#include <Uno.Float4.h>
 #include <Uno.Int.h>
 #include <Uno.IO.BundleFile.h>
 #include <Uno.Object.h>
@@ -29,14 +30,16 @@
 #include <Uno.UX.NameTable.h>
 #include <Uno.UX.Property-1.h>
 #include <Uno.UX.Selector.h>
-static uString* STRINGS[13];
+#include <zmart.Button.h>
+#include <zmart.Text.h>
+static uString* STRINGS[11];
 static uType* TYPES[6];
 
 namespace g{
 
 // public partial sealed class CreateUser :2
 // {
-// static CreateUser() :14
+// static CreateUser() :13
 static void CreateUser__cctor_4_fn(uType* __type)
 {
     CreateUser::__g_static_nametable1_ = uArray::Init<uString*>(::TYPES[0/*string[]*/], 1, ::STRINGS[0/*"router"*/]);
@@ -50,14 +53,12 @@ static void CreateUser_build(uType* type)
     ::STRINGS[2] = uString::Const("name");
     ::STRINGS[3] = uString::Const("age");
     ::STRINGS[4] = uString::Const("username");
-    ::STRINGS[5] = uString::Const("password");
-    ::STRINGS[6] = uString::Const("create");
-    ::STRINGS[7] = uString::Const("Pages/CreateUser.ux");
-    ::STRINGS[8] = uString::Const("Name:");
-    ::STRINGS[9] = uString::Const("Age:");
-    ::STRINGS[10] = uString::Const("Username:");
-    ::STRINGS[11] = uString::Const("Password:");
-    ::STRINGS[12] = uString::Const("Continue");
+    ::STRINGS[5] = uString::Const("create");
+    ::STRINGS[6] = uString::Const("CreateUser.ux");
+    ::STRINGS[7] = uString::Const("Name:");
+    ::STRINGS[8] = uString::Const("Age:");
+    ::STRINGS[9] = uString::Const("Nickname");
+    ::STRINGS[10] = uString::Const("Continue");
     ::TYPES[0] = ::g::Uno::String_typeof()->Array();
     ::TYPES[1] = ::g::Fuse::Reactive::DataBinding_typeof()->MakeType(::g::Uno::String_typeof());
     ::TYPES[2] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Node_typeof());
@@ -78,14 +79,13 @@ static void CreateUser_build(uType* type)
         ::g::Fuse::Triggers::Actions::ICollapse_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface10),
         ::g::Fuse::IActualPlacement_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface11),
         ::g::Fuse::Animations::IResize_typeof(), offsetof(::g::Fuse::Controls::Control_type, interface12));
-    type->SetFields(92,
+    type->SetFields(93,
         ::g::Uno::UX::NameTable_typeof(), offsetof(::g::CreateUser, __g_nametable1), 0,
         ::g::Fuse::Navigation::Router_typeof(), offsetof(::g::CreateUser, router), 0,
         ::g::Fuse::Reactive::EventBinding_typeof(), offsetof(::g::CreateUser, temp_eb0), 0,
         ::g::Uno::UX::Property1_typeof()->MakeType(::g::Uno::String_typeof()), offsetof(::g::CreateUser, temp_Value_inst), 0,
         ::g::Uno::UX::Property1_typeof()->MakeType(::g::Uno::String_typeof()), offsetof(::g::CreateUser, temp1_Value_inst), 0,
         ::g::Uno::UX::Property1_typeof()->MakeType(::g::Uno::String_typeof()), offsetof(::g::CreateUser, temp2_Value_inst), 0,
-        ::g::Uno::UX::Property1_typeof()->MakeType(::g::Uno::String_typeof()), offsetof(::g::CreateUser, temp3_Value_inst), 0,
         ::g::Uno::String_typeof()->Array(), (uintptr_t)&::g::CreateUser::__g_static_nametable1_, uFieldFlagsStatic,
         ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::CreateUser::__selector0_, uFieldFlagsStatic);
 }
@@ -136,19 +136,19 @@ static void CreateUser_build(uType* type)
     return type;
 }
 
-// public CreateUser(Fuse.Navigation.Router router) :18
+// public CreateUser(Fuse.Navigation.Router router) :17
 void CreateUser__ctor_8_fn(CreateUser* __this, ::g::Fuse::Navigation::Router* router1)
 {
     __this->ctor_8(router1);
 }
 
-// private void InitializeUX() :24
+// private void InitializeUX() :23
 void CreateUser__InitializeUX_fn(CreateUser* __this)
 {
     __this->InitializeUX();
 }
 
-// public CreateUser New(Fuse.Navigation.Router router) :18
+// public CreateUser New(Fuse.Navigation.Router router) :17
 void CreateUser__New5_fn(::g::Fuse::Navigation::Router* router1, CreateUser** __retval)
 {
     *__retval = CreateUser::New5(router1);
@@ -157,7 +157,7 @@ void CreateUser__New5_fn(::g::Fuse::Navigation::Router* router1, CreateUser** __
 uSStrong<uArray*> CreateUser::__g_static_nametable1_;
 ::g::Uno::UX::Selector CreateUser::__selector0_;
 
-// public CreateUser(Fuse.Navigation.Router router) [instance] :18
+// public CreateUser(Fuse.Navigation.Router router) [instance] :17
 void CreateUser::ctor_8(::g::Fuse::Navigation::Router* router1)
 {
     ctor_7();
@@ -165,7 +165,7 @@ void CreateUser::ctor_8(::g::Fuse::Navigation::Router* router1)
     InitializeUX();
 }
 
-// private void InitializeUX() [instance] :24
+// private void InitializeUX() [instance] :23
 void CreateUser::InitializeUX()
 {
     __g_nametable1 = ::g::Uno::UX::NameTable::New1(NULL, CreateUser::__g_static_nametable1());
@@ -175,53 +175,57 @@ void CreateUser::InitializeUX()
     temp1_Value_inst = ::g::Zmart_FuseControlsTextBox_Value_Property::New1(temp1, CreateUser::__selector0());
     ::g::Fuse::Controls::TextBox* temp2 = ::g::Fuse::Controls::TextBox::New4();
     temp2_Value_inst = ::g::Zmart_FuseControlsTextBox_Value_Property::New1(temp2, CreateUser::__selector0());
-    ::g::Fuse::Controls::TextBox* temp3 = ::g::Fuse::Controls::TextBox::New4();
-    temp3_Value_inst = ::g::Zmart_FuseControlsTextBox_Value_Property::New1(temp3, CreateUser::__selector0());
-    ::g::Fuse::Reactive::JavaScript* temp4 = ::g::Fuse::Reactive::JavaScript::New2(__g_nametable1);
-    ::g::Fuse::Controls::ScrollView* temp5 = ::g::Fuse::Controls::ScrollView::New4();
-    ::g::Fuse::Controls::StackPanel* temp6 = ::g::Fuse::Controls::StackPanel::New4();
-    ::g::Fuse::Controls::Text* temp7 = ::g::Fuse::Controls::Text::New3();
-    ::g::Fuse::Reactive::DataBinding* temp8 = (::g::Fuse::Reactive::DataBinding*)::g::Fuse::Reactive::DataBinding::New1(::TYPES[1/*Fuse.Reactive.DataBinding<string>*/], temp_Value_inst, ::STRINGS[2/*"name"*/]);
-    ::g::Fuse::Controls::Text* temp9 = ::g::Fuse::Controls::Text::New3();
-    ::g::Fuse::Reactive::DataBinding* temp10 = (::g::Fuse::Reactive::DataBinding*)::g::Fuse::Reactive::DataBinding::New1(::TYPES[1/*Fuse.Reactive.DataBinding<string>*/], temp1_Value_inst, ::STRINGS[3/*"age"*/]);
-    ::g::Fuse::Controls::Text* temp11 = ::g::Fuse::Controls::Text::New3();
-    ::g::Fuse::Reactive::DataBinding* temp12 = (::g::Fuse::Reactive::DataBinding*)::g::Fuse::Reactive::DataBinding::New1(::TYPES[1/*Fuse.Reactive.DataBinding<string>*/], temp2_Value_inst, ::STRINGS[4/*"username"*/]);
-    ::g::Fuse::Controls::Text* temp13 = ::g::Fuse::Controls::Text::New3();
-    ::g::Fuse::Reactive::DataBinding* temp14 = (::g::Fuse::Reactive::DataBinding*)::g::Fuse::Reactive::DataBinding::New1(::TYPES[1/*Fuse.Reactive.DataBinding<string>*/], temp3_Value_inst, ::STRINGS[5/*"password"*/]);
-    ::g::Fuse::Controls::Button* temp15 = ::g::Fuse::Controls::Button::New5();
-    temp_eb0 = ::g::Fuse::Reactive::EventBinding::New1(::STRINGS[6/*"create"*/]);
-    temp4->LineNumber(3);
-    temp4->FileName(::STRINGS[7/*"Pages/Creat...*/]);
-    temp4->File(::g::Uno::UX::BundleFileSource::New1(::g::Zmart_bundle::CreateUser3f4f6774()));
+    ::g::Fuse::Reactive::JavaScript* temp3 = ::g::Fuse::Reactive::JavaScript::New2(__g_nametable1);
+    ::g::Fuse::Controls::ScrollView* temp4 = ::g::Fuse::Controls::ScrollView::New4();
+    ::g::Fuse::Controls::StackPanel* temp5 = ::g::Fuse::Controls::StackPanel::New4();
+    ::g::zmart::Text* temp6 = ::g::zmart::Text::New4();
+    ::g::Fuse::Reactive::DataBinding* temp7 = (::g::Fuse::Reactive::DataBinding*)::g::Fuse::Reactive::DataBinding::New1(::TYPES[1/*Fuse.Reactive.DataBinding<string>*/], temp_Value_inst, ::STRINGS[2/*"name"*/]);
+    ::g::zmart::Text* temp8 = ::g::zmart::Text::New4();
+    ::g::Fuse::Reactive::DataBinding* temp9 = (::g::Fuse::Reactive::DataBinding*)::g::Fuse::Reactive::DataBinding::New1(::TYPES[1/*Fuse.Reactive.DataBinding<string>*/], temp1_Value_inst, ::STRINGS[3/*"age"*/]);
+    ::g::zmart::Text* temp10 = ::g::zmart::Text::New4();
+    ::g::Fuse::Reactive::DataBinding* temp11 = (::g::Fuse::Reactive::DataBinding*)::g::Fuse::Reactive::DataBinding::New1(::TYPES[1/*Fuse.Reactive.DataBinding<string>*/], temp2_Value_inst, ::STRINGS[4/*"username"*/]);
+    ::g::zmart::Button* temp12 = ::g::zmart::Button::New4();
+    temp_eb0 = ::g::Fuse::Reactive::EventBinding::New1(::STRINGS[5/*"create"*/]);
+    temp3->LineNumber(3);
+    temp3->FileName(::STRINGS[6/*"CreateUser.ux"*/]);
+    temp3->File(::g::Uno::UX::BundleFileSource::New1(::g::Zmart_bundle::CreateUser107e22ad()));
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp4->Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp5);
     ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp5->Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp6);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp6->Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp7);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp6->Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp6->Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp9);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp6->Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp1);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp6->Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp11);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp6->Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp2);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp6->Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp13);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp6->Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp3);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp6->Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp15);
-    temp7->Value(::STRINGS[8/*"Name:"*/]);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp->Bindings()), ::TYPES[3/*Uno.Collections.ICollection<Fuse.Binding>*/]), temp8);
-    temp9->Value(::STRINGS[9/*"Age:"*/]);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp5->Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp5->Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp8);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp5->Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp1);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp5->Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp10);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp5->Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp2);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp5->Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp12);
+    temp6->Value(::STRINGS[7/*"Name:"*/]);
+    temp6->FontSize(16.0f);
+    temp6->TextAlignment(1);
+    temp->Margin(::g::Uno::Float4__New2(10.0f, 10.0f, 10.0f, 10.0f));
+    temp->Padding(::g::Uno::Float4__New2(10.0f, 10.0f, 10.0f, 10.0f));
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp->Bindings()), ::TYPES[3/*Uno.Collections.ICollection<Fuse.Binding>*/]), temp7);
+    temp8->Value(::STRINGS[8/*"Age:"*/]);
+    temp8->FontSize(16.0f);
+    temp8->TextAlignment(1);
     temp1->InputHint(4);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp1->Bindings()), ::TYPES[3/*Uno.Collections.ICollection<Fuse.Binding>*/]), temp10);
-    temp11->Value(::STRINGS[10/*"Username:"*/]);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp2->Bindings()), ::TYPES[3/*Uno.Collections.ICollection<Fuse.Binding>*/]), temp12);
-    temp13->Value(::STRINGS[11/*"Password:"*/]);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp3->Bindings()), ::TYPES[3/*Uno.Collections.ICollection<Fuse.Binding>*/]), temp14);
-    temp15->Text(::STRINGS[12/*"Continue"*/]);
-    ::g::Fuse::Gestures::Clicked::AddHandler(temp15, uDelegate::New(::TYPES[4/*Fuse.Gestures.ClickedHandler*/], (void*)::g::Fuse::Reactive::EventBinding__OnEvent_fn, uPtr(temp_eb0)));
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp15->Bindings()), ::TYPES[3/*Uno.Collections.ICollection<Fuse.Binding>*/]), temp_eb0);
+    temp1->Margin(::g::Uno::Float4__New2(10.0f, 10.0f, 10.0f, 10.0f));
+    temp1->Padding(::g::Uno::Float4__New2(10.0f, 10.0f, 10.0f, 10.0f));
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp1->Bindings()), ::TYPES[3/*Uno.Collections.ICollection<Fuse.Binding>*/]), temp9);
+    temp10->Value(::STRINGS[9/*"Nickname"*/]);
+    temp10->FontSize(16.0f);
+    temp10->TextAlignment(1);
+    temp2->Margin(::g::Uno::Float4__New2(10.0f, 10.0f, 10.0f, 10.0f));
+    temp2->Padding(::g::Uno::Float4__New2(10.0f, 10.0f, 10.0f, 10.0f));
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp2->Bindings()), ::TYPES[3/*Uno.Collections.ICollection<Fuse.Binding>*/]), temp11);
+    temp12->Text(::STRINGS[10/*"Continue"*/]);
+    ::g::Fuse::Gestures::Clicked::AddHandler(temp12, uDelegate::New(::TYPES[4/*Fuse.Gestures.ClickedHandler*/], (void*)::g::Fuse::Reactive::EventBinding__OnEvent_fn, uPtr(temp_eb0)));
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(temp12->Bindings()), ::TYPES[3/*Uno.Collections.ICollection<Fuse.Binding>*/]), temp_eb0);
     uPtr(__g_nametable1)->This(this);
     ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(uPtr(__g_nametable1)->Objects()), ::TYPES[5/*Uno.Collections.ICollection<object>*/]), router);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp3);
     ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp4);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(Children()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Node>*/]), temp5);
 }
 
-// public CreateUser New(Fuse.Navigation.Router router) [static] :18
+// public CreateUser New(Fuse.Navigation.Router router) [static] :17
 CreateUser* CreateUser::New5(::g::Fuse::Navigation::Router* router1)
 {
     CreateUser* obj1 = (CreateUser*)uNew(CreateUser_typeof());

@@ -3,15 +3,13 @@
 
 #include <_root.Overview.h>
 #include <_root.Overview.Template.h>
-#include <_root.Zmart_FuseControlsButton_Text_Property.h>
+#include <_root.Zmart_FuseControlsTextBox_Value_Property.h>
 #include <Fuse.Binding.h>
-#include <Fuse.Controls.Button.h>
-#include <Fuse.Gestures.Clicked.h>
-#include <Fuse.Gestures.ClickedHandler.h>
+#include <Fuse.Controls.TextBox.h>
+#include <Fuse.Elements.Alignment.h>
+#include <Fuse.Elements.Element.h>
 #include <Fuse.Node.h>
 #include <Fuse.Reactive.DataBinding-1.h>
-#include <Fuse.Reactive.EventBinding.h>
-#include <Fuse.Visual.h>
 #include <Uno.Bool.h>
 #include <Uno.Collections.ICollection-1.h>
 #include <Uno.Collections.IList-1.h>
@@ -19,31 +17,29 @@
 #include <Uno.String.h>
 #include <Uno.UX.Property-1.h>
 #include <Uno.UX.Selector.h>
-static uString* STRINGS[3];
-static uType* TYPES[3];
+static uString* STRINGS[2];
+static uType* TYPES[2];
 
 namespace g{
 
 // public partial sealed class Overview.Template :6
 // {
-// static Template() :17
+// static Template() :16
 static void Overview__Template__cctor__fn(uType* __type)
 {
-    Overview__Template::__selector0_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[0/*"Text"*/]);
+    Overview__Template::__selector0_ = ::g::Uno::UX::Selector__op_Implicit(::STRINGS[0/*"Value"*/]);
 }
 
 static void Overview__Template_build(uType* type)
 {
-    ::STRINGS[0] = uString::Const("Text");
+    ::STRINGS[0] = uString::Const("Value");
     ::STRINGS[1] = uString::Const("name");
-    ::STRINGS[2] = uString::Const("goToUser");
     ::TYPES[0] = ::g::Fuse::Reactive::DataBinding_typeof()->MakeType(::g::Uno::String_typeof());
-    ::TYPES[1] = ::g::Fuse::Gestures::ClickedHandler_typeof();
-    ::TYPES[2] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Binding_typeof());
+    ::TYPES[1] = ::g::Uno::Collections::ICollection_typeof()->MakeType(::g::Fuse::Binding_typeof());
     type->SetFields(2,
         ::g::Overview_typeof(), offsetof(::g::Overview__Template, __parent1), uFieldFlagsWeak,
         ::g::Overview_typeof(), offsetof(::g::Overview__Template, __parentInstance1), uFieldFlagsWeak,
-        ::g::Uno::UX::Property1_typeof()->MakeType(::g::Uno::String_typeof()), offsetof(::g::Overview__Template, self_Text_inst), 0,
+        ::g::Uno::UX::Property1_typeof()->MakeType(::g::Uno::String_typeof()), offsetof(::g::Overview__Template, self_Value_inst), 0,
         ::g::Uno::UX::Selector_typeof(), (uintptr_t)&::g::Overview__Template::__selector0_, uFieldFlagsStatic);
 }
 
@@ -70,16 +66,14 @@ void Overview__Template__ctor_1_fn(Overview__Template* __this, ::g::Overview* pa
     __this->ctor_1(parent, parentInstance);
 }
 
-// public override sealed object New() :20
+// public override sealed object New() :19
 void Overview__Template__New1_fn(Overview__Template* __this, uObject** __retval)
 {
-    ::g::Fuse::Controls::Button* self = ::g::Fuse::Controls::Button::New5();
-    __this->self_Text_inst = ::g::Zmart_FuseControlsButton_Text_Property::New1(self, Overview__Template::__selector0());
-    ::g::Fuse::Reactive::DataBinding* temp = (::g::Fuse::Reactive::DataBinding*)::g::Fuse::Reactive::DataBinding::New1(::TYPES[0/*Fuse.Reactive.DataBinding<string>*/], __this->self_Text_inst, ::STRINGS[1/*"name"*/]);
-    ::g::Fuse::Reactive::EventBinding* temp_eb31 = ::g::Fuse::Reactive::EventBinding::New1(::STRINGS[2/*"goToUser"*/]);
-    ::g::Fuse::Gestures::Clicked::AddHandler(self, uDelegate::New(::TYPES[1/*Fuse.Gestures.ClickedHandler*/], (void*)::g::Fuse::Reactive::EventBinding__OnEvent_fn, temp_eb31));
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(self->Bindings()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Binding>*/]), temp);
-    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(self->Bindings()), ::TYPES[2/*Uno.Collections.ICollection<Fuse.Binding>*/]), temp_eb31);
+    ::g::Fuse::Controls::TextBox* self = ::g::Fuse::Controls::TextBox::New4();
+    __this->self_Value_inst = ::g::Zmart_FuseControlsTextBox_Value_Property::New1(self, Overview__Template::__selector0());
+    ::g::Fuse::Reactive::DataBinding* temp = (::g::Fuse::Reactive::DataBinding*)::g::Fuse::Reactive::DataBinding::New1(::TYPES[0/*Fuse.Reactive.DataBinding<string>*/], __this->self_Value_inst, ::STRINGS[1/*"name"*/]);
+    self->Alignment(8);
+    ::g::Uno::Collections::ICollection::Add_ex(uInterface(uPtr(self->Bindings()), ::TYPES[1/*Uno.Collections.ICollection<Fuse.Binding>*/]), temp);
     return *__retval = self, void();
 }
 

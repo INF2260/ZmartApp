@@ -13,17 +13,26 @@
         5A4940FC151D17AD000ACE3F /* data in Resources */ = {isa = PBXBuildFile; fileRef = 5A4940FB151D17AD000ACE3F /* data */; };
         4630E65B40A4C4859A94D2DB /* _root.CreateUser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 441819964F5D2522A1F34E16 /* _root.CreateUser.cpp */; };
         211C16C1557D7DC7A01CA8C1 /* _root.g.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B4496F6A56309F66485FC1EA /* _root.g.cpp */; };
-        4CE41F7169B75F331D8525F1 /* _root.Login.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E171A16B19EFC5639A94716 /* _root.Login.cpp */; };
+        1177F3C5F829694F7FE6DEC5 /* _root.HidingPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA037DFC7FCC75707A01F1FC /* _root.HidingPanel.cpp */; };
         CEB45A18256E1F2C8129B398 /* _root.MainView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E4C7B8B7086CC81863D548B /* _root.MainView.cpp */; };
         C8182B8A49B6D3BA241CCF0A /* _root.MainView.Template.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E88CBDD5A654D4E7202558D5 /* _root.MainView.Template.cpp */; };
         4C88740F59284CBD8E44768F /* _root.MainView.Template1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6655B126EA915C2E6E5F8A6B /* _root.MainView.Template1.cpp */; };
         DEFBEEE6613445AF65946E87 /* _root.MainView.Template2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA417BE32377636D9C48B163 /* _root.MainView.Template2.cpp */; };
         3A2373A1D5D2637B64376A13 /* _root.Overview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D90CB186C47461BA421C0706 /* _root.Overview.cpp */; };
         54780187399A780119E28E87 /* _root.Overview.Template.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E833BFE644DA8D6AEE673E61 /* _root.Overview.Template.cpp */; };
+        9B8DE7D4EABFA43C268569D4 /* _root.Overview.Template1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85269BD5C197F763420648D5 /* _root.Overview.Template1.cpp */; };
+        DADABAA89E4E34105F05B428 /* _root.Teamview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFA4A30126512A0F13A18581 /* _root.Teamview.cpp */; };
         534E20EDC10065CF25D5AE6D /* _root.Zmart_bundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C72EA56FD58903E4C538056 /* _root.Zmart_bundle.cpp */; };
-        3DAC1B364DD4ED127229C236 /* _root.Zmart_FuseControlsButton_Text_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F84065B908F67F5CED0395B /* _root.Zmart_FuseControlsButton_Text_Property.cpp */; };
+        3B9CBA4D2360D58B65689B4D /* _root.Zmart_FuseControlsRectangle_CornerRadius_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CEAD5A89E2FBE6876D127A8 /* _root.Zmart_FuseControlsRectangle_CornerRadius_Property.cpp */; };
+        E1C3BA8230F9865A1966FA02 /* _root.Zmart_FuseControlsRectangle_ElementLayoutMaster_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14A24509698B98BBB2591209 /* _root.Zmart_FuseControlsRectangle_ElementLayoutMaster_Property.cpp */; };
         935F36B221EFE30AA9E2DF32 /* _root.Zmart_FuseControlsTextBox_Value_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76F26EFB8081D719BB7B457B /* _root.Zmart_FuseControlsTextBox_Value_Property.cpp */; };
         6F5AFD4580B8E847D9B57745 /* _root.Zmart_FuseReactiveEach_Items_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F483817A8ED795FA967065FA /* _root.Zmart_FuseReactiveEach_Items_Property.cpp */; };
+        2AB2180EF154F11A92E61E0E /* _root.Zmart_FuseTriggersStateGroup_Active_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E3B8EA5B932D7C5771E245B3 /* _root.Zmart_FuseTriggersStateGroup_Active_Property.cpp */; };
+        DD0C199663FDD2FAAEA30516 /* _root.Zmart_FuseTriggersWhileTrue_Value_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85F088C9BBD6846FB45F7FC9 /* _root.Zmart_FuseTriggersWhileTrue_Value_Property.cpp */; };
+        BF0D757495816ED0ABA10C74 /* _root.Zmart_HidingPanel_IsEnabled_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3982D7B94DE4CD31653D5B9E /* _root.Zmart_HidingPanel_IsEnabled_Property.cpp */; };
+        75DD7DF4614569844E18FF4B /* _root.Zmart_HidingPanel_Opacity_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 594D74EFA246AD56197F06F5 /* _root.Zmart_HidingPanel_Opacity_Property.cpp */; };
+        E9406321DF1D07A3A6EBA521 /* _root.Zmart_zmartButton_Text_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FC39F2659452A266FCC07A6 /* _root.Zmart_zmartButton_Text_Property.cpp */; };
+        CB87E3DA7792A56B8BCBADA9 /* _root.Zmart_zmartText_Value_Property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D496BE37D5DDCB31ED3C0137 /* _root.Zmart_zmartText_Value_Property.cpp */; };
         23B99618446DC7443AE09298 /* Experimental.Cache.g.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D57333D4F287E07BAC11FBD /* Experimental.Cache.g.cpp */; };
         E1BF49A6A37CA8C6C1913EA6 /* Experimental.Http.g.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A13455F9F1450C9B3E0F179D /* Experimental.Http.g.cpp */; };
         542BC06F309D2F51CDF896EF /* Experimental.Http.Internal.g.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEC1783879F4AD20CFC2BC38 /* Experimental.Http.Internal.g.cpp */; };
@@ -43,6 +52,7 @@
         8EF34760ECDFB25CCDC7C360 /* Fuse.Controls.Native.iOS.FocusHelpers.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2406A75C65324EF491AA775 /* Fuse.Controls.Native.iOS.FocusHelpers.mm */; };
         79C94C77D37A5139941F71F7 /* Fuse.Controls.Native.iOS.g.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7553F13032271C38C6BA3430 /* Fuse.Controls.Native.iOS.g.cpp */; };
         E2A5FD9F8A576E79564D291F /* Fuse.Controls.Native.iOS.GraphicsView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E5F4B1AAC5F63A86A677C42A /* Fuse.Controls.Native.iOS.GraphicsView.mm */; };
+        25B1071C2185D8FCEC8D671B /* Fuse.Controls.Native.iOS.ImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9C9DE7BCABC9331CDD0527BC /* Fuse.Controls.Native.iOS.ImageView.mm */; };
         59682BFD4408F1FDA4807FDC /* Fuse.Controls.Native.iOS.InputDispatch.mm in Sources */ = {isa = PBXBuildFile; fileRef = CFC3ED0293A7BA625DD08A82 /* Fuse.Controls.Native.iOS.InputDispatch.mm */; };
         E09049B48F13D88B3D2E8B48 /* Fuse.Controls.Native.iOS.iOSDevice.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4999B96D98818BD7B5EF856D /* Fuse.Controls.Native.iOS.iOSDevice.mm */; };
         21A7747F25CC131DB843AF7F /* Fuse.Controls.Native.iOS.KeyboardView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C59D574ECE8755E686391B4E /* Fuse.Controls.Native.iOS.KeyboardView.mm */; };
@@ -73,6 +83,7 @@
         643608C7D3569EB953C2E9C7 /* Fuse.Drawing.Primitives.g.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD6C0CA4838176345BF9FD24 /* Fuse.Drawing.Primitives.g.cpp */; };
         DA0AE027D2F50311A9377927 /* Fuse.Effects.g.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE726FE215F4742E6CA0BBE2 /* Fuse.Effects.g.cpp */; };
         BC731725829DB32783CC972C /* Fuse.Elements.g.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31F85575136155F7B9BE97F5 /* Fuse.Elements.g.cpp */; };
+        290BD9FB593D43EDD09600FB /* Fuse.Elements.Internal.g.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F7396CEC658DB944C6C1916C /* Fuse.Elements.Internal.g.cpp */; };
         88D26588B592B11CC1BEA188 /* Fuse.Entities.g.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63ECF961D5CB840B58624161 /* Fuse.Entities.g.cpp */; };
         EBAF2D78D43E2144855F1BF8 /* Fuse.FileSystem.g.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DE4192272B6BCB1D6F261927 /* Fuse.FileSystem.g.cpp */; };
         9D91B1BBCDAB22D9FB21523B /* Fuse.FileSystem.IosPaths.mm in Sources */ = {isa = PBXBuildFile; fileRef = 80E81AC6CC2F8F26B344F146 /* Fuse.FileSystem.IosPaths.mm */; };
@@ -158,6 +169,8 @@
         3C87619A4AFC32BE6CECAD1A /* uObjC.String.mm in Sources */ = {isa = PBXBuildFile; fileRef = 744093326AFD4CDAF5A74B3D /* uObjC.String.mm */; };
         39D36EBE2118908E47C4E13E /* uObjC.UnoArray.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4B292AB5C9F3E195475A2B9 /* uObjC.UnoArray.mm */; };
         2EAD8D9A79F64D32DDAE501A /* uObjC.UnoObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = FC59C27B6288A4594E9D5DFB /* uObjC.UnoObject.mm */; };
+        847BDAD51BBF6ADFECA383D5 /* zmart.Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D3F08260929AF30C3E456B60 /* zmart.Button.cpp */; };
+        A9EE2EE6AC26E15AAB5F33E6 /* zmart.Text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3545A339D6C0B24F2A904DB9 /* zmart.Text.cpp */; };
         C782C6C5E79C1FAF82CDBCC5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5FC78FC1073C51063FCD9FC /* AudioToolbox.framework */; };
         DFFB8A16A4726AD6149F5016 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81E57249DD8731CBA984F2C9 /* AVFoundation.framework */; };
         E3AF88BDC52F547BCAD3243D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F4B15CC572FFC44AF4D7F4C /* CFNetwork.framework */; };
@@ -198,6 +211,7 @@
         A2D7746C026FB63D6F4CC632 /* include/_root.FuseControls_bundle.h */ = {isa = PBXFileReference; name = _root.FuseControls_bundle.h; path = "include/_root.FuseControls_bundle.h"; sourceTree = "<group>"; };
         C256997713CEA57547D80FF7 /* include/_root.FuseControlsNative_bundle.h */ = {isa = PBXFileReference; name = _root.FuseControlsNative_bundle.h; path = "include/_root.FuseControlsNative_bundle.h"; sourceTree = "<group>"; };
         B3C1C2A586AD77F7607F8CA5 /* include/_root.FuseControlsNavigation_FuseControlsCircle_Color_Property.h */ = {isa = PBXFileReference; name = _root.FuseControlsNavigation_FuseControlsCircle_Color_Property.h; path = "include/_root.FuseControlsNavigation_FuseControlsCircle_Color_Property.h"; sourceTree = "<group>"; };
+        2EEF1D48371D39C4F6FD8148 /* include/_root.FuseControlsPrimitives_bundle.h */ = {isa = PBXFileReference; name = _root.FuseControlsPrimitives_bundle.h; path = "include/_root.FuseControlsPrimitives_bundle.h"; sourceTree = "<group>"; };
         92F2E36CE27BD46217FB336F /* include/_root.FuseControlsPrimitives_FuseControlsBackButton_Text_Property.h */ = {isa = PBXFileReference; name = _root.FuseControlsPrimitives_FuseControlsBackButton_Text_Property.h; path = "include/_root.FuseControlsPrimitives_FuseControlsBackButton_Text_Property.h"; sourceTree = "<group>"; };
         4F22E8F5AC4636C3A8F1D075 /* include/_root.FuseControlsPrimitives_FuseControlsButton_Text_Property.h */ = {isa = PBXFileReference; name = _root.FuseControlsPrimitives_FuseControlsButton_Text_Property.h; path = "include/_root.FuseControlsPrimitives_FuseControlsButton_Text_Property.h"; sourceTree = "<group>"; };
         E3B8ED83134D0CF180199D03 /* include/_root.FuseControlsPrimitives_FuseControlsCircle_Fill_Property.h */ = {isa = PBXFileReference; name = _root.FuseControlsPrimitives_FuseControlsCircle_Fill_Property.h; path = "include/_root.FuseControlsPrimitives_FuseControlsCircle_Fill_Property.h"; sourceTree = "<group>"; };
@@ -225,17 +239,26 @@
         27CBFF07D4D9A861A67E5407 /* include/_root.FuseElements_bundle.h */ = {isa = PBXFileReference; name = _root.FuseElements_bundle.h; path = "include/_root.FuseElements_bundle.h"; sourceTree = "<group>"; };
         7F83459BF87187ED967E4B9B /* include/_root.FuseEntities_bundle.h */ = {isa = PBXFileReference; name = _root.FuseEntities_bundle.h; path = "include/_root.FuseEntities_bundle.h"; sourceTree = "<group>"; };
         151E94111321764FC700C311 /* include/_root.FuseReactive_bundle.h */ = {isa = PBXFileReference; name = _root.FuseReactive_bundle.h; path = "include/_root.FuseReactive_bundle.h"; sourceTree = "<group>"; };
-        C17A1E1FA5710CAD5F934B9F /* include/_root.Login.h */ = {isa = PBXFileReference; name = _root.Login.h; path = "include/_root.Login.h"; sourceTree = "<group>"; };
+        21E8E663E838FCA922970CE3 /* include/_root.HidingPanel.h */ = {isa = PBXFileReference; name = _root.HidingPanel.h; path = "include/_root.HidingPanel.h"; sourceTree = "<group>"; };
         2A4A31507BD8FDD8E3A17050 /* include/_root.MainView.h */ = {isa = PBXFileReference; name = _root.MainView.h; path = "include/_root.MainView.h"; sourceTree = "<group>"; };
         1174889E24FF30FEC5C4C71E /* include/_root.MainView.Template.h */ = {isa = PBXFileReference; name = _root.MainView.Template.h; path = "include/_root.MainView.Template.h"; sourceTree = "<group>"; };
         F01108BDF5FBD5F328558C3D /* include/_root.MainView.Template1.h */ = {isa = PBXFileReference; name = _root.MainView.Template1.h; path = "include/_root.MainView.Template1.h"; sourceTree = "<group>"; };
         E48C8F1EC02B396D5EFC69EF /* include/_root.MainView.Template2.h */ = {isa = PBXFileReference; name = _root.MainView.Template2.h; path = "include/_root.MainView.Template2.h"; sourceTree = "<group>"; };
         AC2E45EBD5014DF93C33606B /* include/_root.Overview.h */ = {isa = PBXFileReference; name = _root.Overview.h; path = "include/_root.Overview.h"; sourceTree = "<group>"; };
         A193FDFDB492F8B3220640FD /* include/_root.Overview.Template.h */ = {isa = PBXFileReference; name = _root.Overview.Template.h; path = "include/_root.Overview.Template.h"; sourceTree = "<group>"; };
+        CAFAD91493AB8108254B6814 /* include/_root.Overview.Template1.h */ = {isa = PBXFileReference; name = _root.Overview.Template1.h; path = "include/_root.Overview.Template1.h"; sourceTree = "<group>"; };
+        29B062E0F2DB6DD4C863FCE0 /* include/_root.Teamview.h */ = {isa = PBXFileReference; name = _root.Teamview.h; path = "include/_root.Teamview.h"; sourceTree = "<group>"; };
         70CE35EB55C7D7C582C145EB /* include/_root.Zmart_bundle.h */ = {isa = PBXFileReference; name = _root.Zmart_bundle.h; path = "include/_root.Zmart_bundle.h"; sourceTree = "<group>"; };
-        710CBE671D2564E13B659E6E /* include/_root.Zmart_FuseControlsButton_Text_Property.h */ = {isa = PBXFileReference; name = _root.Zmart_FuseControlsButton_Text_Property.h; path = "include/_root.Zmart_FuseControlsButton_Text_Property.h"; sourceTree = "<group>"; };
+        C804F8DFD5DA1FD16B673BDF /* include/_root.Zmart_FuseControlsRectangle_CornerRadius_Property.h */ = {isa = PBXFileReference; name = _root.Zmart_FuseControlsRectangle_CornerRadius_Property.h; path = "include/_root.Zmart_FuseControlsRectangle_CornerRadius_Property.h"; sourceTree = "<group>"; };
+        4F3968AFB3EFD569535338A3 /* include/_root.Zmart_FuseControlsRectangle_ElementLayoutMaster_Property.h */ = {isa = PBXFileReference; name = _root.Zmart_FuseControlsRectangle_ElementLayoutMaster_Property.h; path = "include/_root.Zmart_FuseControlsRectangle_ElementLayoutMaster_Property.h"; sourceTree = "<group>"; };
         14CF4AA6748D9C0AA57986A6 /* include/_root.Zmart_FuseControlsTextBox_Value_Property.h */ = {isa = PBXFileReference; name = _root.Zmart_FuseControlsTextBox_Value_Property.h; path = "include/_root.Zmart_FuseControlsTextBox_Value_Property.h"; sourceTree = "<group>"; };
         EDF1DDA3C3D3A6F14616AEA3 /* include/_root.Zmart_FuseReactiveEach_Items_Property.h */ = {isa = PBXFileReference; name = _root.Zmart_FuseReactiveEach_Items_Property.h; path = "include/_root.Zmart_FuseReactiveEach_Items_Property.h"; sourceTree = "<group>"; };
+        F9816D961C64922E10CE7016 /* include/_root.Zmart_FuseTriggersStateGroup_Active_Property.h */ = {isa = PBXFileReference; name = _root.Zmart_FuseTriggersStateGroup_Active_Property.h; path = "include/_root.Zmart_FuseTriggersStateGroup_Active_Property.h"; sourceTree = "<group>"; };
+        AD5FE6A2EA195AFA46A71F22 /* include/_root.Zmart_FuseTriggersWhileTrue_Value_Property.h */ = {isa = PBXFileReference; name = _root.Zmart_FuseTriggersWhileTrue_Value_Property.h; path = "include/_root.Zmart_FuseTriggersWhileTrue_Value_Property.h"; sourceTree = "<group>"; };
+        4FEEB7A094E5CA089B255920 /* include/_root.Zmart_HidingPanel_IsEnabled_Property.h */ = {isa = PBXFileReference; name = _root.Zmart_HidingPanel_IsEnabled_Property.h; path = "include/_root.Zmart_HidingPanel_IsEnabled_Property.h"; sourceTree = "<group>"; };
+        63380584C6E4FA1C63B10584 /* include/_root.Zmart_HidingPanel_Opacity_Property.h */ = {isa = PBXFileReference; name = _root.Zmart_HidingPanel_Opacity_Property.h; path = "include/_root.Zmart_HidingPanel_Opacity_Property.h"; sourceTree = "<group>"; };
+        41FA854F19B0331D5F3582CF /* include/_root.Zmart_zmartButton_Text_Property.h */ = {isa = PBXFileReference; name = _root.Zmart_zmartButton_Text_Property.h; path = "include/_root.Zmart_zmartButton_Text_Property.h"; sourceTree = "<group>"; };
+        957B68A2B322B02A7178C8A2 /* include/_root.Zmart_zmartText_Value_Property.h */ = {isa = PBXFileReference; name = _root.Zmart_zmartText_Value_Property.h; path = "include/_root.Zmart_zmartText_Value_Property.h"; sourceTree = "<group>"; };
         345415D6F697CE823CC84156 /* include/Experimental.Cache.CacheLoaded.h */ = {isa = PBXFileReference; name = Experimental.Cache.CacheLoaded.h; path = "include/Experimental.Cache.CacheLoaded.h"; sourceTree = "<group>"; };
         7140EB5E8B54549E45E9A0DE /* include/Experimental.Cache.ICache.h */ = {isa = PBXFileReference; name = Experimental.Cache.ICache.h; path = "include/Experimental.Cache.ICache.h"; sourceTree = "<group>"; };
         7B1660B712F58DC9AE3AC377 /* include/Experimental.Cache.ICacheReader.h */ = {isa = PBXFileReference; name = Experimental.Cache.ICacheReader.h; path = "include/Experimental.Cache.ICacheReader.h"; sourceTree = "<group>"; };
@@ -385,6 +408,9 @@
         4F39FE1E3E974492F984B79E /* include/Fuse.Controls.Graphics.ControlVisual-1.h */ = {isa = PBXFileReference; name = Fuse.Controls.Graphics.ControlVisual-1.h; path = "include/Fuse.Controls.Graphics.ControlVisual-1.h"; sourceTree = "<group>"; };
         7A80A5DD202DAAB47B5C7DD4 /* include/Fuse.Controls.Graphics.Visual.h */ = {isa = PBXFileReference; name = Fuse.Controls.Graphics.Visual.h; path = "include/Fuse.Controls.Graphics.Visual.h"; sourceTree = "<group>"; };
         876EF429ACF1C76DE017A427 /* include/Fuse.Controls.GraphicsView.h */ = {isa = PBXFileReference; name = Fuse.Controls.GraphicsView.h; path = "include/Fuse.Controls.GraphicsView.h"; sourceTree = "<group>"; };
+        EB9781A21E71F4F61650E422 /* include/Fuse.Controls.Grid.h */ = {isa = PBXFileReference; name = Fuse.Controls.Grid.h; path = "include/Fuse.Controls.Grid.h"; sourceTree = "<group>"; };
+        A26D7F616D1D8A0B28E5C761 /* include/Fuse.Controls.Image.h */ = {isa = PBXFileReference; name = Fuse.Controls.Image.h; path = "include/Fuse.Controls.Image.h"; sourceTree = "<group>"; };
+        16DD23E7DABAA521AB69ABE7 /* include/Fuse.Controls.ImageElementDraw.h */ = {isa = PBXFileReference; name = Fuse.Controls.ImageElementDraw.h; path = "include/Fuse.Controls.ImageElementDraw.h"; sourceTree = "<group>"; };
         CB00F637EC7DF245F2D45A37 /* include/Fuse.Controls.ISourceReceiver.h */ = {isa = PBXFileReference; name = Fuse.Controls.ISourceReceiver.h; path = "include/Fuse.Controls.ISourceReceiver.h"; sourceTree = "<group>"; };
         2EEF74AB69E969C9B388E1AB /* include/Fuse.Controls.ITextRenderer.h */ = {isa = PBXFileReference; name = Fuse.Controls.ITextRenderer.h; path = "include/Fuse.Controls.ITextRenderer.h"; sourceTree = "<group>"; };
         392F6004A132552CB0223704 /* include/Fuse.Controls.IWebView.h */ = {isa = PBXFileReference; name = Fuse.Controls.IWebView.h; path = "include/Fuse.Controls.IWebView.h"; sourceTree = "<group>"; };
@@ -395,6 +421,7 @@
         494C1F88E3670408A8097188 /* include/Fuse.Controls.Native.Android.Switch.h */ = {isa = PBXFileReference; name = Fuse.Controls.Native.Android.Switch.h; path = "include/Fuse.Controls.Native.Android.Switch.h"; sourceTree = "<group>"; };
         C0BA585BB186DD415187CE5B /* include/Fuse.Controls.Native.ICircleView.h */ = {isa = PBXFileReference; name = Fuse.Controls.Native.ICircleView.h; path = "include/Fuse.Controls.Native.ICircleView.h"; sourceTree = "<group>"; };
         37CE023C7337D284D783D5BC /* include/Fuse.Controls.Native.IGraphicsView.h */ = {isa = PBXFileReference; name = Fuse.Controls.Native.IGraphicsView.h; path = "include/Fuse.Controls.Native.IGraphicsView.h"; sourceTree = "<group>"; };
+        284BADC6F0E1585657BAC5C6 /* include/Fuse.Controls.Native.IImageView.h */ = {isa = PBXFileReference; name = Fuse.Controls.Native.IImageView.h; path = "include/Fuse.Controls.Native.IImageView.h"; sourceTree = "<group>"; };
         17ED8AB3CDBB210581AD38B3 /* include/Fuse.Controls.Native.ILabelView.h */ = {isa = PBXFileReference; name = Fuse.Controls.Native.ILabelView.h; path = "include/Fuse.Controls.Native.ILabelView.h"; sourceTree = "<group>"; };
         85F950677FA09BADC4FD4167 /* include/Fuse.Controls.Native.ILeafView.h */ = {isa = PBXFileReference; name = Fuse.Controls.Native.ILeafView.h; path = "include/Fuse.Controls.Native.ILeafView.h"; sourceTree = "<group>"; };
         21772834D2F90FB88178DD34 /* include/Fuse.Controls.Native.ImageHandle.h */ = {isa = PBXFileReference; name = Fuse.Controls.Native.ImageHandle.h; path = "include/Fuse.Controls.Native.ImageHandle.h"; sourceTree = "<group>"; };
@@ -409,6 +436,7 @@
         8A073413713D8DF5591A2993 /* include/Fuse.Controls.Native.iOS.FocusHelpers.PerformBecomeFirstResponder.h */ = {isa = PBXFileReference; name = Fuse.Controls.Native.iOS.FocusHelpers.PerformBecomeFirstResponder.h; path = "include/Fuse.Controls.Native.iOS.FocusHelpers.PerformBecomeFirstResponder.h"; sourceTree = "<group>"; };
         5A72C7C56C94CF73C55307C5 /* include/Fuse.Controls.Native.iOS.FontCache.h */ = {isa = PBXFileReference; name = Fuse.Controls.Native.iOS.FontCache.h; path = "include/Fuse.Controls.Native.iOS.FontCache.h"; sourceTree = "<group>"; };
         F45059361CFF46E6E5CD2936 /* include/Fuse.Controls.Native.iOS.GraphicsView.h */ = {isa = PBXFileReference; name = Fuse.Controls.Native.iOS.GraphicsView.h; path = "include/Fuse.Controls.Native.iOS.GraphicsView.h"; sourceTree = "<group>"; };
+        C0C6B738A80CA02CD05A0838 /* include/Fuse.Controls.Native.iOS.ImageView.h */ = {isa = PBXFileReference; name = Fuse.Controls.Native.iOS.ImageView.h; path = "include/Fuse.Controls.Native.iOS.ImageView.h"; sourceTree = "<group>"; };
         4F14580E9E29F45EF48BDD8E /* include/Fuse.Controls.Native.iOS.INativeFocusListener.h */ = {isa = PBXFileReference; name = Fuse.Controls.Native.iOS.INativeFocusListener.h; path = "include/Fuse.Controls.Native.iOS.INativeFocusListener.h"; sourceTree = "<group>"; };
         29BD3616B314E6721A694B16 /* include/Fuse.Controls.Native.iOS.InputDispatch.h */ = {isa = PBXFileReference; name = Fuse.Controls.Native.iOS.InputDispatch.h; path = "include/Fuse.Controls.Native.iOS.InputDispatch.h"; sourceTree = "<group>"; };
         721394935C5391B1EC71CD13 /* include/Fuse.Controls.Native.iOS.iOSBlitter.h */ = {isa = PBXFileReference; name = Fuse.Controls.Native.iOS.iOSBlitter.h; path = "include/Fuse.Controls.Native.iOS.iOSBlitter.h"; sourceTree = "<group>"; };
@@ -541,6 +569,7 @@
         76C81109771885764DBFA098 /* include/Fuse.Drawing.BlendModeHelpers.h */ = {isa = PBXFileReference; name = Fuse.Drawing.BlendModeHelpers.h; path = "include/Fuse.Drawing.BlendModeHelpers.h"; sourceTree = "<group>"; };
         1BA880B4F28DD82C83530C34 /* include/Fuse.Drawing.Brush.Converter.h */ = {isa = PBXFileReference; name = Fuse.Drawing.Brush.Converter.h; path = "include/Fuse.Drawing.Brush.Converter.h"; sourceTree = "<group>"; };
         15E76DD2361FC80A9B468152 /* include/Fuse.Drawing.Brush.h */ = {isa = PBXFileReference; name = Fuse.Drawing.Brush.h; path = "include/Fuse.Drawing.Brush.h"; sourceTree = "<group>"; };
+        3988C2BC7BB66AE868EA5BBC /* include/Fuse.Drawing.Colors.h */ = {isa = PBXFileReference; name = Fuse.Drawing.Colors.h; path = "include/Fuse.Drawing.Colors.h"; sourceTree = "<group>"; };
         9CC8F4AD34D2C13FED1AD6AD /* include/Fuse.Drawing.DynamicBrush.h */ = {isa = PBXFileReference; name = Fuse.Drawing.DynamicBrush.h; path = "include/Fuse.Drawing.DynamicBrush.h"; sourceTree = "<group>"; };
         ED7078AC4BB61198D3166A2C /* include/Fuse.Drawing.GradientStop.h */ = {isa = PBXFileReference; name = Fuse.Drawing.GradientStop.h; path = "include/Fuse.Drawing.GradientStop.h"; sourceTree = "<group>"; };
         C42FD2C2F4A6C896135F96C2 /* include/Fuse.Drawing.ImageFill.DrawParams.h */ = {isa = PBXFileReference; name = Fuse.Drawing.ImageFill.DrawParams.h; path = "include/Fuse.Drawing.ImageFill.DrawParams.h"; sourceTree = "<group>"; };
@@ -566,6 +595,7 @@
         B89FF6148FBFB8C43C505B14 /* include/Fuse.Drawing.Primitives.Wedge.h */ = {isa = PBXFileReference; name = Fuse.Drawing.Primitives.Wedge.h; path = "include/Fuse.Drawing.Primitives.Wedge.h"; sourceTree = "<group>"; };
         965845A2497D7F52E3BD79A2 /* include/Fuse.Drawing.Primitives.WedgeCoverage.h */ = {isa = PBXFileReference; name = Fuse.Drawing.Primitives.WedgeCoverage.h; path = "include/Fuse.Drawing.Primitives.WedgeCoverage.h"; sourceTree = "<group>"; };
         150DB2F645D652DACF264176 /* include/Fuse.Drawing.RepeatBaker.h */ = {isa = PBXFileReference; name = Fuse.Drawing.RepeatBaker.h; path = "include/Fuse.Drawing.RepeatBaker.h"; sourceTree = "<group>"; };
+        8EAA04B0E56F31BCEDD175B0 /* include/Fuse.Drawing.ResampleMode.h */ = {isa = PBXFileReference; name = Fuse.Drawing.ResampleMode.h; path = "include/Fuse.Drawing.ResampleMode.h"; sourceTree = "<group>"; };
         F98F531E237C6ACE2B7CB39E /* include/Fuse.Drawing.SolidColor.h */ = {isa = PBXFileReference; name = Fuse.Drawing.SolidColor.h; path = "include/Fuse.Drawing.SolidColor.h"; sourceTree = "<group>"; };
         B0A8918E2C74DB0194CD5989 /* include/Fuse.Drawing.StaticBrush.h */ = {isa = PBXFileReference; name = Fuse.Drawing.StaticBrush.h; path = "include/Fuse.Drawing.StaticBrush.h"; sourceTree = "<group>"; };
         9CD07644E8E348146CD406C4 /* include/Fuse.Drawing.StaticSolidColor.h */ = {isa = PBXFileReference; name = Fuse.Drawing.StaticSolidColor.h; path = "include/Fuse.Drawing.StaticSolidColor.h"; sourceTree = "<group>"; };
@@ -594,6 +624,7 @@
         8AB0EABF732ED951E87EC0BF /* include/Fuse.Elements.CacheTile.h */ = {isa = PBXFileReference; name = Fuse.Elements.CacheTile.h; path = "include/Fuse.Elements.CacheTile.h"; sourceTree = "<group>"; };
         D26C6A61DBA76E4FB74EC2E1 /* include/Fuse.Elements.CachingMode.h */ = {isa = PBXFileReference; name = Fuse.Elements.CachingMode.h; path = "include/Fuse.Elements.CachingMode.h"; sourceTree = "<group>"; };
         F10A7BA0497E399466C8C420 /* include/Fuse.Elements.DisplayHelpers.h */ = {isa = PBXFileReference; name = Fuse.Elements.DisplayHelpers.h; path = "include/Fuse.Elements.DisplayHelpers.h"; sourceTree = "<group>"; };
+        4FDF8049364BF836EB59D497 /* include/Fuse.Elements.Element.BoxSizingMode.h */ = {isa = PBXFileReference; name = Fuse.Elements.Element.BoxSizingMode.h; path = "include/Fuse.Elements.Element.BoxSizingMode.h"; sourceTree = "<group>"; };
         7A345CAF7513119F5DB27AF2 /* include/Fuse.Elements.Element.GMSCacheItem.h */ = {isa = PBXFileReference; name = Fuse.Elements.Element.GMSCacheItem.h; path = "include/Fuse.Elements.Element.GMSCacheItem.h"; sourceTree = "<group>"; };
         23F8EBA9573F2CF1C81BA9B4 /* include/Fuse.Elements.Element.h */ = {isa = PBXFileReference; name = Fuse.Elements.Element.h; path = "include/Fuse.Elements.Element.h"; sourceTree = "<group>"; };
         812749CA7CC1684106CB59C8 /* include/Fuse.Elements.ElementAtlas.h */ = {isa = PBXFileReference; name = Fuse.Elements.ElementAtlas.h; path = "include/Fuse.Elements.ElementAtlas.h"; sourceTree = "<group>"; };
@@ -608,11 +639,13 @@
         C332E5871F38CABD97985D87 /* include/Fuse.Elements.HitTestMode.h */ = {isa = PBXFileReference; name = Fuse.Elements.HitTestMode.h; path = "include/Fuse.Elements.HitTestMode.h"; sourceTree = "<group>"; };
         946467BAA6E68B0A54CD2DBA /* include/Fuse.Elements.IElementBatchDrawable.h */ = {isa = PBXFileReference; name = Fuse.Elements.IElementBatchDrawable.h; path = "include/Fuse.Elements.IElementBatchDrawable.h"; sourceTree = "<group>"; };
         6FEF7D1B1E87F5353821E91B /* include/Fuse.Elements.InteractiveTransform.h */ = {isa = PBXFileReference; name = Fuse.Elements.InteractiveTransform.h; path = "include/Fuse.Elements.InteractiveTransform.h"; sourceTree = "<group>"; };
+        23E337DA6925E2CE5FC53CDA /* include/Fuse.Elements.Internal.Scale9Rectangle.h */ = {isa = PBXFileReference; name = Fuse.Elements.Internal.Scale9Rectangle.h; path = "include/Fuse.Elements.Internal.Scale9Rectangle.h"; sourceTree = "<group>"; };
         E17906F0370C319C1425A070 /* include/Fuse.Elements.ITransformOrigin.h */ = {isa = PBXFileReference; name = Fuse.Elements.ITransformOrigin.h; path = "include/Fuse.Elements.ITransformOrigin.h"; sourceTree = "<group>"; };
         D89580F422829850DA61E474 /* include/Fuse.Elements.LayoutMasterBoxSizing.h */ = {isa = PBXFileReference; name = Fuse.Elements.LayoutMasterBoxSizing.h; path = "include/Fuse.Elements.LayoutMasterBoxSizing.h"; sourceTree = "<group>"; };
         3341FBAC7473D590CA8ACA31 /* include/Fuse.Elements.LayoutMasterBoxSizing.LayoutMasterData.h */ = {isa = PBXFileReference; name = Fuse.Elements.LayoutMasterBoxSizing.LayoutMasterData.h; path = "include/Fuse.Elements.LayoutMasterBoxSizing.LayoutMasterData.h"; sourceTree = "<group>"; };
         FA55FFB46B1FBA90B01BEC34 /* include/Fuse.Elements.LayoutMasterMode.h */ = {isa = PBXFileReference; name = Fuse.Elements.LayoutMasterMode.h; path = "include/Fuse.Elements.LayoutMasterMode.h"; sourceTree = "<group>"; };
         A7930F23C37B3B65DE65C323 /* include/Fuse.Elements.LimitBoxSizing.h */ = {isa = PBXFileReference; name = Fuse.Elements.LimitBoxSizing.h; path = "include/Fuse.Elements.LimitBoxSizing.h"; sourceTree = "<group>"; };
+        53FEA7BA7EFAD9A6773DD5BA /* include/Fuse.Elements.NoImplicitMaxBoxSizing.h */ = {isa = PBXFileReference; name = Fuse.Elements.NoImplicitMaxBoxSizing.h; path = "include/Fuse.Elements.NoImplicitMaxBoxSizing.h"; sourceTree = "<group>"; };
         63483B62B2EB963A96E258E2 /* include/Fuse.Elements.PreplacementArgs.h */ = {isa = PBXFileReference; name = Fuse.Elements.PreplacementArgs.h; path = "include/Fuse.Elements.PreplacementArgs.h"; sourceTree = "<group>"; };
         E8033381E2A19A57F0F7EE81 /* include/Fuse.Elements.PreplacementHandler.h */ = {isa = PBXFileReference; name = Fuse.Elements.PreplacementHandler.h; path = "include/Fuse.Elements.PreplacementHandler.h"; sourceTree = "<group>"; };
         440E93901CD50B20B9A21B90 /* include/Fuse.Elements.SimpleAlignment.h */ = {isa = PBXFileReference; name = Fuse.Elements.SimpleAlignment.h; path = "include/Fuse.Elements.SimpleAlignment.h"; sourceTree = "<group>"; };
@@ -815,6 +848,7 @@
         C8EEC93F7B62D32176FA1EBF /* include/Fuse.Layouts.ColumnLayoutSizing.h */ = {isa = PBXFileReference; name = Fuse.Layouts.ColumnLayoutSizing.h; path = "include/Fuse.Layouts.ColumnLayoutSizing.h"; sourceTree = "<group>"; };
         F8D2368C1CFF5C34296F2C0C /* include/Fuse.Layouts.DefaultLayout.h */ = {isa = PBXFileReference; name = Fuse.Layouts.DefaultLayout.h; path = "include/Fuse.Layouts.DefaultLayout.h"; sourceTree = "<group>"; };
         F44E9C67AAF57D95D188C5E7 /* include/Fuse.Layouts.DefinitionBase.h */ = {isa = PBXFileReference; name = Fuse.Layouts.DefinitionBase.h; path = "include/Fuse.Layouts.DefinitionBase.h"; sourceTree = "<group>"; };
+        EA48D6E915C396175D88AFE9 /* include/Fuse.Layouts.DefinitionBase.ParseDataItem.h */ = {isa = PBXFileReference; name = Fuse.Layouts.DefinitionBase.ParseDataItem.h; path = "include/Fuse.Layouts.DefinitionBase.ParseDataItem.h"; sourceTree = "<group>"; };
         77EC2D9C4F5D67CCC166331C /* include/Fuse.Layouts.Dock.h */ = {isa = PBXFileReference; name = Fuse.Layouts.Dock.h; path = "include/Fuse.Layouts.Dock.h"; sourceTree = "<group>"; };
         B0C27A1EA701FDCEF5CE329E /* include/Fuse.Layouts.DockLayout.h */ = {isa = PBXFileReference; name = Fuse.Layouts.DockLayout.h; path = "include/Fuse.Layouts.DockLayout.h"; sourceTree = "<group>"; };
         5063067A8A0F292231D5BEFA /* include/Fuse.Layouts.FlowDirection.h */ = {isa = PBXFileReference; name = Fuse.Layouts.FlowDirection.h; path = "include/Fuse.Layouts.FlowDirection.h"; sourceTree = "<group>"; };
@@ -956,18 +990,21 @@
         4BF678DB26D08BB6A605B0D8 /* include/Fuse.Resources.DisposalRequest.h */ = {isa = PBXFileReference; name = Fuse.Resources.DisposalRequest.h; path = "include/Fuse.Resources.DisposalRequest.h"; sourceTree = "<group>"; };
         6BF1244282C9504A36824242 /* include/Fuse.Resources.DoubleResourceConverter.h */ = {isa = PBXFileReference; name = Fuse.Resources.DoubleResourceConverter.h; path = "include/Fuse.Resources.DoubleResourceConverter.h"; sourceTree = "<group>"; };
         F6AC99EFAA124BC92CFBC9EF /* include/Fuse.Resources.FileImageSource.h */ = {isa = PBXFileReference; name = Fuse.Resources.FileImageSource.h; path = "include/Fuse.Resources.FileImageSource.h"; sourceTree = "<group>"; };
+        927103D32FF475353137AFD3 /* include/Fuse.Resources.FileImageSourceCache.h */ = {isa = PBXFileReference; name = Fuse.Resources.FileImageSourceCache.h; path = "include/Fuse.Resources.FileImageSourceCache.h"; sourceTree = "<group>"; };
         3A9812A19AC84187AC1F94A1 /* include/Fuse.Resources.FileImageSourceImpl.BackgroundLoad.h */ = {isa = PBXFileReference; name = Fuse.Resources.FileImageSourceImpl.BackgroundLoad.h; path = "include/Fuse.Resources.FileImageSourceImpl.BackgroundLoad.h"; sourceTree = "<group>"; };
         B83012133E74FE253CFEDD13 /* include/Fuse.Resources.FileImageSourceImpl.h */ = {isa = PBXFileReference; name = Fuse.Resources.FileImageSourceImpl.h; path = "include/Fuse.Resources.FileImageSourceImpl.h"; sourceTree = "<group>"; };
         DAE18ACB4FA40AC9B4BE2DCB /* include/Fuse.Resources.FileResource.h */ = {isa = PBXFileReference; name = Fuse.Resources.FileResource.h; path = "include/Fuse.Resources.FileResource.h"; sourceTree = "<group>"; };
         5BC33561F8AA872982D1B584 /* include/Fuse.Resources.FloatResourceConverter.h */ = {isa = PBXFileReference; name = Fuse.Resources.FloatResourceConverter.h; path = "include/Fuse.Resources.FloatResourceConverter.h"; sourceTree = "<group>"; };
         FC891214F971C1E0E14E4514 /* include/Fuse.Resources.GenericResourceConverter-1.h */ = {isa = PBXFileReference; name = Fuse.Resources.GenericResourceConverter-1.h; path = "include/Fuse.Resources.GenericResourceConverter-1.h"; sourceTree = "<group>"; };
         AAE72ADDC83C554782F1DD5D /* include/Fuse.Resources.HttpImageSource.h */ = {isa = PBXFileReference; name = Fuse.Resources.HttpImageSource.h; path = "include/Fuse.Resources.HttpImageSource.h"; sourceTree = "<group>"; };
+        4531270DA57CAD3912B4C0DD /* include/Fuse.Resources.HttpImageSourceCache.h */ = {isa = PBXFileReference; name = Fuse.Resources.HttpImageSourceCache.h; path = "include/Fuse.Resources.HttpImageSourceCache.h"; sourceTree = "<group>"; };
         29FC36DF349BF8A1A2284FDF /* include/Fuse.Resources.HttpImageSourceImpl.BackgroundLoad.h */ = {isa = PBXFileReference; name = Fuse.Resources.HttpImageSourceImpl.BackgroundLoad.h; path = "include/Fuse.Resources.HttpImageSourceImpl.BackgroundLoad.h"; sourceTree = "<group>"; };
         2425E591AC56E9932A466F11 /* include/Fuse.Resources.HttpImageSourceImpl.h */ = {isa = PBXFileReference; name = Fuse.Resources.HttpImageSourceImpl.h; path = "include/Fuse.Resources.HttpImageSourceImpl.h"; sourceTree = "<group>"; };
         430D3C95D4E4353F158BBF15 /* include/Fuse.Resources.ImageSource.h */ = {isa = PBXFileReference; name = Fuse.Resources.ImageSource.h; path = "include/Fuse.Resources.ImageSource.h"; sourceTree = "<group>"; };
         BBC066B866AED52869210138 /* include/Fuse.Resources.ImageSourceChangedArgs.h */ = {isa = PBXFileReference; name = Fuse.Resources.ImageSourceChangedArgs.h; path = "include/Fuse.Resources.ImageSourceChangedArgs.h"; sourceTree = "<group>"; };
         6E88E9CA8381C8665DFA2DCA /* include/Fuse.Resources.ImageSourceErrorArgs.h */ = {isa = PBXFileReference; name = Fuse.Resources.ImageSourceErrorArgs.h; path = "include/Fuse.Resources.ImageSourceErrorArgs.h"; sourceTree = "<group>"; };
         504228817FA34BB3C97C1101 /* include/Fuse.Resources.ImageSourceErrorHandler.h */ = {isa = PBXFileReference; name = Fuse.Resources.ImageSourceErrorHandler.h; path = "include/Fuse.Resources.ImageSourceErrorHandler.h"; sourceTree = "<group>"; };
+        44BDB9807513AFE45F0D1B80 /* include/Fuse.Resources.ImageSourceState.h */ = {isa = PBXFileReference; name = Fuse.Resources.ImageSourceState.h; path = "include/Fuse.Resources.ImageSourceState.h"; sourceTree = "<group>"; };
         FD24D621FEA9D88F87859C21 /* include/Fuse.Resources.IMemoryResource.h */ = {isa = PBXFileReference; name = Fuse.Resources.IMemoryResource.h; path = "include/Fuse.Resources.IMemoryResource.h"; sourceTree = "<group>"; };
         2ED52C86198BB2A2EEC7A062 /* include/Fuse.Resources.IntResourceConverter.h */ = {isa = PBXFileReference; name = Fuse.Resources.IntResourceConverter.h; path = "include/Fuse.Resources.IntResourceConverter.h"; sourceTree = "<group>"; };
         54E49E126FAFB73251472512 /* include/Fuse.Resources.IResourceConverter-1.h */ = {isa = PBXFileReference; name = Fuse.Resources.IResourceConverter-1.h; path = "include/Fuse.Resources.IResourceConverter-1.h"; sourceTree = "<group>"; };
@@ -1451,6 +1488,7 @@
         60AE20E08AA7F9BCCD18E960 /* include/Uno.Net.Sockets.Socket.SocketHandle.h */ = {isa = PBXFileReference; name = Uno.Net.Sockets.Socket.SocketHandle.h; path = "include/Uno.Net.Sockets.Socket.SocketHandle.h"; sourceTree = "<group>"; };
         A212A228FE8CF508A814FAA8 /* include/Uno.Net.Sockets.SocketException.h */ = {isa = PBXFileReference; name = Uno.Net.Sockets.SocketException.h; path = "include/Uno.Net.Sockets.SocketException.h"; sourceTree = "<group>"; };
         CC1FCE72987A0D6E93EC2DF2 /* include/Uno.Net.Sockets.SocketFlags.h */ = {isa = PBXFileReference; name = Uno.Net.Sockets.SocketFlags.h; path = "include/Uno.Net.Sockets.SocketFlags.h"; sourceTree = "<group>"; };
+        D008C6A9928DCF95A576A916 /* include/Uno.NotImplementedException.h */ = {isa = PBXFileReference; name = Uno.NotImplementedException.h; path = "include/Uno.NotImplementedException.h"; sourceTree = "<group>"; };
         F1195D3543740103A4B09FB5 /* include/Uno.NotSupportedException.h */ = {isa = PBXFileReference; name = Uno.NotSupportedException.h; path = "include/Uno.NotSupportedException.h"; sourceTree = "<group>"; };
         726C36BCE06E31044DCD013C /* include/Uno.NullReferenceException.h */ = {isa = PBXFileReference; name = Uno.NullReferenceException.h; path = "include/Uno.NullReferenceException.h"; sourceTree = "<group>"; };
         8208B60C771A962443B5F90C /* include/Uno.Object.h */ = {isa = PBXFileReference; name = Uno.Object.h; path = "include/Uno.Object.h"; sourceTree = "<group>"; };
@@ -1613,6 +1651,7 @@
         6E425D02C976B729FDEF702A /* include/Uno.UX.ValueChangedArgs-1.h */ = {isa = PBXFileReference; name = Uno.UX.ValueChangedArgs-1.h; path = "include/Uno.UX.ValueChangedArgs-1.h"; sourceTree = "<group>"; };
         82D8C89BF5F014A9EFBAEB1B /* include/Uno.UX.ValueChangedHandler-1.h */ = {isa = PBXFileReference; name = Uno.UX.ValueChangedHandler-1.h; path = "include/Uno.UX.ValueChangedHandler-1.h"; sourceTree = "<group>"; };
         4A94E990C8380183B0B04102 /* include/Uno.Vector.h */ = {isa = PBXFileReference; name = Uno.Vector.h; path = "include/Uno.Vector.h"; sourceTree = "<group>"; };
+        C9CE37E447FB5C0852875CE4 /* include/Uno.WeakReference-1.h */ = {isa = PBXFileReference; name = Uno.WeakReference-1.h; path = "include/Uno.WeakReference-1.h"; sourceTree = "<group>"; };
         CF444C1D63448B4BB95E251D /* include/Uno/_config.h */ = {isa = PBXFileReference; name = _config.h; path = "include/Uno/_config.h"; sourceTree = "<group>"; };
         A74737FD3A645E15FF8217F7 /* include/Uno/_gc.h */ = {isa = PBXFileReference; name = _gc.h; path = "include/Uno/_gc.h"; sourceTree = "<group>"; };
         344CDA9A95C2B18AF5A1219A /* include/Uno/_internal.h */ = {isa = PBXFileReference; name = _internal.h; path = "include/Uno/_internal.h"; sourceTree = "<group>"; };
@@ -1633,19 +1672,30 @@
         B486E2E917538FA315B22369 /* include/uObjC.String.h */ = {isa = PBXFileReference; name = uObjC.String.h; path = "include/uObjC.String.h"; sourceTree = "<group>"; };
         6DB0F74D9CE73D1B21BEFD4D /* include/uObjC.UnoArray.h */ = {isa = PBXFileReference; name = uObjC.UnoArray.h; path = "include/uObjC.UnoArray.h"; sourceTree = "<group>"; };
         F8AB9AE99ECEB353C3FB2E69 /* include/uObjC.UnoObject.h */ = {isa = PBXFileReference; name = uObjC.UnoObject.h; path = "include/uObjC.UnoObject.h"; sourceTree = "<group>"; };
+        8643971BFC6022AD1A796D1B /* include/zmart.Button.h */ = {isa = PBXFileReference; name = zmart.Button.h; path = "include/zmart.Button.h"; sourceTree = "<group>"; };
+        41A8E0623AA4954A89DF70E2 /* include/zmart.Text.h */ = {isa = PBXFileReference; name = zmart.Text.h; path = "include/zmart.Text.h"; sourceTree = "<group>"; };
         441819964F5D2522A1F34E16 /* src/_root.CreateUser.cpp */ = {isa = PBXFileReference; name = _root.CreateUser.cpp; path = "src/_root.CreateUser.cpp"; sourceTree = "<group>"; };
         B4496F6A56309F66485FC1EA /* src/_root.g.cpp */ = {isa = PBXFileReference; name = _root.g.cpp; path = "src/_root.g.cpp"; sourceTree = "<group>"; };
-        6E171A16B19EFC5639A94716 /* src/_root.Login.cpp */ = {isa = PBXFileReference; name = _root.Login.cpp; path = "src/_root.Login.cpp"; sourceTree = "<group>"; };
+        CA037DFC7FCC75707A01F1FC /* src/_root.HidingPanel.cpp */ = {isa = PBXFileReference; name = _root.HidingPanel.cpp; path = "src/_root.HidingPanel.cpp"; sourceTree = "<group>"; };
         8E4C7B8B7086CC81863D548B /* src/_root.MainView.cpp */ = {isa = PBXFileReference; name = _root.MainView.cpp; path = "src/_root.MainView.cpp"; sourceTree = "<group>"; };
         E88CBDD5A654D4E7202558D5 /* src/_root.MainView.Template.cpp */ = {isa = PBXFileReference; name = _root.MainView.Template.cpp; path = "src/_root.MainView.Template.cpp"; sourceTree = "<group>"; };
         6655B126EA915C2E6E5F8A6B /* src/_root.MainView.Template1.cpp */ = {isa = PBXFileReference; name = _root.MainView.Template1.cpp; path = "src/_root.MainView.Template1.cpp"; sourceTree = "<group>"; };
         AA417BE32377636D9C48B163 /* src/_root.MainView.Template2.cpp */ = {isa = PBXFileReference; name = _root.MainView.Template2.cpp; path = "src/_root.MainView.Template2.cpp"; sourceTree = "<group>"; };
         D90CB186C47461BA421C0706 /* src/_root.Overview.cpp */ = {isa = PBXFileReference; name = _root.Overview.cpp; path = "src/_root.Overview.cpp"; sourceTree = "<group>"; };
         E833BFE644DA8D6AEE673E61 /* src/_root.Overview.Template.cpp */ = {isa = PBXFileReference; name = _root.Overview.Template.cpp; path = "src/_root.Overview.Template.cpp"; sourceTree = "<group>"; };
+        85269BD5C197F763420648D5 /* src/_root.Overview.Template1.cpp */ = {isa = PBXFileReference; name = _root.Overview.Template1.cpp; path = "src/_root.Overview.Template1.cpp"; sourceTree = "<group>"; };
+        CFA4A30126512A0F13A18581 /* src/_root.Teamview.cpp */ = {isa = PBXFileReference; name = _root.Teamview.cpp; path = "src/_root.Teamview.cpp"; sourceTree = "<group>"; };
         2C72EA56FD58903E4C538056 /* src/_root.Zmart_bundle.cpp */ = {isa = PBXFileReference; name = _root.Zmart_bundle.cpp; path = "src/_root.Zmart_bundle.cpp"; sourceTree = "<group>"; };
-        8F84065B908F67F5CED0395B /* src/_root.Zmart_FuseControlsButton_Text_Property.cpp */ = {isa = PBXFileReference; name = _root.Zmart_FuseControlsButton_Text_Property.cpp; path = "src/_root.Zmart_FuseControlsButton_Text_Property.cpp"; sourceTree = "<group>"; };
+        4CEAD5A89E2FBE6876D127A8 /* src/_root.Zmart_FuseControlsRectangle_CornerRadius_Property.cpp */ = {isa = PBXFileReference; name = _root.Zmart_FuseControlsRectangle_CornerRadius_Property.cpp; path = "src/_root.Zmart_FuseControlsRectangle_CornerRadius_Property.cpp"; sourceTree = "<group>"; };
+        14A24509698B98BBB2591209 /* src/_root.Zmart_FuseControlsRectangle_ElementLayoutMaster_Property.cpp */ = {isa = PBXFileReference; name = _root.Zmart_FuseControlsRectangle_ElementLayoutMaster_Property.cpp; path = "src/_root.Zmart_FuseControlsRectangle_ElementLayoutMaster_Property.cpp"; sourceTree = "<group>"; };
         76F26EFB8081D719BB7B457B /* src/_root.Zmart_FuseControlsTextBox_Value_Property.cpp */ = {isa = PBXFileReference; name = _root.Zmart_FuseControlsTextBox_Value_Property.cpp; path = "src/_root.Zmart_FuseControlsTextBox_Value_Property.cpp"; sourceTree = "<group>"; };
         F483817A8ED795FA967065FA /* src/_root.Zmart_FuseReactiveEach_Items_Property.cpp */ = {isa = PBXFileReference; name = _root.Zmart_FuseReactiveEach_Items_Property.cpp; path = "src/_root.Zmart_FuseReactiveEach_Items_Property.cpp"; sourceTree = "<group>"; };
+        E3B8EA5B932D7C5771E245B3 /* src/_root.Zmart_FuseTriggersStateGroup_Active_Property.cpp */ = {isa = PBXFileReference; name = _root.Zmart_FuseTriggersStateGroup_Active_Property.cpp; path = "src/_root.Zmart_FuseTriggersStateGroup_Active_Property.cpp"; sourceTree = "<group>"; };
+        85F088C9BBD6846FB45F7FC9 /* src/_root.Zmart_FuseTriggersWhileTrue_Value_Property.cpp */ = {isa = PBXFileReference; name = _root.Zmart_FuseTriggersWhileTrue_Value_Property.cpp; path = "src/_root.Zmart_FuseTriggersWhileTrue_Value_Property.cpp"; sourceTree = "<group>"; };
+        3982D7B94DE4CD31653D5B9E /* src/_root.Zmart_HidingPanel_IsEnabled_Property.cpp */ = {isa = PBXFileReference; name = _root.Zmart_HidingPanel_IsEnabled_Property.cpp; path = "src/_root.Zmart_HidingPanel_IsEnabled_Property.cpp"; sourceTree = "<group>"; };
+        594D74EFA246AD56197F06F5 /* src/_root.Zmart_HidingPanel_Opacity_Property.cpp */ = {isa = PBXFileReference; name = _root.Zmart_HidingPanel_Opacity_Property.cpp; path = "src/_root.Zmart_HidingPanel_Opacity_Property.cpp"; sourceTree = "<group>"; };
+        1FC39F2659452A266FCC07A6 /* src/_root.Zmart_zmartButton_Text_Property.cpp */ = {isa = PBXFileReference; name = _root.Zmart_zmartButton_Text_Property.cpp; path = "src/_root.Zmart_zmartButton_Text_Property.cpp"; sourceTree = "<group>"; };
+        D496BE37D5DDCB31ED3C0137 /* src/_root.Zmart_zmartText_Value_Property.cpp */ = {isa = PBXFileReference; name = _root.Zmart_zmartText_Value_Property.cpp; path = "src/_root.Zmart_zmartText_Value_Property.cpp"; sourceTree = "<group>"; };
         5D57333D4F287E07BAC11FBD /* src/Experimental.Cache.g.cpp */ = {isa = PBXFileReference; name = Experimental.Cache.g.cpp; path = "src/Experimental.Cache.g.cpp"; sourceTree = "<group>"; };
         A13455F9F1450C9B3E0F179D /* src/Experimental.Http.g.cpp */ = {isa = PBXFileReference; name = Experimental.Http.g.cpp; path = "src/Experimental.Http.g.cpp"; sourceTree = "<group>"; };
         CEC1783879F4AD20CFC2BC38 /* src/Experimental.Http.Internal.g.cpp */ = {isa = PBXFileReference; name = Experimental.Http.Internal.g.cpp; path = "src/Experimental.Http.Internal.g.cpp"; sourceTree = "<group>"; };
@@ -1665,6 +1715,7 @@
         E2406A75C65324EF491AA775 /* src/Fuse.Controls.Native.iOS.FocusHelpers.mm */ = {isa = PBXFileReference; name = Fuse.Controls.Native.iOS.FocusHelpers.mm; path = "src/Fuse.Controls.Native.iOS.FocusHelpers.mm"; sourceTree = "<group>"; };
         7553F13032271C38C6BA3430 /* src/Fuse.Controls.Native.iOS.g.cpp */ = {isa = PBXFileReference; name = Fuse.Controls.Native.iOS.g.cpp; path = "src/Fuse.Controls.Native.iOS.g.cpp"; sourceTree = "<group>"; };
         E5F4B1AAC5F63A86A677C42A /* src/Fuse.Controls.Native.iOS.GraphicsView.mm */ = {isa = PBXFileReference; name = Fuse.Controls.Native.iOS.GraphicsView.mm; path = "src/Fuse.Controls.Native.iOS.GraphicsView.mm"; sourceTree = "<group>"; };
+        9C9DE7BCABC9331CDD0527BC /* src/Fuse.Controls.Native.iOS.ImageView.mm */ = {isa = PBXFileReference; name = Fuse.Controls.Native.iOS.ImageView.mm; path = "src/Fuse.Controls.Native.iOS.ImageView.mm"; sourceTree = "<group>"; };
         CFC3ED0293A7BA625DD08A82 /* src/Fuse.Controls.Native.iOS.InputDispatch.mm */ = {isa = PBXFileReference; name = Fuse.Controls.Native.iOS.InputDispatch.mm; path = "src/Fuse.Controls.Native.iOS.InputDispatch.mm"; sourceTree = "<group>"; };
         4999B96D98818BD7B5EF856D /* src/Fuse.Controls.Native.iOS.iOSDevice.mm */ = {isa = PBXFileReference; name = Fuse.Controls.Native.iOS.iOSDevice.mm; path = "src/Fuse.Controls.Native.iOS.iOSDevice.mm"; sourceTree = "<group>"; };
         C59D574ECE8755E686391B4E /* src/Fuse.Controls.Native.iOS.KeyboardView.mm */ = {isa = PBXFileReference; name = Fuse.Controls.Native.iOS.KeyboardView.mm; path = "src/Fuse.Controls.Native.iOS.KeyboardView.mm"; sourceTree = "<group>"; };
@@ -1695,6 +1746,7 @@
         CD6C0CA4838176345BF9FD24 /* src/Fuse.Drawing.Primitives.g.cpp */ = {isa = PBXFileReference; name = Fuse.Drawing.Primitives.g.cpp; path = "src/Fuse.Drawing.Primitives.g.cpp"; sourceTree = "<group>"; };
         EE726FE215F4742E6CA0BBE2 /* src/Fuse.Effects.g.cpp */ = {isa = PBXFileReference; name = Fuse.Effects.g.cpp; path = "src/Fuse.Effects.g.cpp"; sourceTree = "<group>"; };
         31F85575136155F7B9BE97F5 /* src/Fuse.Elements.g.cpp */ = {isa = PBXFileReference; name = Fuse.Elements.g.cpp; path = "src/Fuse.Elements.g.cpp"; sourceTree = "<group>"; };
+        F7396CEC658DB944C6C1916C /* src/Fuse.Elements.Internal.g.cpp */ = {isa = PBXFileReference; name = Fuse.Elements.Internal.g.cpp; path = "src/Fuse.Elements.Internal.g.cpp"; sourceTree = "<group>"; };
         63ECF961D5CB840B58624161 /* src/Fuse.Entities.g.cpp */ = {isa = PBXFileReference; name = Fuse.Entities.g.cpp; path = "src/Fuse.Entities.g.cpp"; sourceTree = "<group>"; };
         DE4192272B6BCB1D6F261927 /* src/Fuse.FileSystem.g.cpp */ = {isa = PBXFileReference; name = Fuse.FileSystem.g.cpp; path = "src/Fuse.FileSystem.g.cpp"; sourceTree = "<group>"; };
         80E81AC6CC2F8F26B344F146 /* src/Fuse.FileSystem.IosPaths.mm */ = {isa = PBXFileReference; name = Fuse.FileSystem.IosPaths.mm; path = "src/Fuse.FileSystem.IosPaths.mm"; sourceTree = "<group>"; };
@@ -1780,6 +1832,8 @@
         744093326AFD4CDAF5A74B3D /* src/uObjC.String.mm */ = {isa = PBXFileReference; name = uObjC.String.mm; path = "src/uObjC.String.mm"; sourceTree = "<group>"; };
         D4B292AB5C9F3E195475A2B9 /* src/uObjC.UnoArray.mm */ = {isa = PBXFileReference; name = uObjC.UnoArray.mm; path = "src/uObjC.UnoArray.mm"; sourceTree = "<group>"; };
         FC59C27B6288A4594E9D5DFB /* src/uObjC.UnoObject.mm */ = {isa = PBXFileReference; name = uObjC.UnoObject.mm; path = "src/uObjC.UnoObject.mm"; sourceTree = "<group>"; };
+        D3F08260929AF30C3E456B60 /* src/zmart.Button.cpp */ = {isa = PBXFileReference; name = zmart.Button.cpp; path = "src/zmart.Button.cpp"; sourceTree = "<group>"; };
+        3545A339D6C0B24F2A904DB9 /* src/zmart.Text.cpp */ = {isa = PBXFileReference; name = zmart.Text.cpp; path = "src/zmart.Text.cpp"; sourceTree = "<group>"; };
         B5FC78FC1073C51063FCD9FC /* System/Library/Frameworks/AudioToolbox.framework */ = {isa = PBXFileReference; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
         81E57249DD8731CBA984F2C9 /* System/Library/Frameworks/AVFoundation.framework */ = {isa = PBXFileReference; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
         6F4B15CC572FFC44AF4D7F4C /* System/Library/Frameworks/CFNetwork.framework */ = {isa = PBXFileReference; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -1867,6 +1921,7 @@
                 A2D7746C026FB63D6F4CC632 /* include/_root.FuseControls_bundle.h */,
                 C256997713CEA57547D80FF7 /* include/_root.FuseControlsNative_bundle.h */,
                 B3C1C2A586AD77F7607F8CA5 /* include/_root.FuseControlsNavigation_FuseControlsCircle_Color_Property.h */,
+                2EEF1D48371D39C4F6FD8148 /* include/_root.FuseControlsPrimitives_bundle.h */,
                 92F2E36CE27BD46217FB336F /* include/_root.FuseControlsPrimitives_FuseControlsBackButton_Text_Property.h */,
                 4F22E8F5AC4636C3A8F1D075 /* include/_root.FuseControlsPrimitives_FuseControlsButton_Text_Property.h */,
                 E3B8ED83134D0CF180199D03 /* include/_root.FuseControlsPrimitives_FuseControlsCircle_Fill_Property.h */,
@@ -1894,17 +1949,26 @@
                 27CBFF07D4D9A861A67E5407 /* include/_root.FuseElements_bundle.h */,
                 7F83459BF87187ED967E4B9B /* include/_root.FuseEntities_bundle.h */,
                 151E94111321764FC700C311 /* include/_root.FuseReactive_bundle.h */,
-                C17A1E1FA5710CAD5F934B9F /* include/_root.Login.h */,
+                21E8E663E838FCA922970CE3 /* include/_root.HidingPanel.h */,
                 2A4A31507BD8FDD8E3A17050 /* include/_root.MainView.h */,
                 1174889E24FF30FEC5C4C71E /* include/_root.MainView.Template.h */,
                 F01108BDF5FBD5F328558C3D /* include/_root.MainView.Template1.h */,
                 E48C8F1EC02B396D5EFC69EF /* include/_root.MainView.Template2.h */,
                 AC2E45EBD5014DF93C33606B /* include/_root.Overview.h */,
                 A193FDFDB492F8B3220640FD /* include/_root.Overview.Template.h */,
+                CAFAD91493AB8108254B6814 /* include/_root.Overview.Template1.h */,
+                29B062E0F2DB6DD4C863FCE0 /* include/_root.Teamview.h */,
                 70CE35EB55C7D7C582C145EB /* include/_root.Zmart_bundle.h */,
-                710CBE671D2564E13B659E6E /* include/_root.Zmart_FuseControlsButton_Text_Property.h */,
+                C804F8DFD5DA1FD16B673BDF /* include/_root.Zmart_FuseControlsRectangle_CornerRadius_Property.h */,
+                4F3968AFB3EFD569535338A3 /* include/_root.Zmart_FuseControlsRectangle_ElementLayoutMaster_Property.h */,
                 14CF4AA6748D9C0AA57986A6 /* include/_root.Zmart_FuseControlsTextBox_Value_Property.h */,
                 EDF1DDA3C3D3A6F14616AEA3 /* include/_root.Zmart_FuseReactiveEach_Items_Property.h */,
+                F9816D961C64922E10CE7016 /* include/_root.Zmart_FuseTriggersStateGroup_Active_Property.h */,
+                AD5FE6A2EA195AFA46A71F22 /* include/_root.Zmart_FuseTriggersWhileTrue_Value_Property.h */,
+                4FEEB7A094E5CA089B255920 /* include/_root.Zmart_HidingPanel_IsEnabled_Property.h */,
+                63380584C6E4FA1C63B10584 /* include/_root.Zmart_HidingPanel_Opacity_Property.h */,
+                41FA854F19B0331D5F3582CF /* include/_root.Zmart_zmartButton_Text_Property.h */,
+                957B68A2B322B02A7178C8A2 /* include/_root.Zmart_zmartText_Value_Property.h */,
                 345415D6F697CE823CC84156 /* include/Experimental.Cache.CacheLoaded.h */,
                 7140EB5E8B54549E45E9A0DE /* include/Experimental.Cache.ICache.h */,
                 7B1660B712F58DC9AE3AC377 /* include/Experimental.Cache.ICacheReader.h */,
@@ -2054,6 +2118,9 @@
                 4F39FE1E3E974492F984B79E /* include/Fuse.Controls.Graphics.ControlVisual-1.h */,
                 7A80A5DD202DAAB47B5C7DD4 /* include/Fuse.Controls.Graphics.Visual.h */,
                 876EF429ACF1C76DE017A427 /* include/Fuse.Controls.GraphicsView.h */,
+                EB9781A21E71F4F61650E422 /* include/Fuse.Controls.Grid.h */,
+                A26D7F616D1D8A0B28E5C761 /* include/Fuse.Controls.Image.h */,
+                16DD23E7DABAA521AB69ABE7 /* include/Fuse.Controls.ImageElementDraw.h */,
                 CB00F637EC7DF245F2D45A37 /* include/Fuse.Controls.ISourceReceiver.h */,
                 2EEF74AB69E969C9B388E1AB /* include/Fuse.Controls.ITextRenderer.h */,
                 392F6004A132552CB0223704 /* include/Fuse.Controls.IWebView.h */,
@@ -2064,6 +2131,7 @@
                 494C1F88E3670408A8097188 /* include/Fuse.Controls.Native.Android.Switch.h */,
                 C0BA585BB186DD415187CE5B /* include/Fuse.Controls.Native.ICircleView.h */,
                 37CE023C7337D284D783D5BC /* include/Fuse.Controls.Native.IGraphicsView.h */,
+                284BADC6F0E1585657BAC5C6 /* include/Fuse.Controls.Native.IImageView.h */,
                 17ED8AB3CDBB210581AD38B3 /* include/Fuse.Controls.Native.ILabelView.h */,
                 85F950677FA09BADC4FD4167 /* include/Fuse.Controls.Native.ILeafView.h */,
                 21772834D2F90FB88178DD34 /* include/Fuse.Controls.Native.ImageHandle.h */,
@@ -2078,6 +2146,7 @@
                 8A073413713D8DF5591A2993 /* include/Fuse.Controls.Native.iOS.FocusHelpers.PerformBecomeFirstResponder.h */,
                 5A72C7C56C94CF73C55307C5 /* include/Fuse.Controls.Native.iOS.FontCache.h */,
                 F45059361CFF46E6E5CD2936 /* include/Fuse.Controls.Native.iOS.GraphicsView.h */,
+                C0C6B738A80CA02CD05A0838 /* include/Fuse.Controls.Native.iOS.ImageView.h */,
                 4F14580E9E29F45EF48BDD8E /* include/Fuse.Controls.Native.iOS.INativeFocusListener.h */,
                 29BD3616B314E6721A694B16 /* include/Fuse.Controls.Native.iOS.InputDispatch.h */,
                 721394935C5391B1EC71CD13 /* include/Fuse.Controls.Native.iOS.iOSBlitter.h */,
@@ -2210,6 +2279,7 @@
                 76C81109771885764DBFA098 /* include/Fuse.Drawing.BlendModeHelpers.h */,
                 1BA880B4F28DD82C83530C34 /* include/Fuse.Drawing.Brush.Converter.h */,
                 15E76DD2361FC80A9B468152 /* include/Fuse.Drawing.Brush.h */,
+                3988C2BC7BB66AE868EA5BBC /* include/Fuse.Drawing.Colors.h */,
                 9CC8F4AD34D2C13FED1AD6AD /* include/Fuse.Drawing.DynamicBrush.h */,
                 ED7078AC4BB61198D3166A2C /* include/Fuse.Drawing.GradientStop.h */,
                 C42FD2C2F4A6C896135F96C2 /* include/Fuse.Drawing.ImageFill.DrawParams.h */,
@@ -2235,6 +2305,7 @@
                 B89FF6148FBFB8C43C505B14 /* include/Fuse.Drawing.Primitives.Wedge.h */,
                 965845A2497D7F52E3BD79A2 /* include/Fuse.Drawing.Primitives.WedgeCoverage.h */,
                 150DB2F645D652DACF264176 /* include/Fuse.Drawing.RepeatBaker.h */,
+                8EAA04B0E56F31BCEDD175B0 /* include/Fuse.Drawing.ResampleMode.h */,
                 F98F531E237C6ACE2B7CB39E /* include/Fuse.Drawing.SolidColor.h */,
                 B0A8918E2C74DB0194CD5989 /* include/Fuse.Drawing.StaticBrush.h */,
                 9CD07644E8E348146CD406C4 /* include/Fuse.Drawing.StaticSolidColor.h */,
@@ -2263,6 +2334,7 @@
                 8AB0EABF732ED951E87EC0BF /* include/Fuse.Elements.CacheTile.h */,
                 D26C6A61DBA76E4FB74EC2E1 /* include/Fuse.Elements.CachingMode.h */,
                 F10A7BA0497E399466C8C420 /* include/Fuse.Elements.DisplayHelpers.h */,
+                4FDF8049364BF836EB59D497 /* include/Fuse.Elements.Element.BoxSizingMode.h */,
                 7A345CAF7513119F5DB27AF2 /* include/Fuse.Elements.Element.GMSCacheItem.h */,
                 23F8EBA9573F2CF1C81BA9B4 /* include/Fuse.Elements.Element.h */,
                 812749CA7CC1684106CB59C8 /* include/Fuse.Elements.ElementAtlas.h */,
@@ -2277,11 +2349,13 @@
                 C332E5871F38CABD97985D87 /* include/Fuse.Elements.HitTestMode.h */,
                 946467BAA6E68B0A54CD2DBA /* include/Fuse.Elements.IElementBatchDrawable.h */,
                 6FEF7D1B1E87F5353821E91B /* include/Fuse.Elements.InteractiveTransform.h */,
+                23E337DA6925E2CE5FC53CDA /* include/Fuse.Elements.Internal.Scale9Rectangle.h */,
                 E17906F0370C319C1425A070 /* include/Fuse.Elements.ITransformOrigin.h */,
                 D89580F422829850DA61E474 /* include/Fuse.Elements.LayoutMasterBoxSizing.h */,
                 3341FBAC7473D590CA8ACA31 /* include/Fuse.Elements.LayoutMasterBoxSizing.LayoutMasterData.h */,
                 FA55FFB46B1FBA90B01BEC34 /* include/Fuse.Elements.LayoutMasterMode.h */,
                 A7930F23C37B3B65DE65C323 /* include/Fuse.Elements.LimitBoxSizing.h */,
+                53FEA7BA7EFAD9A6773DD5BA /* include/Fuse.Elements.NoImplicitMaxBoxSizing.h */,
                 63483B62B2EB963A96E258E2 /* include/Fuse.Elements.PreplacementArgs.h */,
                 E8033381E2A19A57F0F7EE81 /* include/Fuse.Elements.PreplacementHandler.h */,
                 440E93901CD50B20B9A21B90 /* include/Fuse.Elements.SimpleAlignment.h */,
@@ -2484,6 +2558,7 @@
                 C8EEC93F7B62D32176FA1EBF /* include/Fuse.Layouts.ColumnLayoutSizing.h */,
                 F8D2368C1CFF5C34296F2C0C /* include/Fuse.Layouts.DefaultLayout.h */,
                 F44E9C67AAF57D95D188C5E7 /* include/Fuse.Layouts.DefinitionBase.h */,
+                EA48D6E915C396175D88AFE9 /* include/Fuse.Layouts.DefinitionBase.ParseDataItem.h */,
                 77EC2D9C4F5D67CCC166331C /* include/Fuse.Layouts.Dock.h */,
                 B0C27A1EA701FDCEF5CE329E /* include/Fuse.Layouts.DockLayout.h */,
                 5063067A8A0F292231D5BEFA /* include/Fuse.Layouts.FlowDirection.h */,
@@ -2625,18 +2700,21 @@
                 4BF678DB26D08BB6A605B0D8 /* include/Fuse.Resources.DisposalRequest.h */,
                 6BF1244282C9504A36824242 /* include/Fuse.Resources.DoubleResourceConverter.h */,
                 F6AC99EFAA124BC92CFBC9EF /* include/Fuse.Resources.FileImageSource.h */,
+                927103D32FF475353137AFD3 /* include/Fuse.Resources.FileImageSourceCache.h */,
                 3A9812A19AC84187AC1F94A1 /* include/Fuse.Resources.FileImageSourceImpl.BackgroundLoad.h */,
                 B83012133E74FE253CFEDD13 /* include/Fuse.Resources.FileImageSourceImpl.h */,
                 DAE18ACB4FA40AC9B4BE2DCB /* include/Fuse.Resources.FileResource.h */,
                 5BC33561F8AA872982D1B584 /* include/Fuse.Resources.FloatResourceConverter.h */,
                 FC891214F971C1E0E14E4514 /* include/Fuse.Resources.GenericResourceConverter-1.h */,
                 AAE72ADDC83C554782F1DD5D /* include/Fuse.Resources.HttpImageSource.h */,
+                4531270DA57CAD3912B4C0DD /* include/Fuse.Resources.HttpImageSourceCache.h */,
                 29FC36DF349BF8A1A2284FDF /* include/Fuse.Resources.HttpImageSourceImpl.BackgroundLoad.h */,
                 2425E591AC56E9932A466F11 /* include/Fuse.Resources.HttpImageSourceImpl.h */,
                 430D3C95D4E4353F158BBF15 /* include/Fuse.Resources.ImageSource.h */,
                 BBC066B866AED52869210138 /* include/Fuse.Resources.ImageSourceChangedArgs.h */,
                 6E88E9CA8381C8665DFA2DCA /* include/Fuse.Resources.ImageSourceErrorArgs.h */,
                 504228817FA34BB3C97C1101 /* include/Fuse.Resources.ImageSourceErrorHandler.h */,
+                44BDB9807513AFE45F0D1B80 /* include/Fuse.Resources.ImageSourceState.h */,
                 FD24D621FEA9D88F87859C21 /* include/Fuse.Resources.IMemoryResource.h */,
                 2ED52C86198BB2A2EEC7A062 /* include/Fuse.Resources.IntResourceConverter.h */,
                 54E49E126FAFB73251472512 /* include/Fuse.Resources.IResourceConverter-1.h */,
@@ -3120,6 +3198,7 @@
                 60AE20E08AA7F9BCCD18E960 /* include/Uno.Net.Sockets.Socket.SocketHandle.h */,
                 A212A228FE8CF508A814FAA8 /* include/Uno.Net.Sockets.SocketException.h */,
                 CC1FCE72987A0D6E93EC2DF2 /* include/Uno.Net.Sockets.SocketFlags.h */,
+                D008C6A9928DCF95A576A916 /* include/Uno.NotImplementedException.h */,
                 F1195D3543740103A4B09FB5 /* include/Uno.NotSupportedException.h */,
                 726C36BCE06E31044DCD013C /* include/Uno.NullReferenceException.h */,
                 8208B60C771A962443B5F90C /* include/Uno.Object.h */,
@@ -3282,6 +3361,7 @@
                 6E425D02C976B729FDEF702A /* include/Uno.UX.ValueChangedArgs-1.h */,
                 82D8C89BF5F014A9EFBAEB1B /* include/Uno.UX.ValueChangedHandler-1.h */,
                 4A94E990C8380183B0B04102 /* include/Uno.Vector.h */,
+                C9CE37E447FB5C0852875CE4 /* include/Uno.WeakReference-1.h */,
                 CF444C1D63448B4BB95E251D /* include/Uno/_config.h */,
                 A74737FD3A645E15FF8217F7 /* include/Uno/_gc.h */,
                 344CDA9A95C2B18AF5A1219A /* include/Uno/_internal.h */,
@@ -3302,19 +3382,30 @@
                 B486E2E917538FA315B22369 /* include/uObjC.String.h */,
                 6DB0F74D9CE73D1B21BEFD4D /* include/uObjC.UnoArray.h */,
                 F8AB9AE99ECEB353C3FB2E69 /* include/uObjC.UnoObject.h */,
+                8643971BFC6022AD1A796D1B /* include/zmart.Button.h */,
+                41A8E0623AA4954A89DF70E2 /* include/zmart.Text.h */,
                 441819964F5D2522A1F34E16 /* src/_root.CreateUser.cpp */,
                 B4496F6A56309F66485FC1EA /* src/_root.g.cpp */,
-                6E171A16B19EFC5639A94716 /* src/_root.Login.cpp */,
+                CA037DFC7FCC75707A01F1FC /* src/_root.HidingPanel.cpp */,
                 8E4C7B8B7086CC81863D548B /* src/_root.MainView.cpp */,
                 E88CBDD5A654D4E7202558D5 /* src/_root.MainView.Template.cpp */,
                 6655B126EA915C2E6E5F8A6B /* src/_root.MainView.Template1.cpp */,
                 AA417BE32377636D9C48B163 /* src/_root.MainView.Template2.cpp */,
                 D90CB186C47461BA421C0706 /* src/_root.Overview.cpp */,
                 E833BFE644DA8D6AEE673E61 /* src/_root.Overview.Template.cpp */,
+                85269BD5C197F763420648D5 /* src/_root.Overview.Template1.cpp */,
+                CFA4A30126512A0F13A18581 /* src/_root.Teamview.cpp */,
                 2C72EA56FD58903E4C538056 /* src/_root.Zmart_bundle.cpp */,
-                8F84065B908F67F5CED0395B /* src/_root.Zmart_FuseControlsButton_Text_Property.cpp */,
+                4CEAD5A89E2FBE6876D127A8 /* src/_root.Zmart_FuseControlsRectangle_CornerRadius_Property.cpp */,
+                14A24509698B98BBB2591209 /* src/_root.Zmart_FuseControlsRectangle_ElementLayoutMaster_Property.cpp */,
                 76F26EFB8081D719BB7B457B /* src/_root.Zmart_FuseControlsTextBox_Value_Property.cpp */,
                 F483817A8ED795FA967065FA /* src/_root.Zmart_FuseReactiveEach_Items_Property.cpp */,
+                E3B8EA5B932D7C5771E245B3 /* src/_root.Zmart_FuseTriggersStateGroup_Active_Property.cpp */,
+                85F088C9BBD6846FB45F7FC9 /* src/_root.Zmart_FuseTriggersWhileTrue_Value_Property.cpp */,
+                3982D7B94DE4CD31653D5B9E /* src/_root.Zmart_HidingPanel_IsEnabled_Property.cpp */,
+                594D74EFA246AD56197F06F5 /* src/_root.Zmart_HidingPanel_Opacity_Property.cpp */,
+                1FC39F2659452A266FCC07A6 /* src/_root.Zmart_zmartButton_Text_Property.cpp */,
+                D496BE37D5DDCB31ED3C0137 /* src/_root.Zmart_zmartText_Value_Property.cpp */,
                 5D57333D4F287E07BAC11FBD /* src/Experimental.Cache.g.cpp */,
                 A13455F9F1450C9B3E0F179D /* src/Experimental.Http.g.cpp */,
                 CEC1783879F4AD20CFC2BC38 /* src/Experimental.Http.Internal.g.cpp */,
@@ -3334,6 +3425,7 @@
                 E2406A75C65324EF491AA775 /* src/Fuse.Controls.Native.iOS.FocusHelpers.mm */,
                 7553F13032271C38C6BA3430 /* src/Fuse.Controls.Native.iOS.g.cpp */,
                 E5F4B1AAC5F63A86A677C42A /* src/Fuse.Controls.Native.iOS.GraphicsView.mm */,
+                9C9DE7BCABC9331CDD0527BC /* src/Fuse.Controls.Native.iOS.ImageView.mm */,
                 CFC3ED0293A7BA625DD08A82 /* src/Fuse.Controls.Native.iOS.InputDispatch.mm */,
                 4999B96D98818BD7B5EF856D /* src/Fuse.Controls.Native.iOS.iOSDevice.mm */,
                 C59D574ECE8755E686391B4E /* src/Fuse.Controls.Native.iOS.KeyboardView.mm */,
@@ -3364,6 +3456,7 @@
                 CD6C0CA4838176345BF9FD24 /* src/Fuse.Drawing.Primitives.g.cpp */,
                 EE726FE215F4742E6CA0BBE2 /* src/Fuse.Effects.g.cpp */,
                 31F85575136155F7B9BE97F5 /* src/Fuse.Elements.g.cpp */,
+                F7396CEC658DB944C6C1916C /* src/Fuse.Elements.Internal.g.cpp */,
                 63ECF961D5CB840B58624161 /* src/Fuse.Entities.g.cpp */,
                 DE4192272B6BCB1D6F261927 /* src/Fuse.FileSystem.g.cpp */,
                 80E81AC6CC2F8F26B344F146 /* src/Fuse.FileSystem.IosPaths.mm */,
@@ -3449,6 +3542,8 @@
                 744093326AFD4CDAF5A74B3D /* src/uObjC.String.mm */,
                 D4B292AB5C9F3E195475A2B9 /* src/uObjC.UnoArray.mm */,
                 FC59C27B6288A4594E9D5DFB /* src/uObjC.UnoObject.mm */,
+                D3F08260929AF30C3E456B60 /* src/zmart.Button.cpp */,
+                3545A339D6C0B24F2A904DB9 /* src/zmart.Text.cpp */,
             );
             name = Source;
             sourceTree = "<group>";
@@ -3554,17 +3649,26 @@
             files = (
                 4630E65B40A4C4859A94D2DB /* _root.CreateUser.cpp in Sources */,
                 211C16C1557D7DC7A01CA8C1 /* _root.g.cpp in Sources */,
-                4CE41F7169B75F331D8525F1 /* _root.Login.cpp in Sources */,
+                1177F3C5F829694F7FE6DEC5 /* _root.HidingPanel.cpp in Sources */,
                 CEB45A18256E1F2C8129B398 /* _root.MainView.cpp in Sources */,
                 C8182B8A49B6D3BA241CCF0A /* _root.MainView.Template.cpp in Sources */,
                 4C88740F59284CBD8E44768F /* _root.MainView.Template1.cpp in Sources */,
                 DEFBEEE6613445AF65946E87 /* _root.MainView.Template2.cpp in Sources */,
                 3A2373A1D5D2637B64376A13 /* _root.Overview.cpp in Sources */,
                 54780187399A780119E28E87 /* _root.Overview.Template.cpp in Sources */,
+                9B8DE7D4EABFA43C268569D4 /* _root.Overview.Template1.cpp in Sources */,
+                DADABAA89E4E34105F05B428 /* _root.Teamview.cpp in Sources */,
                 534E20EDC10065CF25D5AE6D /* _root.Zmart_bundle.cpp in Sources */,
-                3DAC1B364DD4ED127229C236 /* _root.Zmart_FuseControlsButton_Text_Property.cpp in Sources */,
+                3B9CBA4D2360D58B65689B4D /* _root.Zmart_FuseControlsRectangle_CornerRadius_Property.cpp in Sources */,
+                E1C3BA8230F9865A1966FA02 /* _root.Zmart_FuseControlsRectangle_ElementLayoutMaster_Property.cpp in Sources */,
                 935F36B221EFE30AA9E2DF32 /* _root.Zmart_FuseControlsTextBox_Value_Property.cpp in Sources */,
                 6F5AFD4580B8E847D9B57745 /* _root.Zmart_FuseReactiveEach_Items_Property.cpp in Sources */,
+                2AB2180EF154F11A92E61E0E /* _root.Zmart_FuseTriggersStateGroup_Active_Property.cpp in Sources */,
+                DD0C199663FDD2FAAEA30516 /* _root.Zmart_FuseTriggersWhileTrue_Value_Property.cpp in Sources */,
+                BF0D757495816ED0ABA10C74 /* _root.Zmart_HidingPanel_IsEnabled_Property.cpp in Sources */,
+                75DD7DF4614569844E18FF4B /* _root.Zmart_HidingPanel_Opacity_Property.cpp in Sources */,
+                E9406321DF1D07A3A6EBA521 /* _root.Zmart_zmartButton_Text_Property.cpp in Sources */,
+                CB87E3DA7792A56B8BCBADA9 /* _root.Zmart_zmartText_Value_Property.cpp in Sources */,
                 23B99618446DC7443AE09298 /* Experimental.Cache.g.cpp in Sources */,
                 E1BF49A6A37CA8C6C1913EA6 /* Experimental.Http.g.cpp in Sources */,
                 542BC06F309D2F51CDF896EF /* Experimental.Http.Internal.g.cpp in Sources */,
@@ -3584,6 +3688,7 @@
                 8EF34760ECDFB25CCDC7C360 /* Fuse.Controls.Native.iOS.FocusHelpers.mm in Sources */,
                 79C94C77D37A5139941F71F7 /* Fuse.Controls.Native.iOS.g.cpp in Sources */,
                 E2A5FD9F8A576E79564D291F /* Fuse.Controls.Native.iOS.GraphicsView.mm in Sources */,
+                25B1071C2185D8FCEC8D671B /* Fuse.Controls.Native.iOS.ImageView.mm in Sources */,
                 59682BFD4408F1FDA4807FDC /* Fuse.Controls.Native.iOS.InputDispatch.mm in Sources */,
                 E09049B48F13D88B3D2E8B48 /* Fuse.Controls.Native.iOS.iOSDevice.mm in Sources */,
                 21A7747F25CC131DB843AF7F /* Fuse.Controls.Native.iOS.KeyboardView.mm in Sources */,
@@ -3614,6 +3719,7 @@
                 643608C7D3569EB953C2E9C7 /* Fuse.Drawing.Primitives.g.cpp in Sources */,
                 DA0AE027D2F50311A9377927 /* Fuse.Effects.g.cpp in Sources */,
                 BC731725829DB32783CC972C /* Fuse.Elements.g.cpp in Sources */,
+                290BD9FB593D43EDD09600FB /* Fuse.Elements.Internal.g.cpp in Sources */,
                 88D26588B592B11CC1BEA188 /* Fuse.Entities.g.cpp in Sources */,
                 EBAF2D78D43E2144855F1BF8 /* Fuse.FileSystem.g.cpp in Sources */,
                 9D91B1BBCDAB22D9FB21523B /* Fuse.FileSystem.IosPaths.mm in Sources */,
@@ -3699,6 +3805,8 @@
                 3C87619A4AFC32BE6CECAD1A /* uObjC.String.mm in Sources */,
                 39D36EBE2118908E47C4E13E /* uObjC.UnoArray.mm in Sources */,
                 2EAD8D9A79F64D32DDAE501A /* uObjC.UnoObject.mm in Sources */,
+                847BDAD51BBF6ADFECA383D5 /* zmart.Button.cpp in Sources */,
+                A9EE2EE6AC26E15AAB5F33E6 /* zmart.Text.cpp in Sources */,
             );
             runOnlyForDeploymentPostprocessing = 0;
         };

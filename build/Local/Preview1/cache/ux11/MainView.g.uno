@@ -6,33 +6,12 @@ public partial class MainView: Fuse.App
     {
         [Uno.WeakReference] internal readonly MainView __parent;
         [Uno.WeakReference] internal readonly MainView __parentInstance;
-        public Template(MainView parent, MainView parentInstance): base("Login", false)
+        public Template(MainView parent, MainView parentInstance): base("Create", false)
         {
             __parent = parent;
             __parentInstance = parentInstance;
         }
         static Template()
-        {
-        }
-        public override object New()
-        {
-            var self = new Login(__parent.router);
-            self.Name = __selector0;
-            return self;
-        }
-        static global::Uno.UX.Selector __selector0 = "Login";
-    }
-    [Uno.Compiler.UxGenerated]
-    public partial class Template1: Uno.UX.Template
-    {
-        [Uno.WeakReference] internal readonly MainView __parent;
-        [Uno.WeakReference] internal readonly MainView __parentInstance;
-        public Template1(MainView parent, MainView parentInstance): base("Create", false)
-        {
-            __parent = parent;
-            __parentInstance = parentInstance;
-        }
-        static Template1()
         {
         }
         public override object New()
@@ -44,16 +23,16 @@ public partial class MainView: Fuse.App
         static global::Uno.UX.Selector __selector0 = "Create";
     }
     [Uno.Compiler.UxGenerated]
-    public partial class Template2: Uno.UX.Template
+    public partial class Template1: Uno.UX.Template
     {
         [Uno.WeakReference] internal readonly MainView __parent;
         [Uno.WeakReference] internal readonly MainView __parentInstance;
-        public Template2(MainView parent, MainView parentInstance): base("Over", false)
+        public Template1(MainView parent, MainView parentInstance): base("Over", false)
         {
             __parent = parent;
             __parentInstance = parentInstance;
         }
-        static Template2()
+        static Template1()
         {
         }
         public override object New()
@@ -64,9 +43,18 @@ public partial class MainView: Fuse.App
         }
         static global::Uno.UX.Selector __selector0 = "Over";
     }
+    [global::Uno.UX.UXGlobalResource("Blue")] public static readonly Uno.Float4 Blue;
+    [global::Uno.UX.UXGlobalResource("DarkGrey")] public static readonly Uno.Float4 DarkGrey;
+    [global::Uno.UX.UXGlobalResource("Grey")] public static readonly Uno.Float4 Grey;
     internal Fuse.Navigation.Router router;
     static MainView()
     {
+        Blue = float4(0.2627451f, 0.5686275f, 0.8117647f, 1f);
+        DarkGrey = float4(0.282353f, 0.282353f, 0.282353f, 1f);
+        Grey = float4(0.4039216f, 0.4039216f, 0.4039216f, 1f);
+        global::Uno.UX.Resource.SetGlobalKey(Blue, "Blue");
+        global::Uno.UX.Resource.SetGlobalKey(DarkGrey, "DarkGrey");
+        global::Uno.UX.Resource.SetGlobalKey(Grey, "Grey");
     }
     [global::Uno.UX.UXConstructor]
     public MainView()
@@ -88,20 +76,21 @@ public partial class MainView: Fuse.App
         var temp10 = new FuseJS.Bundle();
         var temp11 = new FuseJS.FileReaderImpl();
         var temp12 = new FuseJS.UserEvents();
+        var temp13 = new Fuse.Controls.Panel();
         router = new Fuse.Navigation.Router();
-        var temp13 = new Fuse.Controls.ClientPanel();
-        var temp14 = new Fuse.Controls.Navigator();
-        var Login = new Template(this, this);
-        var Create = new Template1(this, this);
-        var Over = new Template2(this, this);
+        var temp14 = new Fuse.Controls.ClientPanel();
+        var temp15 = new Fuse.Controls.Navigator();
+        var Create = new Template(this, this);
+        var Over = new Template1(this, this);
+        this.Background = float4(0.2588235f, 0.5686275f, 0.8117647f, 1f);
         router.Name = __selector0;
-        temp13.Children.Add(temp14);
-        temp14.DefaultTemplate = "Login";
-        temp14.Templates.Add(Login);
-        temp14.Templates.Add(Create);
-        temp14.Templates.Add(Over);
-        this.Children.Add(router);
+        temp14.Children.Add(temp15);
+        temp15.DefaultTemplate = "Create";
+        temp15.Templates.Add(Create);
+        temp15.Templates.Add(Over);
         this.Children.Add(temp13);
+        this.Children.Add(router);
+        this.Children.Add(temp14);
     }
     static global::Uno.UX.Selector __selector0 = "router";
 }

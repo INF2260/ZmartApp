@@ -21,6 +21,7 @@ namespace Triggers{
 // public partial sealed class StateGroup :1273
 // {
 ::g::Fuse::Node_type* StateGroup_typeof();
+void StateGroup__ctor_3_fn(StateGroup* __this);
 void StateGroup__get_Active_fn(StateGroup* __this, ::g::Fuse::Triggers::State** __retval);
 void StateGroup__set_Active_fn(StateGroup* __this, ::g::Fuse::Triggers::State* value);
 void StateGroup__get_ActiveIndex_fn(StateGroup* __this, int* __retval);
@@ -32,6 +33,7 @@ void StateGroup__goto__fn(::g::Fuse::Scripting::Context* c, StateGroup* n, uArra
 void StateGroup__gotoName_fn(::g::Fuse::Scripting::Context* c, StateGroup* n, uString* name);
 void StateGroup__gotoNext_fn(::g::Fuse::Scripting::Context* c, StateGroup* n, uArray* args);
 void StateGroup__GotoNextState_fn(StateGroup* __this);
+void StateGroup__New2_fn(StateGroup** __retval);
 void StateGroup__OnPlaybackDone_fn(StateGroup* __this, ::g::Fuse::Triggers::Trigger* which);
 void StateGroup__OnRooted_fn(StateGroup* __this);
 void StateGroup__OnUnrooted_fn(StateGroup* __this);
@@ -46,6 +48,7 @@ struct StateGroup : ::g::Fuse::Behavior
     uStrong<uObject*> _states;
     int _transition;
 
+    void ctor_3();
     ::g::Fuse::Triggers::State* Active();
     void Active(::g::Fuse::Triggers::State* value);
     int ActiveIndex();
@@ -61,6 +64,7 @@ struct StateGroup : ::g::Fuse::Behavior
     static void goto_(::g::Fuse::Scripting::Context* c, StateGroup* n, uArray* args);
     static void gotoName(::g::Fuse::Scripting::Context* c, StateGroup* n, uString* name);
     static void gotoNext(::g::Fuse::Scripting::Context* c, StateGroup* n, uArray* args);
+    static StateGroup* New2();
     static bool StateAcceptor(uObject* o);
 };
 // }

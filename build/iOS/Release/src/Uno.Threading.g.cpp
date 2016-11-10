@@ -2063,6 +2063,13 @@ void Promise__ctor_3_fn(Promise* __this)
     __this->ctor_3();
 }
 
+// public Promise(T result) :376
+void Promise__ctor_4_fn(Promise* __this, void* result)
+{
+    __this->ctor_1();
+    Promise__Resolve_fn(__this, result);
+}
+
 // public override void Cancel([bool shutdownGracefully]) :372
 void Promise__Cancel_fn(Promise* __this, bool* shutdownGracefully)
 {
@@ -2072,6 +2079,14 @@ void Promise__Cancel_fn(Promise* __this, bool* shutdownGracefully)
 void Promise__New1_fn(uType* __type, Promise** __retval)
 {
     *__retval = Promise::New1(__type);
+}
+
+// public Promise New(T result) :376
+void Promise__New2_fn(uType* __type, void* result, Promise** __retval)
+{
+    Promise* obj1 = (Promise*)uNew(__type);
+    Promise__ctor_4_fn(obj1, result);
+    return *__retval = obj1, void();
 }
 
 // public void Reject(Uno.Exception reason) :395

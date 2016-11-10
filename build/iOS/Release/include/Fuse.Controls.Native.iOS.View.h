@@ -42,9 +42,11 @@ void View__set_Parent_fn(View* __this, ::g::Fuse::Controls::Native::iOS::ViewPar
 void View__SetAlpha_fn(uObject* handle, float* a);
 void View__SetAnchorPoint_fn(uObject* handle);
 void View__SetBackground_fn(uObject* handle, float* r, float* g, float* b, float* a);
+void View__SetBounds_fn(uObject* handle, float* x, float* y, float* w, float* h);
 void View__SetClipToBounds_fn(uObject* handle, bool* clipToBounds);
 void View__SetSize_fn(uObject* handle, float* w, float* h);
 void View__SetTransform_fn(uObject* handle, float* m11, float* m12, float* m13, float* m14, float* m21, float* m22, float* m23, float* m24, float* m31, float* m32, float* m33, float* m34, float* m41, float* m42, float* m43, float* m44);
+void View__SetTransform1_fn(uObject* handle, ::g::Uno::Float4x4* t);
 void View__Show_fn(View* __this);
 void View__Show1_fn(uObject* handle);
 void View__set_Size_fn(View* __this, ::g::Uno::Float2* value);
@@ -73,9 +75,11 @@ struct View : uObject
     static void SetAlpha(uObject* handle, float a);
     static void SetAnchorPoint(uObject* handle);
     static void SetBackground(uObject* handle, float r, float g, float b, float a);
+    static void SetBounds(uObject* handle, float x, float y, float w, float h);
     static void SetClipToBounds(uObject* handle, bool clipToBounds);
     static void SetSize(uObject* handle, float w, float h);
     static void SetTransform(uObject* handle, float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31, float m32, float m33, float m34, float m41, float m42, float m43, float m44);
+    static void SetTransform1(uObject* handle, ::g::Uno::Float4x4 t);
     static void Show1(uObject* handle);
     static void Size(View* __this, ::g::Uno::Float2 value);
     static void Transform(View* __this, ::g::Uno::Float4x4 value);

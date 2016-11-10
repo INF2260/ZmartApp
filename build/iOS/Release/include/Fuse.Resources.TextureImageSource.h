@@ -21,6 +21,7 @@ void TextureImageSource__GetTexture_fn(TextureImageSource* __this, ::g::Uno::Gra
 void TextureImageSource__get_PixelSize_fn(TextureImageSource* __this, ::g::Uno::Int2* __retval);
 void TextureImageSource__get_Size_fn(TextureImageSource* __this, ::g::Uno::Float2* __retval);
 void TextureImageSource__get_SizeDensity_fn(TextureImageSource* __this, float* __retval);
+void TextureImageSource__get_State_fn(TextureImageSource* __this, int* __retval);
 
 struct TextureImageSource : ::g::Fuse::Resources::ImageSource
 {
