@@ -1,4 +1,4 @@
-var Context = require("Modules/Context");
+var Context = require("Modules/Context_User");
 
 function goToLog(arg) {
     var log = arg.data;

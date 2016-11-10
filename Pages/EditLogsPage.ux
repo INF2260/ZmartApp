@@ -1,7 +1,7 @@
 <Page ux:Class="EditLogsPage">
   <Router ux:Dependency="router" />
 
-  <JavaScript File="EditLogsPage.js"/>
+  <JavaScript File="EditLogsPage_User.js"/>
 <DockPanel>
   <Grid ColumnCount="2" Dock="Bottom">
     <zmart.Button Text="Save" Clicked="{save}" />

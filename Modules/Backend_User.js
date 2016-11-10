@@ -1,37 +1,28 @@
+var name = "Username";
 var sleepLogs = [
   {
-    id: 0,
-    name: "Andreas",
+    dayId: 0,
     dag: "Mandag",
-    dato: "11.10.16",
     timer: 7.5
   },
   {
-    id: 1,
-    name: "Andreas",
+    dagId: 1,
     dag: "Tirsdag",
-    dato: "11.10.16",
     timer: 7.5
   },
   {
-    id: 2,
-    name: "Andreas",
+    dagId: 2,
     dag: "Onsdag",
-    dato: "11.10.16",
     timer: 7.5
   },
   {
-    id: 3,
-    name: "Andreas",
+    dagId: 3,
     dag: "Torsdag",
-    dato: "11.10.16",
     timer: 7.5
   },
   {
-    id: 4,
-    name: "Andreas",
+    dagId: 4,
     dag: "Fredag",
-    dato: "11.10.16",
     timer: 7.5
   }
 ];
@@ -48,15 +39,14 @@ function getTotalTime() {
         }, 0);
     });
 }
-/* For testing
-function getTotalTime() {
+
+function getName() {
     return new Promise(function(resolve, reject) {
-      var totalTime = 10;
         setTimeout(function() {
-            resolve(totalTime);
+            resolve(name);
         }, 0);
     });
-} */
+}
 
 function getSleepLogs() {
     return new Promise(function(resolve, reject) {
@@ -65,15 +55,13 @@ function getSleepLogs() {
         }, 0);
     });
 }
-function updateLog(id, name, dag, dato, timer) {
+function updateLog(dagId, dag, timer) {
     return new Promise(function(resolve, reject) {
         setTimeout(function() {
             for (var i = 0; i < sleepLogs.length; i++) {
                 var log = sleepLogs[i];
-                if (log.id == id) {
-                  log.name = name;
+                if (log.dagId == dagId) {
                   log.dag = dag;
-                  log.doto = dato;
                   log.timer = timer;
                   break;
                 }
@@ -84,6 +72,7 @@ function updateLog(id, name, dag, dato, timer) {
 }
 
 module.exports = {
+    getName: getName,
     getTotalTime: getTotalTime,
     getSleepLogs: getSleepLogs,
     updateLog: updateLog

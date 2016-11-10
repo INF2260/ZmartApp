@@ -1,5 +1,6 @@
 var Observable = require("FuseJS/Observable");
-var Backend = require("./Backend")
+var Backend = require("./Backend_User")
+var name = Observable();
 var sleepLogs = Observable();
 var totalTime = Observable();
 
@@ -20,19 +21,26 @@ Backend.getSleepLogs()
           console.log("Couldn't get logs: " + error);
         });
 
-function updateLog(id, name, dag, dato, timer) {
+Backend.getName()
+        .then(function(newName){
+          name.value = newName;
+        })
+        .catch(function(error){
+          console.log("Couldn't get name: " + error);
+        });
+          
+
+function updateLog(dagId, dag, timer) {
     for (var i = 0; i < sleepLogs.length; i++) {
         var log = sleepLogs.getAt(i);
-        if (log.id == id) {
-            log.name = name;
+        if (log.dagId == dagId) {
             log.dag = dag;
-            log.dato = dato;
             log.timer = timer;
             sleepLogs.replaceAt(i, log);
             break;
         }
     }
-    Backend.updateLog(id, name, dag, dato, timer)
+    Backend.updateLog(dagId, dag, timer)
         .catch(function(error) {
             console.log("Couldn't update log: " + id);
           }

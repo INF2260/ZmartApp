@@ -1,9 +1,10 @@
 <Page ux:Class="HomePage">
   <Router ux:Dependency="router" />
-    <JavaScript File="HomePage.js" />
+    <JavaScript File="HomePage_User.js" />
 
     <DockPanel>
-      <zmart.Text FontSize="60" TextAlignment="Center" Dock="Top" Margin="0,50"> Din Uke</zmart.Text>
+      <zmart.Text FontSize="40" TextAlignment="Center" Dock="Top" Margin="50, 50, 50, 0"> ZuperZmart</zmart.Text>
+      <zmart.Text FontSize="20" TextAlignment="Center" Dock="Top" Margin="0,0"> Test </zmart.Text>
         <ScrollView>
             <StackPanel>
             <Rectangle ux:Class="Separator" Height="1" Fill="#fff4" />
@@ -19,8 +20,10 @@
                 </Panel>
               </Each>
               <Separator/>
-              <Text Color="White" FontSize="20"> Sovet Totalt denne uken </Text>
-              <Text Color="White" Margin="20" FontSize="30" Value="{totalTime}"/>
+              <Grid ColumnCount="2" Dock="Bottom">
+                <Text Color="White" FontSize="20" Margin="20,20,0,00"> Total søvn: </Text>
+                <Text Color="White" FontSize="20" Margin="60,21,10,10" Value="{totalTime}"/>
+              </Grid>
             </StackPanel>
         </ScrollView>
     </DockPanel>
