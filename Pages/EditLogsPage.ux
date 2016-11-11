@@ -4,8 +4,9 @@
   <JavaScript File="EditLogsPage_User.js"/>
 <DockPanel>
   <Grid ColumnCount="2" Dock="Bottom">
+    <zmart.Button Text="Cancel" Clicked="{cancel}"/>
     <zmart.Button Text="Save" Clicked="{save}" />
-    <zmart.Button Text="Cancel" Clicked="{cancel}" />
+    <zmart.Button Text="New" Clicked="{newLog}"/>
   </Grid>
 
   <ScrollView>

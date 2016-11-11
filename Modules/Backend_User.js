@@ -1,4 +1,5 @@
 var name = "Username";
+var idCount = 4;
 var sleepLogs = [
   {
     dayId: 0,
@@ -55,6 +56,21 @@ function getSleepLogs() {
         }, 0);
     });
 }
+
+function addLog(dag, timer) {
+  return new Promise(function(resolve,reject){
+    setTimeout(function(){
+      idCount + 1;
+      sleepLogs.push([
+        dayId = idCount,
+        dag = dag,
+        timer= timer
+      ])
+    })
+  })
+
+}
+
 function updateLog(dagId, dag, timer) {
     return new Promise(function(resolve, reject) {
         setTimeout(function() {
@@ -72,6 +88,7 @@ function updateLog(dagId, dag, timer) {
 }
 
 module.exports = {
+    addLog: addLog,
     getName: getName,
     getTotalTime: getTotalTime,
     getSleepLogs: getSleepLogs,

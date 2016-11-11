@@ -28,7 +28,7 @@ Backend.getName()
         .catch(function(error){
           console.log("Couldn't get name: " + error);
         });
-          
+
 
 function updateLog(dagId, dag, timer) {
     for (var i = 0; i < sleepLogs.length; i++) {
@@ -55,7 +55,25 @@ function updateLog(dagId, dag, timer) {
             );
 }
 
+function newLog(dagId, dag, timer) {
+    Backend.newLog(dagId, dag, timer)
+        .catch(function(error) {
+            console.log("Couldn't update log: " + id);
+          }
+        );
+    Backend.getTotalTime()
+            .then(function(newTotalTime){
+              totalTime.value = Number(newTotalTime);
+            })
+            .catch(function(error){
+              console.log("Couldn't get totalTime: " + error);
+              }
+            );
+}
+
+
 module.exports = {
+    newLog: newLog,
     totalTime: totalTime,
     sleepLogs: sleepLogs,
     updateLog: updateLog

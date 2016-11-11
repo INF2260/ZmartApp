@@ -14,6 +14,10 @@ function save(){
   Context.updateLog(log.value.dagId, dag.value, Number(timer.value));
   router.goBack();
 }
+function newLog(){
+  Context.newLog(log.value.dagId, dag.value, Number(timer.value));
+  router.goBack();
+}
 
 
 
@@ -22,6 +26,7 @@ module.exports = {
   dag: dag,
   timer: timer,
 
+  newLog: newLog,
   cancel: cancel,
   save : save
 };
