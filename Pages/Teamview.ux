@@ -1,7 +1,7 @@
 <Page ux:Class="Teamview">
 	<Router ux:Dependency="router"/>
 	<JavaScript File ="Teamview.js"/>
-	<ux:Include File="Resources/colors.ux"/>
+	<ux:Include File="../Resources/colors.ux"/>
 
 	<ClientPanel>
 
@@ -10,24 +10,24 @@
 		</Panel>
 
 		<StackPanel ux:Name="Team1" Width="100%" Height="30%" Alignment="Bottom">
-			<Image File="Images/team1.png" LayoutMaster="Team1" Alignment="BottomRight" Width="90%" Height="90%" Clicked="{goToTeam}">
+			<Image File="../Images/team1.png" LayoutMaster="Team1" Alignment="BottomRight" Width="90%" Height="90%" Clicked="{goToTeam}">
 				<Text Alignment="BottomCenter" Color="White">Lag 1</Text>
 			</Image>
-			<Image File="Images/m1.png" LayoutMaster="Team1" Alignment="Left"/>
+			<Image File="../Images/m1.png" LayoutMaster="Team1" Alignment="Left"/>
 		</StackPanel>
 
 		<StackPanel ux:Name="Team2" Width="100%" Height="30%" Alignment="HorizontalCenter">
-			<Image File="Images/team2.png" LayoutMaster="Team2" Alignment="BottomLeft" Width="75%" Height="75%">
+			<Image File="../Images/team2.png" LayoutMaster="Team2" Alignment="BottomLeft" Width="75%" Height="75%">
 				<Text Alignment="BottomCenter" Color="White">Lag 2</Text>
 			</Image>
-			<Image File="Images/m2.png" LayoutMaster="Team2" Alignment="Right"/>
+			<Image File="../Images/m2.png" LayoutMaster="Team2" Alignment="Right"/>
 		</StackPanel>
 
 		<StackPanel ux:Name="Team3" Width="100%" Height="30%" Alignment="TopCenter">
-			<Image File="Images/team3.png" LayoutMaster="Team3" Alignment="Right">
+			<Image File="../Images/team3.png" LayoutMaster="Team3" Alignment="Right">
 				<Text Alignment="BottomCenter" Color="White">Lag 3 </Text>
 			</Image>
-			<Image File="Images/m1.png" LayoutMaster="Team3" Alignment="Left"/>
+			<Image File="../Images/m1.png" LayoutMaster="Team3" Alignment="Left"/>
 		</StackPanel>
 
 	</ClientPanel>

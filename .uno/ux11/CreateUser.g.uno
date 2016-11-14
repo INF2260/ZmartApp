@@ -41,8 +41,8 @@ public partial class CreateUser: Fuse.Controls.Page
         var temp12 = new zmart.Button();
         temp_eb0 = new Fuse.Reactive.EventBinding("create");
         temp3.LineNumber = 3;
-        temp3.FileName = "CreateUser.ux";
-        temp3.File = new global::Uno.UX.BundleFileSource(import global::Uno.IO.BundleFile("../../CreateUser.js"));
+        temp3.FileName = "Pages/CreateUser.ux";
+        temp3.File = new global::Uno.UX.BundleFileSource(import global::Uno.IO.BundleFile("../../Pages/CreateUser.js"));
         temp4.Children.Add(temp5);
         temp5.Children.Add(temp6);
         temp5.Children.Add(temp);

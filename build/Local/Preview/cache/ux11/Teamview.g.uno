@@ -56,8 +56,8 @@ public partial class Teamview: Fuse.Controls.Page
         var temp12 = new Fuse.Controls.Text();
         var temp13 = new Fuse.Controls.Image();
         temp.LineNumber = 3;
-        temp.FileName = "Teamview.ux";
-        temp.File = new global::Uno.UX.BundleFileSource(import global::Uno.IO.BundleFile("../../../../../Teamview.js"));
+        temp.FileName = "Pages/Teamview.ux";
+        temp.File = new global::Uno.UX.BundleFileSource(import global::Uno.IO.BundleFile("../../../../../Pages/Teamview.js"));
         temp2.Children.Add(temp3);
         temp2.Children.Add(Team1);
         temp2.Children.Add(Team2);

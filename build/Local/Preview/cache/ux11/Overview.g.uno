@@ -198,8 +198,8 @@ public partial class Overview: Fuse.Controls.Page
         Mountain = new Fuse.Controls.Image();
         var temp54 = new Fuse.Animations.Move();
         temp.LineNumber = 3;
-        temp.FileName = "Overview.ux";
-        temp.File = new global::Uno.UX.BundleFileSource(import global::Uno.IO.BundleFile("../../../../../Overview.js"));
+        temp.FileName = "Pages/Overview.ux";
+        temp.File = new global::Uno.UX.BundleFileSource(import global::Uno.IO.BundleFile("../../../../../Pages/Overview.js"));
         state.Transition = Fuse.Triggers.StateTransition.Exclusive;
         state.Name = __selector5;
         state.States.Add(overviewState);

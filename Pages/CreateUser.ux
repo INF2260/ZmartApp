@@ -4,16 +4,16 @@
 
 	<ScrollView>
 		<StackPanel>
-		
+
 			<zmart.Text Value="Name:" FontSize="16" TextAlignment="Center"/>
 			<TextBox Value="{name}" Margin="10" Padding="10"/>
-		
+
 			<zmart.Text Value="Age:" FontSize="16" TextAlignment="Center"/>
 			<TextBox Value="{age}" InputHint="Integer" Margin="10" Padding="10"/>
-		
+
 			<zmart.Text Value="Nickname" FontSize="16" TextAlignment="Center"/>
 			<TextBox Value="{username}" Margin="10" Padding="10"/>
-			
+
 			<zmart.Button Text="Continue" Clicked="{create}"/>
 
 		</StackPanel>
