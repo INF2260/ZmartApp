@@ -6,13 +6,18 @@
 
 	<ClientPanel>
 
+		<Panel Clicked="{back}" Alignment="Bottom" Width="100%" Height="7%">
+			<Text Alignment="Center" Color="White">Tilbake</Text>
+		</Panel>
+
 		<!-- Statform panel -->
 		<HidingPanel ux:Name="PetterForm" Width="90%" Height="45%" Offset="0%,10%">
 			<Grid ux:Name="Grid" RowCount="3" Margin="30,40,30,60">
-				<Each Items="{users}">
-					<TextBox Value="{name}" Alignment="VerticalCenter"/>
-					<TextBox Value="{age}" Alignment="VerticalCenter"/>
-				</Each>
+				<Text Alignment="TopCenter" FontSize="30">Petter</Text>
+				<TextBox Value="10/11 - 8 timer søvn" Margin="5"/>
+				<TextBox Value="8/11 - 6 timer søvn" Margin="5" />
+				<TextBox Value="7/11 - 4 timer søvn" Margin="5" />
+				<TextBox Value="5/11 - 10 timer søvn" Margin="5" />
 			</Grid>
 			<Panel ux:Name="StatRectCollapsed" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
 
@@ -29,7 +34,11 @@
 
 		<HidingPanel ux:Name="LasseForm" Width="90%" Height="45%" Offset="0%,10%">
 			<Grid ux:Name="Grid2" RowCount="3" Margin="30,40,30,60">
-				<Text>Lasse</Text>
+				<Text FontSize="30" Alignment="TopCenter">Lasse</Text>
+				<TextBox Value="10/11 - 10 timer søvn" Margin="5"/>
+				<TextBox Value="8/11 - 8 timer søvn" Margin="5" />
+				<TextBox Value="7/11 - 6 timer søvn" Margin="5" />
+				<TextBox Value="5/11 - 6 timer søvn" Margin="5" />
 			</Grid>
 			<Panel ux:Name="StatRectCollapsed2" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
 
@@ -80,7 +89,7 @@
 					<Text Alignment="TopCenter" Margin="0,0,30,0">Petter</Text>
 
 					<WhileTrue ux:Name="movePetter">
-						<Move Target="petter" Y="-1.75" RelativeTo="Size" Duration="0.5" Delay="0.3" Easing="CubicInOut"/>
+						<Move Target="petter" Y="-1.75" X="0.2" RelativeTo="Size" Duration="0.5" Delay="0.3" Easing="CubicInOut"/>
 					</WhileTrue>
 				</Panel>
 

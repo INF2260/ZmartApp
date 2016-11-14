@@ -20,7 +20,7 @@ namespace zmart
         }
         global::Uno.UX.Property<string> temp_Value_inst;
         global::Uno.UX.Property<string> this_Text_inst;
-        internal Fuse.Reactive.EventBinding temp_eb2;
+        internal Fuse.Reactive.EventBinding temp_eb4;
         static Button()
         {
         }
@@ -39,10 +39,10 @@ namespace zmart
             var temp3 = new Fuse.Controls.PropertyBinding<string>(temp_Value_inst, this_Text_inst);
             var temp4 = new Fuse.Gestures.WhilePressed();
             var temp5 = new Fuse.Animations.Scale();
-            temp_eb2 = new Fuse.Reactive.EventBinding("create");
+            temp_eb4 = new Fuse.Reactive.EventBinding("create");
             this.Margin = float4(10f, 10f, 10f, 10f);
             this.Padding = float4(10f, 10f, 10f, 10f);
-            global::Fuse.Gestures.Clicked.AddHandler(this, temp_eb2.OnEvent);
+            global::Fuse.Gestures.Clicked.AddHandler(this, temp_eb4.OnEvent);
             temp1.CornerRadius = float4(5f, 5f, 5f, 5f);
             temp1.Color = float4(1f, 0.227451f, 0.227451f, 1f);
             temp1.Layer = Fuse.Layer.Background;
@@ -62,7 +62,7 @@ namespace zmart
             this.Children.Add(temp1);
             this.Children.Add(temp);
             this.Children.Add(temp4);
-            this.Bindings.Add(temp_eb2);
+            this.Bindings.Add(temp_eb4);
         }
         static global::Uno.UX.Selector __selector0 = "Value";
         static global::Uno.UX.Selector __selector1 = "Text";

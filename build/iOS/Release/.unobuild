@@ -1,4 +1,0 @@
-$: 1815241027
-BuildCommand: build.sh
-RunCommand: run.sh
-Product: build/Release-iphoneos/Zmart.app/Zmart
