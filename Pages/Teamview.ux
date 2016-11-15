@@ -1,6 +1,6 @@
 <Page ux:Class="Teamview">
 	<Router ux:Dependency="router"/>
-	<JavaScript File ="Teamview.js"/>
+	<JavaScript File ="js/Teamview.js"/>
 	<ux:Include File="../Resources/colors.ux"/>
 
 	<ClientPanel>

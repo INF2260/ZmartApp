@@ -1,7 +1,7 @@
 <Page ux:Class="EditLogs">
   <Router ux:Dependency="router" />
 
-  <JavaScript File="editLogs.js"/>
+  <JavaScript File="js/editLogs.js"/>
 <DockPanel>
   <Grid ColumnCount="2" Dock="Bottom">
     <zmart.Button Text="Save" Clicked="{save}"/>
@@ -21,7 +21,7 @@
 
       <TitleText> Timer: </TitleText>
       <zmart.TextBox Value="{timer}" InputHint="Decimal"/>
-      
+
     </StackPanel>
   </ScrollView>
 </DockPanel>

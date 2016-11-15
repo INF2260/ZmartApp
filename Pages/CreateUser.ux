@@ -1,6 +1,6 @@
 <Page ux:Class="CreateUser">
 	<Router ux:Dependency="router"/>
-	<JavaScript File="CreateUser.js"/>
+	<JavaScript File="js/CreateUser.js"/>
 
 	<ScrollView>
 		<StackPanel>

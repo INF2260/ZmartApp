@@ -1,6 +1,6 @@
 <!-- THIS IS A TESTING FILE -->
 <Page ux:Class="logList">
-<JavaScript File="Pages/logView.js" />
+<JavaScript File="js/logView.js" />
 <Router ux:Dependency="router"/>
 		<DockPanel>
 				<ScrollView>

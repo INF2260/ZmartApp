@@ -1,6 +1,6 @@
 <Page ux:Class="logView">
   <Router ux:Dependency="router" />
-    <JavaScript File="logView.js" />
+    <JavaScript File="js/logView.js" />
 
     <DockPanel>
         <ScrollView>
