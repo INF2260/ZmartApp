@@ -16,8 +16,8 @@ function save(){
   router.goBack();
 }
 module.exports = {
-  name: name,
   userID: userID,
+  dag: dag,
   dato: dato,
   timer: timer,
 

@@ -11,16 +11,17 @@
   <ScrollView>
     <TextBox ux:Class="zmart.TextBox" TextColor="White" CaretColor="White" Padding="10,10,0,10" />
     <StackPanel ItemSpacing="10" Padding="10">
-
       <zmart.Text ux:Class="TitleText" Opacity=".6" Margin="0, 0, 0, 5"/>
+
       <TitleText> Navn: </TitleText>
-      <zmart.TextBox Value="{name}"/>
+      <Text Value="{name}"/>
 
       <TitleText> Dag: </TitleText>
-      <zmart.TextBox Value="{dag}"/>
+      <Text Value="{dag}"/>
 
       <TitleText> Timer: </TitleText>
       <zmart.TextBox Value="{timer}" InputHint="Decimal"/>
+      
     </StackPanel>
   </ScrollView>
 </DockPanel>

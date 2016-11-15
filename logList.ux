@@ -1,0 +1,21 @@
+<!-- THIS IS A TESTING FILE -->
+<Page ux:Class="logList">
+<JavaScript File="Pages/logView.js" />
+<Router ux:Dependency="router"/>
+		<DockPanel>
+				<ScrollView>
+						<StackPanel>
+						<Rectangle ux:Class="Separator" Height="1" Fill="#fff4" />
+							<Each Items="{userLogs}">
+								<Separator />
+								<Panel HitTestMode="LocalBoundsAndChildren" Clicked="{goToLog}">
+									<Text Color="White" Value="{dag}" Margin="20"/>
+									<WhilePressed>
+									<Scale Factor=".95" Duration=".08" Easing="QuadraticOut" />
+									</WhilePressed>
+								</Panel>
+							</Each>
+						</StackPanel>
+				</ScrollView>
+		</DockPanel>
+</Page>

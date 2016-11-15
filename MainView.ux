@@ -3,9 +3,11 @@
 	<Router ux:Name="router"/>
 	<ClientPanel>
 		<Navigator DefaultTemplate="Create">
+			<logList ux:Template="logList" router="router" />
 			<CreateUser ux:Template="Create" router="router" />
 			<Teamview ux:Template="Team" router="router" />
 			<Overview ux:Template="Over" router="router" />
+			<EditLogs ux:Template="editLog" router="router"/>
 		</Navigator>
 	</ClientPanel>
 </App>
