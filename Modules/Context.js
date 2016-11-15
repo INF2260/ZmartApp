@@ -54,7 +54,12 @@ function updateLog(id, userID, dag, dato, timer) {
               console.log("Couldn't get totalTime: " + error);
               }
             );
+    //Oppdaterer inviduelle tider
+    getUserTime(0);
+    getUserTime(1);
+    getUserTime(2);
 }
+
 function getUserTime(userID){
   logFile.getUserTime(userID)
           .then(function(newUserTime){
@@ -80,7 +85,7 @@ function getUserTime(userID){
 module.exports = {
     totalTime: totalTime, //samlet sovetid for team
     sleepLogs: sleepLogs, //alle registerte logger
-    timeUser0: timeUser0, 
+    timeUser0: timeUser0,
     timeUser1: timeUser1,
     timeUser2: timeUser2,
     updateLog: updateLog
