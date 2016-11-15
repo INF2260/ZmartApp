@@ -5,7 +5,7 @@ var sleepLogs = Observable(); // Logfil med for alle brukere
 var timeUser0 = Observable();
 var timeUser1 = Observable();
 var timeUser2 = Observable();
-var totalTime = Observable(); //Total tid alle har sovet
+var totalTime = Observable(); //Total tid alle har sovet tilsammen
 
 
 getUserTime(0);
@@ -78,9 +78,9 @@ function getUserTime(userID){
 }
 
 module.exports = {
-    totalTime: totalTime,
-    sleepLogs: sleepLogs,
-    timeUser0: timeUser0,
+    totalTime: totalTime, //samlet sovetid for team
+    sleepLogs: sleepLogs, //alle registerte logger
+    timeUser0: timeUser0, 
     timeUser1: timeUser1,
     timeUser2: timeUser2,
     updateLog: updateLog
