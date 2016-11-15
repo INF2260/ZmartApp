@@ -1,4 +1,4 @@
-<Page ux:Class="editLogs">
+<Page ux:Class="EditLogs">
   <Router ux:Dependency="router" />
 
   <JavaScript File="editLogs.js"/>
