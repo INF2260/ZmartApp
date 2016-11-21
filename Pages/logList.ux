@@ -15,6 +15,7 @@
 									</WhilePressed>
 								</Panel>
 							</Each>
+							<Button Text="back" Clicked="{back}"/>
 						</StackPanel>
 				</ScrollView>
 		</DockPanel>

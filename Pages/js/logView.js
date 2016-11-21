@@ -21,11 +21,19 @@ function goToLog(arg) {
     var log = arg.data;
     router.push("editLog", log);
 }
+function toToLogList() {
+  router.push("logList");
+}
+function back() {
+  router.goBack();
+}
 
 
 
 
 module.exports = {
+    toToLogList: toToLogList,
+    back: back,
     userLogs: userLogs,
     goToLog: goToLog
 

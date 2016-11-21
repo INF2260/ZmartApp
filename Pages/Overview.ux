@@ -28,8 +28,8 @@
 								<Text Value="{timer}" Margin="5"/>
 							</Panel>
 						</Grid>
-
 					</Each>
+					<Button Text="TMP EDIT" Clicked="{toToLogList}"/>
 				</StackPanel>
 
 <!--				<TextBox Value="10/11 - 8 timer søvn" Margin="5"/>
