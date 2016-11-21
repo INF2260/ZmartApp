@@ -24,7 +24,7 @@ var users = [
 function getSingleUser(id) {
 	return new Promise(function(resolve, reject) {
 			setTimeout(function(){
-					resolve(users[id]);
+					resolve(users[id].username);
 			}, 0);
 	});
 }
@@ -39,8 +39,16 @@ function getUser() {
 	});
 }
 
-function setUser(name, age) {
-
+function updateUser(username, name, age) {
+    return new Promise(function(resolve, reject) {
+        setTimeout(function() {
+						var tmp = users[0];
+						tmp.username = username;
+						tmp.name = name;
+						tmp.age = age;
+            resolve();
+        }, 0);
+    });
 }
 
 function newUser(name, age, username, password) {
@@ -49,5 +57,6 @@ function newUser(name, age, username, password) {
 
 module.exports = {
 	newUser: newUser,
-	getSingleUser: getSingleUser
+	getSingleUser: getSingleUser,
+	updateUser: updateUser
 }

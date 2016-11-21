@@ -13,8 +13,8 @@
     <StackPanel ItemSpacing="10" Padding="10">
       <zmart.Text ux:Class="TitleText" Opacity=".6" Margin="0, 0, 0, 5"/>
 
-      <TitleText> Navn: </TitleText>
-      <Text Value="{suid}"/>
+      <TitleText> Brukernavn: </TitleText>
+      <Text Value="{user}"/>
 
       <TitleText> Dag: </TitleText>
       <Text Value="{dag}"/>

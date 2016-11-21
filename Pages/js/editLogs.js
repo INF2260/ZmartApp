@@ -1,5 +1,4 @@
 var Context = require("Modules/Context");
-var User = require("Modules/Backend");
 var log = this.Parameter;
 
 var userID = log.map(function(x) { return x.userID; });
@@ -22,6 +21,7 @@ module.exports = {
   dag: dag,
   dato: dato,
   timer: timer,
+  user: Context.user,
 
 
   cancel: cancel,

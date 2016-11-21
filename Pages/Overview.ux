@@ -13,7 +13,7 @@
 		<!-- Statform panel -->
 		<HidingPanel ux:Name="PetterForm" Width="90%" Height="45%" Offset="0%,10%">
 			<Grid ux:Name="Grid" RowCount="3" Margin="30,40,30,60">
-				<Text Alignment="TopCenter" FontSize="30">Petter</Text>
+				<Text Alignment="TopCenter" FontSize="30" Value="{user}"/>
 				<TextBox Value="10/11 - 8 timer søvn" Margin="5"/>
 				<TextBox Value="8/11 - 6 timer søvn" Margin="5" />
 				<TextBox Value="7/11 - 4 timer søvn" Margin="5" />
@@ -86,7 +86,7 @@
 				<!-- Petter -->
 				<Panel ux:Name="petter" Width="120" Height="200" LayoutMaster="stack" Alignment="BottomCenter" HitTestMode="LocalBoundsAndChildren" >
 					<Image File="../Images/petter.png" Alignment="Center" HitTestMode="LocalBounds"/>
-					<Text Alignment="TopCenter" Margin="0,0,30,0">Petter</Text>
+					<Text Alignment="TopCenter" Margin="0,0,30,0" Value="{user}"/>
 
 					<WhileTrue ux:Name="movePetter">
 						<Move Target="petter" Y="-1.75" X="0.2" RelativeTo="Size" Duration="0.5" Delay="0.3" Easing="CubicInOut"/>
