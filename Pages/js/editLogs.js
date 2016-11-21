@@ -1,10 +1,12 @@
 var Context = require("Modules/Context");
+var User = require("Modules/Backend");
 var log = this.Parameter;
 
 var userID = log.map(function(x) { return x.userID; });
 var dag = log.map(function(x) { return x.dag; });
 var dato = log.map(function(x) { return x.dato; });
 var timer = log.map(function(x) { return x.timer; });
+
 
 function cancel() {
     log.value = log.value;

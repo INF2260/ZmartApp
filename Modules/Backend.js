@@ -21,6 +21,16 @@ var users = [
 	}
 ]
 
+function getSingleUser(id) {
+	return new Promise(function(resolve, reject) {
+			setTimeout(function(){
+					resolve(users[id]);
+			}, 0);
+	});
+}
+
+
+
 function getUser() {
 	return new Promise(function(resolve, reject){
 		setTimeout(function(){
@@ -38,5 +48,6 @@ function newUser(name, age, username, password) {
 }
 
 module.exports = {
-	newUser: newUser
+	newUser: newUser,
+	getSingleUser: getSingleUser
 }

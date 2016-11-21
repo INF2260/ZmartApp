@@ -2,7 +2,7 @@
 	<ux:Include File="Resources/colors.ux"/>
 	<Router ux:Name="router"/>
 	<ClientPanel>
-		<Navigator DefaultTemplate="Create">
+		<Navigator DefaultTemplate="logList">
 			<logList ux:Template="logList" router="router" />
 			<CreateUser ux:Template="Create" router="router" />
 			<Teamview ux:Template="Team" router="router" />

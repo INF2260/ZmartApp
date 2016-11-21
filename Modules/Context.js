@@ -1,16 +1,27 @@
 var Observable = require("FuseJS/Observable");
-var Backend = require("./Backend")
-var logFile = require("./sleepLogs")
+var Backend = require("./Backend");
+var logFile = require("./sleepLogs");
+var user = Observable();
 var sleepLogs = Observable(); // Logfil med for alle brukere
 var timeUser0 = Observable();
 var timeUser1 = Observable();
 var timeUser2 = Observable();
 var totalTime = Observable(); //Total tid alle har sovet tilsammen
-
+var tmpID = 0;
 
 getUserTime(0);
 getUserTime(1);
 getUserTime(2);
+
+Backend.getSingleUser(tmpID)
+        .then(function(newUser){
+          user.value = newUser;
+        })
+        .catch(function(error){
+          console.log("Couldn't get user: " + error);
+          }
+        );
+
 
 logFile.getTotalTime()
         .then(function(newTotalTime){

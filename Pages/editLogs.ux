@@ -14,7 +14,7 @@
       <zmart.Text ux:Class="TitleText" Opacity=".6" Margin="0, 0, 0, 5"/>
 
       <TitleText> Navn: </TitleText>
-      <Text Value="{name}"/>
+      <Text Value="{suid}"/>
 
       <TitleText> Dag: </TitleText>
       <Text Value="{dag}"/>
