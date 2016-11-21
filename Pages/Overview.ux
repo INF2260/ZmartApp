@@ -1,6 +1,7 @@
 <Page ux:Class="Overview">
 	<Router ux:Dependency="router"/>
 	<JavaScript File ="js/Overview.js"/>
+	<JavaScript File ="js/logView.js"/>
 	<ux:Include File="../Resources/StateAnimation.ux"/>
 	<ux:Include File="../Resources/colors.ux"/>
 
@@ -11,13 +12,30 @@
 		</Panel>
 
 		<!-- Statform panel -->
-		<HidingPanel ux:Name="PetterForm" Width="90%" Height="45%" Offset="0%,10%">
-			<Grid ux:Name="Grid" RowCount="3" Margin="30,40,30,60">
+		<HidingPanel ux:Name="PetterForm" Width="90%" Height="55%" Offset="0%,10%">
+			<Grid ux:Name="Grid" RowCount="3" Margin="30,40,30,190">
 				<Text Alignment="TopCenter" FontSize="30" Value="{user}"/>
-				<TextBox Value="10/11 - 8 timer søvn" Margin="5"/>
+				<StackPanel>
+					<Each Items="{userLogs}">
+						<Grid ColumnCount="3" RowCount="1">
+    					<Panel Row="0" Column="0">
+								<Text Value="{dag}" Margin="5"/>
+							</Panel>
+							<Panel Row="0" Column="1">
+								<Text Value="timer sovet:" Margin="5"/>
+							</Panel>
+    					<Panel Row="0" Column="2">
+								<Text Value="{timer}" Margin="5"/>
+							</Panel>
+						</Grid>
+
+					</Each>
+				</StackPanel>
+
+<!--				<TextBox Value="10/11 - 8 timer søvn" Margin="5"/>
 				<TextBox Value="8/11 - 6 timer søvn" Margin="5" />
 				<TextBox Value="7/11 - 4 timer søvn" Margin="5" />
-				<TextBox Value="5/11 - 10 timer søvn" Margin="5" />
+				<TextBox Value="5/11 - 10 timer søvn" Margin="5" /> -->
 			</Grid>
 			<Panel ux:Name="StatRectCollapsed" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
 

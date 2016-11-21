@@ -10,6 +10,8 @@ function getUserLogs() {
     var log = sleepLogs.getAt(i);
     if (log.userID == 0) { // Eksempelbruker er alltid 0
       userLogs.push(log);
+      console.log("Funker?");
+      console.log(userLogs);
     }
   }
 }
