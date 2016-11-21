@@ -11,7 +11,7 @@ function create() {
 	Context.updateUser(username.value, name.value, age.value);
 	console.log("Create clicked!");
 	console.log(username);
-	router.push("Team");
+	router.push("logList");
 
 }
 

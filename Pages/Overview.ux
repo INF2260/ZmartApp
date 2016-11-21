@@ -1,7 +1,6 @@
 <Page ux:Class="Overview">
 	<Router ux:Dependency="router"/>
 	<JavaScript File ="js/Overview.js"/>
-	<JavaScript File ="js/logView.js"/>
 	<ux:Include File="../Resources/StateAnimation.ux"/>
 	<ux:Include File="../Resources/colors.ux"/>
 

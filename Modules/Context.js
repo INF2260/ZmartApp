@@ -62,6 +62,13 @@ function updateLog(id, userID, dag, dato, timer) {
     getUserTime(0);
     getUserTime(1);
     getUserTime(2);
+    logFile.getSleepLogs()
+            .then(function(newSleepLogs){
+              sleepLogs.replaceAll(newSleepLogs);
+            })
+            .catch(function(error){
+              console.log("Couldn't get logs: " + error);
+            });
 }
 
 function updateUser(username, name, age) {
@@ -89,14 +96,11 @@ function getUserTime(userID){
           .then(function(newUserTime){
             if (userID == 0) {
               timeUser0.value = newUserTime;
-              console.log("added " + newUserTime + " to 0");
             }
             else if (userID == 1) {
-              console.log("added " + newUserTime + " to 3");
               timeUser1.value = newUserTime;
             }
             else if (userID == 2) {
-              console.log("added " + newUserTime + " to 2");
               timeUser2.value = newUserTime;
             }
           })

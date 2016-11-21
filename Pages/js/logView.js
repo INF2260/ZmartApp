@@ -1,5 +1,6 @@
 var Context = require("Modules/Context");
-var userLogs = [];
+var Observable = require("FuseJS/Observable");
+var userLogs = Observable();
 
 getUserLogs();
 
@@ -10,8 +11,6 @@ function getUserLogs() {
     var log = sleepLogs.getAt(i);
     if (log.userID == 0) { // Eksempelbruker er alltid 0
       userLogs.push(log);
-      console.log("Funker?");
-      console.log(userLogs);
     }
   }
 }
@@ -25,6 +24,7 @@ function toToLogList() {
   router.push("logList");
 }
 function back() {
+  getUserLogs();
   router.goBack();
 }
 
