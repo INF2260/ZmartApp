@@ -13,7 +13,7 @@ function cancel() {
 }
 
 function save(){
-  Context.updateLog(log.value.id, userID.value, dag.value, dato.value, Number(timer.value));
+  Context.updateLog(log.value.id, userID.value, dag.value, dato.value, Number(timer.value.replace(",",".")));
   router.goBack();
 }
 module.exports = {
