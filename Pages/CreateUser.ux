@@ -1,22 +1,37 @@
 <Page ux:Class="CreateUser">
 	<Router ux:Dependency="router"/>
 	<JavaScript File="js/CreateUser.js"/>
+	<ux:Include File="../Resources/CreateUserAnimation.ux"/>
+	<ux:Include File="../Resources/colors.ux"/>
 
-	<ScrollView>
-		<StackPanel>
+	<ClientPanel>
+		<HidingPanel ux:Name="loginPanel" Width="90%" Height="40%" Offset="0%,10%" Alignment="Top">
+			<Grid ux:Name="Login" RowCount="3" Margin="30,40,30,60">
+				<TextInput PlaceholderText="Navn"/>
+			</Grid>
+			<Panel ux:Name="loginPanelCollapsed" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
 
-			<zmart.Text Value="Name:" FontSize="16" TextAlignment="Center"/>
-			<TextBox Value="{name}" Margin="10" Padding="10"/>
+		</HidingPanel>
 
-			<zmart.Text Value="Age:" FontSize="16" TextAlignment="Center"/>
-			<TextBox Value="{age}" InputHint="Integer" Margin="10" Padding="10"/>
+		<HidingPanel ux:Name="defaultPanel" Alignment="Bottom" Height="60%" Width="90%">
+			<Panel ux:Name="SignUpButton" Width="75%" Height="10%">
+				<Text Value="Sign up" Alignment="Center" Color="White"/>
+				<Clicked>
+					<Set userState.Active="loginState"/>
+				</Clicked>
+			</Panel>
+			<Panel ux:Name="SignUpCollapsed" Color="Grey" Width="100" Offset="0%,50%" Height="1" Alignment="Bottom"/>
 
-			<zmart.Text Value="Nickname" FontSize="16" TextAlignment="Center"/>
-			<TextBox Value="{username}" Margin="10" Padding="10"/>
+		</HidingPanel>
+ 			
+ 		<Rectangle ux:Name="CreateRect" Color="Grey" LayoutMaster="SignUpButton" CornerRadius="10"/>
+ 		<Attractor ux:Name="CreateRectCornerRadiusAttractor" Target="CreateRect.CornerRadius" Value="25" Type="SmoothSnap" Unit="Points"/>
 
-			<zmart.Button Text="Continue" Clicked="{create}"/>
+ 		<Rectangle ux:Name="loginRect" Color="White" LayoutMaster="loginPanelCollapsed" CornerRadius="15"/>
+		<Attractor ux:Name="loginRectCornerRadiusAttractor" Target="loginRect.CornerRadius" Value="25"
+		Type="SmoothSnap" Unit="Points"/>
 
-		</StackPanel>
-	</ScrollView>
+
+	</ClientPanel>
 
 </Page>

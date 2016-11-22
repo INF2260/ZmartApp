@@ -6,7 +6,7 @@
 
 	<ClientPanel>
 
-		<Panel Clicked="{back}" Alignment="Bottom" Width="100%" Height="7%">
+		<Panel Clicked="{back}" Alignment="TopLeft" Width="100%" Height="7%">
 			<Text Alignment="Center" Color="White">Tilbake</Text>
 		</Panel>
 
@@ -22,7 +22,8 @@
 			<Panel ux:Name="StatRectCollapsed" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
 
 			<Panel>
-				<Panel ux:Name="BackButton" Width="100" Offset="0%,50%" Height="50" HitTestMode="LocalBoundsAndChildren">
+				<Panel ux:Name="BackButton" Width="100" Offset="0%,50%" Height="50" 
+					 HitTestMode="LocalBoundsAndChildren">
 					<Text Value="Back" Alignment="Center" Color="White"/>
 					<Clicked>
 						<Set state.Active="overviewState"/>
