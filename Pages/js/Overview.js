@@ -33,6 +33,7 @@ module.exports = {
 	user: Context.user,
 	toToLogList: toToLogList,
 	goToLog: goToLog,
-	back: back
+	back: back,
+  totalTimer: Context.timeUser0
 
 };

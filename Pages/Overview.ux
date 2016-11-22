@@ -28,7 +28,15 @@
 							</Panel>
 						</Grid>
 					</Each>
-					<Button Text="TMP EDIT" Clicked="{toToLogList}"/>
+					<Grid ColumnCount="2" RowCount="1">
+						<Panel Row="0" Column="0">
+							<Text> Totalt sovet: </Text>
+						</Panel>
+						<Panel Row="0" Column="1">
+							<Text Value="{totalTimer}"/>
+						</Panel>
+					</Grid>
+
 				</StackPanel>
 
 <!--				<TextBox Value="10/11 - 8 timer søvn" Margin="5"/>
