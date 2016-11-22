@@ -1,7 +1,7 @@
 var Observable = require("FuseJS/Observable");
 var Backend = require("./Backend");
 var logFile = require("./sleepLogs");
-var user = Observable();
+var user = Observable(); //Test bruker
 var sleepLogs = Observable(); // Logfil med for alle brukere
 var timeUser0 = Observable();
 var timeUser1 = Observable();
@@ -13,14 +13,7 @@ getUserTime(0);
 getUserTime(1);
 getUserTime(2);
 
-Backend.getSingleUser(tmpID)
-        .then(function(newUser){
-          user.value = newUser;
-        })
-        .catch(function(error){
-          console.log("Couldn't get user: " + error);
-          }
-        );
+
 
 
 logFile.getTotalTime()
@@ -69,6 +62,33 @@ function updateLog(id, userID, dag, dato, timer) {
     getUserTime(0);
     getUserTime(1);
     getUserTime(2);
+    logFile.getSleepLogs()
+            .then(function(newSleepLogs){
+              sleepLogs.replaceAll(newSleepLogs);
+            })
+            .catch(function(error){
+              console.log("Couldn't get logs: " + error);
+            });
+}
+
+function updateUser(username, name, age) {
+  user.username = username;
+  user.name = name;
+  user.age = age;
+  Backend.updateUser(username,name,age)
+    .catch(function(error){
+      console.log("Couldn't update user: " + username);
+    }
+  );
+  Backend.getSingleUser(0)
+          .then(function(newUser){
+            user.value = newUser;
+            console.log("Got: " + newUser.username);
+          })
+          .catch(function(error){
+            console.log("Couldn't get user: " + error);
+            }
+          );
 }
 
 function getUserTime(userID){
@@ -76,14 +96,11 @@ function getUserTime(userID){
           .then(function(newUserTime){
             if (userID == 0) {
               timeUser0.value = newUserTime;
-              console.log("added " + newUserTime + " to 0");
             }
             else if (userID == 1) {
-              console.log("added " + newUserTime + " to 3");
               timeUser1.value = newUserTime;
             }
             else if (userID == 2) {
-              console.log("added " + newUserTime + " to 2");
               timeUser2.value = newUserTime;
             }
           })
@@ -99,5 +116,7 @@ module.exports = {
     timeUser0: timeUser0,
     timeUser1: timeUser1,
     timeUser2: timeUser2,
-    updateLog: updateLog
+    updateLog: updateLog,
+    updateUser: updateUser,
+    user: user
 };

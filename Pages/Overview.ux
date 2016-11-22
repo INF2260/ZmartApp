@@ -11,13 +11,30 @@
 		</Panel>
 
 		<!-- Statform panel -->
-		<HidingPanel ux:Name="PetterForm" Width="90%" Height="45%" Offset="0%,10%">
-			<Grid ux:Name="Grid" RowCount="3" Margin="30,40,30,60">
-				<Text Alignment="TopCenter" FontSize="30">Petter</Text>
-				<TextBox Value="10/11 - 8 timer søvn" Margin="5"/>
+		<HidingPanel ux:Name="PetterForm" Width="90%" Height="55%" Offset="0%,10%">
+			<Grid ux:Name="Grid" RowCount="3" Margin="30,40,30,190">
+				<Text Alignment="TopCenter" FontSize="30" Value="{user}"/>
+				<StackPanel>
+					<Each Items="{userLogs}">
+						<Grid ColumnCount="3" RowCount="1">
+    					<Panel Row="0" Column="0">
+								<Text Value="{dag}" Margin="5"/>
+							</Panel>
+							<Panel Row="0" Column="1">
+								<Text Value="timer sovet:" Margin="5"/>
+							</Panel>
+    					<Panel Row="0" Column="2">
+								<Text Value="{timer}" Margin="5"/>
+							</Panel>
+						</Grid>
+					</Each>
+					<Button Text="TMP EDIT" Clicked="{toToLogList}"/>
+				</StackPanel>
+
+<!--				<TextBox Value="10/11 - 8 timer søvn" Margin="5"/>
 				<TextBox Value="8/11 - 6 timer søvn" Margin="5" />
 				<TextBox Value="7/11 - 4 timer søvn" Margin="5" />
-				<TextBox Value="5/11 - 10 timer søvn" Margin="5" />
+				<TextBox Value="5/11 - 10 timer søvn" Margin="5" /> -->
 			</Grid>
 			<Panel ux:Name="StatRectCollapsed" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
 
@@ -87,7 +104,7 @@
 				<!-- Petter -->
 				<Panel ux:Name="petter" Width="120" Height="200" LayoutMaster="stack" Alignment="BottomCenter" HitTestMode="LocalBoundsAndChildren" >
 					<Image File="../Images/petter.png" Alignment="Center" HitTestMode="LocalBounds"/>
-					<Text Alignment="TopCenter" Margin="0,0,30,0">Petter</Text>
+					<Text Alignment="TopCenter" Margin="0,0,30,0" Value="{user}"/>
 
 					<WhileTrue ux:Name="movePetter">
 						<Move Target="petter" Y="-1.75" X="0.2" RelativeTo="Size" Duration="0.5" Delay="0.3" Easing="CubicInOut"/>

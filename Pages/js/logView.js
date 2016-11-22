@@ -1,5 +1,6 @@
 var Context = require("Modules/Context");
-var userLogs = [];
+var Observable = require("FuseJS/Observable");
+var userLogs = Observable();
 
 getUserLogs();
 
@@ -19,11 +20,20 @@ function goToLog(arg) {
     var log = arg.data;
     router.push("editLog", log);
 }
+function toToLogList() {
+  router.push("logList");
+}
+function back() {
+  getUserLogs();
+  router.goBack();
+}
 
 
 
 
 module.exports = {
+    toToLogList: toToLogList,
+    back: back,
     userLogs: userLogs,
     goToLog: goToLog
 

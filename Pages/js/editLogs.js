@@ -1,5 +1,4 @@
 var Context = require("Modules/Context");
-var User = require("Modules/Backend");
 var log = this.Parameter;
 
 var userID = log.map(function(x) { return x.userID; });
@@ -14,7 +13,7 @@ function cancel() {
 }
 
 function save(){
-  Context.updateLog(log.value.id, userID.value, dag.value, dato.value, Number(timer.value));
+  Context.updateLog(log.value.id, userID.value, dag.value, dato.value, Number(timer.value.replace(",",".")));
   router.goBack();
 }
 module.exports = {
@@ -22,6 +21,7 @@ module.exports = {
   dag: dag,
   dato: dato,
   timer: timer,
+  user: Context.user,
 
 
   cancel: cancel,
