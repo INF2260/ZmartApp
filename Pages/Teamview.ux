@@ -2,12 +2,21 @@
 	<Router ux:Dependency="router"/>
 	<JavaScript File ="js/Teamview.js"/>
 	<ux:Include File="../Resources/colors.ux"/>
+	<ux:Include File="../Resources/TeamviewAnimation.ux"/>
 
 	<ClientPanel>
 
 		<Panel Clicked="{back}" Width="100%" Height="7%" Alignment="Top">
 			<Text Alignment="Center" Color="White">Tilbake</Text>
 		</Panel>
+
+		<Rectangle ux:Name="teamStatRect" Color="White" Opacity="0" LayoutMaster="team2Panel" CornerRadius="15">
+			<WhileEnabled>
+				<Change teamStatRect.Opacity="1"/>
+			</WhileEnabled>
+		</Rectangle>
+		<Attractor ux:Name="teamStatRectCornerRadiusAttractor" Target="teamStatRect.CornerRadius" Value="25" Type="SmoothSnap"
+			 Unit="Points"/>
 
 		<StackPanel ux:Name="Team1" Width="100%" Height="30%" Alignment="Bottom">
 			<Image File="../Images/team1.png" LayoutMaster="Team1" Alignment="BottomRight" Width="90%" Height="90%" Clicked="{goToTeam}">
@@ -17,8 +26,15 @@
 		</StackPanel>
 
 		<StackPanel ux:Name="Team2" Width="100%" Height="30%" Alignment="HorizontalCenter">
-			<Image File="../Images/team2.png" LayoutMaster="Team2" Alignment="BottomLeft" Width="75%" Height="75%">
+			<Image ux:Name="T2" File="../Images/team2.png" LayoutMaster="Team2" Alignment="BottomLeft" Width="75%" Height="75%">
 				<Text Alignment="BottomCenter" Color="White">Lag 2</Text>
+				<Clicked>
+					<Set teamAnimation.Active="team2"/>
+				</Clicked>
+				<WhileEnabled>
+					<Move Target="T2" Y="-0.6" RelativeTo="Size" Duration="0.5"
+					 Delay="0.3" Easing="CubicInOut"/>
+				</WhileEnabled>
 			</Image>
 			<Image File="../Images/m2.png" LayoutMaster="Team2" Alignment="Right"/>
 		</StackPanel>
@@ -26,10 +42,31 @@
 		<StackPanel ux:Name="Team3" Width="100%" Height="30%" Alignment="TopCenter">
 			<Image File="../Images/team3.png" LayoutMaster="Team3" Alignment="Right">
 				<Text Alignment="BottomCenter" Color="White">Lag 3 </Text>
+					<Clicked>
+						<Set teamAnimation.Active="team3"/>
+					</Clicked>
+
 			</Image>
 			<Image File="../Images/m1.png" LayoutMaster="Team3" Alignment="Left"/>
 		</StackPanel>
 
+		<HidingPanel ux:Name="team2Panel" Width="90%" Height="50%" Offset="0%,10%" Alignment="Center">
+			
+			<Grid ux:Name="t2Grid" RowCount="3" Margin="30,40,30,190">
+				<Text Alignment="TopCenter" FontSize="30"/>
+			</Grid>
+
+		</HidingPanel>
+
+		<HidingPanel ux:Name="team3Panel" Width="90%" Height="50%" Offset="0%,10%" Alignment="Center">
+			
+			<Grid ux:Name="t3Grid" RowCount="3" Margin="30,40,30,190">
+				<Text Alignment="TopCenter" FontSize="30"/>
+			</Grid>
+
+		</HidingPanel>
+
+ 
 	</ClientPanel>
 
 

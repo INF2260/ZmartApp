@@ -14,5 +14,6 @@
 		<Set CreateRect.LayoutMaster="SignUpCollapsed" Delay="0.2"/>
 		<Set loginRect.LayoutMaster="loginPanel" Delay="0.2"/>
 		<Set continueRect.LayoutMaster="login" Delay="0.2"/>
+		<Set moveBg.Value="true"/>
 	</State>
 </StateGroup>
