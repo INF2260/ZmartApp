@@ -15,7 +15,7 @@
 									</WhilePressed>
 								</Panel>
 							</Each>
-							<Button Text="back" Clicked="{back}"/>
+							<Button Text="Gå videre" Clicked="{Team}"/>
 						</StackPanel>
 				</ScrollView>
 		</DockPanel>

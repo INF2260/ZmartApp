@@ -4,8 +4,8 @@
   <JavaScript File="js/editLogs.js"/>
 <DockPanel>
   <Grid ColumnCount="2" Dock="Bottom">
-    <zmart.Button Text="Save" Clicked="{save}"/>
     <zmart.Button Text="Cancel" Clicked="{cancel}"/>
+    <zmart.Button Text="Save" Clicked="{save}"/>
   </Grid>
 
   <ScrollView>

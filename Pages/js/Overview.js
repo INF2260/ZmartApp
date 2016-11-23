@@ -22,7 +22,7 @@ function goToLog(arg) {
 function toToLogList() {
   router.push("logList");
 }
-function back() {
+function Team() {
   getUserLogs();
 	router.push("Team");
   //router.goBack();
@@ -33,7 +33,7 @@ module.exports = {
 	user: Context.user,
 	toToLogList: toToLogList,
 	goToLog: goToLog,
-	back: back,
+	Team: Team,
   totalTimer: Context.timeUser0
 
 };

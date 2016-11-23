@@ -118,11 +118,6 @@
 						</Panel>
 					</Grid>
 				</StackPanel>
-
-				<!--<TextBox Value="10/11 - 10 timer søvn" Margin="5"/>
-				<TextBox Value="8/11 - 8 timer søvn" Margin="5" />
-				<TextBox Value="7/11 - 6 timer søvn" Margin="5" />
-				<TextBox Value="5/11 - 6 timer søvn" Margin="5" /> -->
 			</Grid>
 			<Panel ux:Name="StatRectCollapsed2" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
 
