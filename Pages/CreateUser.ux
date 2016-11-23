@@ -9,13 +9,13 @@
 		<HidingPanel ux:Name="loginPanel" Width="90%" Height="40%" Offset="0%,10%" Alignment="Top">
 			<Grid ux:Name="Login" RowCount="4" Margin="30,40,30,60">
 				<Text Alignment="Center" Row="0"  FontSize="30">Logg inn </Text>
-				<TextInput PlaceholderText="Navn" Row="1"/>
+				<TextInput PlaceholderText="Navn" Row="1" Value="{name}"/>
 				<Rectangle Color="Grey" Row="1" Alignment="Bottom" Width="100%" Height="2%"/>
-				
-				<TextInput PlaceholderText="Alder" Row="2" />
+
+				<TextInput PlaceholderText="Alder" Row="2" Value="{age}"/>
 				<Rectangle Color="Grey" Row="2" Alignment="Bottom" Width="100%" Height="2%"/>
 
-				<TextInput PlaceholderText="Brukernavn" Row="3" />
+				<TextInput PlaceholderText="Brukernavn" Row="3" Value="{username}"/>
 				<Rectangle Color="Grey" Row="3" Alignment="Bottom" Width="100%" Height="2%"/>
 			</Grid>
 			<!-- login button -->
@@ -26,7 +26,7 @@
 
 		</HidingPanel>
 		<!-- login button rectangle -->
-		<Rectangle ux:Name="continueRect" Color="Grey" LayoutMaster="login" Opacity="0" CornerRadius="10"> 
+		<Rectangle ux:Name="continueRect" Color="Grey" LayoutMaster="login" Opacity="0" CornerRadius="10">
 			<WhileEnabled>
 				<Change continueRect.Opacity="1" Duration="0.4"/>
 			</WhileEnabled>
@@ -45,7 +45,7 @@
 			<Panel ux:Name="SignUpCollapsed" Color="Grey" Width="100" Offset="0%,50%" Height="1" Alignment="Bottom"/>
 
 		</HidingPanel>
- 			
+
  		<Rectangle ux:Name="CreateRect" Color="Grey" LayoutMaster="SignUpButton" CornerRadius="10"/>
  		<Attractor ux:Name="CreateRectCornerRadiusAttractor" Target="CreateRect.CornerRadius" Value="25" Type="SmoothSnap" Unit="Points"/>
 

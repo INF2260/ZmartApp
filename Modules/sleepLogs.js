@@ -4,35 +4,35 @@ var sleepLogs = [
     userID: 0,
     dag: "Mandag",
     dato: "11.10.16",
-    timer: 1
+    timer: 0
   },
   {
     id: 1,
     userID: 0,
     dag: "Tirsdag",
     dato: "11.10.16",
-    timer: 1
+    timer: 0
   },
   {
     id: 2,
     userID: 0,
     dag: "Onsdag",
     dato: "11.10.16",
-    timer: 1
+    timer: 0
   },
   {
     id: 3,
     userID: 0,
     dag: "Torsdag",
     dato: "11.10.16",
-    timer: 1
+    timer: 0
   },
   {
     id: 4,
     userID: 0,
     dag: "Fredag",
     dato: "11.10.16",
-    timer: 1
+    timer: 0
   },
   {
     id: 5,
