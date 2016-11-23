@@ -39,70 +39,35 @@ var sleepLogs = [
     userID: 1,
     dag: "Mandag",
     dato: "11.10.16",
-    timer: 1
+    timer: 9
   },
   {
     id: 6,
     userID: 1,
     dag: "Tirsdag",
     dato: "11.10.16",
-    timer: 1
+    timer: 7.5
   },
   {
     id: 7,
     userID: 1,
     dag: "Onsdag",
     dato: "11.10.16",
-    timer: 1
+    timer: 6.5
   },
   {
     id: 8,
     userID: 1,
     dag: "Torsdag",
     dato: "11.10.16",
-    timer: 1
+    timer: 11
   },
   {
     id: 9,
     userID: 1,
     dag: "Fredag",
     dato: "11.10.16",
-    timer: 1
-  },
-  {
-    id: 10,
-    userID: 2,
-    dag: "Mandag",
-    dato: "11.10.16",
-    timer: 1
-  },
-  {
-    id: 11,
-    userID: 2,
-    dag: "Tirsdag",
-    dato: "11.10.16",
-    timer: 1
-  },
-  {
-    id: 12,
-    userID: 2,
-    dag: "Onsdag",
-    dato: "11.10.16",
-    timer: 1
-  },
-  {
-    id: 13,
-    userID: 2,
-    dag: "Torsdag",
-    dato: "11.10.16",
-    timer: 1
-  },
-  {
-    id: 14,
-    userID: 2,
-    dag: "Fredag",
-    dato: "11.10.16",
-    timer: 1
+    timer: 10
   }
 ];
 
