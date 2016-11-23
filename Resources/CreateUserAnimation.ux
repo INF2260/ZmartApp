@@ -3,13 +3,16 @@
 	<State Name="splash">
 		<Change loginPanel.IsEnabled="False" Delay="0"/>
 		<Change defaultPanel.IsEnabled="True" Delay="0"/>
+		<Change continueRect.IsEnabled="False" Delay="0"/>
 		<Set loginRect.LayoutMaster="loginPanelCollapsed"/>
 		<Set CreateRect.LayoutMaster="SignUpButton"/>
 	</State>
 	<!-- LoginPanel -->
 	<State Name="loginState">
 		<Change loginPanel.IsEnabled="True" Delay="0.6" DelayBack="0"/>
+		<Change continueRect.IsEnabled="True" Delay="0.6" DelayBack="0"/>
 		<Set CreateRect.LayoutMaster="SignUpCollapsed" Delay="0.2"/>
 		<Set loginRect.LayoutMaster="loginPanel" Delay="0.2"/>
+		<Set continueRect.LayoutMaster="login" Delay="0.2"/>
 	</State>
 </StateGroup>

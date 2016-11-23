@@ -4,17 +4,39 @@
 	<ux:Include File="../Resources/CreateUserAnimation.ux"/>
 	<ux:Include File="../Resources/colors.ux"/>
 
+	<!-- LoginForm -->
 	<ClientPanel>
 		<HidingPanel ux:Name="loginPanel" Width="90%" Height="40%" Offset="0%,10%" Alignment="Top">
-			<Grid ux:Name="Login" RowCount="3" Margin="30,40,30,60">
-				<TextInput PlaceholderText="Navn"/>
+			<Grid ux:Name="Login" RowCount="4" Margin="30,40,30,60">
+				<Text Alignment="Center" Row="0"  FontSize="30">Logg inn </Text>
+				<TextInput PlaceholderText="Navn" Row="1"/>
+				<Rectangle Color="Grey" Row="1" Alignment="Bottom" Width="100%" Height="2%"/>
+				
+				<TextInput PlaceholderText="Alder" Row="2" />
+				<Rectangle Color="Grey" Row="2" Alignment="Bottom" Width="100%" Height="2%"/>
+
+				<TextInput PlaceholderText="Brukernavn" Row="3" />
+				<Rectangle Color="Grey" Row="3" Alignment="Bottom" Width="100%" Height="2%"/>
 			</Grid>
+			<!-- login button -->
+			<Panel ux:Name="login" Width="100" Opacity="0" Offset="0%,50%" Height="50" HitTestMode="LocalBoundsAndChildren" Clicked="{create}">
+				<Text Value="Logg Inn" Alignment="Center" Color="White"/>
+			</Panel>
 			<Panel ux:Name="loginPanelCollapsed" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
 
 		</HidingPanel>
+		<!-- login button rectangle -->
+		<Rectangle ux:Name="continueRect" Color="Grey" LayoutMaster="login" Opacity="0" CornerRadius="10"> 
+			<WhileEnabled>
+				<Change continueRect.Opacity="1" Duration="0.4"/>
+			</WhileEnabled>
+		</Rectangle>
+
+		<Attractor ux:Name="cRectCornerRadiusAttractor" Target="continueRect.CornerRadius" Value="25"
+			 Type="SmoothSnap" Unit="Points"/>
 
 		<HidingPanel ux:Name="defaultPanel" Alignment="Bottom" Height="60%" Width="90%">
-			<Panel ux:Name="SignUpButton" Width="75%" Height="10%">
+			<Panel ux:Name="SignUpButton" Width="75%" Height="10%" HitTestMode="LocalBoundsAndChildren">
 				<Text Value="Sign up" Alignment="Center" Color="White"/>
 				<Clicked>
 					<Set userState.Active="loginState"/>
@@ -29,7 +51,7 @@
 
  		<Rectangle ux:Name="loginRect" Color="White" LayoutMaster="loginPanelCollapsed" CornerRadius="15"/>
 		<Attractor ux:Name="loginRectCornerRadiusAttractor" Target="loginRect.CornerRadius" Value="25"
-		Type="SmoothSnap" Unit="Points"/>
+		 Type="SmoothSnap" Unit="Points"/>
 
 
 	</ClientPanel>
