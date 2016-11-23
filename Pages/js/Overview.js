@@ -34,6 +34,7 @@ module.exports = {
 	toToLogList: toToLogList,
 	goToLog: goToLog,
 	Team: Team,
+  poeng: Context.poeng,
   totalTimer: Context.timeUser0
 
 };

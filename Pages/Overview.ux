@@ -115,6 +115,7 @@
 						</Panel>
 						<Panel Row="0" Column="1">
 							<Text Value="{totalTimer}" Margin="10"/>
+							<Text Margin="20" Value="{poeng}"/>
 						</Panel>
 					</Grid>
 				</StackPanel>
