@@ -1,0 +1,22 @@
+<StateGroup ux:Name="teamAnimation" Transition="Exclusive">
+
+	<State Name="default">
+		<Change team2Panel.IsEnabled="false" DelayBack="0"/>
+		<Change teamStatRect.IsEnabled="false" Delay="0"/>
+		<Change T2.IsEnabled="false"/>
+	</State>
+
+	<State Name="team2">
+		<Change team2Panel.IsEnabled="true" DelayBack="0"/>
+		<Change teamStatRect.IsEnabled="true" Delay="0.2"/>
+		<Change T2.IsEnabled="true"/>
+		<Set teamStatRect.LayoutMaster="team2Panel"/>
+	</State>
+
+	<State Name="team3">
+		<Change team3Panel.IsEnabled="true" DelayBack="0"/>
+		<Change teamStatRect.IsEnabled="true" Delay="0.2"/>
+		<Set teamStatRect.LayoutMaster="Team3"/>
+	</State>
+
+</StateGroup>
