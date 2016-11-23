@@ -30,10 +30,10 @@
 					</Each>
 					<Grid ColumnCount="2" RowCount="1">
 						<Panel Row="0" Column="0">
-							<Text> Totalt sovet: </Text>
+							<Text Margin="10"> Totalt timer sovet: </Text>
 						</Panel>
 						<Panel Row="0" Column="1">
-							<Text Value="{totalTimer}"/>
+							<Text Margin="10" Value="{totalTimer}"/>
 						</Panel>
 					</Grid>
 
@@ -47,7 +47,7 @@
 			<Panel ux:Name="StatRectCollapsed" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
 
 			<Panel>
-				<Panel ux:Name="BackButton" Width="100" Offset="0%,50%" Height="50" 
+				<Panel ux:Name="BackButton" Width="100" Offset="0%,50%" Height="50"
 					 HitTestMode="LocalBoundsAndChildren">
 					<Text Value="Back" Alignment="Center" Color="White"/>
 					<Clicked>
@@ -58,13 +58,71 @@
 			</Panel>
 		</HidingPanel>
 
-		<HidingPanel ux:Name="LasseForm" Width="90%" Height="45%" Offset="0%,10%">
-			<Grid ux:Name="Grid2" RowCount="3" Margin="30,40,30,60">
+		<HidingPanel ux:Name="LasseForm" Width="90%" Height="55%" Offset="0%,10%">
+			<Grid ux:Name="Grid2" RowCount="3" Margin="30,40,30,190">
 				<Text FontSize="30" Alignment="TopCenter">Lasse</Text>
-				<TextBox Value="10/11 - 10 timer søvn" Margin="5"/>
+				<StackPanel>
+						<Grid ColumnCount="3" RowCount="1">
+							<Panel Row="0" Column="0">
+								<Text Value="Mandag" Margin="5"/>
+							</Panel>
+							<Panel Row="0" Column="1">
+								<Text Value="timer sovet:" Margin="5"/>
+							</Panel>
+							<Panel Row="0" Column="2">
+								<Text Value="8" Margin="5"/>
+							</Panel>
+							<Panel Row="1" Column="0">
+								<Text Value="Tirsdag" Margin="5"/>
+							</Panel>
+							<Panel Row="1" Column="1">
+								<Text Value="timer sovet:" Margin="5"/>
+							</Panel>
+							<Panel Row="1" Column="2">
+								<Text Value="8" Margin="5"/>
+							</Panel>
+							<Panel Row="2" Column="0">
+								<Text Value="Onsdag" Margin="5"/>
+							</Panel>
+							<Panel Row="2" Column="1">
+								<Text Value="timer sovet:" Margin="5"/>
+							</Panel>
+							<Panel Row="2" Column="2">
+								<Text Value="8" Margin="5"/>
+							</Panel>
+							<Panel Row="3" Column="0">
+								<Text Value="Torsdag" Margin="5"/>
+							</Panel>
+							<Panel Row="3" Column="1">
+								<Text Value="timer sovet:" Margin="5"/>
+							</Panel>
+							<Panel Row="3" Column="2">
+								<Text Value="8" Margin="5"/>
+							</Panel>
+							<Panel Row="4" Column="0">
+								<Text Value="Fredag" Margin="5"/>
+							</Panel>
+							<Panel Row="4" Column="1">
+								<Text Value="timer sovet:" Margin="5"/>
+							</Panel>
+							<Panel Row="4" Column="2">
+								<Text Value="8" Margin="5"/>
+							</Panel>
+						</Grid>
+					<Grid ColumnCount="2" RowCount="1">
+						<Panel Row="0" Column="0">
+							<Text Margin="10"> Totalt timer sovet: </Text>
+						</Panel>
+						<Panel Row="0" Column="1">
+							<Text Value="{totalTimer}" Margin="10"/>
+						</Panel>
+					</Grid>
+				</StackPanel>
+
+				<!--<TextBox Value="10/11 - 10 timer søvn" Margin="5"/>
 				<TextBox Value="8/11 - 8 timer søvn" Margin="5" />
 				<TextBox Value="7/11 - 6 timer søvn" Margin="5" />
-				<TextBox Value="5/11 - 6 timer søvn" Margin="5" />
+				<TextBox Value="5/11 - 6 timer søvn" Margin="5" /> -->
 			</Grid>
 			<Panel ux:Name="StatRectCollapsed2" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
 
