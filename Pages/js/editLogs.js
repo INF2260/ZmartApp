@@ -1,4 +1,5 @@
 var Context = require("Modules/Context");
+var poengHolder = require("./Teamview")
 var log = this.Parameter;
 
 var userID = log.map(function(x) { return x.userID; });

@@ -9,6 +9,9 @@ var timeUser2 = Observable();
 var totalTime = Observable(); //Total tid alle har sovet tilsammen
 var tmpID = 0;
 var poeng = Observable();
+var winner = Observable();
+var mid = Observable();
+
 
 getUserTime(0);
 getUserTime(1);
@@ -20,7 +23,9 @@ getUserTime(2);
 logFile.getTotalTime()
         .then(function(newTotalTime){
           totalTime.value = newTotalTime;
-          poeng.value = (newTotalTime*100)/3 + 42;
+          poeng.value = Math.floor((newTotalTime*100)/3 + 42);
+          winner.value = poeng.value + 100;
+          mid.value = poeng.value + 42;
         })
         .catch(function(error){
           console.log("Couldn't get totalTime: " + error);
@@ -35,7 +40,9 @@ logFile.getSleepLogs()
           console.log("Couldn't get logs: " + error);
         });
 function getPoeng() {
-  poeng.value = totalTime
+  poeng.value = Math.floorMath.floor((totalTime*100)/3 + 42);
+  winner.value = poeng.value + 100;
+  mid.value = poeng.value + 42;
 }
 
 function updateLog(id, userID, dag, dato, timer) {
@@ -124,5 +131,7 @@ module.exports = {
     updateLog: updateLog,
     updateUser: updateUser,
     user: user,
-    poeng: poeng
+    poeng: poeng,
+    winner: winner,
+    mid: mid
 };
