@@ -1,22 +1,30 @@
 <StateGroup ux:Name="teamAnimation" Transition="Exclusive">
 
-	<State Name="standar">
+	<State Name="standard">
 		<Change team2Panel.IsEnabled="false" DelayBack="0"/>
+		<Change team3Panel.IsEnabled="false" DelayBack="0"/>
 		<Change teamStatRect.IsEnabled="false" Delay="0"/>
+		<Change Team2.IsEnabled="true"/>
 		<Change T2.IsEnabled="false"/>
+		<Change backButtonRectangle.IsEnabled="false" Delay="0"/>
 	</State>
 
 	<State Name="team2">
 		<Change team2Panel.IsEnabled="true" DelayBack="0"/>
 		<Change teamStatRect.IsEnabled="true" Delay="0.2"/>
 		<Change T2.IsEnabled="true"/>
+		<Change backButtonRectangle.IsEnabled="true" Delay="0"/>
+		<Set backButtonRectangle.LayoutMaster="back"/>
 		<Set teamStatRect.LayoutMaster="team2Panel"/>
 	</State>
 
 	<State Name="team3">
 		<Change team3Panel.IsEnabled="true" DelayBack="0"/>
 		<Change teamStatRect.IsEnabled="true" Delay="0.2"/>
-		<Set teamStatRect.LayoutMaster="Team3"/>
+		<Change backButtonRectangle.IsEnabled="true" Delay="0"/>
+		<Change T2.IsEnabled="false"/>
+		<Set backButtonRectangle.LayoutMaster="back2"/>
+		<Set teamStatRect.LayoutMaster="team3Panel"/>
 	</State>
 
 </StateGroup>
