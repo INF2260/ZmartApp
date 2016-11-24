@@ -165,7 +165,7 @@
 				<!-- Petter -->
 				<Panel ux:Name="petter" Width="120" Height="200" LayoutMaster="stack" Alignment="BottomCenter" HitTestMode="LocalBoundsAndChildren" >
 					<Image File="../Images/petter.png" Alignment="Center" HitTestMode="LocalBounds"/>
-					<Text Alignment="TopCenter" Margin="0,0,30,0" Value="{user}"/>
+					<Text Alignment="TopCenter" Color="Black" Margin="0,0,30,0" Value="{user}"/>
 
 					<WhileTrue ux:Name="movePetter">
 						<Move Target="petter" Y="-1.75" X="0.2" RelativeTo="Size" Duration="0.5" Delay="0.3" Easing="CubicInOut"/>
@@ -175,7 +175,7 @@
 				<!-- Lasse -->
 				<Panel ux:Name="lasse" Width="120" Height="200" LayoutMaster="stack" Alignment="BottomLeft" HitTestMode="LocalBoundsAndChildren">
 					<Image File="../Images/lasse.png" Width="100" Height="180" Alignment="Center" HitTestMode="LocalBounds"/>
-					<Text Alignment="TopCenter" Margin="30,0,0,0" Color="White">Lasse</Text>
+					<Text Alignment="TopCenter" Margin="30,0,0,0" Color="Black">Lasse</Text>
 					<Clicked>
 						<Set state.Active="lasseStat"/>
 					</Clicked>
