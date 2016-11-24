@@ -2,7 +2,7 @@
 	<Router ux:Dependency="router"/>
 	<JavaScript File ="js/Teamview.js"/>
 	<ux:Include File="../Resources/colors.ux"/>
-	<ux:Include File="../Resources/TeamviewAnimation.ux"/>
+ <ux:Include File="../Resources/TeamviewAnimation.ux"/> 
 
 	<ClientPanel>
 
@@ -51,7 +51,7 @@
 		</StackPanel>
 
 		<HidingPanel ux:Name="team2Panel" Width="90%" Height="50%" Offset="0%,10%" Alignment="Center">
-			
+
 			<Grid ux:Name="t2Grid" RowCount="3" Margin="30,40,30,190">
 				<Text Alignment="TopCenter" FontSize="30"/>
 			</Grid>
@@ -59,14 +59,14 @@
 		</HidingPanel>
 
 		<HidingPanel ux:Name="team3Panel" Width="90%" Height="50%" Offset="0%,10%" Alignment="Center">
-			
+
 			<Grid ux:Name="t3Grid" RowCount="3" Margin="30,40,30,190">
 				<Text Alignment="TopCenter" FontSize="30"/>
 			</Grid>
 
 		</HidingPanel>
 
- 
+
 	</ClientPanel>
 
 

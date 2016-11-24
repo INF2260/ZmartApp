@@ -1,6 +1,6 @@
 <StateGroup ux:Name="teamAnimation" Transition="Exclusive">
 
-	<State Name="default">
+	<State Name="standar">
 		<Change team2Panel.IsEnabled="false" DelayBack="0"/>
 		<Change teamStatRect.IsEnabled="false" Delay="0"/>
 		<Change T2.IsEnabled="false"/>
