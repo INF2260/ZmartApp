@@ -115,7 +115,7 @@
 								<Text Margin="10" RowSpan="2"> Total: </Text>
 							</Panel>
 							<Panel Row="0" Column="2">
-								<Text Margin="5" Value="43.5"/>
+								<Text Margin="5" Value="43"/>
 							</Panel>
 						</Grid>
 				</StackPanel>
