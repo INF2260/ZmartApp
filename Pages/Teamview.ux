@@ -10,6 +10,21 @@
 			<Text Alignment="Center" Color="White">Tilbake</Text>
 		</Panel>
 
+		<HidingPanel ux:Name="team1Panel" Width="90%" Height="50%" Offset="0%,10%" Alignment="Center">
+
+			<Grid ux:Name="t1Grid" RowCount="3" Margin="30,40,30,190">
+				<Text Alignment="TopCenter" FontSize="30"> Lag 1</Text>
+			</Grid>
+
+			<Panel ux:Name="back1" Width="100" Offset="0%,50%" Height="50" HitTestMode="LocalBoundsAndChildren">
+				<Text Value="Back" Alignment="Center" Color="White"/>
+				<Clicked>
+					<Set teamAnimation.Active="standard"/>
+				</Clicked>
+			</Panel>
+
+		</HidingPanel>
+
 		<!-- Team 2 stats -->
 		<HidingPanel ux:Name="team2Panel" Width="90%" Height="50%" Offset="0%,10%" Alignment="Center">
 
@@ -63,8 +78,18 @@
 
 				<!-- Team 1 -->
 		<StackPanel ux:Name="Team1" Width="100%" Height="30%" Alignment="Bottom">
-			<Image File="../Images/team1.png" LayoutMaster="Team1" Alignment="BottomRight" Width="90%" Height="90%" Clicked="{goToTeam}">
+			<Button ux:Name="T1b" LayoutMaster="T1" Clicked="{goToTeam}">
+				<WhilePressed>
+					<Set teamAnimation.Active="team1"/>
+				</WhilePressed>
+			</Button>
+			
+			<Image ux:Name="T1" File="../Images/team1.png" LayoutMaster="Team1" Alignment="BottomRight" Width="90%" Height="90%">
 				<Text Alignment="BottomCenter" Color="White">Lag 1</Text>
+				<WhileEnabled>
+					<Move Target="T1" Y="-2.5" X="-0.10" RelativeTo="Size" Duration="0.5"
+					 Delay="0.3" Easing="CubicInOut"/>
+				</WhileEnabled>
 			</Image>
 			<Image File="../Images/m1.png" LayoutMaster="Team1" Alignment="Left"/>
 		</StackPanel>
