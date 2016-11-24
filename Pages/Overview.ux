@@ -29,11 +29,11 @@
 						</Grid>
 					</Each>
 					<Grid ColumnCount="2" RowCount="1">
-						<Panel Row="0" Column="0">
-							<Text Margin="10"> Totalt timer sovet: </Text>
+						<Panel Row="0" Column="0" RowSpan="2" >
+							<Text Margin="10" RowSpan="2"> Total: </Text>
 						</Panel>
-						<Panel Row="0" Column="1">
-							<Text Margin="10" Value="{totalTimer}"/>
+						<Panel Row="0" Column="2">
+							<Text Margin="5" Value="{totalTimer}"/>
 						</Panel>
 					</Grid>
 
@@ -104,14 +104,15 @@
 								<Text Value="10" Margin="5"/>
 							</Panel>
 						</Grid>
-					<Grid ColumnCount="2" RowCount="1">
-						<Panel Row="0" Column="0">
-							<Text Margin="10"> Totalt timer sovet: </Text>
-						</Panel>
-						<Panel Row="0" Column="1">
-							<Text Value="43.5" Margin="10"/>
-						</Panel>
-					</Grid>
+
+						<Grid ColumnCount="2" RowCount="1">
+							<Panel Row="0" Column="0" RowSpan="2" >
+								<Text Margin="10" RowSpan="2"> Total: </Text>
+							</Panel>
+							<Panel Row="0" Column="2">
+								<Text Margin="5" Value="43"/>
+							</Panel>
+						</Grid>
 				</StackPanel>
 			</Grid>
 			<Panel ux:Name="StatRectCollapsed2" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
