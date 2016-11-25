@@ -1,0 +1,76 @@
+<Page ux:Class="CreateUser">
+	<Router ux:Dependency="router"/>
+	<JavaScript File="js/CreateUser.js"/>
+	<ux:Include File="../Resources/CreateUserAnimation.ux"/>
+	<ux:Include File="../Resources/colors.ux"/>
+
+	<!-- LoginForm -->
+	<ClientPanel>
+		<HidingPanel ux:Name="loginPanel" Width="90%" Height="80%" Offset="0%,10%" Alignment="Top">
+			<Grid ux:Name="Login" RowCount="4" Margin="30,40,30,60">
+				<Text Alignment="Center" Row="0"  FontSize="30">Logg inn </Text>
+				<TextInput PlaceholderText="Navn" Row="1" Value="{name}"/>
+				<Rectangle Color="Grey" Row="1" Alignment="Bottom" Width="100%" Height="2%"/>
+
+				<TextInput PlaceholderText="Alder" Row="2" Value="{age}"/>
+				<Rectangle Color="Grey" Row="2" Alignment="Bottom" Width="100%" Height="2%"/>
+
+				<TextInput PlaceholderText="Brukernavn" Row="3" Value="{username}"/>
+				<Rectangle Color="Grey" Row="3" Alignment="Bottom" Width="100%" Height="2%"/>
+			</Grid>
+			<!-- login button -->
+			<Panel ux:Name="login" Width="100" Offset="0%,50%" Height="50" HitTestMode="LocalBoundsAndChildren" Clicked="{create}">
+				<Text Alignment="Center" Color="White"> Logg inn!</Text>
+			</Panel>
+			<Panel ux:Name="loginPanelCollapsed" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
+
+		</HidingPanel>
+		<!-- login button rectangle -->
+		<Rectangle ux:Name="continueRect" Color="Grey" LayoutMaster="login" Opacity="0" CornerRadius="10">
+			<WhileEnabled>
+				<Change continueRect.Opacity="1" Duration="0.4"/>
+			</WhileEnabled>
+		</Rectangle>
+
+		<Attractor ux:Name="cRectCornerRadiusAttractor" Target="continueRect.CornerRadius" Value="25"
+			 Type="SmoothSnap" Unit="Points"/>
+
+		<HidingPanel ux:Name="defaultPanel" Alignment="Bottom" Height="20%" Width="90%">
+			<Panel ux:Name="SignUpButton" Width="75%" Height="30%" HitTestMode="LocalBoundsAndChildren">
+				<Text Value="Lag bruker" Alignment="Center" Color="White"/>
+				<Clicked>
+					<Set userState.Active="loginState"/>
+				</Clicked>
+
+			</Panel>
+
+			<Panel ux:Name="SignUpCollapsed" Color="Grey" Width="100" Offset="0%,50%" Height="1" Alignment="Bottom"/>
+
+		</HidingPanel>
+
+		<HidingPanel ux:Name="BackgroundPanel" Alignment="Top" Height="100%" IsEnabled="true" HitTestMode="None" Layer="Background">
+
+				<Text FontSize="50" Color="White" Alignment="TopCenter" Opacity="1" Margin="0,40,0,0">ZmartApp</Text>
+				<Rectangle Color="Grey" Width="250" Height="60" Margin="0,-505,0,0" CornerRadius="20" Opacity="1" />
+				<Image ux:Name="Boat" File="../Images/team2.png" Alignment="Center" Width="75%"/>
+				<Image ux:Name="Bg" File="../Images/mountain2Test.png" Margin="0,20,0,0" Alignment="TopCenter" Width="100%"/>
+				<WhileTrue ux:Name="moveBg">
+					<Move Target="Boat" Y="-0.6" RelativeTo="Size" Duration="0.5" Delay="0.3" Easing="CubicInOut"/>
+					<Move Target="Bg" Y="-0.6" RelativeTo="Size" Duration="0.5" Delay="0.3" Easing="CubicInOut"/>
+				</WhileTrue>
+
+
+		</HidingPanel>
+
+
+ 		<Rectangle ux:Name="CreateRect" Color="Grey" LayoutMaster="SignUpButton" CornerRadius="10"/>
+ 		<Attractor ux:Name="CreateRectCornerRadiusAttractor" Target="CreateRect.CornerRadius" Value="25" Type="SmoothSnap" Unit="Points"/>
+
+ 		<Rectangle ux:Name="loginRect" Color="White" LayoutMaster="loginPanelCollapsed" CornerRadius="15"/>
+		<Attractor ux:Name="loginRectCornerRadiusAttractor" Target="loginRect.CornerRadius" Value="25"
+		 Type="SmoothSnap" Unit="Points"/>
+
+
+	</ClientPanel>
+
+</Page>

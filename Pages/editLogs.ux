@@ -1,0 +1,28 @@
+<Page ux:Class="EditLogs">
+  <Router ux:Dependency="router" />
+
+  <JavaScript File="js/editLogs.js"/>
+<DockPanel>
+  <Grid ColumnCount="2" Dock="Bottom">
+    <zmart.Button Text="Cancel" Clicked="{cancel}"/>
+    <zmart.Button Text="Save" Clicked="{save}"/>
+  </Grid>
+
+  <ScrollView>
+    <TextBox ux:Class="zmart.TextBox" TextColor="White" CaretColor="White" Padding="10,10,0,10" />
+    <StackPanel ItemSpacing="10" Padding="10">
+      <zmart.Text ux:Class="TitleText" Opacity=".6" Margin="0, 0, 0, 5"/>
+
+      <TitleText> Brukernavn: </TitleText>
+      <Text Value="{user}"/>
+
+      <TitleText> Dag: </TitleText>
+      <Text Value="{dag}"/>
+
+      <TitleText> Timer: </TitleText>
+      <zmart.TextBox Value="{timer}" InputHint="Decimal"/>
+
+    </StackPanel>
+  </ScrollView>
+</DockPanel>
+</Page>

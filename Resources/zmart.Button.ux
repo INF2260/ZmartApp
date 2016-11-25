@@ -1,0 +1,13 @@
+	
+<Panel ux:Class="zmart.Button" Clicked="{create}" Margin="10" Padding="10">
+	<string ux:Property="Text"/>
+	<Rectangle Layer="Background" Color="#ff3a3a" CornerRadius="5">
+		<DropShadow Angle="90" Distance="1" Spread="0.2" Size="2" Color="#00000060"/>
+	</Rectangle>
+	
+	<zmart.Text Value="{Property Text}" FontSize="16" TextAlignment="Center"/>
+
+	<WhilePressed>
+		<Scale Factor=".95" Duration=".08" Easing="QuadraticOut"/>
+	</WhilePressed>
+</Panel>

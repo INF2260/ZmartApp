@@ -1,0 +1,199 @@
+<Page ux:Class="Overview">
+	<Router ux:Dependency="router"/>
+	<JavaScript File ="js/Overview.js"/>
+	<ux:Include File="../Resources/StateAnimation.ux"/>
+	<ux:Include File="../Resources/colors.ux"/>
+
+	<ClientPanel>
+
+		<Panel Clicked="{Team}" Alignment="TopLeft" Width="100%" Height="7%">
+			<Text Alignment="Center" Color="White">Tilbake</Text>
+		</Panel>
+
+		<!-- Statform panel -->
+		<HidingPanel ux:Name="PetterForm" Width="90%" Height="55%" Offset="0%,10%">
+			<Grid ux:Name="Grid" RowCount="3" Margin="30,40,30,190">
+				<Text Alignment="TopCenter" FontSize="30" Value="{user}"/>
+				<StackPanel>
+					<Each Items="{userLogs}">
+						<Grid ColumnCount="3" RowCount="1">
+    					<Panel Row="0" Column="0">
+								<Text Value="{dag}" Margin="5"/>
+							</Panel>
+							<Panel Row="0" Column="1">
+								<Text Value="timer sovet:" Margin="5"/>
+							</Panel>
+    					<Panel Row="0" Column="2">
+								<Text Value="{timer}" Margin="5"/>
+							</Panel>
+						</Grid>
+					</Each>
+					<Grid ColumnCount="2" RowCount="1">
+						<Panel Row="0" Column="0">
+							<Text Margin="10"> Totalt timer sovet: </Text>
+						</Panel>
+						<Panel Row="0" Column="1">
+							<Text Margin="10" Value="{totalTimer}"/>
+						</Panel>
+					</Grid>
+
+				</StackPanel>
+			</Grid>
+			<Panel ux:Name="StatRectCollapsed" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
+
+			<Panel>
+				<Panel ux:Name="BackButton" Width="100" Offset="0%,50%" Height="50"
+					 HitTestMode="LocalBoundsAndChildren">
+					<Text Value="Back" Alignment="Center" Color="White"/>
+					<Clicked>
+						<Set state.Active="overviewState"/>
+					</Clicked>
+				</Panel>
+				<Panel ux:Name="BackButtonCollapsed" Color="Grey" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
+			</Panel>
+		</HidingPanel>
+
+		<HidingPanel ux:Name="LasseForm" Width="90%" Height="55%" Offset="0%,10%">
+			<Grid ux:Name="Grid2" RowCount="3" Margin="30,40,30,190">
+				<Text FontSize="30" Alignment="TopCenter">Lasse</Text>
+				<StackPanel>
+						<Grid ColumnCount="3" RowCount="1">
+							<Panel Row="0" Column="0">
+								<Text Value="Mandag" Margin="5"/>
+							</Panel>
+							<Panel Row="0" Column="1">
+								<Text Value="timer sovet:" Margin="5"/>
+							</Panel>
+							<Panel Row="0" Column="2">
+								<Text Value="9" Margin="5"/>
+							</Panel>
+							<Panel Row="1" Column="0">
+								<Text Value="Tirsdag" Margin="5"/>
+							</Panel>
+							<Panel Row="1" Column="1">
+								<Text Value="timer sovet:" Margin="5"/>
+							</Panel>
+							<Panel Row="1" Column="2">
+								<Text Value="7.5" Margin="5"/>
+							</Panel>
+							<Panel Row="2" Column="0">
+								<Text Value="Onsdag" Margin="5"/>
+							</Panel>
+							<Panel Row="2" Column="1">
+								<Text Value="timer sovet:" Margin="5"/>
+							</Panel>
+							<Panel Row="2" Column="2">
+								<Text Value="6.5" Margin="5"/>
+							</Panel>
+							<Panel Row="3" Column="0">
+								<Text Value="Torsdag" Margin="5"/>
+							</Panel>
+							<Panel Row="3" Column="1">
+								<Text Value="timer sovet:" Margin="5"/>
+							</Panel>
+							<Panel Row="3" Column="2">
+								<Text Value="11" Margin="5"/>
+							</Panel>
+							<Panel Row="4" Column="0">
+								<Text Value="Fredag" Margin="5"/>
+							</Panel>
+							<Panel Row="4" Column="1">
+								<Text Value="timer sovet:" Margin="5"/>
+							</Panel>
+							<Panel Row="4" Column="2">
+								<Text Value="10" Margin="5"/>
+							</Panel>
+						</Grid>
+					<Grid ColumnCount="2" RowCount="1">
+						<Panel Row="0" Column="0">
+							<Text Margin="10"> Totalt timer sovet: </Text>
+						</Panel>
+						<Panel Row="0" Column="1">
+							<Text Value="43.5" Margin="10"/>
+						</Panel>
+					</Grid>
+				</StackPanel>
+			</Grid>
+			<Panel ux:Name="StatRectCollapsed2" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
+
+			<Panel>
+				<Panel ux:Name="BackButton2" Width="100" Offset="0%,50%" Height="50" HitTestMode="LocalBoundsAndChildren">
+					<Text Value="Back" Alignment="Center" Color="White"/>
+					<Clicked>
+						<Set state.Active="overviewState"/>
+					</Clicked>
+				</Panel>
+				<Panel ux:Name="BackButtonCollapsed2" Color="Grey" Width="100" Offset="0%,50%" Height="10" Alignment="Bottom"/>
+			</Panel>
+		</HidingPanel>
+
+		<!-- Back button rectangle -->
+		<Rectangle ux:Name="backRect" Color="Grey" LayoutMaster="BackButtonCollapsed" CornerRadius="10"/>
+		<Attractor ux:Name="backRectCornerRadiusAttractor" Target="backRect.CornerRadius" Value="25" Type="SmoothSnap" Unit="Points"/>
+
+		<!-- StatForm rectangle-->
+		<Rectangle ux:Name="statRect" Color="White" LayoutMaster="StatRectCollapsed" CornerRadius="15"/>
+		<Attractor ux:Name="statRectCornerRadiusAttractor" Target="statRect.CornerRadius" Value="25"
+		Type="SmoothSnap" Unit="Points"/>
+
+		<!-- Default panel -->
+		<HidingPanel ux:Name="userPanel" Alignment="Bottom" Height="60%" Padding="15,0,15,15">
+			<GridLayout Rows="1*,15,15"/>
+
+			<StackPanel ux:Name="stack" Height="100%" Width="100%">
+
+				<!-- StatPage buttons -->
+				<Button ux:Name="petterB" LayoutMaster="petter">
+					<Clicked>
+						<Set state.Active="petterStat"/>
+					</Clicked>
+				</Button>
+				<Button ux:Name="lasseB" LayoutMaster="lasse">
+					<Clicked>
+						<Set state.Active="lasseStat"/>
+					</Clicked>
+				</Button>
+
+				<!-- BoatImage-->
+				<Image ux:Name="boatfront" File="../Images/boat-front.png" LayoutMaster="stack" Alignment="Bottom" Width="100%" Height="50%"/>
+
+				<!-- Petter -->
+				<Panel ux:Name="petter" Width="120" Height="200" LayoutMaster="stack" Alignment="BottomCenter" HitTestMode="LocalBoundsAndChildren" >
+					<Image File="../Images/petter.png" Alignment="Center" HitTestMode="LocalBounds"/>
+					<Text Alignment="TopCenter" Margin="0,0,30,0" Value="{user}"/>
+
+					<WhileTrue ux:Name="movePetter">
+						<Move Target="petter" Y="-1.75" X="0.2" RelativeTo="Size" Duration="0.5" Delay="0.3" Easing="CubicInOut"/>
+					</WhileTrue>
+				</Panel>
+
+				<!-- Lasse -->
+				<Panel ux:Name="lasse" Width="120" Height="200" LayoutMaster="stack" Alignment="BottomLeft" HitTestMode="LocalBoundsAndChildren">
+					<Image File="../Images/lasse.png" Width="100" Height="180" Alignment="Center" HitTestMode="LocalBounds"/>
+					<Text Alignment="TopCenter" Margin="30,0,0,0" Color="White">Lasse</Text>
+					<Clicked>
+						<Set state.Active="lasseStat"/>
+					</Clicked>
+					<WhileTrue ux:Name="moveLasse">
+						<Move Target="lasse" Y="-1.75" X="0.75" RelativeTo="Size" Duration="0.5" Delay="0.3" Easing="CubicInOut"/>
+					</WhileTrue>
+				</Panel>
+
+				<!-- Flag -->
+				 <Image ux:Name="flag" File="../Images/boat-flag.png" LayoutMaster="stack" Alignment="TopCenter" Width="75%" Height="100%"/>
+			 </StackPanel>
+		</HidingPanel>
+
+		<!-- Mountain panel-->
+		<HidingPanel ux:Name="BoatLogoPanel" Alignment="Top" Height="100%" IsEnabled="true" HitTestMode="None" Layer="Background">
+
+ 			<Image ux:Name="Mountain" File="../Images/mountain.png" Margin="0,20,0,0" Alignment="TopCenter" Width="100%"/>
+			<WhileTrue ux:Name="moveMountain">
+				<Move Target="Mountain" Y="-0.6" RelativeTo="Size" Duration="0.5" Delay="0.3" Easing="CubicInOut"/>
+			</WhileTrue>
+
+		</HidingPanel>
+
+	</ClientPanel>
+
+</Page>
