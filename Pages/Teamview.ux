@@ -14,6 +14,8 @@
 
 			<Grid ux:Name="t1Grid" RowCount="3" Margin="30,40,30,190">
 				<Text Alignment="TopCenter" FontSize="30"> Lag 1</Text>
+				<Text Alignment="Center" FontSize="70" Margin="0,20,0,0" Value="1505"/>
+				<Text Alignment="Center" FontSize="60" Margin="0,60,0,0"> Poeng </Text>
 			</Grid>
 
 			<Panel ux:Name="back1" Width="100" Offset="0%,50%" Height="50" HitTestMode="LocalBoundsAndChildren">
@@ -30,7 +32,7 @@
 
 			<Grid ux:Name="t2Grid" RowCount="3" Margin="30,40,30,190">
 				<Text Alignment="TopCenter" FontSize="30"> Lag 2</Text>
-				<Text Alignment="Center" FontSize="70" Margin="0,20,0,0" Value="{poengMid}"/>
+				<Text Alignment="Center" FontSize="70" Margin="0,20,0,0" Value="1556"/>
 				<Text Alignment="Center" FontSize="60" Margin="0,60,0,0"> Poeng </Text>
 			</Grid>
 
@@ -48,7 +50,7 @@
 
 			<Grid ux:Name="t3Grid" RowCount="3" Margin="30,40,30,190">
 				<Text Alignment="TopCenter" FontSize="30"> Lag 3 </Text>
-				<Text Alignment="Center" FontSize="70" Margin="0,20,0,0" Value="{poengWin}"/>
+				<Text Alignment="Center" FontSize="70" Margin="0,20,0,0" Value="1589"/>
 				<Text Alignment="Center" FontSize="60" Margin="0,60,0,0"> Poeng </Text>
 			</Grid>
 
@@ -83,7 +85,7 @@
 					<Set teamAnimation.Active="team1"/>
 				</WhilePressed>
 			</Button>
-			
+
 			<Image ux:Name="T1" File="../Images/team1.png" LayoutMaster="Team1" Alignment="BottomRight" Width="90%" Height="90%">
 				<Text Alignment="BottomCenter" Color="White">Lag 1</Text>
 				<WhileEnabled>

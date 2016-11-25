@@ -23,7 +23,7 @@ getUserTime(2);
 logFile.getTotalTime()
         .then(function(newTotalTime){
           totalTime.value = newTotalTime;
-          poeng.value = Math.floor((newTotalTime*100)/3 + 42);
+          poeng.value = (newTotalTime*100)/3 + 42;
           winner.value = poeng.value + 100;
           mid.value = poeng.value + 42;
         })
@@ -40,9 +40,9 @@ logFile.getSleepLogs()
           console.log("Couldn't get logs: " + error);
         });
 function getPoeng() {
-  poeng.value = Math.floorMath.floor((totalTime*100)/3 + 42);
-  winner.value = poeng.value + 100;
-  mid.value = poeng.value + 42;
+  poeng.value = Math.floor((totalTime*100)/3 + 42);
+  winner.value = poeng.value + Number(100);
+  mid.value = poeng.value + Number(42);
 }
 
 function updateLog(id, userID, dag, dato, timer) {
@@ -74,6 +74,7 @@ function updateLog(id, userID, dag, dato, timer) {
     getUserTime(0);
     getUserTime(1);
     getUserTime(2);
+    getPoeng();
     logFile.getSleepLogs()
             .then(function(newSleepLogs){
               sleepLogs.replaceAll(newSleepLogs);
@@ -131,7 +132,7 @@ module.exports = {
     updateLog: updateLog,
     updateUser: updateUser,
     user: user,
-    poeng: poeng,
-    winner: winner,
-    mid: mid
+    poeng: poeng.value,
+    winner: winner.value,
+    mid: mid.value
 };
